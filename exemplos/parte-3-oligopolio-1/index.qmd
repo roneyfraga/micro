@@ -1,0 +1,409 @@
+---
+title: "Oligopólio `ex`"
+date: "`r Sys.time()`"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+## Introdução
+
+
+Uma introdução a oligopólio costuma percorrer modelos que capturam diferentes formas de interação estratégica entre poucas firmas: **competição monopolística, Cournot-Nash, Stackelberg, Bertrand**, jogos não cooperativos, curva de demanda quebrada e liderança de preço. Com frequência, a exposição concentra-se nos casos básicos — competição monopolística, Cournot-Nash, jogos não cooperativos e liderança de preço — apresentando os demais como extensões.
+
+Como referência, retomam-se os resultados de competição perfeita e monopólio. Em competição monopolística, lucros positivos atraem entrada, o que reduz margens no longo prazo e aproxima o resultado do competitivo, preservando a diferenciação de produtos. O tema da variedade pode ser ilustrado por mercados com múltiplas marcas (refrigerantes, café), articulando benefícios de escolha e possíveis custos de ineficiência.
+
+No duopólio de Cournot, a lógica passa pelas funções de reação: cada eixo do diagrama representa quantidades, e a interseção dessas reações determina o equilíbrio. A partir daí emergem paralelos com Stackelberg (liderança em quantidade) e Bertrand (competição em preços). Comparações gráficas entre o resultado competitivo, o de Cournot e o de coalizão/monopólio ajudam a situar magnitudes de preço e quantidade; assimetrias de custo deslocam as curvas de reação e quebram a simetria.
+
+A moldura estratégica apoia-se em equilíbrio de Nash, matrizes de payoff e no dilema do prisioneiro, útil para analisar incentivos à colusão e sua instabilidade quando as decisões são não cooperativas. Exemplos de políticas de preços em mercados internacionais conectam essas ideias ao comportamento empresarial.
+
+A discussão de rigidez de preços e liderança de preço dialoga com a demanda quebrada: a receita marginal associada à “quebra” cria faixas em que pequenas variações de custo ou demanda pouco afetam o preço. Esse mecanismo ajuda a explicar por que ajustes de preços podem parecer raros em certas estruturas oligopolísticas.
+
+## Dilema do prisioneiro 
+
+- Situação
+  - Se ambos ficam em silêncio: cada um pega 1 ano.
+  - Se um confessa e o outro fica em silêncio: quem confessa vai livre (0 anos) e o outro pega 10 anos.
+  - Se ambos confessam: cada um pega 5 anos.
+
+Matriz de resultados (anos de prisão)
+
+|                 | B: Silêncio | B: Confessar |
+|-----------------|-------------|--------------|
+| A: Silêncio     | (1, 1)      | (10, 0)      |
+| A: Confessar    | (0, 10)     | (5, 5)       |
+
+(par ordenado = anos de prisão de A, anos de prisão de B)
+
+**Análise**
+
+- Somar os anos de prisão que ambos pegam em cada cenário.
+  - silêncio x silêncio é a melhor opção se eles podessem cooperar/conversar.
+  - em caso de não cooperação, o risco de uma pena longa força ambos a confessarem.
+
+- Para A:
+  - Se B fica em silêncio, A prefere confessar (0 < 1).
+  - Se B confessa, A também prefere confessar (5 < 10).
+  - => Confessar é estratégia dominante para A.
+- Para B (raciocínio simétrico): confessar também é estratégia dominante.
+
+- Resultado
+  - Equilíbrio de Nash: (Confessar, Confessar) -> (5, 5).
+  - Ineficiência: ambos ficariam melhor em (Silêncio, Silêncio) -> (1, 1), mas cada um tem incentivo individual a desviar e confessar.
+
+- A mesma lógica se aplica para o mercado, competir pode ser pior para ambas as empresas.
+
+## Monopólio
+
+Considerando
+
+Curva de demanda: $P = 339 - Q$
+Custo marginal: $CMQ = 147$
+
+Se monopolista
+
+$$R = P Q = 339Q - Q^2$$
+$$RMg = 339-2Q$$
+$$RMg = CMg$$
+$$339 - 2Q = 147$$
+$$Q = 96$$
+
+para encontra o preço: $P = 339-96 = 243$
+
+```{r}
+#| fig-width: 9
+#| fig-height: 6
+#| code-fold: true
+#| warning: false
+#| error: false
+#| include: true
+
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(grid)
+})
+
+# --- Parâmetros do problema ---
+P <- function(Q) 339 - Q # Demanda
+RMg <- function(Q) 339 - 2*Q # Receita marginal
+CMg <- 147 # Custo marginal (constante)
+
+Qm <- 96
+Pm <- P(Qm) # 243
+Q_dem_x <- 339 # intercepto da demanda no eixo Q
+Q_rmg_x <- 339/2 # 169.5
+
+# --- Limites do painel ---
+x_max <- 350
+y_max <- 360
+
+# --- Gráfico ---
+p <- ggplot() +
+  # Eixos com setas
+  annotate("segment", x = 0, xend = x_max, y = 0, yend = 0, colour = "grey55", linewidth = 1, arrow = arrow(length = unit(7, "pt"))) +
+  annotate("segment", x = 0, xend = 0, y = 0, yend = y_max, colour = "grey55", linewidth = 1, arrow = arrow(length = unit(7, "pt"))) +
+
+  # Curvas
+  geom_segment(aes(x = 0, y = 339, xend = Q_dem_x, yend = 0), colour = "#1565C0", linewidth = 1.4) + # Demand
+  geom_segment(aes(x = 0, y = 339, xend = Q_rmg_x, yend = 0), colour = "#2E7D32", linewidth = 1.4) + # MR
+  geom_segment(aes(x = 0, y = CMg, xend = Q_dem_x, yend = CMg), colour = "#D32F2F", linewidth = 1.4) + # MC (CMg)
+  
+  # Guias tracejadas a partir do ponto ótimo
+  geom_segment(aes(x = Qm, xend = Qm, y = 0, yend = Pm), linetype = "dashed", colour = "grey55") +
+  geom_segment(aes(x = 0, xend = Qm, y = Pm, yend = Pm), linetype = "dashed", colour = "grey55") +
+
+  # Ponto de monopólio
+  geom_point(aes(x = Qm, y = Pm), size = 3.8, colour = "#1565C0") +
+
+  # Escalas
+  scale_x_continuous(breaks = c(0, 96, 169.5, 339), limits = c(0, x_max), expand = c(0,0)) +
+  scale_y_continuous(breaks = c(147, 243, 339), limits = c(0, y_max), expand = c(0,0)) +
+
+  # Título/rotulagem
+  labs(title = "Maximizando o lucro da produção sob um Monopólio",
+       x = expression(q[A]*", Mil passageiros da American Airlines por trimestre"),
+       y = "p, Preço por passageiro") +
+
+  coord_cartesian(clip = "off") +
+  theme_minimal(base_size = 13) +
+  theme(panel.grid = element_blank(), plot.title = element_text(face = "bold", hjust = 0.5))
+
+# --- Anotações (no topo) ---
+p +
+  annotate("text", x = 300, y = CMg + 10, label = "CMg", colour = "#D32F2F", size = 5) +
+  annotate("text", x = 328, y = 40, label = "Demanda", colour = "#1565C0", size = 5) +
+  annotate("text", x = 158, y = 55, label = "RMg", colour = "#2E7D32", size = 5)
+
+```
+
+## Duopólio
+
+Uma segunda empresa passa a existir, United Airlines.
+
+A curva de demanda da American Airlines passa a ser:
+
+$$
+q_A = Q - q_U
+$$
+
+- $Q$ demanda total do mercado
+- $q_U$ demanda da United Airlines
+
+- a American Airlines supõe que a United Airlines irá voar 64 voos, a curva de demanda passa a ser:
+
+$$
+P_A = 339 - q_A - 64
+$$
+
+$$
+P_A = 274 - q_A
+$$
+
+```{r}
+#| fig-width: 9
+#| fig-height: 6
+#| code-fold: true
+#| warning: false
+#| error: false
+#| include: true
+
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(grid)
+})
+
+# --- Demanda total e curvas da American em duopólio ---
+P_total <- function(Q) 339 - Q
+P_A <- function(qA) 275 - qA # demanda residual da American (q_U = 64)
+RMg_A <- function(qA) 275 - 2*qA # RMg^r
+CMg <- 147
+
+# Pontos-chave
+qU <- 64
+qA_star <- (275 - CMg) / 2 # 64
+pA_star <- P_A(qA_star) # 211
+
+Qx_D_total <- 339 # intercepto da demanda total
+Qx_D_resid <- 275 # intercepto da demanda residual
+Qx_RMg_res <- 137.5 # intercepto da RMg^r
+
+# Limites do painel
+x_max <- 350; y_max <- 360
+
+# --- Gráfico ---
+p <- ggplot() +
+  # Eixos
+  annotate("segment", x = 0, xend = x_max, y = 0, yend = 0, colour = "grey55", linewidth = 1, arrow = grid::arrow(length = unit(7,"pt"))) +
+  annotate("segment", x = 0, xend = 0, y = 0, yend = y_max, colour = "grey55", linewidth = 1, arrow = grid::arrow(length = unit(7,"pt"))) +
+
+  # Demandas (mercado e residual), RMg^r e CMg
+  geom_segment(aes(x = 0, y = 339, xend = Qx_D_total, yend = 0), colour = "#9EC7EB", linewidth = 1.4) + # Demanda (mercado)
+  geom_segment(aes(x = 0, y = 275, xend = Qx_D_resid, yend = 0), colour = "#1565C0", linewidth = 1.6) + # Demanda residual
+  geom_segment(aes(x = 0, y = 275, xend = Qx_RMg_res, yend = 0), colour = "#2E7D32", linewidth = 1.4) + # RMg^r
+  geom_segment(aes(x = 0, y = CMg, xend = Qx_D_total, yend = CMg), colour = "#D32F2F", linewidth = 1.4) + # CMg
+
+  # Guias do ponto ótimo da American
+  geom_segment(aes(x = qA_star, xend = qA_star, y = 0, yend = pA_star), linetype = "dashed", colour = "grey60") +
+  geom_segment(aes(x = 0, xend = qA_star, y = pA_star, yend = pA_star), linetype = "dashed", colour = "grey60") +
+  geom_point(aes(x = qA_star, y = pA_star), size = 3.8, colour = "#1565C0") +
+
+  # Anotação de q_U = 64 (seta vermelha)
+  annotate("segment", x = 120, y = 200, xend = 75, yend = 205, arrow = grid::arrow(length = unit(6,"pt")), colour = "blue") +
+  annotate("text", x = 122, y = 197, label = "q[u] == 64", colour = "blue", size = 4.6, hjust = 0, parse = TRUE) +
+
+  # Escalas, tema e rótulos
+  scale_x_continuous(breaks = c(0, 64, 128, 137.5, 275, 339),
+                     labels = c("0","64","128","137.5","275","339"),
+                     limits = c(0, x_max), expand = c(0,0)) +
+  scale_y_continuous(breaks = c(147, 211, 275, 339),
+                     labels = c("147","211","275","339"),
+                     limits = c(0, y_max), expand = c(0,0)) +
+  labs(
+    title = "Produção que maximiza o lucro em duopólio",
+    x = expression(q[A]*", mil passageiros por trimestre"),
+    y = "p, preço por passageiro"
+  ) +
+  coord_cartesian(clip = "off") +
+  theme_minimal(base_size = 13) +
+  theme(
+    panel.grid = element_blank(),
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1) # <- rótulos do eixo X a 45°
+  )
+
+# Rótulos das curvas (no topo)
+p +
+  annotate("text", x = 300, y = 152, label = "CMg", colour = "#D32F2F", size = 5, vjust = - 0.5) +
+  annotate("text", x = 290, y = 35, label = "Demanda", colour = "#9EC7EB", size = 5, hjust = 0.8) +
+  annotate("text", x = 210, y = 60, label = "Demanda residual", colour = "#1565C0", size = 5, hjust = 1) +
+  annotate("text", x = 90, y = 45, label = "RMg^r", colour = "#2E7D32", size = 5, parse = TRUE)
+
+```
+
+- problema, não existe como American Airlines não sabe como encontrar a quantidade de voos que a United deseja operar.
+- curva de melhor resposta ou reação
+- imagine um cenário onde as duas curvas têm as mesmas curvas de custo marginal
+
+```{r}
+#| fig-width: 9
+#| fig-height: 6
+#| code-fold: true
+#| warning: false
+#| error: false
+#| include: true
+
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(grid)
+})
+
+# Demanda do mercado: P = 339 - (qA + qU), CMg = 147  => termo comum = 192
+# Curvas de melhor resposta (y = qU, x = qA):
+# American: qA = (192 - qU)/2  ->  qU = 192 - 2*qA
+# United:   qU = (192 - qA)/2
+qU_A <- function(qA) 192 - 2*qA
+qU_U <- function(qA) (192 - qA)/2
+
+# Equilíbrio de Cournot
+qA_eq <- 64
+qU_eq <- 64
+
+# Limites do painel
+x_max <- 205; y_max <- 205
+
+p <- ggplot() +
+  # Eixos com setas
+  annotate("segment", x = 0, xend = x_max, y = 0, yend = 0, colour = "grey55", linewidth = 1, arrow = arrow(length = unit(7, "pt"))) +
+  annotate("segment", x = 0, xend = 0, y = 0, yend = y_max, colour = "grey55", linewidth = 1, arrow = arrow(length = unit(7, "pt"))) +
+
+  # Curvas de melhor resposta
+  geom_segment(aes(x = 0,  y = 192, xend = 96,  yend = 0), colour = "#1565C0", linewidth = 1.4) +  # American: qU = 192 - 2*qA
+  geom_segment(aes(x = 0,  y = 96,  xend = 192, yend = 0), colour = "#D32F2F", linewidth = 1.4) +  # United:   qU = (192 - qA)/2
+
+  # Guias do equilíbrio
+  geom_segment(aes(x = qA_eq, xend = qA_eq, y = 0,     yend = qU_eq), linetype = "dashed", colour = "grey60") +
+  geom_segment(aes(x = 0,     xend = qA_eq, y = qU_eq, yend = qU_eq), linetype = "dashed", colour = "grey60") +
+
+  # Ponto de Cournot
+  geom_point(aes(x = qA_eq, y = qU_eq), size = 3.6, colour = "#1565C0") +
+
+  # Escalas / rótulos
+  scale_x_continuous(breaks = c(0, 64, 96, 192), limits = c(0, x_max), expand = c(0,0)) +
+  scale_y_continuous(breaks = c(0, 48, 64, 96, 192), limits = c(0, y_max), expand = c(0,0)) +
+  labs(
+    title = "Curvas de melhor resposta — American e United",
+    x = expression(q[A]*", mil passageiros por trimestre"),
+    y = expression(q[U]*", mil passageiros por trimestre")
+  ) +
+  coord_cartesian(clip = "off") +
+  theme_minimal(base_size = 13) +
+  theme(
+    panel.grid = element_blank(),
+    plot.title = element_text(face = "bold", hjust = 0.5)
+  )
+
+# Anotações (por cima)
+p +
+  annotate("text", x = 52,  y = 138, label = "Melhor resposta da American", colour = "#1565C0", size = 4.2, hjust = 0.2) +
+  annotate("text", x = 130, y =  40, label = "Melhor resposta da United", colour = "#D32F2F", size = 4.2, hjust = - 0.2) +
+  annotate("text", x = qA_eq + 2.5, y = qU_eq + 5, label = "Equilíbrio de Cournot", size = 4.2, hjust = - 0.3)
+
+```
+
+**Solução matemática**
+
+A demanda agregada do mercado é linear e pode ser escrita como
+
+$$
+P = 339 - q_A - q_U,
+$$
+
+onde $q_A$ é a quantidade produzida pela American e $q_U$ pela United. Para cada firma, isso equivale a enxergar uma demanda residual: dado o que a rival produz, resta um trecho da demanda para ela atender.
+
+A receita da American é o preço vezes a quantidade:
+
+$$
+RT_A(q_A; q_U) \;=\; P \cdot q_A
+\;=\; (339 - q_A - q_U)\,q_A
+\;=\; 339\,q_A - q_A^2 - q_A q_U.
+$$
+
+A receita marginal resulta da derivada de $RT_A$ em relação a $q_A$:
+
+$$
+RMg_A(q_A; q_U) \;=\; \frac{\partial RT_A}{\partial q_A}
+\;=\; 339 - 2q_A - q_U.
+$$
+
+Com custo marginal constante $CMg = 147$, a condição de ótimo é $RMg_A = CMg$, o que leva a
+
+$$
+339 - 2q_A - q_U = 147
+\;\;\Longrightarrow\;\;
+q_A^*(q_U) = 96 - \tfrac{1}{2}\,q_U.
+$$
+
+Como as firmas são simétricas em custo, a melhor resposta da United é análoga:
+
+$$
+q_U^*(q_A) = 96 - \tfrac{1}{2}\,q_A.
+$$
+
+O equilíbrio de Cournot surge na interseção dessas duas funções de reação. Resolvendo o sistema, obtém-se
+
+$$
+q_A^* = q_U^* = 64,
+\qquad
+P^* = 339 - q_A^* - q_U^* = 339 - 64 - 64 = 211.
+$$
+
+Em termos econômicos, cada firma ajusta sua quantidade levando em conta a reação da rival; no ponto de equilíbrio, nenhuma tem incentivo unilateral para desviar. Caso as curvas de reação não se interceptem (por forte assimetria de custos, por exemplo), pode não haver equilíbrio em quantidades.
+
+## Teoria dos jogos - (American × United)
+
+**Enredo curto**
+
+Duas companhias aéreas atendem a mesma rota. Cada uma escolhe **preço Alto** (cooperar/coludir) ou **preço Baixo** (undercut).  
+Os lucros (em milhões) obedecem ao padrão do dilema do prisioneiro:
+
+Obs.: "undercut" (ou *undercutting*) é quando uma empresa coloca um preço um pouco mais baixo que o do concorrente para roubar a venda naquele momento. Em português, dá pra ler como "cobrir por baixo", ou "baixar o preço para tomar a demanda".
+
+- Se ambas escolhem Alto: cada uma obtém lucro alto (100, 100).
+- Se uma escolhe Baixo enquanto a outra mantém Alto: a que baixa ganha muito (150) e a rival perde (20).
+- Se ambas escolhem Baixo: competição acirrada reduz lucros (60, 60).
+
+O dilema: Baixo é a melhor resposta individual, mas o resultado (Baixo, Baixo) é pior para ambas do que (Alto, Alto).
+
+**Como encontrar a estratégia dominante?**
+
+Matriz de payoffs (π_A, π_U):
+
+|                       | United: Alto | United: Baixo |
+|-----------------------|--------------|---------------|
+| **American: Alto**    | (100, 100)   | (20, 150)     |
+| **American: Baixo**   | (150, 20)    | (60, 60)      |
+
+Passo a passo:
+
+1) American  
+   - Se United = Alto: American recebe 100 com Alto e 150 com Baixo → Baixo é melhor.  
+   - Se United = Baixo: American recebe 20 com Alto e 60 com Baixo → Baixo é melhor.  
+   ⇒ Para a American, **Baixo domina estritamente** Alto.
+
+2) United  
+   - Se American = Alto: United recebe 100 com Alto e 150 com Baixo → Baixo é melhor.  
+   - Se American = Baixo: United recebe 20 com Alto e 60 com Baixo → Baixo é melhor.  
+   ⇒ Para a United, **Baixo domina estritamente** Alto.
+
+- Conclusão:
+  - Estratégia dominante da American: Baixo  
+  - Estratégia dominante da United: Baixo  
+  - Resultado (equilíbrio por dominância, também equilíbrio de Nash): (Baixo, Baixo) com payoffs (60, 60).
+
+- Regra geral (notação):
+  - Uma estratégia s_i domina estritamente t_i para o jogador i se, para toda ação possível do rival, vale:
+  $u_i(s_i, ·) > u_i(t_i, ·)$.
+  - Aqui, as diferenças são positivas em ambos os cenários (150−100=50 e 60−20=40), confirmando a dominância estrita.
+

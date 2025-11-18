@@ -1,0 +1,85 @@
+---
+title: "Concorrência Perfeita"
+subtitle: "Gráficos do @pindyck2013, Capítulo 9"
+date: "today"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+bibliography: ../../references.bib
+csl: ../../abnt-ipea.csl
+lang: pt
+format:
+  revealjs:
+    controls: true
+    navigation-mode: linear
+    slide-number: true
+    chalkboard: 
+      buttons: true
+    transition: fade
+    incremental: false
+    smaller: false
+    code-fold: true
+    code-tools: false
+    width: 1920
+    height: 1080
+---
+
+## {-}
+
+![](figura-9-01.png){fig-align="center"}
+
+## {-}
+
+![](figura-9-02.png){fig-align="center"}
+ 
+## {-}
+
+![](figura-9-03.png){fig-align="center"}
+
+## {-}
+
+![](figura-9-05.png){fig-align="center"}
+
+## {-}
+
+![](figura-9-07.png){fig-align="center"}
+
+## {-}
+
+![](figura-9-08.png){fig-align="center"}
+
+## {-}
+
+![](figura-9-10.png){fig-align="center"}
+
+## {-}
+
+![](figura-9-11.png){fig-align="center"}
+
+## {-}
+
+![](figura-9-14.png){fig-align="center"}
+
+## {-}
+
+![](figura-9-15.png){fig-align="center"}
+
+## {-}
+
+![](figura-9-17.png){fig-align="center"}
+
+## {-}
+
+![](figura-9-18.png){fig-align="center"}
+
+## {-}
+
+![](figura-9-19.png){fig-align="center"}
+
+## Referências
+
+::: {#refs}
+:::
+

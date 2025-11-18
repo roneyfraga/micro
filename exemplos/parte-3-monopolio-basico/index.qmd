@@ -1,0 +1,258 @@
+---
+title: "Monopólio, o básico `ex`"
+date: "`r Sys.time()`"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+## Exemplo
+
+- Custo total: 
+  - $C(Q) = 50 + Q^2$
+
+- Demanda inversa: 
+  - $P(Q) = 40 - Q$
+
+- Receita total: 
+  - $RT(Q) = P(Q)\cdot Q = 40Q - Q^2$
+
+- Lucro: 
+  - $\pi(Q) = RT(Q) - C(Q) = 40Q - 2Q^2 - 50$
+
+Ótimo de lucro pela condição $RMg = CMg$:
+
+- $RMg(Q) = \frac{dRT}{dQ} = 40 - 2Q$
+- $CMg(Q) = \frac{dC}{dQ} = 2Q$
+
+- Logo: 
+  - $RM_g = CM_g \Rightarrow 40 - 2Q = 2Q \Rightarrow 4Q = 40 \Rightarrow Q^* = 10$ 
+  - $P(Q) = 40 - Q \Rightarrow P^* = 40 - 10 = 30$
+
+- Valores no ótimo: 
+  - $RT^* = 40\cdot10 - 10^2 = 300$
+  - $C^* = 50 + 10^2 = 150$
+  - $\pi^* = 150$.
+
+### Cálculo numérico e gráfico único de receita, custo e lucro
+
+```{r}
+#| eval: true
+#| echo: true
+#| output: true
+#| code-fold: true
+#| warning: false
+#| error: false
+#| include: true
+
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(dplyr)
+  library(tidyr)
+  library(tibble)
+  library(glue)
+})
+
+C  <- function(Q) 50 + Q^2
+P  <- function(Q) 40 - Q
+RT <- function(Q) P(Q) * Q
+PI <- function(Q) RT(Q) - C(Q)
+
+Q_star <- 10
+P_star <- P(Q_star)
+RT_star <- RT(Q_star)
+C_star  <- C(Q_star)
+PI_star <- PI(Q_star)
+
+tibble(
+  variavel = c("Q*", "P*", "RT*", "C*", "pi*"),
+  valor    = c(Q_star, P_star, RT_star, C_star, PI_star)
+) |>
+  gt::gt()
+
+# Intervalo: de 0 até a interseção com P=0 (Q=40), com folga
+Q_max <- 28
+
+tibble(Q = seq(0, Q_max, by = 0.1)) |>
+  mutate(
+    Receita = RT(Q),
+    Custo   = C(Q),
+    Lucro   = PI(Q)
+  ) |>
+  pivot_longer(
+    cols = c(Receita, Custo, Lucro),
+    names_to = "curva",
+    values_to = "valor") ->
+  df
+
+ggplot(df, aes(x = Q, y = valor, linetype = curva, color = curva)) +
+  geom_line(linewidth = 1) +
+  # marca o ótimo
+  geom_vline(xintercept = Q_star, linetype = "dashed") +
+  geom_point(
+    data = tibble(Q = Q_star,
+                  valor = c(RT_star, C_star, PI_star),
+                  curva = c("Receita", "Custo", "Lucro")),
+    aes(x = Q, y = valor, color = curva),  # <- herda as mesmas cores
+    inherit.aes = FALSE
+  ) +
+  # anotações
+  # annotate("text", x = Q_star,     y = -55,    label = glue("Q* = {Q_star}"), vjust = -2) +
+  annotate("text", x = Q_star + 1, y = PI_star, label = as.character(glue("pi* = {PI_star}")), vjust = 3, hjust = 1) +
+  annotate("text", x = Q_star + 1, y = RT_star, label = as.character(glue("RT* = {RT_star}")), vjust = -2, hjust = -1) +
+  annotate("text", x = Q_star + 1, y = C_star,  label = as.character(glue("C* = {C_star}")), vjust = -2, hjust = -1) +
+  # Cores pedidas
+  scale_color_manual(values = c(
+    "Custo"   = "#D32F2F",  # vermelho
+    "Receita" = "#1565C0",  # azul
+    "Lucro"   = "#2E7D32"   # verde
+  )) +
+  labs(x = "Quantidade (Q)", y = "Valor monetário",
+       title = "Receita total, custo total e lucro: C(Q)=50+Q^2, P(Q)=40-Q",
+       linetype = NULL, color = NULL) +
+  coord_cartesian(xlim = c(0, Q_max), ylim = c(-60, max(df$valor)*1.05)) +
+  theme_classic()
+```
+
+### Valores marginais
+
+- Custo marginal (CMg):
+
+$$
+CMg(Q) = \frac{dC(Q)}{dQ} = 2Q
+$$
+
+- Custo médio (CMe):
+
+$$
+CMe(Q) = \frac{C(Q)}{Q} = \frac{50 + Q^2}{Q}
+$$
+
+- Receita média (RMe):
+
+$$
+RMe(Q) = \frac{RT(Q)}{Q} = \frac{40Q - Q^2}{Q} = 40 - Q
+$$
+
+- Receita marginal (RMg):
+
+$$
+RMg(Q) = \frac{dRT(Q)}{dQ} = 40 - 2Q
+$$
+
+Valores no ótimo monopolista: $Q^* = 10, \quad P^* = 30$.
+
+```{r}
+#| eval: true
+#| echo: true
+#| output: true
+#| code-fold: true
+#| warning: false
+#| error: false
+#| include: true
+
+# Funções
+C  <- function(Q) 50 + Q^2
+P  <- function(Q) 40 - Q
+RT <- function(Q) P(Q) * Q
+
+CMg <- function(Q) 2 * Q
+CMe <- function(Q) (50 + Q^2) / Q
+RMe <- function(Q) (40 * Q - Q^2) / Q
+RMg <- function(Q) 40 - 2 * Q
+
+Q_star <- 10
+
+tibble(
+  Medida = c("Custo Marginal (CMg)",
+    "Custo Médio (CMe)",
+    "Receita Média (RMe)",
+    "Receita Marginal (RMg)"),
+  Formula = c("2Q", "(50 + Q^2)/Q", "40 - Q", "40 - 2Q"),
+  Valor_no_otimo = c(CMg(Q_star), CMe(Q_star), RMe(Q_star), RMg(Q_star))
+) |>
+  gt::gt()
+```
+
+## Eficiência de Pareto e Perda de Peso Morto
+
+### Critério de Pareto
+
+O **Critério de Pareto** estabelece que uma alocação é eficiente quando não é possível melhorar a situação de um agente sem piorar a de outro.
+
+![Critério de Pareto](img/criterio-de-pareto.png)
+
+### Eficiência de Pareto no Monopólio
+
+O monopólio gera **ineficiência alocativa** porque produz quantidade menor que a socialmente ótima (onde $P = CMg$). Isso resulta em **perda de peso morto** (*deadweight loss*).
+
+![Eficiência de Pareto e Perda de Peso Morto](img/eficiencia-de-pareto.png)
+
+### Comparação: Monopólio vs. Concorrência Perfeita
+
+No nosso exemplo:
+
+- **Monopólio**: $Q^* = 10$, $P^* = 30$ (onde $RMg = CMg$)
+- **Concorrência Perfeita**: $Q_c = 13.33$, $P_c = 26.67$ (onde $P = CMg$)
+
+```{r}
+#| eval: true
+#| echo: true
+#| output: true
+#| code-fold: true
+#| warning: false
+#| error: false
+#| include: true
+
+# Quantidade e preço em concorrência perfeita: P = CMg
+# 40 - Q = 2Q => 3Q = 40 => Q = 40/3
+Q_concorrencia <- 40/3
+P_concorrencia <- P(Q_concorrencia)
+
+# Excedentes no monopólio
+# Excedente do consumidor (EC): área sob demanda, acima do preço
+# EC = integral de P(Q) de 0 a Q* - P* × Q*
+# EC = [40Q - Q²/2] de 0 a 10 - 30×10
+EC_monopolio <- (40*Q_star - Q_star^2/2) - P_star*Q_star
+
+# Excedente do produtor (EP): lucro + custos fixos
+EP_monopolio <- PI_star + 50  # lucro + CF
+
+# Excedentes em concorrência perfeita
+EC_concorrencia <- (40*Q_concorrencia - Q_concorrencia^2/2) - P_concorrencia*Q_concorrencia
+PI_concorrencia <- RT(Q_concorrencia) - C(Q_concorrencia)
+EP_concorrencia <- PI_concorrencia + 50
+
+# Perda de peso morto (DWL)
+DWL <- (EC_concorrencia + EP_concorrencia) - (EC_monopolio + EP_monopolio)
+
+tibble(
+  Estrutura = c("Monopólio", "Concorrência Perfeita", "Diferença (DWL)"),
+  Quantidade = c(Q_star, Q_concorrencia, Q_concorrencia - Q_star),
+  Preco = c(P_star, P_concorrencia, P_concorrencia - P_star),
+  EC = c(EC_monopolio, EC_concorrencia, EC_concorrencia - EC_monopolio),
+  EP = c(EP_monopolio, EP_concorrencia, EP_concorrencia - EP_monopolio),
+  Excedente_Total = c(EC_monopolio + EP_monopolio, 
+                      EC_concorrencia + EP_concorrencia,
+                      DWL)
+) |>
+  gt::gt() |>
+  gt::fmt_number(decimals = 2)
+```
+
+### Interpretação Econômica
+
+1. **Ineficiência do Monopólio**: O monopolista restringe a produção ($Q_m = 10 < Q_c = 13.33$) para elevar o preço ($P_m = 30 > P_c = 26.67$).
+
+2. **Perda de Peso Morto**: A diferença entre o excedente total em concorrência perfeita e no monopólio representa o **custo social do poder de mercado**.
+
+3. **Redistribuição**: Parte do excedente do consumidor é transferida para o produtor (monopolista), mas outra parte é **perdida irreversivelmente** (DWL).
+
+4. **Implicações de Política**: A perda de peso morto justifica intervenções regulatórias, como:
+   - Regulação de preços
+   - Políticas antitruste
+   - Quebra de monopólios naturais
+
+

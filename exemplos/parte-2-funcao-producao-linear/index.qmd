@@ -1,0 +1,311 @@
+---
+title: "Custos e Função de Produção Linear `ex`"
+date: "`r Sys.time()`"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+## Função de Produção Linear
+
+A forma geral de uma função de produção linear com dois insumos é:
+
+$$Q=aL+bK$$
+
+- onde:
+  - $Q$ = quantidade produzida
+  - $L$ = quantidade de trabalho
+  - $K$ = quantidade de capital
+  - $a$ e $b$ = produtividades marginais constantes dos insumos
+
+##  Exemplo
+
+A função de produção linear com dois insumos é dada por:
+
+$$
+Q = 3L + 2K
+$$
+
+Considere os seguintes valores de insumos:
+
+- $L$ = 4 unidades de trabalho
+- $K$ = 5 unidades de capital
+
+$$Q = 3 (4)+ 2 (5) = 12 + 10 = 22$$
+
+Assim, com 4 unidades de trabalho e 5 de capital, a firma produz 22 unidades de output.
+
+## Tabela de custos
+
+Fixamos o capital $K = 5$, e variamos o trabalho $L$ de 0 a 10.
+
+```{r}
+#| eval: true
+#| echo: true
+#| output: true
+#| code-fold: show
+#| warning: false
+#| error: false
+#| include: true
+
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(ggplot2)
+  library(tidyr)
+})
+
+# Parâmetros
+a <- 3   # produtividade do trabalho
+b <- 2   # produtividade do capital
+w <- 10  # custo unitário do trabalho
+r <- 20  # custo unitário do capital
+CF <- 100  # custo fixo
+K <- 5     # capital fixo
+L <- 0:10  # insumo variável
+
+# Geração da tabela
+tibble(L) |>
+  mutate(
+    K = K,
+    Q = a * L + b * K,
+    CV = w * L + r * K,
+    CF = CF,
+    CT = CF + CV,
+    CMg = c(NA, diff(CT)),
+    CTMe = CT / Q,
+    CVMe = CV / Q,
+    CFMe = CF / Q
+  ) ->
+  df
+
+df |>
+  mutate(
+    CTMe = round(CTMe, 1),
+    CVMe = round(CVMe, 1),
+    CFMe = round(CFMe, 1)
+  ) |>
+  gt::gt()
+```
+
+```{r}
+#| eval: true
+#| echo: true
+#| output: true
+#| code-fold: show
+#| warning: false
+#| message: false
+#| error: false
+#| include: true
+
+df |>
+  select(Q, CV, CF, CT) |>
+  pivot_longer(cols = -Q, names_to = "tipo", values_to = "valor") ->
+  df_long
+
+ggplot(df_long, aes(x = Q, y = valor, color = tipo)) +
+  geom_line(linewidth = 1.2, na.rm = TRUE) +
+  labs(
+    title = "Curvas de Custo em Função da Produção",
+    x = "Quantidade produzida (Q)",
+    y = "Custo",
+    color = "Tipo de custo"
+  ) +
+  theme_minimal(base_size = 14)
+```
+
+```{r}
+
+df |>
+  select(Q, CMg, CTMe, CVMe, CFMe) |>
+  pivot_longer(cols = -Q, names_to = "tipo", values_to = "valor") ->
+  df_long_var
+
+ggplot(df_long_var, aes(x = Q, y = valor, color = tipo)) +
+  geom_line(linewidth = 1.2, na.rm = TRUE) +
+  labs(
+    title = "Curvas de Custo em Função da Produção",
+    x = "Quantidade produzida (Q)",
+    y = "Custo",
+    color = "Tipo de custo"
+  ) +
+  theme_minimal(base_size = 14)
+
+```
+
+## Análise Microeconômica da Função de Produção Linear
+O código implementa uma função de produção linear com dois insumos (trabalho e capital), onde apenas o trabalho $L$ é variável no curto prazo. A análise permite extrair diversas lições microeconômicas fundamentais.
+
+###  1. Função de Produção Linear
+
+A função de produção é:
+
+$$
+Q(L) = aL + bK
+$$
+
+* Com:
+  - $a = 3$: produtividade do trabalho  
+  - $b = 2$: produtividade do capital  
+  - $K = 5$: capital fixo
+
+Substituindo:
+
+$$
+Q(L) = 3L + 2 \cdot 5 = 3L + 10
+$$
+
+**Produto marginal do trabalho**:
+
+$$
+\frac{dQ}{dL} = 3
+$$
+
+Ou seja, cada unidade adicional de trabalho gera **exatamente 3 unidades de produto**.
+
+::: {.callout-note collapse="true"}
+## Derivada da Função de Produção Linear
+
+Considere a função de produção:
+
+$$
+Q(L) = 3L + 10
+$$
+
+Essa é uma função **linear** em relação ao insumo variável $L$. O termo $3L$ representa a contribuição do trabalho para a produção, enquanto o termo constante $10$ representa a produção gerada pelo capital fixo $K$, já que:
+
+$$
+bK = 2 \cdot 5 = 10
+$$
+
+Para obter o **produto marginal do trabalho**, derivamos $Q(L)$ em relação a $L$.
+
+Pela regra da derivada de uma função do tipo $f(L) = aL + b$, temos:
+
+$$
+\frac{d}{dL}(aL + b) = a
+$$
+
+Aplicando isso à função:
+
+$$
+\frac{dQ}{dL} = \frac{d}{dL}(3L + 10) = 3
+$$
+
+Portanto, o produto marginal do trabalho é constante e igual a 3.
+
+**Interpretação Econômica**
+
+A derivada $\frac{dQ}{dL} = 3$ indica que **cada unidade adicional de trabalho aumenta a produção total em 3 unidades**, independentemente da quantidade de trabalho já utilizada. Esse é um caso clássico de **retornos marginais constantes**, típico de uma tecnologia de produção linear.
+:::
+
+### 2. Estrutura de Custos
+
+Custos variáveis:
+
+$$
+CV = wL + rK = 10L + 20 \cdot 5 = 10L + 100
+$$
+
+Custo fixo:
+
+$$
+CF = 100
+$$
+
+Custo total:
+
+$$
+CT = CF + CV = 100 + 10L + 100 = 200 + 10L
+$$
+
+### 3. Custo Marginal
+Como o custo total cresce linearmente com $L$, o custo marginal é constante:
+
+- Variação de custo por unidade de trabalho:  
+  $$ \Delta CT = 10 $$
+- Variação de produção por unidade de trabalho:  
+  $$ \Delta Q = 3 $$
+
+Logo, o **custo marginal por unidade de produto** é:
+
+$$
+CMg = \frac{\Delta CT}{\Delta Q} = \frac{10}{3} \approx 3{,}33
+$$
+
+### 4. Comportamento dos Custos Médios
+
+O custo médio total é:
+
+$$
+CTMe = \frac{CT}{Q} = \frac{200 + 10L}{3L + 10}
+$$
+
+- $CTMe$ é **decrescente**, pois o numerador cresce linearmente, mas o denominador cresce mais rapidamente.
+
+::: {.callout-note collapse="true"}
+
+## Crescimento do Numerador e Denominador
+
+- **Numerador:** $CT = 200 + 10L$ — cresce linearmente com coeficiente 10.
+- **Denominador:** $Q = 3L + 10$ — cresce linearmente com coeficiente 3.
+
+À primeira vista, parece que o numerador cresce mais rapidamente (10 > 3), mas é necessário analisar o comportamento da fração à medida que $L$ aumenta.
+
+**Análise Assintótica**
+
+Dividimos numerador e denominador por $L$:
+
+$$
+CTMe = \frac{200 + 10L}{3L + 10}
+= \frac{L\left(10 + \frac{200}{L}\right)}{L\left(3 + \frac{10}{L}\right)}
+= \frac{10 + \frac{200}{L}}{3 + \frac{10}{L}}
+$$
+
+Quando $L \to \infty$:
+
+$$
+CTMe \to \frac{10}{3} \approx 3{,}33
+$$
+
+Ou seja, o custo médio tende a um valor constante conforme a produção aumenta.
+
+**Intuição Econômica**
+
+Nos valores baixos de $L$, o termo constante $+10$ no denominador ($Q = 3L + 10$) tem um **impacto proporcional maior**, o que faz a **quantidade produzida crescer mais rapidamente em termos relativos** do que o custo total.
+
+Assim, a razão $\frac{CT}{Q}$ **diminui** nos primeiros valores de $L$, o que caracteriza um **comportamento decrescente** do custo médio.
+:::
+
+- O custo fixo médio ($CFMe = \frac{CF}{Q}$) decresce com o aumento de $Q$.
+- O custo variável médio ($CVMe = \frac{CV}{Q}$) tende a um valor constante:
+
+$$
+\lim_{L \to \infty} CVMe = \frac{10L}{3L} = \frac{10}{3}
+$$
+
+### 5. Implicações para Decisões da Firma `chegaremos lá`
+
+- O custo marginal constante indica que a **firma pode expandir a produção sem alterar a eficiência marginal**.
+- A **regra do ponto ótimo permanece válida**:
+  $$
+  P = CMg
+  $$
+- Como não há retornos marginais decrescentes, não existe uma "escala ótima" interna no curto prazo.
+- A única economia de escala vem da **diluição do custo fixo**.
+
+### 6. Comparação com Produção Não Linear
+
+| Aspecto                      | Produção Linear                | Produção Não Linear $Q = 10 \sqrt{L}$ |
+|-----------------------------|--------------------------------|-------------------------------------------|
+| Produto marginal            | Constante                      | Decrescente                               |
+| Custo marginal              | Constante                      | Crescente                                 |
+| Custo médio                 | Decrescente (pela CF)          | Em formato de “U”                         |
+| Decisão ótima               | Indiferente à escala           | Possui escala ótima                       |
+
+
+### Conclusão
+
+Este modelo é útil para ilustrar situações onde a produção apresenta **rendimentos marginais constantes** e os custos variáveis crescem linearmente com a produção. Ele destaca como a **estrutura de custos fixos** pode influenciar os custos médios mesmo com uma função de produção simples.
+

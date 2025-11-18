@@ -1,0 +1,111 @@
+project:
+  type: book
+  output-dir: _book
+  preview:
+    port: 5555
+    browser: false
+  resources:
+    - "parte-3/concorrencia-perfeita-revealjs/"
+    - "parte-4/equilibrio-geral-revealjs/"
+
+book:
+  title: "Notas de Aula de Microeconomia"
+  author:
+    - name: Roney Fraga Souza
+      affiliations:
+        - name: Universidade Federal de Mato Grosso
+  date: "today"
+  date-format: iso 
+  search: true
+  reader-mode: false
+  navbar:
+    background: primary
+    search: true
+    right:
+      - icon: github
+        href: https://github.com/roneyfraga
+      - icon: envelope
+        href: mailto:roneyfraga@gmail.com
+  sidebar:
+    style: docked
+    collapse-level: 1
+    search: false
+
+  chapters:
+    - index.qmd
+
+    - part: "Parte 1 - Teoria do Consumidor"
+      chapters:
+        - parte-1/teoria-do-consumidor.qmd
+
+    - part: "Parte 2 - Teoria da Firma"
+      chapters:
+        - parte-2/funcao-producao.qmd
+        - parte-2/custos.qmd
+        - parte-2/maximizacao-lucro.qmd
+        - exemplos/parte-2-funcao-producao-linear/index.qmd
+        - exemplos/parte-2-funcao-producao-nao-linear/index.qmd
+        - exemplos/parte-2-ptf-paises/index.qmd
+        - exemplos/parte-2-funcao-custos-1/index.qmd
+        - exemplos/parte-2-funcao-custos-2/index.qmd
+        - exemplos/parte-2-minimizacao-custos-linear/index.qmd
+        - exemplos/parte-2-minimizacao-custos-cobb-douglas/index.qmd
+        - exemplos/parte-2-maximizacao-lucro-1/index.qmd
+        - exemplos/parte-2-maximizacao-lucro-2/index.qmd
+        - exemplos/parte-2-maximizacao-lucro-cobb-douglas/index.qmd
+        - exemplos/parte-2-oferta-agregada/index.qmd
+        - exemplos/parte-2-elasticidade-preco-da-oferta/index.qmd
+
+    - part: "Parte 3 - Estruturas de Mercado"
+      chapters:
+        - parte-3/concorrencia-perfeita.qmd
+        - parte-3/monopolio.qmd
+        - exemplos/parte-3-monopolio-basico/index.qmd
+        - parte-3/oligopolio.qmd
+        - exemplos/parte-3-oligopolio-1/index.qmd
+
+    - part: "Parte 4 - Equilíbrio Geral e Falhas de Mercado"
+      chapters:
+        - parte-4/equilibrio-geral.qmd
+        - exemplos/parte-4-equilibrio-geral-troca-edgeworth/index.qmd
+        - exemplos/parte-4-equilibrio-geral-producao/index.qmd
+        - parte-4/externalidades.qmd
+        - parte-4/tecnologia-informacao.qmd
+        - parte-4/bens-publicos.qmd
+        - parte-4/informacao-assimetrica.qmd
+        - parte-4/falhas-de-mercado-mapa-mental.qmd
+
+    - part: "Parte 5 - Eficiência, Racionalidade e Contratos"
+      chapters:
+        - parte-5/contratos.qmd
+        - parte-5/custo-transacao-contratos-mapa-mental.qmd
+
+    - part: "Parte 6 - Regulação e Cooperação"
+      chapters:
+        - parte-6/regulacao.qmd
+
+    # - references.qmd
+
+lang: pt
+bibliography: references.bib
+csl: abnt-ipea.csl
+
+format:
+  html:
+    theme: 
+      light: flatly
+      dark: darkly
+    css: custom.css
+    toc: false
+    toc-depth: 2
+    toc-expand: 2
+    toc-location: right
+    code-fold: show
+    code-line-numbers: true
+    author-meta: "Roney Fraga Souza"
+    number-sections: false
+
+execute:
+  cache: true
+  warning: false
+  message: false

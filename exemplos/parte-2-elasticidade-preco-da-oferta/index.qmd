@@ -1,0 +1,226 @@
+---
+title: "Elasticidade Preço da Oferta `ex`"
+date: "`r Sys.time()`"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+## Problema
+
+Considere uma firma da indústria eletrônica fabrica chips para computador. Esta firma conhece a sua equação de oferta, que é definida por $q= \sqrt(p)$, onde $q$ representa a quantidade ofertada em milhares de unidades de chips e $p$ representa o preço unitário do chip. Calcule o valor da elasticidade preço da oferta para q igual a 3000 unidades.
+
+## Resolução
+
+A elasticidade-preço da oferta mede a sensibilidade da quantidade ofertada $q$ em relação ao preço $p$:
+
+$$
+E_p = \frac{dq}{dp} \cdot \frac{p}{q}
+$$
+
+A função de oferta da firma é:
+
+$$
+q = \sqrt{p}
+$$
+
+onde $q$ é a quantidade ofertada (em milhares de unidades) e $p$ o preço unitário.
+
+Lembrando que uma raiz quadrada pode ser escrita como uma potência fracionária:
+
+$$
+q = p^{1/2}
+$$
+
+::: {.callout-note collapse="true"}
+
+## Revisão Elasticidade
+
+**Elasticidade** é uma medida da **resposta percentual** de uma variável econômica a uma variação percentual em outra. É uma ferramenta central na microeconomia para analisar **relação entre variáveis** como preço, quantidade, renda, etc.
+
+## Elasticidade-preço da demanda
+
+### Definição
+
+A **elasticidade-preço da demanda** mede a variação percentual na **quantidade demandada** frente a uma variação percentual no **preço** do bem:
+
+$$
+E_d = \frac{dQ}{dP} \cdot \frac{P}{Q}
+$$
+
+- $E_d < 0$: A elasticidade-preço da demanda é **negativa** devido à **lei da demanda**.
+- Em valor absoluto:
+
+  - $|E_d| > 1$: demanda **elástica**  
+  - $|E_d| = 1$: demanda **unitária**  
+  - $|E_d| < 1$: demanda **inelástica**
+
+### Interpretação
+
+- Se $|E_d| = 2$, um aumento de 1% no preço reduz a quantidade demandada em 2%.
+- Se $|E_d| = 0{,}5$, um aumento de 1% no preço reduz a demanda em apenas 0{,}5%.
+
+## Elasticidade-preço da oferta
+
+### Definição
+
+A **elasticidade-preço da oferta** mede a variação percentual na **quantidade ofertada** frente a uma variação percentual no **preço**:
+
+$$
+E_s = \frac{dQ}{dP} \cdot \frac{P}{Q}
+$$
+
+- $E_s > 0$: a oferta normalmente cresce com o preço
+- Interpretação semelhante à demanda
+
+## Elasticidade-renda da demanda
+
+### Definição
+
+$$
+E_Y = \frac{dQ}{dY} \cdot \frac{Y}{Q}
+$$
+
+- $E_Y > 0$: bem **normal**
+- $E_Y < 0$: bem **inferior**
+- $E_Y > 1$: bem de **luxo**
+- $0 < E_Y < 1$: bem **necessário**
+
+## Elasticidade-preço cruzada
+
+### Definição
+
+$$
+E_{xy} = \frac{dQ_x}{dP_y} \cdot \frac{P_y}{Q_x}
+$$
+
+- $E_{xy} > 0$: bens **substitutos**
+- $E_{xy} < 0$: bens **complementares**
+
+## Exemplo numérico
+
+### Demanda: $Q = 100 - 2P$
+
+- Suponha $P = 30$
+- $Q = 100 - 2(30) = 40$
+- $\frac{dQ}{dP} = -2$
+
+Elasticidade-preço da demanda:
+
+$$
+E_d = (-2) \cdot \frac{30}{40} = -1{,}5
+$$
+
+A demanda é **elástica**: um aumento de 1% no preço reduz a quantidade demandada em 1,5%.
+
+:::
+
+### Derivada da função de oferta
+
+Queremos encontrar a derivada da função de oferta:
+
+$$
+q = \sqrt{p}
+$$
+
+ou 
+
+$$
+q = p^{1/2}
+$$
+
+Aplicando a regra da potência
+
+$$
+\frac{d}{dp} (p^n) = n \cdot p^{n - 1}
+$$
+
+Neste caso, temos $n = \frac{1}{2}$, logo:
+
+$$
+\frac{dq}{dp} = \frac{1}{2} \cdot p^{1/2 - 1} = \frac{1}{2} \cdot p^{-1/2}
+$$
+
+Podemos reescrever o resultado como:
+
+$$
+\frac{dq}{dp} = \frac{1}{2\sqrt{p}}
+$$
+
+### Cálculo numérico para $q = 3000$ unidades
+
+Lembrando que:
+
+$$
+E_p = \frac{dq}{dp} \cdot \frac{p}{q}
+$$
+
+Para encontrar $p$, temos:
+
+$$
+q = \sqrt{p}
+$$
+
+Como $q$ está em milhares, temos $q = 3$. A partir da equação $q = \sqrt{p}$, temos:
+
+\begin{align*}
+q &= \sqrt{p} \\
+p &= q^2  \\
+p &= 3^2 = 9 
+\end{align*}
+
+Aplicando:
+
+$$
+E_p = \frac{1}{2\sqrt{9}} \cdot \frac{9}{3} = \frac{1}{6} \cdot 3 = \frac{1}{2}
+$$
+
+Isso indica que a oferta é inelástica: uma variação percentual no preço gera uma variação proporcionalmente menor na quantidade ofertada.
+
+## Gráfico
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| fig-width: 6
+#| fig-height: 4
+
+# Pacotes
+library(ggplot2)
+
+# Valores para q e p invertidos (p = q^2)
+q_vals <- seq(0.1, 6, length.out = 400)
+p_vals <- q_vals^2
+
+# Ponto de interesse
+q0 <- 3
+p0 <- q0^2  # = 9
+slope <- 1 / (2 * sqrt(p0))  # dq/dp = 1/(2√p)
+
+# Como queremos dp/dq (para o novo eixo vertical), derivamos p = q^2
+# Logo, reta tangente em p = 2q
+slope_dp_dq <- 2 * q0
+
+# Reta tangente: p = slope * (q - q0) + p0
+q_tangent <- seq(q0 - 2, q0 + 2, length.out = 100)
+p_tangent <- slope_dp_dq * (q_tangent - q0) + p0
+
+# Data frames
+df_curve <- data.frame(q = q_vals, p = p_vals)
+df_tangent <- data.frame(q = q_tangent, p = p_tangent)
+df_point <- data.frame(q = q0, p = p0)
+
+# Gráfico
+ggplot(df_curve, aes(x = q, y = p)) +
+  geom_line(linewidth = 1.2, color = "blue") +
+  geom_line(data = df_tangent, aes(x = q, y = p), 
+            color = "red", linetype = "dashed", linewidth = 1) +
+  geom_point(data = df_point, aes(x = q, y = p), size = 3) +
+  annotate("text", x = q0 + 0.3, y = p0 - 1, label = "(3, 9)", size = 4) +
+  labs(title = "Curva de Oferta com Reta Tangente", x = "Quantidade (q)", y = "Preço (p)") +
+  theme_minimal()
+```
+

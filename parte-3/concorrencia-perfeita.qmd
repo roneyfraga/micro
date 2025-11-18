@@ -1,0 +1,474 @@
+---
+title: "Concorrência Perfeita `cc`"
+date: "`r Sys.time()`"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+Material básico: @pindyck2013 [capítulo 9], @baidya2014 [capítulo 4] e @perloff2022 [capítulo 9].
+
+<!-- Revisão  {{{ -->
+
+::: {#tip-revisao .callout-note collapse="true" appearance="default" icons="false"}
+
+## Revisão
+
+A **concorrência perfeita** é uma estrutura de mercado caracterizada por um grande número de compradores e vendedores, produto homogêneo, livre entrada e saída, e informação perfeita.
+
+## Características da Concorrência Perfeita
+
+1. **Muitos compradores e vendedores**: Nenhum agente individual tem poder de mercado
+2. **Produto homogêneo**: Os produtos de diferentes firmas são substitutos perfeitos
+3. **Livre entrada e saída**: Não há barreiras à entrada ou saída do mercado
+4. **Informação perfeita**: Todos os agentes têm informação completa sobre preços e qualidade
+5. **Mobilidade de fatores**: Os insumos podem se mover livremente entre usos alternativos
+
+## Firma Tomadora de Preços
+
+Em concorrência perfeita, cada firma é **tomadora de preços**: ela aceita o preço de mercado como dado e não pode influenciá-lo.
+
+A curva de demanda enfrentada pela firma individual é perfeitamente elástica (horizontal) ao preço de mercado:
+
+$$P = \bar{P}$$
+
+## Receita da Firma
+
+- **Receita Total**: $RT = P \cdot Q$
+- **Receita Média**: $RMe = \frac{RT}{Q} = P$
+- **Receita Marginal**: $RMg = \frac{dRT}{dQ} = P$
+
+Em concorrência perfeita: $RMg = RMe = P$
+
+## Maximização de Lucro no Curto Prazo
+
+A firma maximiza lucro produzindo onde:
+
+$$P = CMg$$
+
+desde que $P \geq CVMe_{min}$.
+
+### Possíveis Situações
+
+1. **Lucro positivo**: $P > CTMe$ → $\pi > 0$
+2. **Lucro zero**: $P = CTMe$ → $\pi = 0$
+3. **Prejuízo**: $P < CTMe$ → $\pi < 0$
+   - Se $P \geq CVMe$: continua produzindo
+   - Se $P < CVMe$: fecha (produz $Q = 0$)
+
+## Curva de Oferta da Firma
+
+A curva de oferta da firma no curto prazo é a porção da curva $CMg$ acima do $CVMe_{min}$.
+
+## Equilíbrio de Mercado no Curto Prazo
+
+O equilíbrio de mercado ocorre onde a oferta de mercado iguala a demanda de mercado:
+
+$$Q^D(P) = Q^S(P)$$
+
+## Equilíbrio de Longo Prazo
+
+No longo prazo:
+
+1. As firmas podem ajustar todos os insumos
+2. Novas firmas podem entrar ou firmas existentes podem sair
+
+### Condições de Equilíbrio de Longo Prazo
+
+1. Cada firma maximiza lucro: $P = CMgLP$
+2. Lucro econômico é zero: $P = CTMeLP_{min}$
+3. Oferta de mercado iguala demanda de mercado
+
+Portanto, no equilíbrio de longo prazo:
+
+$$P = CMgLP = CTMeLP_{min}$$
+
+## Eficiência da Concorrência Perfeita
+
+A concorrência perfeita é eficiente em dois sentidos:
+
+### Eficiência Produtiva
+
+As firmas produzem ao custo médio mínimo de longo prazo.
+
+### Eficiência Alocativa
+
+O preço iguala o custo marginal, garantindo que o valor marginal para os consumidores iguala o custo marginal de produção.
+
+:::
+
+<!-- }}} -->
+
+<!-- Alvo  {{{ -->
+
+::: {#tip-alvo .callout-note collapse="true" appearance="default" icons="false"}
+
+# Alvo
+
+## Excedente do Consumidor e do Produtor
+
+- **Excedente do Consumidor**: Área abaixo da curva de demanda e acima do preço (bem-estar)
+- **Excedente do Produtor**: Área acima da curva de oferta (custo marginal) e abaixo do preço (lucro)
+- **Excedente Total**: Soma dos excedentes do consumidor e do produtor
+
+Em concorrência perfeita, o excedente total é maximizado.
+
+## Análise de Bem-Estar
+
+Mudanças no mercado (impostos, subsídios, controles de preço) podem ser avaliadas através de seus efeitos sobre os excedentes do consumidor e do produtor.
+
+### Peso Morto
+
+Intervenções que distorcem o preço de equilíbrio geralmente criam **peso morto** (deadweight loss): uma perda de excedente total que não é capturada por nenhum agente.
+
+### Políticas Públicas
+
+Implicações.
+
+:::
+
+<!-- }}} -->
+
+<!-- Oferta e Demanda - Excedente do Consumidor e Produtor  {{{ -->
+
+::: {#tip-excedentes .callout-note collapse="true" appearance="default" icons="false"}
+
+# Oferta e Demanda - Excedente do Consumidor e Produtor
+
+## Introdução
+
+Esta aula introduz o conceito de economia normativa (como as coisas deveriam ser) em contraste com a economia positiva (como as coisas são), utilizando o framework de oferta e demanda para analisar o bem-estar econômico através dos conceitos de excedente do consumidor e produtor.
+
+## Estrutura Básica de Mercado
+
+* variações na curva de demanda/oferta versus da curva de demanda/oferta
+
+## Fatores que Deslocam as Curvas
+
+**Deslocadores da Demanda**
+
+1. Mudança na renda
+2. Mudança no preço de bens complementares
+3. Mudança no preço de bens substitutos
+4. Mudança nas preferências
+
+**Deslocadores da Oferta**
+
+1. Mudança nos preços dos insumos
+2. Mudança na tecnologia
+
+## Impacto da Elasticidade
+
+### Demanda Perfeitamente Inelástica (Ex: Insulina)
+
+- Curva vertical
+- Choque de oferta afeta apenas o preço
+- Quantidade permanece constante
+
+### Demanda Perfeitamente Elástica (Ex: Bacuncinha vs McDonald's vs Burger King)
+
+- Curva horizontal
+- Choque de oferta afeta apenas a quantidade
+- Preço permanece constante
+
+## Economia do Bem-Estar (Welfare Economics)
+
+**Transição da Economia Positiva para Normativa**
+
+- Economia Positiva: Como consumidores e produtores tomam decisões
+- Economia Normativa: Avaliação se esses resultados são bons ou ruins
+
+* Desafio Fundamental
+  * Como medir o bem-estar quando a utilidade é um conceito ordinal (não cardinal)?
+
+* Solução
+  * Variação Compensatória, ou seja, disponibilidade a pagar (preferências reveladas)
+  * Em vez de medir utilidade diretamente, mede-se quanto dinheiro as pessoas estariam dispostas a pagar para alcançar determinado nível de bem-estar.
+
+## Exemplo: Efeito Kardashians
+
+**Caso dos Corsets (Kim)**
+
+1. Kim Kardashian postou sobre exercícios com corsets para emagrecer
+2. Apesar de não haver evidência científica, sua influência causou:
+   - Aumento súbito na demanda por corsets
+   - Aumento de preços e quantidades
+   - Lucros extraordinários para a única empresa existente
+3. Resposta de mercado:
+   - Entrada de novas empresas (livre entrada)
+   - Aumento da oferta
+   - Redução gradual dos preços e lucros
+
+* Lição
+  * Mudanças nas preferências podem ter efeitos dinâmicos complexos no mercado, incluindo respostas de entrada e saída de empresas.
+
+**Caso dos Corsets (Kendall)**
+
+1. Kendall apareceu em um programa de entrevistas (Jimmy Fallon) com uma câmara analógica, a Contax T2
+2. Aumento da curva de demanda
+3. Curva de oferta perfeitamente inelástica, pois, a Contax não fabrica mais câmeras analógicas
+
+## Variação Compensatória e Excedente do Consumidor
+
+### Conceito Fundamental
+
+**Variação Compensatória**: Em vez de perguntar "quão feliz você está", perguntamos "quanto dinheiro você pagaria para estar nesse nível de bem-estar" ou "quanto dinheiro você aceitaria para evitar essa situação".
+
+### Exemplo Prático: Concertos da Banda The Killers
+
+- Primeiro show: disposição a pagar ~$300-400
+- Segundo show: disposição menor (utilidade marginal decrescente)
+- Terceiro show: disposição ainda menor
+- Quinto show: disposição de pagar ~$100 (indiferença)
+
+**Excedente Individual**: Diferença entre disposição a pagar e preço efetivamente pago
+
+### Excedente de Mercado
+
+No mercado de gasolina:
+
+- Cada consumidor tem diferente disposição a pagar
+- Consumidores com maior disposição a pagar obtêm maior excedente
+- Excedente total = área sob curva de demanda acima da linha de preço
+
+### Impacto de Mudanças de Preço
+
+Quando preço sobe de \$3 para \$3.50:
+1. **Menos consumidores** compram o produto
+2. **Consumidores remanescentes** têm menor excedente
+3. **Perda total** = retângulo (redução para consumidores existentes) + triângulo (consumidores que saem do mercado)
+
+### Relação com Elasticidade
+
+- **Demanda inelástica**: maior excedente do consumidor
+- **Demanda elástica**: menor excedente do consumidor
+- **Demanda perfeitamente elástica**: zero excedente
+
+## Excedente do Produtor
+
+* **Definição**
+  * Excedente do Produtor: Diferença entre preço recebido e disposição a produzir (custo marginal/oferta)
+
+### Exemplo Individual
+
+Produtor de gasolina:
+- Preço de mercado: \$3
+- Custo marginal da primeira unidade: muito baixo
+- Custo marginal aumenta com produção
+- Excedente = área acima da curva de oferta abaixo da linha de preço
+
+### Excedente de Mercado
+
+No mercado com múltiplos produtores:
+
+- Produtores mais eficientes (custo marginal baixo) obtêm maior excedente
+- Produtor marginal (último a entrar): excedente zero
+- Em concorrência perfeita de longo prazo: excedente = lucro econômico
+
+## Primeiro Teorema Fundamental do Bem-Estar
+
+A competição maximiza o bem-estar.
+
+* Sendo
+  * bem-estar (consumidores)
+  * lucro (firmas)
+
+### Análise de Intervenção: Teto de Preços
+
+Se governo impõe teto de preço P2 < P1:
+
+**Efeitos**:
+1. **Transferência**: área S move de produtores para consumidores
+2. **Perda de Peso Morto**: áreas V + U desaparecem
+
+**Transferência**: Movimentação de excedente entre grupos (neutro para bem-estar total)
+**Perda de Peso Morto**: Transações benéficas que não ocorrem (redução de bem-estar)
+
+### Peso Morto (Deadweight Loss)
+
+**Definição**: Redução líquida no bem-estar decorrente de transações que não ocorrem mas que tornariam ambas as partes melhores off.
+
+**Intuição Econômica**: Quando existem transações que fariam ambos os lados melhores off e elas não acontecem, a sociedade como um todo está pior.
+
+## Implicações para Políticas Públicas
+
+Sob as hipóteses de concorrência perfeita:
+
+- **Mercados competitivos maximizam bem-estar**
+- **Qualquer intervenção** que impeça transações mutuamente benéficas reduz bem-estar
+- **Transferências** entre grupos são irrelevantes para bem-estar total
+
+### Limitações do Modelo
+
+O modelo assume:
+
+- Concorrência perfeita
+- Informação perfeita
+- Ausência de externalidades
+- Mercados completos
+
+## Conclusões Principais
+
+1. **Equilíbrio de mercado** é dinâmico e responde a choques
+2. **Preços e quantidades** se ajustam para eliminar excessos de demanda ou oferta
+3. **Elasticidade** determina a magnitude dos ajustes e tamanho dos excedentes
+4. **Análise de bem-estar** utiliza variação compensatória para superar limitação da utilidade ordinal
+5. **Mudanças nas preferências** podem gerar dinâmicas complexas de mercado
+6. **Excedente do consumidor** mede benefício acima do preço pago
+7. **Excedente do produtor** mede benefício acima do custo marginal
+8. **Primeiro Teorema Fundamental**: concorrência maximiza bem-estar social
+9. **Intervenções governamentais** podem criar peso morto se impedirem transações benéficas
+
+Este estrutura analítica estabelece as bases para análise de políticas públicas e avaliação de intervenções governamentais nos mercados, fornecendo ferramentas quantitativas para avaliar impactos no bem-estar social.
+
+:::
+
+<!-- }}} -->
+
+<!-- Economia do Bem-Estar  {{{ -->
+
+::: {#tip-excedentes .callout-note collapse="true" appearance="default" icons="false"}
+
+# Economia do Bem-Estar
+
+A aula demonstra que o equilíbrio de concorrência perfeita é o melhor resultado possível do ponto de vista do bem-estar social, maximizando a soma do excedente do consumidor e do produtor. Em mercados perfeitamente competitivos, "o governo só pode estragar as coisas".
+
+## Principais Conceitos
+
+### 1. Equilíbrio de Concorrência Perfeita
+
+* O mercado em concorrência perfeita maximiza o bem-estar social
+* Soma do excedente do consumidor e produtor é maximizada
+* Qualquer intervenção governamental só pode piorar a situação
+* "O mercado sabe melhor" ("The market knows best")
+
+### 2. Tipos de Intervenção Governamental
+
+#### Controle de Preços (Price Ceiling)
+
+* Exemplo: teto de preços para gasolina durante crises
+* Efeitos sobre o bem-estar:
+  * **Perda de eficiência**: trades que não acontecem (deadweight loss)
+  * **Ineficiência alocativa**: custos de espera e alocação por mecanismos não-preço
+  * **Transferência**: excedente transferido entre grupos
+
+#### Restrição de Quantidade (Licenciamento)
+
+* Exemplo: medalhões/placa de táxi em cidades
+* Cria barreiras à entrada e lucros econômicos
+* Gera deadweight loss (peso morto) e transferência para detentores de licenças
+
+## Análise de Bem-Estar Detalhada
+
+**Exemplo histórico**: Crise do petróleo dos anos 1970
+
+* OPEC formou cartel, preços dispararam
+* Governo americano impôs teto de preços
+* Resultado: filas enormes nos postos de gasolina
+* Custo de oportunidade: pessoas esperando 15-20 minutos
+
+### Exemplo 2: Bandeiras de Táxi
+
+* Cada táxi produz q1 corridas no ponto de eficiência mínima
+* Preço igual ao custo marginal e custo médio mínimo
+
+**Restrição**: limite de medalhões/placa
+
+* **Dados reais**:
+  * São Francisco: $12.000 por ano para alugar medalhão
+  * Boston: $400.000 para comprar medalhão
+  * Perda estimada de excedente do consumidor: $2 bilhões
+
+* Em 2013 uma placa de táxi no aeroporto de Campinas custava 900 mil reais 
+
+* **Impacto do Uber/Lyft**:
+  * Retorno à concorrência com livre entrada
+  * Preços caem
+  * Valor dos medalhões/placas cai 90%
+  * Consumidores se beneficiam enormemente
+  * Grandes perdedores: detentores de medalhões (não grupo simpático)
+
+Obs.: quem ganha nos táxis é apenas os donos das placas que as obtiveram nos `sorteio`.
+
+## Exemplos do Mundo Real
+
+### 1. Revenda de Ingressos (Ticket Scalping)
+
+* **Adele**: ingressos de \$40-\$150, revendidos por \$1.500
+* **Taylor Swift**: ingressos de \$50-\$500, revendidos por \$800-\$11.000
+* Artistas fixam preços baixos por relações públicas
+* Scalpers com bots capturam o excedente do consumidor
+* Solução eficiente: leilões (mas prejudicam imagem do artista)
+* Evolução: de filas noturnas para mercado online eficiente
+
+### 2. Licenciamento Ocupacional
+
+* **Justificativa**: proteção ao consumidor (ex: médicos, referência ao "Dr. Nick" dos Simpsons)
+* **Problema**: limitações arbitrárias criam ineficiências
+* **Exemplo**: motoristas de táxi pagando \$400.000 por medalhões
+* **Trade-off**: segurança vs. eficiência econômica
+
+## Trade-off Eficiência-Equidade
+
+* **Eficiência**: maximização do excedente total
+* **Equidade**: distribuição justa do excedente
+* **Visão econômica tradicional**: transferências não afetam bem-estar social
+* **Visão alternativa**: sociedade pode sacrificar eficiência por equidade
+* **Problema**: intervenções muitas vezes beneficiam grupos errados
+  * Ex.: detentores de medalhões/placas em vez de motoristas de táxi
+  * Ex.: scalpers/cambistas em vez de fãs
+
+## Conclusões Principais
+
+1. Mercados competitivos maximizam bem-estar social
+2. Intervenções governamentais criam ineficiências inevitavelmente
+3. Deadweight loss (peso morto) surge sempre que trades benéficos são impedidos
+4. Mecanismos de preços são forma mais eficiente de alocação
+5. Inovações de mercado (Uber) podem corrigir distorções regulatórias
+6. É possível usar mecanismos de mercado para fins sociais
+7. Trade-off eficiência-equidade é central em política econômica
+
+## Implicações para Política Econômica
+
+* Avaliar custos e benefícios de regulações cuidadosamente
+* Considerar quem realmente se beneficia das intervenções
+* Preferir soluções de mercado quando possível
+* Cuidado com "boas intenções" que geram maus resultados
+* Licenciamento deve focar em qualidade, não em limites quantitativos
+* Inovações tecnológicas podem superar barreiras regulatórias ineficientes
+
+:::
+
+ <!-- }}} -->
+
+[Abrir gráficos em tela cheia](concorrencia-perfeita-revealjs/index.html){target="_blank"}, ou acessar na pequena janela abaixo ↓.
+
+<div style="margin: 20px 0;">
+
+```{=html}
+<iframe class="slide-deck" src="concorrencia-perfeita-revealjs/index.html" width="100%" height="600px" style="border: 2px solid #dee2e6; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"></iframe>
+```
+
+</div>
+
+<!-- Calculando excedentes com integral  {{{ -->
+
+::: {#tip-revisao .callout-note collapse="true" appearance="default" icons="false"}
+
+## Calculando Excedentes $\int$
+
+* Em desenvolvimento, ver @perloff2022 [capítulo 9].
+
+:::
+
+<!-- }}} -->
+
+
+## Referências
+
+::: {#refs}
+:::
+
+<!-- vim: fdm=marker foldlevel=0 -->

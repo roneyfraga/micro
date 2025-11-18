@@ -1,0 +1,105 @@
+---
+title: "Custos de Produção `cc`"
+date: "`r Sys.time()`"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+
+## Introdução
+
+A teoria dos custos analisa como os custos de produção variam com o nível de produto e com os preços dos insumos.
+
+## Custos no Curto Prazo
+
+No curto prazo, alguns insumos são fixos e outros são variáveis.
+
+### Tipos de Custos
+
+- **Custo Fixo (CF)**: Não varia com o nível de produção
+- **Custo Variável (CV)**: Varia com o nível de produção
+- **Custo Total (CT)**: $CT = CF + CV$
+
+### Custos Médios
+
+- **Custo Fixo Médio**: $CFMe = \frac{CF}{Q}$
+- **Custo Variável Médio**: $CVMe = \frac{CV}{Q}$
+- **Custo Total Médio**: $CTMe = \frac{CT}{Q} = CFMe + CVMe$
+
+### Custo Marginal
+
+O **custo marginal** é o acréscimo no custo total resultante da produção de uma unidade adicional:
+
+$$CMg = \frac{dCT}{dQ} = \frac{dCV}{dQ}$$
+
+## Relação entre Custos Médios e Marginais
+
+- Quando $CMg < CTMe$, o custo médio está decrescendo
+- Quando $CMg > CTMe$, o custo médio está crescendo
+- Quando $CMg = CTMe$, o custo médio está em seu ponto mínimo
+
+## Custos no Longo Prazo
+
+No longo prazo, todos os insumos são variáveis. A firma pode ajustar todos os fatores de produção.
+
+### Minimização de Custos
+
+A firma escolhe a combinação de insumos que minimiza o custo de produzir determinado nível de produto:
+
+$$\min_{L,K} \quad wL + rK$$
+
+sujeito a:
+
+$$f(L,K) = \bar{Q}$$
+
+onde $w$ é o salário e $r$ é o custo do capital.
+
+### Condição de Primeira Ordem
+
+A condição de otimalidade é:
+
+$$\frac{PMgL}{PMgK} = \frac{w}{r}$$
+
+ou equivalentemente:
+
+$$\frac{PMgL}{w} = \frac{PMgK}{r}$$
+
+Isso significa que o produto marginal por unidade monetária gasta deve ser igual para todos os insumos.
+
+## Curva de Custo Total de Longo Prazo
+
+A curva de custo total de longo prazo mostra o custo mínimo de produzir cada nível de produto quando todos os insumos são variáveis.
+
+## Economias e Deseconomias de Escala
+
+- **Economias de escala**: O custo médio de longo prazo decresce com o aumento da produção
+- **Deseconomias de escala**: O custo médio de longo prazo cresce com o aumento da produção
+- **Rendimentos constantes de escala**: O custo médio de longo prazo permanece constante
+
+## Economias de Escopo
+
+**Economias de escopo** ocorrem quando é mais barato produzir dois produtos conjuntamente do que separadamente:
+
+$$C(Q_1, Q_2) < C(Q_1, 0) + C(0, Q_2)$$
+
+## Função Custo
+
+A **função custo** relaciona o custo mínimo de produção com o nível de produto e os preços dos insumos:
+
+$$C = C(Q, w, r)$$
+
+## Referências
+
+Ver @pindyck2013 [capítulo 7], @baidya2014 [capítulos 1-2], @perloff2022 [capítulo 7].
+
+---
+
+**Nota:** Este capítulo será expandido com mais detalhes teóricos e exemplos. Os exemplos computacionais estão disponíveis nos capítulos seguintes.
+
+## Referências
+
+::: {#refs}
+:::

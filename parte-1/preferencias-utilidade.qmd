@@ -1,0 +1,107 @@
+---
+title: "1.1 Preferências e Utilidade `cc`"
+date: "today"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+## Introdução
+
+O estudo do comportamento do consumidor começa pela análise de suas preferências. As preferências representam o gosto do consumidor por diferentes cestas de bens e serviços.
+
+## Relação de Preferência
+
+Seja $A$ e $B$ duas cestas de bens. O consumidor pode:
+
+- **Preferir $A$ a $B$**: $A \succ B$
+- **Preferir $B$ a $A$**: $B \succ A$  
+- **Ser indiferente entre $A$ e $B$**: $A \sim B$
+
+## Axiomas das Preferências
+
+### 1. Completude
+Para quaisquer duas cestas $A$ e $B$, o consumidor sempre pode dizer se:
+- $A \succ B$, ou
+- $B \succ A$, ou  
+- $A \sim B$
+
+### 2. Transitividade
+Se $A \succ B$ e $B \succ C$, então $A \succ C$.
+
+### 3. Não-saciedade (Monotonicidade)
+"Mais é melhor que menos": se $A$ contém pelo menos tanto de cada bem que $B$ e mais de algum bem, então $A \succ B$.
+
+### 4. Convexidade
+Os consumidores preferem médias a extremos.
+
+## Curvas de Indiferença
+
+Uma **curva de indiferença** mostra todas as cestas que proporcionam o mesmo nível de satisfação ao consumidor.
+
+### Propriedades das Curvas de Indiferença
+
+1. **Inclinação negativa**: Devido ao trade-off entre bens
+2. **Não se cruzam**: Pela transitividade das preferências
+3. **Mais altas são preferíveis**: Pelo axioma da monotonicidade
+4. **Convexas em relação à origem**: Pela preferência por médias
+
+## Taxa Marginal de Substituição (TMS)
+
+A **TMS** mede a taxa pela qual o consumidor está disposto a substituir um bem por outro, mantendo constante o nível de utilidade:
+
+$$TMS_{xy} = -\frac{dy}{dx}\bigg|_{\bar{U}}$$
+
+## Função Utilidade
+
+A **função utilidade** atribui um valor numérico a cada cesta de bens, preservando a ordenação das preferências:
+
+- Se $U(A) > U(B)$, então $A \succ B$
+- Se $U(A) = U(B)$, então $A \sim B$
+
+### Transformações Monotônicas
+
+Se $U(x,y)$ é uma função utilidade, então $V(x,y) = f(U(x,y))$ também é, onde $f' > 0$.
+
+## Tipos de Preferências
+
+### 1. Bens Substitutos Perfeitos
+$$U(x,y) = ax + by$$
+
+### 2. Bens Complementares Perfeitos  
+$$U(x,y) = \min\{ax, by\}$$
+
+### 3. Cobb-Douglas
+$$U(x,y) = x^\alpha y^\beta$$
+
+### 4. Utilidade Quasilinear
+$$U(x,y) = v(x) + y$$
+
+## Utilidade Marginal
+
+A **utilidade marginal** é o acréscimo de utilidade resultante do consumo de uma unidade adicional de um bem:
+
+$$UMg_x = \frac{\partial U}{\partial x}$$
+
+Pela Lei da Utilidade Marginal Decrescente: $UMg_x$ diminui conforme $x$ aumenta.
+
+## Relação entre TMS e Utilidade Marginal
+
+$$TMS_{xy} = \frac{UMg_x}{UMg_y}$$
+
+## Referências
+
+- @pindyck2013 [capítulo 3]
+- @varian2012 [capítulo 2]
+- @baidya2014 [capítulo 2]
+
+---
+
+**Nota:** Este capítulo será expandido com mais exemplos e exercícios.
+
+## Referências
+
+::: {#refs}
+:::

@@ -1,0 +1,539 @@
+---
+title: "Troca, Equilíbrio e Edgeworth `ex`"
+date: "`r Sys.time()`"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+## @baidya2014 Capítulo 9 Exemplo 9.3
+
+Suponha que um consumidor A possua 18 maçãs e 1 pera e que sua função utilidade em relação aos dois produtos seja $U_A = q_m q_p + q_m$, onde os subíndices indicam os produtos maçãs e peras, respectivamente. Suponha que outro consumidor, B, possua 20 peras e 1 maçã. A função utilidade de B é $U_B = q_m q_p + q_p$. Considere que cada u mdos consumidores irá possuir pelo menos uma unidade de cada produto em qualquer negociação que realizem.
+
+
+## 1. Introdução ao Tópico
+
+Este exercício analisa um problema de troca entre dois consumidores (A e B) com diferentes dotações iniciais e preferências. O objetivo é encontrar uma alocação eficiente de Pareto através da troca voluntária, utilizando a caixa de Edgeworth como ferramenta de análise.
+
+**Objetivos de aprendizagem:**
+
+* Compreender o conceito de eficiência de Pareto em economia de troca
+* Aplicar a análise da caixa de Edgeworth para encontrar alocações ótimas
+* Calcular taxas marginais de substituição e condições de equilíbrio
+* Implementar simulações computacionais para visualizar o processo de troca
+
+## 2. Desenvolvimento Teórico
+
+### Conceitos Fundamentais
+
+**Eficiência de Pareto** ocorre quando não é possível melhorar a situação de um indivíduo sem piorar a de outro. Em uma economia de troca pura, as alocações eficientes de Pareto satisfazem:
+
+$$TMS_A = TMS_B$$
+
+Onde $TMS$ é a taxa marginal de substituição.
+
+**Caixa de Edgeworth** é uma representação gráfica que mostra todas as alocações possíveis de dois bens entre dois consumidores, dadas as dotações totais da economia.
+
+### Funções de Utilidade e Dotações
+
+**Consumidor A:**
+
+* Dotação inicial: $(q_m^A, q_p^A) = (18, 1)$
+* Função de utilidade: $U_A = q_m q_p + q_m$
+
+**Consumidor B:**
+
+* Dotação inicial: $(q_m^B, q_p^B) = (1, 20)$
+* Função de utilidade: $U_B = q_m q_p + q_p$
+
+**Restrição:** Cada consumidor deve possuir pelo menos uma unidade de cada produto após a troca.
+
+## 3. Formalização Matemática
+
+### Passo 1: Calcular Dotações Totais
+
+Total de maçãs: $Q_m = 18 + 1 = 19$
+
+Total de peras: $Q_p = 1 + 20 = 21$
+
+### Passo 2: Calcular Taxas Marginais de Substituição
+
+**Para o Consumidor A:**
+
+$U_A = q_m q_p + q_m$
+
+**Cálculo detalhado das derivadas parciais:**
+
+1. **Utilidade marginal de maçãs ($UMg_{q_m}^A$):**
+   $$\frac{\partial U_A}{\partial q_m} = \frac{\partial}{\partial q_m}(q_m q_p + q_m)$$
+   
+   **Regra da Soma:** A derivada da soma é a soma das derivadas.
+   
+   *Exemplo geral:* Se $f(x) = g(x) + h(x)$, então $f'(x) = g'(x) + h'(x)$
+   
+   Aplicando ao nosso caso:
+   $$\frac{\partial U_A}{\partial q_m} = \frac{\partial}{\partial q_m}(q_m q_p) + \frac{\partial}{\partial q_m}(q_m)$$
+   
+   **Regra do Produto Constante:** Se $c$ é constante, então $\frac{\partial}{\partial x}(c \cdot f(x)) = c \cdot f'(x)$
+   
+   *Exemplo geral:* Se $f(x) = 5x^2$, então $f'(x) = 5 \cdot 2x = 10x$
+   
+   Para o primeiro termo, tratamos $q_p$ como constante:
+   $$\frac{\partial}{\partial q_m}(q_m q_p) = q_p \cdot \frac{\partial}{\partial q_m}(q_m) = q_p \cdot 1 = q_p$$
+   
+   **Regra da Potência:** Se $f(x) = x^n$, então $f'(x) = n \cdot x^{n-1}$
+   
+   *Exemplo geral:* Se $f(x) = x^3$, então $f'(x) = 3x^2$; Se $f(x) = x$, então $f'(x) = 1 \cdot x^{0} = 1$
+   
+   Para o segundo termo:
+   $$\frac{\partial}{\partial q_m}(q_m) = 1$$
+   
+   Portanto:
+   $$UMg_{q_m}^A = q_p + 1$$
+
+2. **Utilidade marginal de peras ($UMg_{q_p}^A$):**
+   $$\frac{\partial U_A}{\partial q_p} = \frac{\partial}{\partial q_p}(q_m q_p + q_m)$$
+   
+   Aplicando a **regra da soma**:
+   $$\frac{\partial U_A}{\partial q_p} = \frac{\partial}{\partial q_p}(q_m q_p) + \frac{\partial}{\partial q_p}(q_m)$$
+   
+   Para o primeiro termo, tratamos $q_m$ como constante e aplicamos a **regra do produto constante**:
+   $$\frac{\partial}{\partial q_p}(q_m q_p) = q_m \cdot \frac{\partial}{\partial q_p}(q_p) = q_m \cdot 1 = q_m$$
+   
+   **Regra da Constante:** A derivada de uma constante é zero.
+   
+   *Exemplo geral:* Se $f(x) = 7$, então $f'(x) = 0$
+   
+   Para o segundo termo, $q_m$ é constante em relação a $q_p$:
+   $$\frac{\partial}{\partial q_p}(q_m) = 0$$
+   
+   Portanto:
+   $$UMg_{q_p}^A = q_m + 0 = q_m$$
+
+3. **Taxa marginal de substituição do consumidor A:**
+   $$TMS_A = \frac{UMg_{q_m}^A}{UMg_{q_p}^A} = \frac{q_p + 1}{q_m}$$
+
+**Para o Consumidor B:**
+
+$U_B = q_m q_p + q_p$
+
+**Cálculo detalhado das derivadas parciais:**
+
+1. **Utilidade marginal de maçãs ($UMg_{q_m}^B$):**
+   $$\frac{\partial U_B}{\partial q_m} = \frac{\partial}{\partial q_m}(q_m q_p + q_p)$$
+   
+   Aplicando a **regra da soma**:
+   $$\frac{\partial U_B}{\partial q_m} = \frac{\partial}{\partial q_m}(q_m q_p) + \frac{\partial}{\partial q_m}(q_p)$$
+   
+   Para o primeiro termo, tratamos $q_p$ como constante e aplicamos a **regra do produto constante**:
+   $$\frac{\partial}{\partial q_m}(q_m q_p) = q_p \cdot \frac{\partial}{\partial q_m}(q_m) = q_p \cdot 1 = q_p$$
+   
+   Para o segundo termo, aplicamos a **regra da constante** (pois $q_p$ não depende de $q_m$):
+   $$\frac{\partial}{\partial q_m}(q_p) = 0$$
+   
+   Portanto:
+   $$UMg_{q_m}^B = q_p + 0 = q_p$$
+
+2. **Utilidade marginal de peras ($UMg_{q_p}^B$):**
+   $$\frac{\partial U_B}{\partial q_p} = \frac{\partial}{\partial q_p}(q_m q_p + q_p)$$
+   
+   Aplicando a **regra da soma**:
+   $$\frac{\partial U_B}{\partial q_p} = \frac{\partial}{\partial q_p}(q_m q_p) + \frac{\partial}{\partial q_p}(q_p)$$
+   
+   Para o primeiro termo, tratamos $q_m$ como constante e aplicamos a **regra do produto constante**:
+   $$\frac{\partial}{\partial q_p}(q_m q_p) = q_m \cdot \frac{\partial}{\partial q_p}(q_p) = q_m \cdot 1 = q_m$$
+   
+   Para o segundo termo, aplicamos a **regra da potência** com $n=1$:
+   $$\frac{\partial}{\partial q_p}(q_p) = 1 \cdot q_p^{0} = 1$$
+   
+   *Exemplo geral:* Se $f(x) = x$, então $f'(x) = 1$; Se $f(x) = 3x$, então $f'(x) = 3$
+   
+   Portanto:
+   $$UMg_{q_p}^B = q_m + 1$$
+
+3. **Taxa marginal de substituição do consumidor B:**
+   $$TMS_B = \frac{UMg_{q_m}^B}{UMg_{q_p}^B} = \frac{q_p}{q_m + 1}$$
+
+**Interpretação econômica:**
+
+* A TMS representa a taxa na qual um consumidor está disposto a substituir um bem por outro, mantendo o mesmo nível de utilidade
+* Para o consumidor A, $TMS_A = \frac{q_p + 1}{q_m}$: ele valoriza mais as maçãs quando tem poucas peras
+* Para o consumidor B, $TMS_B = \frac{q_p}{q_m + 1}$: ele valoriza mais as peras quando tem poucas maçãs
+
+### Passo 3: Condição de Eficiência de Pareto
+
+Para eficiência de Pareto: $TMS_A = TMS_B$
+
+$$\frac{q_p^A + 1}{q_m^A} = \frac{q_p^B}{q_m^B + 1}$$
+
+Usando as restrições de factibilidade:
+
+* $q_m^A + q_m^B = 19$
+* $q_p^A + q_p^B = 21$
+
+Substituindo $q_m^B = 19 - q_m^A$ e $q_p^B = 21 - q_p^A$:
+
+$$\frac{q_p^A + 1}{q_m^A} = \frac{21 - q_p^A}{19 - q_m^A + 1}$$
+
+$$\frac{q_p^A + 1}{q_m^A} = \frac{21 - q_p^A}{20 - q_m^A}$$
+
+### Passo 4: Resolver a Equação
+
+$$(q_p^A + 1)(20 - q_m^A) = q_m^A(21 - q_p^A)$$
+
+$$20q_p^A + 20 - q_m^A q_p^A - q_m^A = 21q_m^A - q_m^A q_p^A$$
+
+$$20q_p^A + 20 - q_m^A = 21q_m^A$$
+
+$$20q_p^A + 20 = 22q_m^A$$
+
+$$q_m^A = \frac{20q_p^A + 20}{22} = \frac{10q_p^A + 10}{11}$$
+
+### Passo 5: Encontrar Contrato de Troca
+
+A curva de contrato é dada por: $q_m^A = \frac{10q_p^A + 10}{11}$
+
+Com as restrições:
+
+* $1 \leq q_m^A \leq 18$ (pelo menos 1 maçã para A)
+* $1 \leq q_p^A \leq 20$ (pelo menos 1 pera para A)
+
+Vamos encontrar um ponto específico na curva de contrato. Para simplificar, vamos encontrar onde $q_m^A = q_p^A$:
+
+$$q_m^A = \frac{10q_m^A + 10}{11}$$
+
+$$11q_m^A = 10q_m^A + 10$$
+
+$$q_m^A = 10$$
+
+Portanto, $q_p^A = 10$
+
+Isso nos dá:
+
+* Consumidor A: $(q_m^A, q_p^A) = (10, 10)$
+* Consumidor B: $(q_m^B, q_p^B) = (9, 11)$
+
+### Passo 6: Verificar as Restrições
+
+* A: $10 \geq 1$ maçã, $10 \geq 1$ pera ✓
+* B: $9 \geq 1$ maçã, $11 \geq 1$ pera ✓
+
+### Passo 7: Calcular Utilidades
+
+**Utilidade inicial:**
+
+* $U_A^{inicial} = 18 \times 1 + 18 = 36$
+* $U_B^{inicial} = 1 \times 20 + 20 = 40$
+
+**Utilidade final:**
+
+* $U_A^{final} = 10 \times 10 + 10 = 110$
+* $U_B^{final} = 9 \times 11 + 11 = 110$
+
+Ambos os consumidores melhoraram sua situação!
+
+## 4. Exemplos Numéricos
+
+**Exemplo 1: Verificação da TMS na alocação eficiente**
+
+Para a alocação $(10, 10)$ para A e $(9, 11)$ para B:
+
+* $TMS_A = \frac{10 + 1}{10} = 1.1$
+* $TMS_B = \frac{11}{9 + 1} = 1.1$
+
+Como $TMS_A = TMS_B$, a alocação é eficiente de Pareto.
+
+**Exemplo 2: Outro ponto na curva de contrato**
+
+Se $q_p^A = 5$:
+
+* $q_m^A = \frac{10 \times 5 + 10}{11} = \frac{60}{11} \approx 5.45$
+* $q_m^B = 19 - 5.45 = 13.55$
+* $q_p^B = 21 - 5 = 16$
+
+Verificando TMS:
+
+* $TMS_A = \frac{5 + 1}{5.45} \approx 1.10$
+* $TMS_B = \frac{16}{13.55 + 1} \approx 1.10$
+
+## 5. Implementação em R
+
+```{r}
+#| eval: true
+#| echo: true
+#| code-fold: true
+#| message: false
+#| warning: false
+#| fig-width: 12
+#| fig-height: 8
+
+# Carregar bibliotecas necessárias
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(dplyr)
+  library(tidyr)
+  library(scales)
+  library(plotly)
+})
+
+# 1. Definir parâmetros iniciais
+dotal_A <- c(macas = 18, peras = 1)
+dotal_B <- c(macas = 1, peras = 20)
+total <- dotal_A + dotal_B
+
+# 2. Definir funções de utilidade
+utilidade_A <- function(q_m, q_p) {
+  q_m * q_p + q_m
+}
+
+utilidade_B <- function(q_m, q_p) {
+  q_m * q_p + q_p
+}
+
+# 3. Calcular utilidades iniciais
+U_A_inicial <- utilidade_A(dotal_A[1], dotal_A[2])
+U_B_inicial <- utilidade_B(dotal_B[1], dotal_B[2])
+
+# 4. Funções para taxas marginais de substituição
+TMS_A <- function(q_m, q_p) {
+  (q_p + 1) / q_m
+}
+
+TMS_B <- function(q_m, q_p) {
+  q_p / (q_m + 1)
+}
+
+# 5. Encontrar pontos na curva de contrato
+curva_contrato <- function(q_p_A) {
+  q_m_A <- (10 * q_p_A + 10) / 11
+  q_m_B <- total[1] - q_m_A
+  q_p_B <- total[2] - q_p_A
+  
+  # Verificar restrições
+  if (q_m_A >= 1 && q_m_B >= 1 && q_p_A >= 1 && q_p_B >= 1) {
+    return(data.frame(
+      q_m_A = q_m_A, q_p_A = q_p_A,
+      q_m_B = q_m_B, q_p_B = q_p_B,
+      U_A = utilidade_A(q_m_A, q_p_A),
+      U_B = utilidade_B(q_m_B, q_p_B),
+      TMS_A = TMS_A(q_m_A, q_p_A),
+      TMS_B = TMS_B(q_m_B, q_p_B)
+    ))
+  }
+  return(NULL)
+}
+
+# 6. Gerar curva de contrato
+q_p_A_seq <- seq(1, 20, by = 0.1)
+curva_completa <- purrr::map_dfr(q_p_A_seq, curva_contrato)
+
+# 7. Encontrar solução simétrica (onde U_A = U_B)
+if (!is.null(curva_completa)) {
+  diferenca <- abs(curva_completa$U_A - curva_completa$U_B)
+  indice_otimo <- which.min(diferenca)
+  solucao_otima <- curva_completa[indice_otimo, ]
+  
+  cat("Solução ótima (U_A ≈ U_B):\n")
+  cat("Consumidor A:", round(solucao_otima$q_m_A, 2), "maçãs,", round(solucao_otima$q_p_A, 2), "peras\n")
+  cat("Consumidor B:", round(solucao_otima$q_m_B, 2), "maçãs,", round(solucao_otima$q_p_B, 2), "peras\n")
+  cat("U_A =", round(solucao_otima$U_A, 2), "\n")
+  cat("U_B =", round(solucao_otima$U_B, 2), "\n")
+  cat("TMS_A =", round(solucao_otima$TMS_A, 4), "\n")
+  cat("TMS_B =", round(solucao_otima$TMS_B, 4), "\n\n")
+}
+
+# 8. Visualização da Caixa de Edgeworth
+if (!is.null(curva_completa)) {
+  # Criar gráfico da caixa de Edgeworth
+  grafico_edgeworth <- ggplot2::ggplot() +
+    # Curva de contrato
+    ggplot2::geom_line(
+      data = curva_completa,
+      ggplot2::aes(x = q_m_A, y = q_p_A),
+      color = "red", linewidth = 1.5, linetype = "dashed"
+    ) +
+    # Dotação inicial
+    ggplot2::geom_point(
+      data = data.frame(x = dotal_A[1], y = dotal_A[2]),
+      ggplot2::aes(x = x, y = y),
+      color = "blue", size = 5, shape = 16
+    ) +
+    # Solução ótima
+    ggplot2::geom_point(
+      data = solucao_otima,
+      ggplot2::aes(x = q_m_A, y = q_p_A),
+      color = "darkgreen", size = 6, shape = 17
+    ) +
+    # Limites da caixa - Eixos do Consumidor A (origem)
+    ggplot2::geom_vline(xintercept = 0, linewidth = 1.5, color = "black") +
+    ggplot2::geom_hline(yintercept = 0, linewidth = 1.5, color = "black") +
+    # Limites da caixa - Eixos do Consumidor B (invertido)
+    ggplot2::geom_vline(xintercept = total[1], linewidth = 1.5, color = "gray50", linetype = "dashed") +
+    ggplot2::geom_hline(yintercept = total[2], linewidth = 1.5, color = "gray50", linetype = "dashed") +
+    # Anotações - Dotação inicial
+    ggplot2::annotate(
+      "text", x = dotal_A[1] + 1, y = dotal_A[2] + 1,
+      label = "Dotação Inicial\nA(18,1), B(1,20)",
+      color = "blue", fontface = "bold", size = 3
+    ) +
+    # Anotações - Solução ótima
+    ggplot2::annotate(
+      "text", x = solucao_otima$q_m_A + 1, y = solucao_otima$q_p_A - 1,
+      label = paste("Solução Ótima\nA(", round(solucao_otima$q_m_A, 1), ",", 
+                   round(solucao_otima$q_p_A, 1), ")"),
+      color = "darkgreen", fontface = "bold", size = 3
+    ) +
+    # Anotações - Consumidor A (origem)
+    ggplot2::annotate(
+      "text", x = 0.5, y = 0.5,
+      label = "Origem A\n(0,0)",
+      color = "black", fontface = "bold", size = 3, hjust = 0
+    ) +
+    ggplot2::annotate(
+      "text", x = total[1]/2, y = -0.8,
+      label = "Eixo X: Maçãs do Consumidor A →",
+      color = "black", fontface = "italic", size = 3.5, hjust = 0.5
+    ) +
+    ggplot2::annotate(
+      "text", x = -0.8, y = total[2]/2,
+      label = "Eixo Y: Peras do Consumidor A ↑",
+      color = "black", fontface = "italic", size = 3.5, hjust = 0.5, angle = 90
+    ) +
+    # Anotações - Consumidor B (canto superior direito)
+    ggplot2::annotate(
+      "text", x = total[1] - 0.5, y = total[2] - 0.5,
+      label = "Origem B\n(0,0)",
+      color = "gray50", fontface = "bold", size = 3, hjust = 1
+    ) +
+    ggplot2::annotate(
+      "text", x = total[1]/2, y = total[2] + 0.8,
+      label = "← Eixo X: Maçãs do Consumidor B",
+      color = "gray50", fontface = "italic", size = 3.5, hjust = 0.5
+    ) +
+    ggplot2::annotate(
+      "text", x = total[1] + 0.8, y = total[2]/2,
+      label = "Eixo Y: Peras do Consumidor B ↓",
+      color = "gray50", fontface = "italic", size = 3.5, hjust = 0.5, angle = 90
+    ) +
+    # Anotações explicativas
+    ggplot2::annotate(
+      "text", x = total[1]/2, y = total[2] + 2.0,
+      label = "Caixa de Edgeworth: Consumidor A medido a partir da origem (0,0) | Consumidor B medido a partir do canto superior direito",
+      color = "darkblue", fontface = "bold", size = 4, hjust = 0.5
+    ) +
+    ggplot2::annotate(
+      "text", x = total[1]/2, y = total[2] + 2.8,
+      label = "Linhas sólidas: Eixos do Consumidor A | Linhas tracejadas: Eixos do Consumidor B",
+      color = "darkred", fontface = "italic", size = 3.5, hjust = 0.5
+    ) +
+    ggplot2::labs(
+      title = "Caixa de Edgeworth - Troca entre Consumidores A e B",
+      subtitle = "Curva de Contrato e Alocação Eficiente de Pareto\nConsumidor A: origem (0,0) | Consumidor B: origem invertida (19,21)",
+      x = "Maçãs do Consumidor A (←) / Maçãs do Consumidor B (→)",
+      y = "Peras do Consumidor A (↑) / Peras do Consumidor B (↓)"
+    ) +
+    ggplot2::scale_x_continuous(
+      limits = c(-2, total[1] + 2),
+      breaks = seq(0, total[1], by = 2),
+      sec.axis = ggplot2::dup_axis(
+        name = "Maçãs do Consumidor B",
+        labels = function(x) total[1] - x,
+        breaks = seq(0, total[1], by = 2)
+      )
+    ) +
+    ggplot2::scale_y_continuous(
+      limits = c(-2, total[2] + 3),
+      breaks = seq(0, total[2], by = 3),
+      sec.axis = ggplot2::dup_axis(
+        name = "Peras do Consumidor B",
+        labels = function(y) total[2] - y,
+        breaks = seq(0, total[2], by = 3)
+      )
+    ) +
+    ggplot2::theme_classic() +
+    ggplot2::theme(
+      plot.title = ggplot2::element_text(size = 16, face = "bold", hjust = 0.5),
+      plot.subtitle = ggplot2::element_text(size = 12, lineheight = 1.3, hjust = 0.5),
+      axis.title = ggplot2::element_text(size = 11),
+      axis.title.x.top = ggplot2::element_text(color = "gray50", size = 10),
+      axis.title.y.right = ggplot2::element_text(color = "gray50", angle = 90, size = 10),
+      axis.text = ggplot2::element_text(size = 9),
+      axis.text.x.top = ggplot2::element_text(color = "gray50", size = 9),
+      axis.text.y.right = ggplot2::element_text(color = "gray50", size = 9),
+      panel.background = ggplot2::element_rect(fill = "white", color = NA),
+      plot.background = ggplot2::element_rect(fill = "white", color = NA),
+      legend.position = "none"
+    )
+  
+  # Exibir o gráfico com dimensões maiores
+  print(grafico_edgeworth)
+}
+
+# 9. Análise de ganhos da troca
+if (!is.null(curva_completa)) {
+  # Calcular ganhos para diferentes pontos na curva
+  analise_ganhos <- curva_completa |>
+    dplyr::mutate(
+      ganho_A = U_A - U_A_inicial,
+      ganho_B = U_B - U_B_inicial,
+      ganho_total = ganho_A + ganho_B
+    ) |>
+    dplyr::filter(ganho_A > 0 & ganho_B > 0)
+  
+  cat("Análise de Ganhos da Troca:\n")
+  cat("Número de alocações mutuamente benéficas:", nrow(analise_ganhos), "\n")
+  cat("Ganho máximo para A:", round(max(analise_ganhos$ganho_A), 2), "\n")
+  cat("Ganho máximo para B:", round(max(analise_ganhos$ganho_B), 2), "\n")
+  cat("Ganho total máximo:", round(max(analise_ganhos$ganho_total), 2), "\n\n")
+  
+  # Tabela com algumas alocações representativas
+  amostras <- analise_ganhos |>
+    dplyr::slice(1, round(nrow(analise_ganhos)/4), round(nrow(analise_ganhos)/2), 
+                  round(3*nrow(analise_ganhos)/4), nrow(analise_ganhos))
+  
+  cat("Amostra de alocações eficientes:\n")
+  print(amostras |> dplyr::select(q_m_A, q_p_A, U_A, U_B, ganho_A, ganho_B))
+}
+```
+
+## 6. Análise Econômica
+
+### Interpretação dos Resultados
+
+**Solução encontrada:**
+
+* **Curva de Contrato:** $q_m^A = \frac{10q_p^A + 10}{11}$
+* **Alocação Eficiente (simétrica):** 
+  * Consumidor A: $(10, 10)$ maçãs e peras
+  * Consumidor B: $(9, 11)$ maçãs e peras
+* **Utilidades Finais:** $U_A = U_B = 110$
+
+### Ganhos da Troca
+
+**Comparação entre situação inicial e final:**
+
+| Consumidor | Utilidade Inicial | Utilidade Final | Ganho |
+|------------|-------------------|-----------------|-------|
+| A | 36 | 110 | +74 |
+| B | 40 | 110 | +70 |
+
+**Análise econômica:**
+
+* Ambos os consumidores experimentam ganhos significativos de utilidade
+* A troca voluntária permite alcançar uma alocação eficiente de Pareto
+* A igualdade das TMS na alocação final garante que não há mais oportunidades de troca mutuamente benéficas
+* O mercado, através da troca voluntária, consegue alocar recursos de forma mais eficiente que a dotação inicial
+
+### Implicações Teóricas
+
+1. **Eficiência de Pareto:** A solução encontrada está na curva de contrato, onde não é possível melhorar a situação de um consumidor sem piorar a do outro.
+
+2. **Primeiro Teorema do Bem-Estar:** Sob condições ideais (sem externalidades, informação perfeita), o equilíbrio competitivo seria eficiente de Pareto.
+
+3. **Diversidade de Preferências:** O exemplo mostra como diferentes preferências levam a ganhos da troca, mesmo quando as dotações iniciais são desiguais.
+
+A troca voluntária permite que ambos os consumidores atinjam uma situação mutuamente benéfica, demonstrando o poder dos mercados para alocar recursos eficientemente quando as preferências são diferentes.
+
+

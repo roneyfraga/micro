@@ -1,0 +1,155 @@
+---
+title: "Oferta Agregada `ex`"
+date: "`r Sys.time()`"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+## Equilíbrio de Longo Prazo em Mercado Competitivo
+
+Um setor industrial competitivo é composto por 200 firmas. Cada uma possui a seguinte função de custo de longo prazo:
+
+$$
+C(q) = q^3 - 30q^2 + 230q
+$$
+
+Assume-se que no longo prazo as firmas podem entrar e sair livremente do mercado.
+
+Queremos determinar:
+
+`1.` O preço de equilíbrio de longo prazo;
+
+`2.` A função de oferta de cada firma no longo prazo;
+
+`3.` A demanda agregada (quantidade total) no ponto de equilíbrio.
+
+### 1. Preço de equilíbrio de longo prazo
+
+No longo prazo, o preço de equilíbrio ocorre no **mínimo do custo total médio**, pois nesse ponto a firma obtém **lucro econômico zero**.
+
+#### a) Calculando o custo médio:
+
+A função de custo médio é:
+
+$$
+CTMe(q) = \frac{C(q)}{q} = \frac{q^3 - 30q^2 + 230q}{q} = q^2 - 30q + 230
+$$
+
+#### b) Encontrando o ponto de mínimo de $CTMe(q)$
+
+Derivamos o custo médio:
+
+$$
+\frac{d(CTMe)}{dq} = 2q - 30
+$$
+
+Igualamos a derivada a zero para encontrar o ponto de mínimo:
+
+$$
+2q - 30 = 0 \Rightarrow q = 15
+$$
+
+Substituímos na função $CTMe$ para obter o preço de equilíbrio:
+
+$$
+CTMe(15) = 15^2 - 30 \cdot 15 + 230 = 225 - 450 + 230 = \boxed{5}
+$$
+
+Logo, o preço de equilíbrio de longo prazo é:
+
+$$
+p^* = \boxed{5}
+$$
+
+#### Interpretação econômica:
+
+- A firma opera no ponto de mínimo custo total médio;
+- O preço de mercado cobre exatamente os custos médios da firma;
+- Nenhuma firma tem incentivo a entrar ou sair, pois o lucro econômico é nulo.
+
+### 2. Função de oferta da firma no longo prazo
+
+Vamos derivar a função de oferta de longo prazo com base nas condições de maximização de lucro e entrada/saída livre.
+
+#### Cálculo do custo marginal
+
+A função de custo total da firma é:
+
+$$
+C(q) = q^3 - 30q^2 + 230q
+$$
+
+Derivando em relação a $q$, obtemos o custo marginal:
+
+$$
+CMg(q) = \frac{dC(q)}{dq} = 3q^2 - 60q + 230
+$$
+
+Para determinar a curva de oferta, começamos a partir da condição de maximização de lucro:
+
+$$
+p = CMg(q)
+$$
+
+Portanto, temos:
+
+$$
+p = 3q^2 - 60q + 230
+$$
+
+#### Isolando $q$: curva de oferta de curto prazo
+
+Reorganizamos a equação:
+
+$$
+3q^2 - 60q + (230 - p) = 0
+$$
+
+Aplicando a fórmula de Bhaskara:
+
+$$
+q = \frac{60 \pm \sqrt{(-60)^2 - 4 \cdot 3 \cdot (230 - p)}}{2 \cdot 3} \\
+q = \frac{60 \pm \sqrt{3600 - 12(230 - p)}}{6}
+$$
+
+Simplificando:
+
+$$
+q = \frac{60 \pm \sqrt{3600 - 2760 + 12p}}{6} = \frac{60 \pm \sqrt{840 + 12p}}{6}
+$$
+
+A curva de oferta deve ser crescente em $p$, portanto **descartamos a solução com o sinal negativo**:
+
+$$
+\boxed{q(p) = \frac{60 + \sqrt{840 + 12p}}{6}}
+$$
+
+Se substituirmos $q$ por $S_i$, onde $S_i$ é a quantidade ofertada pela forma $i$, temos:
+
+$$
+\boxed{S_i(p) = \frac{60 + \sqrt{840 + 12p}}{6}}
+$$
+
+Ressaltamos que a equação acima é válida para preços de mercado maiores ou iguais a \$5. A função de oerferta agregada será:
+
+$$
+S_i(p) = \sum_{i=1}^{200} S_i(p) 
+$$
+
+Como todas as firmas  têm a mesma estrutura de custo (mesma função custo), podemos escrever:
+
+$$
+S_i(p) = 200 \left( \sum_{i=1}^{200} S_i(p) \right) = \frac{60 + \sqrt{840 + 12p}}{6}
+$$
+
+### A demanda agregada no ponto de equilíbrio
+
+Na condição de equilíbrio de longo prazo a demanda agregada é igual a oferta agregada, isto é, $D(q) = S_I(q)$. Além disso, sabemos que o preço é $p = 5$, logo:
+
+$$
+D( p = 5) = S_I(p = 5) = 200 \left( \frac{60 + \sqrt{840 + 12 \times} 5}{6} \right) = 3000 \text{ unidades}
+$$
+

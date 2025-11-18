@@ -1,0 +1,47 @@
+---
+title: "Regulação `cc`"
+date: "today"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+- @mattos2017
+
+<embed src="../notas-digitais/parte-5-mattos-2017-introducao.pdf" width="100%" height="650">
+
+- @stigler2017 
+
+<embed src="../notas-digitais/parte-5-stigler-1971.pdf" width="100%" height="650">
+
+- @posner2017
+
+<embed src="../notas-digitais/parte-5-posner-1974.pdf" width="100%" height="650">
+
+- @peltzman2017 
+
+<embed src="../notas-digitais/parte-5-peltzman-1989.pdf" width="100%" height="650">
+
+- @farina1997[capítulos 4]
+
+<embed src="../notas-digitais/parte-5-farina-1997-politica-industrial-antitruste.pdf" width="100%" height="650">
+
+- @tirole2020[capítulo 13]
+
+<embed src="../notas-digitais/parte-5-tirole-2019-politica-industrial-competicao.pdf" width="100%" height="650">
+
+- @tirole2020[capítulo 17]
+
+<embed src="../notas-digitais/parte-5-tirole-2019-regulacao-setorial.pdf" width="100%" height="650">
+
+<br>
+
+**Ramsey-Boiteux**
+
+## Referências
+
+::: {#refs}
+:::
+

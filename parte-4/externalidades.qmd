@@ -1,0 +1,21 @@
+
+# Externalidades `cc`
+
+<embed src="../notas-digitais/parte-4-externalidades.pdf" width="100%" height="650">
+
+<embed src="../notas-digitais/parte-4-tragedia-dos-comuns.pdf" width="100%" height="650">
+
+<embed src="../notas-digitais/parte-4-elinor-ostrom.pdf" width="100%" height="650">
+
+<!--
+
+Acessar notas de aula da pasta class
+
+Base para discussão, análise gráfica e matemática elementar
+
+https://www.youtube.com/watch?v=aalrk9uhCFc
+
+https://www.youtube.com/watch?v=V_H-gTIZrAE
+
+-->
+

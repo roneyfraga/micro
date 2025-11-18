@@ -1,0 +1,110 @@
+---
+title: "Maximização de Lucro `cc`"
+date: "`r Sys.time()`"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+## Introdução
+
+A firma maximiza lucro quando escolhe o nível de produção que maximiza a diferença entre receita total e custo total.
+
+## Lucro Econômico
+
+O **lucro econômico** é definido como:
+
+$$\pi = RT - CT = P \cdot Q - C(Q)$$
+
+onde:
+
+- $\pi$ = lucro
+- $RT$ = receita total
+- $CT$ = custo total
+- $P$ = preço do produto
+- $Q$ = quantidade produzida
+
+## Condição de Primeira Ordem
+
+Para maximizar o lucro, a firma deve produzir até o ponto onde a receita marginal iguala o custo marginal:
+
+$$RMg = CMg$$
+
+Em concorrência perfeita, onde a firma é tomadora de preços ($P$ é constante), temos:
+
+$$P = CMg$$
+
+## Condição de Segunda Ordem
+
+Para garantir que estamos em um ponto de máximo (e não de mínimo), é necessário que:
+
+$$\frac{d^2\pi}{dQ^2} < 0$$
+
+Isso implica que o custo marginal deve estar crescendo mais rapidamente que a receita marginal.
+
+## Curva de Oferta da Firma
+
+Em concorrência perfeita, a curva de oferta da firma no curto prazo é a porção da curva de custo marginal que está acima do custo variável médio mínimo.
+
+### Regra de Fechamento
+
+A firma deve produzir se:
+
+$$P \geq CVMe_{min}$$
+
+Se $P < CVMe_{min}$, a firma minimiza perdas fechando (produzindo $Q = 0$).
+
+## Maximização de Lucro no Longo Prazo
+
+No longo prazo, a firma pode ajustar todos os insumos. A condição de maximização de lucro continua sendo:
+
+$$P = CMg$$
+
+Mas agora a firma também pode entrar ou sair do mercado. No equilíbrio de longo prazo em concorrência perfeita:
+
+$$P = CMg = CTMe_{min}$$
+
+Isso implica que o lucro econômico é zero no longo prazo.
+
+## Oferta de Mercado
+
+A **curva de oferta de mercado** é a soma horizontal das curvas de oferta individuais de todas as firmas:
+
+$$Q^S = \sum_{i=1}^{n} q_i^S(P)$$
+
+## Elasticidade-Preço da Oferta
+
+A **elasticidade-preço da oferta** mede a sensibilidade da quantidade ofertada a variações no preço:
+
+$$\varepsilon_S = \frac{\%\Delta Q^S}{\%\Delta P} = \frac{dQ^S}{dP} \cdot \frac{P}{Q^S}$$
+
+## Maximização de Lucro com Múltiplos Insumos
+
+Quando a firma pode escolher as quantidades de múltiplos insumos, ela deve satisfazer:
+
+$$\frac{PMgL}{w} = \frac{PMgK}{r} = \frac{1}{CMg}$$
+
+Isso garante que o produto marginal por unidade monetária gasta seja igual para todos os insumos e igual ao inverso do custo marginal.
+
+## Função Lucro
+
+A **função lucro** mostra o lucro máximo como função dos preços:
+
+$$\pi^*(P, w, r) = \max_{Q,L,K} \{P \cdot Q - wL - rK\}$$
+
+sujeito à restrição tecnológica $Q = f(L,K)$.
+
+## Referências
+
+Ver @pindyck2013 [capítulo 8], @baidya2014 [capítulos 2-3], @perloff2022 [capítulo 8].
+
+---
+
+**Nota:** Este capítulo será expandido com mais detalhes teóricos e exemplos. Os exemplos computacionais estão disponíveis nos capítulos seguintes.
+
+## Referências
+
+::: {#refs}
+:::

@@ -1,0 +1,184 @@
+
+# Tecnologia da Informação `cc`
+
+<embed src="../notas-digitais/parte-4-externalidades-de-redes.pdf" width="100%" height="650">
+
+------------------------------------
+
+@varian2012 Capítulo 35 - Tecnologia da Informação
+
+<img src="../images/varian_microeconomia2.jpg" alt="" width="35%" height="35%"> 
+
+@shapiro2003 - A Economia da Informação
+
+<img src="../images/shapiro_varian_economia_informacao2.jpg" alt="" width="35%" height="35%"> 
+
+@nelson2005 - Uma teoria evolucionária da mundança econômica
+
+<img src="../images/nelson_winter_uma_teoria_evolucionaria.jpg" alt="" width="35%" height="35%"> 
+
+@hidalgo2015 - Why information grows
+
+<img src="../images/hidalgo_why_information_grows.jpg" alt="" width="35%" height="35%"> 
+
+<p style="margin-bottom:2cm;"></p>
+
+* * *
+
+@dathein2015, bases da microeconomia shumpeteriana.
+
+> A visão teórica de Schumpeter diverge de maneira fundamental da concepção neoclássica, em sua época, com seu foco na dinâmica endógena ao sistema econômico e no poder de mercado como meta e fonte das ações empresariais. 
+
+> o fator determinante do desenvolvimento (ou o que “dirige o crescimento”) não seria a acumulação de capital ou a “mecanização” (como aparece nas teorias clássica, marxista, neoclássica e keynesiana), mas as inovações, como um processo que provoca mudança qualitativa na economia. 
+
+>  microfundamentos das inovações (uma microeconomia evolucionária), com pressupostos de incerteza e de diferenciação da importância dessas inovações (incrementais ou radicais)
+
+> Nelson e Winter (1982, p. 303 e 396) afirmam que a teoria neoclássica é inadequada para a análise da mudança técnica e não fornece meios de conciliar as abordagens de crescimento com o nível microeconômico. 
+
+> O crescimento confere vantagens às firmas, o que facilita seu desempenho futuro (quanto maior seu tamanho, maior sua capacidade de apropriação dos retornos positivos de seus investimentos em P&D)
+
+> existem vantagens do pioneirismo
+
+> Esse processo tende a gerar concentração. No entanto, as inovações tendem a gerar monopólios apenas temporários, pois estes, ao produzirem maiores lucros, provocam um efeito de imitação e de difusão, o que tende a eliminar o lucro extraordinário com o aumento da concorrência.
+
+* * *
+
+@hidalgo2015
+
+- Do átomo ao bit
+
+- Diferença entre as exportações entre Chile e Coreia do Sul.
+
+- A capacidade de acumular e computar conhecimento é um ponto chave.
+
+- Ronald Coase  
+    - custo de transação e tamanho da sua rede.
+
+- Francis Fukuyama - o tamanho do custo de transação depende do nível de confiança entre os atores da rede.
+    - altos níveis de confianças permitem que sociedades construam produtos complexos
+        - acumulação de capital social
+
+- Rede de firmas 
+    - limite da firma `firmbit`
+    - redes de firmas com complexas e interrelacionadas relações
+
+- Outros aspectos do mundo do bit:
+    - alta capacidade de expansão com baixo custo de reprodução
+    - alto custo de aprendizado, que gera path dependency
+
+* * *
+
+@nelson2005
+
+[Ver aula 2 de Economia e Tecnologia.](https://roneyfraga.com/class/EcoTec/teoria-neo-schumpeteriana-e-evolucionista-1.html)
+
+* * * 
+
+__Monografia Externalidades de Redes__
+
+[Monografia Ana Carolina Godoy Rocha - 2022](https://ufmtbr-my.sharepoint.com/personal/roneyfraga_ufmt_br/Documents/Shared/textos_MicroIII/Rocha%20-%202022%20-%20Externalidades%20de%20rede.pdf)
+
+* * * 
+
+@varian2012
+
+@varian2012 apresenta uma formalização para exemplificar como a microeconomia tradicional pode ser eficiente para entender e modelar os novos desafios. 
+
+__35.1 Concorrência de sistemas__
+
+A tecnologia da informação frequentemente assume a forma de sistemas. Tais sistemas envolvem vários componentes, muitas vezes fornecidos por empresas diferentes, que somente têm valor se funcionarem em conjunto. 
+
+Hardware e software, servidores de web e browsers são exemplos. Esses componentes são complementares na geração de valor para o usuário final.
+
+__35.2 O problema dos complementos__
+
+Modelo de Cournot, Capítulo 27, @varian2012.
+
+O preço sistema total é $p_1 + p_2 = \frac{2a}{3b}$
+
+O preços que a empresa integrada fixará para o sistema é: $p = \frac{a}{2b}$
+
+> Observe o seguinte fato interessante: o preço maximizador de lucros fixado pela empresa integrada é menor do que aquele determinado pelas duas empresas independentes. Como o preço do sistema é menor, os consumidores comprarão maior quantidade de sistemas e ficarão em melhor situação. Além disso, o lucro da empresa integrada será maior do que a soma dos lucros de equilíbrio das duas empresas independentes. Todos fi caram em melhor situação com a coordenação da determinação de preços!
+
+> Isso é válido de modo geral; uma fusão de dois monopólios que produzem bens complementares resulta em preços menores e lucros mais altos do que se as duas empresas fixassem seus preços de modo independente.
+
+__35.3 Aprisionamento__
+
+Dado que os componentes da TI funcionam muitas vezes em conjunto como sistemas, a mudança de qualquer componente pode envolver a mudança em outros componentes. Isso significa que os custos de migração associados a um componente, nas atividades de TI, podem ser substanciais. 
+
+Quando os custos de migração são muito altos, os usuários podem se sentir aprisionados em uma situação em que os custos da mudança para um novo sistema é tão elevado que a mudança pode se tornar inconcebível.
+
+ver livro
+
+_Um modelo de concorrência com custos de migração_
+
+supondo um mercado concorrencial   
+c = custo de prestar serviços à internet para um cliente seja de c ao mês  
+p = c preço de prestação dos serviços de internet  
+s = custo para trocar de provedor de internet  
+d = desconto para trocar de provedor de internet, apenas no primeiro mês  
+
+quando um cliente tenta trocar de provedor ele tem que lidar com:
+p - d = preço com desconto para trocar de provedor   
+s custo de migração  
+
+r = taxa mensal de juros
+
+provedores com rendimentos via publicidade
+
+a = receita gerada pela publicidade
+
+
+__35.4 Externalidades de rede__
+
+ver livro
+
+
+__35.5 Mercados com externalidades de rede__
+
+mercado com 1000 pessoas  
+v = 1,...,1000 sendo v o preço reserva  
+p = preço do bem
+o preço do bem que acha que o bem vale pelo menos p será de 1000-p  
+se o preço for 200 haverá 800 pessoas dispostas a pagar pelo menos 200 pelo bem, 
+de modo que o número de unidades vendidas seria 800.
+
+$$
+p = v^hat n
+
+n = 1000 - v^hat
+
+p = n(1000-n)
+
+50(1000-50) => 47500
+
+950(1000-950) => 47500
+
+500(1000-500) => 250000
+$$
+
+se existem poucas pessoas na rede a propensão marginal a pagar é baixa, pq não existem pessoas para se conectar  
+se houver muitas pessoas, a propensão marginal a pagar da pessoa marginal também é baixa, pq todos os que valorizavam mais a conexão já se conectaram.
+
+__35.6 A dinâmica do mercado__
+
+ver livro
+
+__35.7 Implicações das externalidades de rede__
+
+exemplo da estratégia do Evernote para obter clientes
+
+__35.8 Mercados bilaterais__
+
+_Um modelo de mercado bilateral_
+
+__35.9 Gestão de direitos__
+
+__35.10 O compartilhamento da propriedade intelectual__
+
+
+## Referências
+
+::: {#refs}
+:::
+

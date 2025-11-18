@@ -1,0 +1,837 @@
+---
+title: "Maximização de Lucros com Função Cobb-Douglas `ex`"
+date: "`r Sys.time()`"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+
+format:
+  html:
+    toc: true
+    toc-location: right
+    prefer-html: true
+    fig-width: 8
+    fig-height: 4
+    code-fold: true
+    code-line-numbers: true
+    number-sections: true
+    theme: 
+      light: flatly
+      dark: darkly
+    appearance: auto  
+
+  docx:
+    toc: true
+    number-sections: true
+    highlight-style: github
+    reference-doc: template-ms-word.docx
+    prefer-html: true
+
+lang: pt
+---
+
+## Função de produção Cobb-Douglas
+
+Um processo produtivo usa como insumos básicos mão de obra (L) e energia (E). A função de produção que rege a produção final é dada por $q (L, E) = 10 L^\frac{1}{2} E^\frac{1}{3}$. O produto final pode ser vendido ao preço unitário de $\$2$. Considere que o custo unitário de mão de obra seja de $\$5$ por semana e o da energia, $\$3$ por semana. 
+
+- Determine:
+- `a)` Qual a quantidade do produto final produzida semanalmente se são consumidas 16 unidades de mão de obra e 8 unidades de energia?
+- `b)` Qual o lucro semanal que será obtido?
+- `c)` Em que quantidade a produção atinge o lucro máximo?
+
+### Organizando
+
+Um processo produtivo usa como insumos básicos **mão de obra** ($L$) e **energia** ($E$). A função de produção é:
+
+$$
+q(L, E) = 10 \cdot L^{1/2} \cdot E^{1/3}
+$$
+
+Os custos unitários são:
+
+- Mão de obra: \$5 por unidade por semana
+- Energia: \$3 por unidade por semana
+
+Sabendo que a empresa consome semanalmente:
+
+- $L = 16$ unidades de mão de obra
+- $E = 8$ unidades de energia
+
+Assuma que o preço de venda do produto final seja \$2 por unidade.
+
+### a) Quantidade Produzida Semanalmente
+
+Substituímos os valores na função de produção:
+
+$$
+q(16, 8) = 10 \cdot (16)^{1/2} \cdot (8)^{1/3}
+$$
+
+Sabemos que:
+
+- $\sqrt{16} = 4$
+- $8^{1/3} = 2$
+
+Portanto:
+
+$$
+q = 10 \cdot 4 \cdot 2 = \boxed{80}
+$$
+
+A produção semanal é de **80 unidades**.
+
+### b) Lucro Semanal
+
+**Receita Total** (RT):
+
+$$
+RT = p \cdot q = 2 \cdot 80 = 160
+$$
+
+**Custo Total** (CT):
+
+$$
+CT = 5 \cdot 16 + 3 \cdot 8 = 80 + 24 = 104
+$$
+
+**Lucro** ($\pi$):
+
+$$
+\pi = RT - CT = 160 - 104 = \boxed{56}
+$$
+
+**Resultado**
+
+- Quantidade produzida: 80 unidades  
+- Lucro semanal: \$56
+
+### c) Lucro Máximo (acessível)
+
+Um processo produtivo utiliza dois insumos: trabalho ($L$) e energia ($E$). A função de produção é:
+
+$$
+q(L, E) = 10 L^{1/2} E^{1/3}
+$$
+
+Os preços são:
+
+- Preço de venda do produto: $p = 2$
+- Custo da mão de obra: $w = 5$
+- Custo da energia: $c = 3$
+
+#### Objetivo
+
+Determinar as quantidades de $L$ e $E$ que **maximizam o lucro semanal**:
+
+$$
+\pi(L, E) = 2 \cdot q(L, E) - 5L - 3E
+$$
+
+#### Construção da função lucro
+
+Substituindo a função de produção na função lucro:
+
+$$
+\pi(L, E) = 2 \cdot 10 L^{1/2} E^{1/3} - 5L - 3E = 20 L^{1/2} E^{1/3} - 5L - 3E
+$$
+
+#### Derivadas de primeira ordem
+
+##### Parcial em relação a $L$:
+
+$$
+\frac{\partial \pi}{\partial L} = 20 \cdot \frac{1}{2} L^{-1/2} E^{1/3} - 5 = \boxed{10 L^{-1/2} E^{1/3} - 5}
+$$
+
+##### Parcial em relação a $E$:
+
+$$
+\frac{\partial \pi}{\partial E} = 20 \cdot \frac{1}{3} L^{1/2} E^{-2/3} - 3 = \boxed{\frac{20}{3} L^{1/2} E^{-2/3} - 3}
+$$
+
+#### Condições de otimalidade
+
+Igualamos as derivadas a zero:
+
+##### (1) Equação em $L$:
+
+\begin{align*}
+10 L^{-1/2} E^{1/3} - 5 &= 0 \\
+10 L^{-1/2} E^{1/3} &= 5 \\
+L^{-1/2} E^{1/3} &= \frac{1}{2} \\
+E^{1/3} &= \frac{1}{2} L^{1/2} \\
+E &= \left( \frac{1}{2} L^{1/2} \right)^3 \\
+E &= \frac{1}{8} L^{3/2}
+\end{align*}
+
+##### (2) Substituindo em $\partial \pi/\partial E$:
+
+\begin{align*}
+\frac{20}{3} L^{1/2} E^{-2/3} - 3 &= 0\\
+\frac{20}{3} L^{1/2} \left( \frac{1}{8} L^{3/2} \right)^{-2/3} - 3 &= 0 \\
+\frac{20}{3} L^{1/2} \left( \frac{1}{8} L^{3/2} \right)^{-2/3} &= 3
+\end{align*}
+
+Simplificando:
+
+$$
+\left( \frac{1}{8} L^{3/2} \right)^{-2/3} = 8^{2/3} \cdot L^{-1} = 4 \cdot L^{-1}
+$$
+
+Então:
+
+\begin{align*}
+\frac{20}{3} L^{1/2} \cdot 4 L^{-1} &= 3 \\
+\frac{80}{3} L^{-1/2} &= 3 \\
+L^{-1/2} &= \frac{9}{80} \\
+L^{1/2} &= \frac{80}{9} \\
+L &= \left( \frac{80}{9} \right)^2 = \frac{6400}{81} \approx 79{,}01
+\end{align*}
+
+
+#### Substituindo em $E$:
+
+\begin{align*}
+E &= \frac{1}{8} L^{3/2}  \\
+E &= \frac{1}{8} \left( \frac{80}{9} \right)^3 \\
+E &= \frac{1}{8} \cdot \frac{512000}{729} \\
+E &= \frac{64000}{729} \approx 87{,}78
+\end{align*}
+
+#### Quantidade produzida:
+
+\begin{align*}
+q &= 10 L^{1/2} E^{1/3} \\
+q &= 10 \cdot \frac{80}{9} \cdot \left( \frac{64000}{729} \right)^{1/3} \\
+q &= 10 \cdot \frac{80}{9} \cdot \frac{40}{9} \\
+q &= \frac{32000}{81} \approx 395{,}06
+\end{align*}
+
+#### Lucro máximo:
+
+\begin{align*}
+\pi &= 2q - 5L - 3E \\
+\pi &= 2 \cdot 395{,}06 - 5 \cdot 79{,}01 - 3 \cdot 87{,}78 \\
+\pi &= 790{,}12 - 395{,}06 - 263{,}34 \approx 131{,}72
+\end{align*}
+
+#### Conclusão
+
+- Quantidade ótima de trabalho: $L^* \approx 79{,}01$
+- Quantidade ótima de energia: $E^* \approx 87{,}78$
+- Quantidade produzida: $q^* \approx 395{,}06$
+- Lucro máximo: $\pi^* \approx 131{,}72$
+
+#### Observação sobre a matriz Hessiana
+
+Neste caso, **não foi necessário usar a matriz Hessiana**, pois:
+
+- A função objetivo é **concava** nas regiões relevantes,
+- A estrutura do problema permite encontrar o ponto crítico com as condições de primeira ordem,
+- O valor obtido pode ser testado diretamente para verificar que se trata de um máximo (verificando, por exemplo, que a derivada de segunda ordem de $\pi$ em relação a $L$ e $E$ é negativa).
+
+Se desejado, a Hessiana pode ser usada para formalizar a verificação do máximo global.
+
+### Gráfico
+
+::: {.content-visible when-format="html"}
+
+```{r}
+#| eval: true
+#| echo: true
+#| message: false
+#| warning: false
+#| fig-width: 8
+#| fig-height: 6
+
+# Carregar pacotes
+suppressPackageStartupMessages({
+  library(plotly)
+  library(htmlwidgets)
+})
+
+# Parâmetros
+L_seq <- seq(1, 150, length.out = 100)
+E_seq <- seq(1, 150, length.out = 100)
+
+# Grid de valores
+lucro_fn <- function(L, E) {
+  20 * sqrt(L) * E^(1/3) - 5 * L - 3 * E
+}
+
+# Criar matriz de lucro
+# outer = Product of Arrays
+lucro_mat <- outer(L_seq, E_seq, Vectorize(function(L, E) lucro_fn(L, E)))
+
+# Coordenadas do ponto ótimo
+L_max <- 79.01
+E_max <- 87.78
+lucro_max <- lucro_fn(L_max, E_max)
+
+# Gráfico com marcador
+p <- plot_ly(
+  x = ~L_seq,
+  y = ~E_seq,
+  z = ~lucro_mat,
+  type = "surface",
+  colorscale = "Viridis"
+) |>
+  add_markers(
+    x = ~L_max, y = ~E_max, z = ~lucro_max,
+    marker = list(size = 6, color = "red", symbol = "circle"),
+    name = "Lucro Máximo"
+  ) |>
+  layout(
+    title = "Função Lucro - Superfície 3D com Ponto Ótimo",
+    scene = list(
+      xaxis = list(title = "Trabalho (L)"),
+      yaxis = list(title = "Energia (E)"),
+      zaxis = list(title = "Lucro")
+    )
+  )
+
+# Salvar o widget para garantir dependências corretas
+htmlwidgets::saveWidget(p, "plotly_lucro.html", selfcontained = TRUE)
+
+# Exibir o gráfico
+p
+```
+:::
+
+::: {.content-visible when-format="pdf"}
+
+```{r}
+#| eval: false
+#| echo: true
+#| message: false
+#| warning: false
+
+suppressPackageStartupMessages(library(rgl))
+
+# Dados
+L_seq <- seq(1, 150, length.out = 100)
+E_seq <- seq(1, 150, length.out = 100)
+lucro_fn <- function(L, E) 20 * sqrt(L) * E^(1 / 3) - 5 * L - 3 * E
+lucro_mat <- outer(L_seq, E_seq, Vectorize(lucro_fn))
+
+# Ponto ótimo conhecido
+L_max <- 79.01
+E_max <- 87.78
+lucro_max <- lucro_fn(L_max, E_max)
+
+# Abrir janela com tamanho grande (em pixels)
+rgl::open3d(windowRect = c(0, 0, 1200, 950))  # x1, y1, x2, y2
+
+rgl::par3d(zoom = 1.4)
+
+# Superfície 3D
+rgl::persp3d(
+  x = L_seq, y = E_seq, z = lucro_mat,
+  col = "skyblue", xlab = "Trabalho (L)", ylab = "Energia (E)", zlab = "Lucro",
+  aspect = c(1, 1, 0.6)
+)
+
+# Marcar ponto ótimo
+rgl::points3d(L_max, E_max, lucro_max, col = "red", size = 10)
+
+# Texto afastado verticalmente e um pouco deslocado lateralmente
+rgl::text3d(
+  x = L_max + 10,
+  y = E_max + 10,
+  z = lucro_max + 40,  # distância maior acima do ponto
+  text = "Lucro Máximo",
+  color = "red",
+  cex = 1.2
+)
+
+# Criar diretório, se não existir
+if (!dir.exists("img")) dir.create("img")
+
+# Salvar como imagem PNG
+rgl::snapshot3d("img/grafico_lucro_3d.png")
+```
+
+![](img/grafico_lucro_3d.png){width=100%}
+
+:::
+
+#### Interpretação do gráfico 3D da função lucro
+
+O gráfico 3D da função lucro representa visualmente como o lucro da firma varia com diferentes combinações de insumos: trabalho ($L$) e energia ($E$).
+
+- **Eixo X (L)**: quantidade de trabalho utilizada  
+- **Eixo Y (E)**: quantidade de energia utilizada  
+- **Eixo Z (π)**: lucro obtido com essas combinações
+
+O gráfico mostra:
+
+- A superfície tem um **pico**, que representa o ponto onde o lucro é máximo.
+- Para valores baixos de $L$ e $E$, a produção é pequena e o lucro também.
+- Para valores muito altos de $L$ e $E$, o custo cresce mais que o produto marginal, fazendo o lucro cair.
+
+Intuição econômica:
+
+- A função de produção possui **retornos marginais decrescentes**, e os custos são lineares.
+- Há um ponto de equilíbrio onde o ganho gerado pela produção compensa exatamente os custos — esse é o ponto de **lucro máximo**.
+- Esse ponto ótimo aparece claramente como o topo da superfície no gráfico 3D, e também como o centro das curvas fechadas no gráfico de contorno.
+
+### c) Lucro Máximo (hessiana)
+
+::: {.callout-note collapse="true"}
+
+### Otimização na Microeconomia - Hessiana
+
+Na microeconomia, a **matriz Hessiana** é utilizada principalmente para **verificar a natureza de pontos críticos** (máximo, mínimo ou ponto de sela) em problemas de otimização com duas ou mais variáveis. Ela é **necessária** nos seguintes contextos:
+
+#### 1. Otimização sem restrições (lucro, utilidade, produção)
+
+Quando maximizamos ou minimizamos uma função multivariada — por exemplo:
+
+- Maximização de lucro:
+  $$
+  \pi(x, y) = R(x, y) - C(x, y)
+  $$
+- Maximização de utilidade:
+  $$
+  U(x, y)
+  $$
+- Minimização de custos de produção:
+  $$
+  C(L, K)
+  $$
+
+Usamos as **condições de primeira ordem** para encontrar candidatos a pontos ótimos:
+
+$$
+\frac{\partial f}{\partial x_i} = 0
+$$
+
+Mas isso **não garante** que o ponto seja um **máximo ou mínimo**.
+
+Aí entra a **matriz Hessiana**: ela permite **classificar** esses pontos.
+
+#### 2. Otimização com restrições (Lagrange)
+
+Em problemas como:
+
+- Maximizar utilidade $U(x, y)$ sujeito a $p_x x + p_y y = m$
+- Minimizar custo $C(L, K)$ sujeito a $q(L, K) = \bar{q}$
+
+O método dos **multiplicadores de Lagrange** gera um sistema de equações. Após resolvê-lo, a **segunda ordem** é usada (opcionalmente, mas recomendável) para **confirmar** que se trata de um máximo ou mínimo.
+
+Neste caso, usamos a **matriz hessiana da função Lagrangiana**, avaliada com restrição incorporada.
+
+#### Critério da matriz Hessiana (caso de duas variáveis)
+
+Seja $H$ a matriz das derivadas de segunda ordem da função $f(x, y)$:
+
+$$
+H =
+\begin{bmatrix}
+f_{xx} & f_{xy} \\
+f_{yx} & f_{yy}
+\end{bmatrix}
+$$
+
+Chamamos:
+
+- $D = \det(H) = f_{xx}f_{yy} - (f_{xy})^2$
+
+**Classificação do ponto crítico:**
+
+- Se $D > 0$ e $f_{xx} > 0$ → mínimo local  
+- Se $D > 0$ e $f_{xx} < 0$ → máximo local  
+- Se $D < 0$ → ponto de sela  
+- Se $D = 0$ → teste inconclusivo
+
+#### Exemplos típicos em microeconomia
+
+| Situação                               | Uso da Hessiana? | Por quê?                                           |
+|----------------------------------------|------------------|----------------------------------------------------|
+| Maximização de lucro com 2 insumos     | Sim           | Para verificar se é máximo ou mínimo              |
+| Minimização de custo com 2 variáveis   | Sim           | Confirmar se o ponto minimiza o custo             |
+| Escolha ótima do consumidor com 2 bens | Opcional       | Para confirmar que o ponto maximiza a utilidade   |
+| Análise de concavidade/convexidade     | Sim           | Determinar se a função é côncava ou convexa       |
+
+#### Exemplo Numérico de Hessiana
+
+Seja a função lucro:
+
+$$
+\pi(x, y) = 10x^{1/2}y^{1/2} - 4x - y
+$$
+
+##### Derivadas parciais (1ª ordem):
+
+$$
+\frac{\partial \pi}{\partial x} = 5 x^{-1/2} y^{1/2} - 4, \quad
+\frac{\partial \pi}{\partial y} = 5 x^{1/2} y^{-1/2} - 1
+$$
+
+Suponha o ponto $x = 1$, $y = 25$. Vamos verificar sua natureza.
+
+##### Derivadas segundas (2ª ordem):
+
+As **derivadas de segunda ordem** medem a curvatura da função em relação a cada variável:
+
+- $\pi_{xx}$: como a inclinação da função muda em relação a $x$
+- $\pi_{yy}$: como a inclinação muda em relação a $y$
+- $\pi_{xy}$: como a inclinação em $x$ muda quando variamos $y$, e vice-versa
+
+Cálculo:
+
+$$
+\pi_{xx} = \frac{\partial^2 \pi}{\partial x^2} = \frac{d}{dx} \left( 5 x^{-1/2} y^{1/2} \right) = -\frac{5}{2} x^{-3/2} y^{1/2}
+$$
+
+Multiplicando por $1/2$, temos:
+
+$$
+\pi_{xx} = -\frac{5}{4} x^{-3/2} y^{1/2}
+$$
+
+$$
+\pi_{yy} = \frac{\partial^2 \pi}{\partial y^2} = \frac{d}{dy} \left( 5 x^{1/2} y^{-1/2} \right) = -\frac{5}{2} x^{1/2} y^{-3/2} = -\frac{5}{4} x^{1/2} y^{-3/2}
+$$
+
+$$
+\pi_{xy} = \frac{\partial^2 \pi}{\partial x \partial y} = \frac{d}{dy} \left( 5 x^{-1/2} y^{1/2} \right) = \frac{5}{2} x^{-1/2} y^{-1/2}
+$$
+
+##### Avaliando no ponto $(x = 1, y = 25)$:
+
+- Pontos de exemplo.
+
+$$
+\pi_{xx} = -\frac{25}{4}, \quad
+\pi_{yy} = -\frac{1}{100}, \quad
+\pi_{xy} = \frac{1}{2}
+$$
+
+##### Matriz Hessiana:
+
+$$
+H =
+\begin{bmatrix}
+-25/4 & 1/2 \\
+1/2 & -1/100
+\end{bmatrix}
+$$
+
+##### Determinante:
+
+$$
+\det(H) = \left(-\frac{25}{4}\right)\left(-\frac{1}{100}\right) - \left(\frac{1}{2}\right)^2
+= \frac{25}{400} - \frac{1}{4} = -\frac{3}{16}
+$$
+
+##### Conclusão:
+
+Como $\det(H) < 0$, o ponto $(1, 25)$ é um **ponto de sela**.
+
+> Um ponto de sela é um conceito em cálculo multivariável e otimização, relacionado à análise da concavidade de funções em torno de um ponto crítico. Ele ocorre quando a matriz Hessiana (matriz de segundas derivadas) é indefinida, indicando que a função tem comportamentos diferentes em diferentes direções ao redor do ponto crítico.
+
+> Lembrando: um ponto de sela é um ponto crítico que não é máximo nem mínimo local, mas onde a função: a) Cresce em algumas direções, b) Decresce em outras direções.
+
+#### Interpretação Econômica
+
+Mesmo que um ponto satisfaça as condições de primeira ordem, ele **pode não representar um ótimo econômico**. A matriz Hessiana revela a curvatura local da função. Neste exemplo:
+
+- O ponto testado não é ótimo, pois há direções onde o lucro ainda pode aumentar.
+- A verificação da **segunda ordem** é essencial para garantir que o ponto obtido seja de **máximo ou mínimo** real.
+
+:::
+
+#### 1. Formulação da Função Lucro
+
+A função de lucro é dada por:
+
+$$
+\pi(L, E) = \text{Receita Total} - \text{Custo Total}
+$$
+
+A Receita Total (RT) é o preço do produto multiplicado pela quantidade produzida:
+
+$$
+RT = 2 \cdot q(L, E) = 2 \cdot 10 \cdot L^{1/2} \cdot E^{1/3} = 20 L^{1/2} E^{1/3}
+$$
+
+O Custo Total (CT) é:
+
+$$
+CT = 5L + 3E
+$$
+
+Logo, a função lucro é:
+
+$$
+\pi(L, E) = 20 L^{1/2} E^{1/3} - 5L - 3E
+$$
+
+#### 2. Maximização: Derivadas Parciais
+
+Para encontrar os valores que **maximizam** o lucro, usamos **cálculo diferencial**. Calculamos as derivadas parciais de $\pi(L, E)$ e igualamos a zero.
+
+##### Derivada parcial em relação a $L$:
+
+Aplicamos a regra da cadeia:
+
+\begin{align*}
+\frac{\partial \pi}{\partial L} &= 20 \cdot \frac{1}{2} L^{-1/2} E^{1/3} - 5 \\
+\frac{\partial \pi}{\partial L} &= 10 L^{-1/2} E^{1/3} - 5
+\tag{1}
+\end{align*}
+
+##### Derivada parcial em relação a $E$:
+
+\begin{align*}
+\frac{\partial \pi}{\partial E} &= 20 \cdot L^{1/2} \cdot \frac{1}{3} E^{-2/3} - 3 \\
+\frac{\partial \pi}{\partial E} &= \frac{20}{3} L^{1/2} E^{-2/3} - 3
+\tag{2}
+\end{align*}
+
+#### 3. Resolução do Sistema
+
+##### Etapa 1: Resolver a equação (1)
+
+\begin{align*}
+10 L^{-1/2} E^{1/3} &= 5 \\
+L^{-1/2} E^{1/3} &= \frac{1}{2}
+\end{align*}
+
+Multiplicamos ambos os lados por $L^{1/2}$:
+
+\begin{align*}
+E^{1/3} &= \frac{1}{2} L^{1/2} \\
+E &= \left( \frac{1}{2} L^{1/2} \right)^3  \\
+E &= \frac{1}{8} L^{3/2}
+\tag{3}
+\end{align*}
+
+##### Etapa 2: Substituir (3) na equação (2)
+
+Substituímos a equação (3) em (2):
+
+$$
+\frac{20}{3} \cdot L^{1/2} \cdot \left( \frac{1}{8} L^{3/2} \right)^{-2/3} = 3
+$$
+
+::: {.callout-tip collapse="false" icons=false}
+###### Dica
+
+- $L^{3/2}$ elevado a $-2/3$ é $L^{-1}$
+- $\left( \frac{1}{8} \right)^{-2/3} = 4$
+:::
+
+\begin{align*}
+\frac{20}{3} \cdot L^{1/2} \cdot 4 \cdot L^{-1} &= 3 \\
+\frac{80}{3} \cdot L^{-1/2} &= 3
+\end{align*}
+
+Multiplicando ambos os lados por 3:
+
+\begin{align*}
+80 \cdot L^{-1/2} &= 9 \\
+L^{-1/2} &= \frac{9}{80} \\
+L^{1/2} &= \frac{80}{9} \\
+L &= \left( \frac{80}{9} \right)^2 = \frac{6400}{81} \approx 79{,}01
+\end{align*}
+
+##### Etapa 3: Substituir $L$ em (3) para encontrar $E$
+
+\begin{align*}
+E &= \frac{1}{8} L^{3/2} \\
+E &= \frac{1}{8} \cdot \left( \frac{6400}{81} \right)^{3/2} \\
+E &= \frac{1}{8} \cdot \frac{512000}{729} \\
+E &= \frac{64000}{729} \approx 87{,}77
+\end{align*}
+
+#### 4. Resultado
+
+- Quantidade ótima de mão de obra:
+
+$$
+\boxed{L^* \approx 79{,}01}
+$$
+
+- Quantidade ótima de energia:
+
+$$
+\boxed{E^* \approx 87{,}77}
+$$
+
+#### 4. Verificação da Condição de Segunda Ordem
+
+Para verificar se o ponto crítico obtido é um **máximo**, analisamos a **matriz hessiana** da função lucro:
+
+$$
+\pi(L, E) = 20 L^{1/2} E^{1/3} - 5L - 3E
+$$
+
+A matriz hessiana $H$ contém as derivadas de segunda ordem:
+
+$$
+H = 
+\begin{bmatrix}
+\frac{\partial^2 \pi}{\partial L^2} & \frac{\partial^2 \pi}{\partial L \partial E} \\
+\frac{\partial^2 \pi}{\partial E \partial L} & \frac{\partial^2 \pi}{\partial E^2}
+\end{bmatrix}
+$$
+
+##### Cálculo das derivadas de segunda ordem
+
+###### 1. Segunda derivada em relação a $L$:
+
+$$
+\frac{\partial^2 \pi}{\partial L^2} = \frac{d}{dL} \left( 10 L^{-1/2} E^{1/3} \right) = -5 L^{-3/2} E^{1/3}
+$$
+
+###### 2. Segunda derivada em relação a $E$:
+
+$$
+\frac{\partial^2 \pi}{\partial E^2} = \frac{d}{dE} \left( \frac{20}{3} L^{1/2} E^{-2/3} \right) = -\frac{40}{9} L^{1/2} E^{-5/3}
+$$
+
+###### 3. Derivadas cruzadas:
+
+$$
+\frac{\partial^2 \pi}{\partial L \partial E} = \frac{d}{dE} \left( 10 L^{-1/2} E^{1/3} \right) = \frac{10}{3} L^{-1/2} E^{-2/3}
+$$
+
+$$
+\frac{\partial^2 \pi}{\partial E \partial L} = \frac{10}{3} L^{-1/2} E^{-2/3}
+$$
+
+##### Montando a matriz Hessiana
+
+$$
+H = 
+\begin{bmatrix}
+-5 L^{-3/2} E^{1/3} & \frac{10}{3} L^{-1/2} E^{-2/3} \\
+\frac{10}{3} L^{-1/2} E^{-2/3} & -\frac{40}{9} L^{1/2} E^{-5/3}
+\end{bmatrix}
+$$
+
+##### Condição de segunda ordem (determinante do hessiano)
+
+Se o determinante da matriz Hessiana for **positivo** e o elemento $H_{11} < 0$, temos um **máximo local**.
+
+Calculamos:
+
+- $A = -5 L^{-3/2} E^{1/3}$
+- $B = \frac{10}{3} L^{-1/2} E^{-2/3}$
+- $C = -\frac{40}{9} L^{1/2} E^{-5/3}$
+
+O determinante é:
+
+$$
+\det(H) = AC - B^2
+$$
+
+Substituindo os termos:
+
+$$
+\det(H) = \left(-5 L^{-3/2} E^{1/3}\right) \cdot \left(-\frac{40}{9} L^{1/2} E^{-5/3}\right) - \left( \frac{10}{3} L^{-1/2} E^{-2/3} \right)^2
+$$
+
+$$
+= \frac{200}{9} L^{-1} E^{-4/3} - \frac{100}{9} L^{-1} E^{-4/3} = \frac{100}{9} L^{-1} E^{-4/3}
+$$
+
+Como $L > 0$ e $E > 0$, o determinante é **positivo**.
+
+Além disso, $\frac{\partial^2 \pi}{\partial L^2} = -5 L^{-3/2} E^{1/3} < 0$, portanto:
+
+> **A condição de segunda ordem está satisfeita.**  
+> O ponto crítico encontrado é um **máximo local**, que neste caso também é **global** (pois a função lucro é concava em $L, E > 0$).
+
+#### 7. Conclusão
+
+- A firma maximiza seu lucro semanal utilizando:
+
+$$
+\boxed{L^* \approx 79{,}01} \quad \text{e} \quad \boxed{E^* \approx 87{,}77}
+$$
+
+- O ponto encontrado é **de máximo**, pois a matriz hessiana é **negativa definida**.
+
+#### 5. Interpretação Econômica
+
+A firma está escolhendo as quantidades de insumos **que maximizam a diferença entre receita e custo**. A condição de primeira ordem:
+
+$$
+\frac{\partial \pi}{\partial x} = 0
+$$
+
+significa que a firma está operando onde o **produto marginal de cada fator**, ponderado pelo preço de venda do bem, **é igual ao custo marginal do fator**:
+
+- Para $L$:  
+$$
+  \frac{2 \cdot \partial q / \partial L}{\partial C / \partial L} = 1
+  \Rightarrow \frac{VMgL}{w} = 1
+$$
+
+- Para $E$:  
+$$
+  \frac{2 \cdot \partial q / \partial E}{\partial C / \partial E} = 1
+  \Rightarrow \frac{VMgE}{r} = 1
+$$
+
+Isso implica que **não há como aumentar o lucro ao alterar L ou E marginalmente**, ou seja, a empresa **atingiu o ponto ótimo de produção**.
+
+
+#### 6. Cálculo do Lucro Máximo
+
+Agora que determinamos as quantidades ótimas de insumos:
+
+- $L^* \approx 79{,}01$
+- $E^* \approx 87{,}77$
+
+Vamos calcular o lucro máximo substituindo esses valores na função:
+
+$$
+\pi(L, E) = 20 \cdot L^{1/2} \cdot E^{1/3} - 5L - 3E
+$$
+
+##### Passo 1: Calcular a produção
+
+$$
+L^{1/2} = \sqrt{79{,}01} \approx 8{,}888
+$$
+$$
+E^{1/3} = \sqrt[3]{87{,}77} \approx 4{,}446
+$$
+
+$$
+q = 10 \cdot 8{,}888 \cdot 4{,}446 \approx 394{,}76 \quad \text{(unidades produzidas)}
+$$
+
+##### Passo 2: Receita total
+
+$$
+RT = 2 \cdot q = 2 \cdot 394{,}76 = 789{,}52
+$$
+
+##### Passo 3: Custo total
+
+$$
+CT = 5 \cdot 79{,}01 + 3 \cdot 87{,}77 = 395{,}05 + 263{,}31 = 658{,}36
+$$
+
+##### Passo 4: Lucro máximo
+
+$$
+\pi = RT - CT = 789{,}52 - 658{,}36 = \boxed{131{,}16}
+$$
+
+#### Conclusão Final
+
+- **Quantidade ótima de mão de obra:** $L^* \approx 79{,}01$
+- **Quantidade ótima de energia:** $E^* \approx 87{,}77$
+- **Produção máxima:** $q \approx 394{,}76$ unidades
+- **Lucro máximo semanal:** $\boxed{\$131{,}16}$
+
+Esses valores refletem o ponto onde a firma maximiza seu lucro, dado o preço de venda do produto e os custos dos insumos. A concavidade da função lucro garante que este é um ponto de máximo global.
+

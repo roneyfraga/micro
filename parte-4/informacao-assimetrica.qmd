@@ -1,0 +1,74 @@
+
+# Informação Assimétrica `cc`
+
+<embed src="../notas-digitais/parte-4-assimetria_informacao.pdf" width="100%" height="650">
+
+------------------------------------
+
+<!--
+Exemplo linear
+
+Exemplo intermediário (curso completo)
+https://www.youtube.com/watch?v=--2rIfULsYc&t=513s
+
+Explicação do Varian
+-->
+
+<!-- <embed src="notes/assimetria_informacao.pdf" width="100%" height="650"> -->
+
+```{r }
+#| eval: true
+#| echo: true
+
+options(scipen = 999)
+
+# seguro saúde
+# 100 alunos
+# 90 saudáveis => 10% gastam 10000; 90% gastam 0 => gasto por pessoa => 1000
+# 10 doentes => 50% gastam 10000; 50% gastam 0 => gasto por pessoa => 5000
+
+custo_saudavel_por_pessoa = 1000
+custo_doente_por_pessoa = 5000
+
+# desconsiderando a falha de mercado
+custo_esperado = (0.9 * 1000) + (0.1 * 5000)
+# 1400
+
+# ------
+# cenário 1
+preco_1 = 1500
+pessoas_saudaveis_1 = 50
+pessoas_doentes_1 = 10
+
+# receita
+receita_1 = (preco_1 * pessoas_saudaveis_1) + (preco_1 * pessoas_doentes_1)
+# 90000
+
+# custo
+custo_1 = (custo_saudavel_por_pessoa * pessoas_saudaveis_1) + (custo_doente_por_pessoa * pessoas_doentes_1)
+# 100000
+
+# prejuízo
+prejuizo_1 = receita_1 - custo_1
+# -10000
+
+# ------
+# cenário 2
+preco_2 = 2000
+pessoas_saudaveis_2 = 20
+pessoas_doentes_2 = 10
+
+# receita
+receita_2 = (preco_2 * pessoas_saudaveis_2) + (preco_2 * pessoas_doentes_2)
+# 60000
+
+# custo
+custo_2 = (custo_saudavel_por_pessoa * pessoas_saudaveis_2) + (custo_doente_por_pessoa * pessoas_doentes_2)
+# 70000
+
+# prejuízo
+prejuizo_2 = receita_1 - custo_1
+# -10000
+```
+
+

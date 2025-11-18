@@ -1,0 +1,83 @@
+---
+title: "Produtividade Total dos Fatores `ex`"
+date: "`r Sys.time()`"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+## Introdução
+
+A **Produtividade Total dos Fatores (PTF)** representa a eficiência com que capital e trabalho são utilizados para produzir bens e serviços. É um componente crucial para entender o crescimento econômico sustentável de longo prazo. `Ver Macroeconomia III`
+
+Esta análise utiliza os dados da **Penn World Table 10.0 (PWT)** <https://www.rug.nl/ggdc/productivity/pwt/>.
+
+Carregamos os dados diretamente do arquivo Excel `pwt1001.xlsx`, filtrando os países de interesse e selecionando a variável `ctfp`, que representa a PTF ajustada por capital humano.
+
+```{r}
+#| eval: true
+#| echo: true
+#| output: true
+#| code-fold: show
+#| warning: false
+#| error: false
+#| include: true
+
+suppressPackageStartupMessages({
+  library(readxl)
+  library(dplyr)
+  library(ggplot2)
+})
+
+# Ler o arquivo Excel
+pwt <- read_excel("pwt1001.xlsx", sheet = 'Data')
+
+# Selecionar países e variáveis de interesse
+paises <- c("Brazil", "United States", "China", "Germany", "India", "Republic of Korea")
+
+pwt |>
+  filter(country %in% paises) |>
+  select(country, year, ctfp) ->
+  pwt_df
+```
+
+## Evolução da Produtividade Total dos Fatores
+
+Visualizamos a trajetória da PTF ao longo do tempo para os países selecionados.
+
+```{r}
+#| eval: true
+#| echo: true
+#| output: true
+#| code-fold: show
+#| warning: false
+#| error: false
+#| include: true
+
+ggplot(pwt_df, aes(x = year, y = ctfp, color = country, shape = country)) +
+  geom_line(linewidth = 1, na.rm = TRUE) +
+  geom_point() +
+  theme_minimal() +
+  labs(
+    title = "Evolução da Produtividade Total dos Fatores (PTF)",
+    y = "Índice de PTF (ajustada por capital humano)",
+    x = "Ano",
+    color = "País",
+    shape = "País"
+  ) +
+  theme(legend.position = "bottom") +
+  guides(color = guide_legend(title = "País"), shape = guide_legend(title = "País"))
+```
+
+Países como **China** e **Coreia do Sul** apresentam forte crescimento da PTF, refletindo avanços tecnológicos e reformas estruturais. O **Brasil**, por outro lado, mostra estagnação ou declínio desde meados dos anos 2010.
+
+## Análises
+
+- A PTF é um motor essencial do crescimento de longo prazo.
+- Países como **China** e **Coreia do Sul** obtiveram ganhos substanciais em eficiência produtiva nas últimas décadas.
+- O **Brasil** enfrenta estagnação da PTF, sinalizando limitações institucionais, baixo investimento em inovação e má alocação de recursos.
+- Análises econométricas indicam a possibilidade de **convergência parcial**, embora condicionada a fatores institucionais e de capital humano.
+
+

@@ -1,0 +1,282 @@
+---
+title: "Custos e Função de Produção Não Linear `ex`"
+date: "`r Sys.time()`"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+## Função de Produção Não Linear
+
+Uma **função de produção não linear** descreve uma relação entre insumos e produto na qual os acréscimos sucessivos de um fator produtivo resultam em **retornos marginais decrescentes**. Isso é típico em contextos com apenas um insumo variável no curto prazo, mantendo os demais fixos.
+
+Neste documento, usamos a seguinte função de produção:
+
+$$
+Q(L) = 10 \cdot \sqrt{L}
+$$
+
+ou
+
+$$
+Q(L) = 10 L ^ \frac{1}{2}
+$$
+
+- Com:
+  - $Q$: quantidade produzida  
+  - $L$: quantidade de trabalho  
+  - $\sqrt{L}$ ou $L^\frac{1}{2}$: captura os retornos decrescentes do trabalho  
+  - Capital é fixo no curto prazo  
+
+## Suposições do Exemplo
+
+- Salário por unidade de trabalho: `r w <- 25`
+- Custo fixo total (capital): `r CF <- 100`
+- Quantidades de trabalho: $L = 1$ a $10$
+
+## Cálculos
+
+```{r}
+#| eval: true
+#| echo: true
+#| output: true
+#| code-fold: show
+#| warning: false
+#| message: false
+#| error: false
+#| include: true
+
+suppressPackageStartupMessages({
+  library(tidyverse)
+  library(gt)
+})
+
+w <- 25
+CF <- 100
+L <- 1:10
+
+# 10 * sqrt(L)
+# 10 * (L ^ (1 / 2))
+
+tibble(L) |>
+  mutate(
+    Q = 10 * sqrt(L),
+    # Q = 10 * (L ^ (1 / 2)),
+    CV = w * L,
+    CT = CF + CV,
+    CF = CF,
+    CFMe = CF / Q,
+    CVMe = CV / Q,
+    CTMe = CT / Q,
+    CMg = c(NA, diff(CT) / diff(Q))
+  ) ->
+  df
+```
+
+Tabela de custos
+
+```{r}
+#| eval: true
+#| echo: true
+#| output: true
+#| code-fold: show
+#| warning: false
+#| message: false
+#| error: false
+#| include: true
+
+df |>
+  mutate(across(c(CFMe, CVMe, CTMe, CMg), ~round(.x, 2))) |>
+  gt()
+```
+
+Gráfico de Custos Totais
+
+```{r}
+#| eval: true
+#| echo: true
+#| output: true
+#| code-fold: show
+#| warning: false
+#| error: false
+#| include: true
+
+df |>
+  select(Q, CF, CV, CT) |>
+  pivot_longer(cols = -Q, names_to = "Tipo", values_to = "Custo") |>
+  ggplot(aes(x = Q, y = Custo, color = Tipo)) +
+  geom_line(linewidth = 1.2) +
+  geom_point() +
+  labs(title = "Custos Totais vs Produção", x = "Quantidade (Q)", y = "Custo") +
+  theme_minimal()
+```
+
+Gráfico de Custos Médios e Marginal
+
+```{r}
+#| eval: true
+#| echo: true
+#| output: true
+#| code-fold: show
+#| warning: false
+#| message: false
+#| error: false
+#| include: true
+
+df |>
+  select(Q, CFMe, CVMe, CTMe, CMg) |>
+  pivot_longer(cols = -Q, names_to = "Tipo", values_to = "Valor") |>
+  ggplot(aes(x = Q, y = Valor, color = Tipo)) +
+  geom_line(linewidth = 1.2, na.rm = TRUE) +
+  geom_point(na.rm = TRUE) +
+  labs(title = "Custos Médios e Marginal vs Produção", x = "Quantidade (Q)", y = "Custo por unidade") +
+  theme_minimal()
+```
+
+## Análise Microeconômica do Exemplo
+
+Este exemplo de função de produção não linear permite extrair diversas lições fundamentais da teoria da firma no curto prazo.
+
+### 1. Retornos marginais decrescentes
+
+A função de produção é:
+
+$$
+Q(L) = 10 \cdot \sqrt{L}
+$$
+
+A produtividade marginal do trabalho é:
+
+$$
+\frac{dQ}{dL} = \frac{5}{\sqrt{L}}
+$$
+
+ou
+$$
+\frac{dQ}{dL} = \frac{5}{L^\frac{1}{2}}
+$$
+
+
+
+
+Ou seja, cada unidade adicional de trabalho gera menos produto adicional do que a anterior. Isso ilustra o **princípio dos rendimentos marginais decrescentes**, central na teoria da produção de curto prazo.
+
+::: {.callout-note collapse="true"}
+
+## Explicação
+
+- Derivada da Função de Produção: Passo a Passo
+
+Considere a seguinte **função de produção não linear**:
+
+$$
+Q(L) = 10 \cdot \sqrt{L}
+$$
+
+Sabemos que:
+
+$$
+\sqrt{L} = L^{1/2}
+$$
+
+Portanto, a função pode ser reescrita como:
+
+$$
+Q(L) = 10 \cdot L^{1/2}
+$$
+
+- Regra de Derivação
+
+Para uma função da forma:
+
+$$
+f(L) = a \cdot L^n
+$$
+
+A regra da potência nos dá:
+
+$$
+\frac{d}{dL} \left( a \cdot L^n \right) = a \cdot n \cdot L^{n - 1}
+$$
+
+- Aplicando à função de produção
+
+Na nossa função:
+
+- $ a = 10 $
+- $ n = \frac{1}{2} $
+
+Logo:
+
+$$
+\frac{dQ}{dL} = 10 \cdot \frac{1}{2} \cdot L^{-1/2}
+$$
+
+**Simplificando**
+
+$$
+\frac{dQ}{dL} = 5 \cdot L^{-1/2}
+$$
+
+Sabemos que:
+
+$$
+L^{-1/2} = \frac{1}{\sqrt{L}}
+$$
+
+Portanto:
+
+$$
+\frac{dQ}{dL} = \frac{5}{\sqrt{L}}
+$$
+:::
+
+### Interpretação Econômica
+
+Essa derivada representa o **produto marginal do trabalho**: a variação da produção $Q$ gerada por uma variação infinitesimal na quantidade de trabalho $L$, mantendo o capital fixo.
+
+Como $\frac{5}{\sqrt{L}}$ **diminui com o aumento de $L$**, temos um caso típico de **retornos marginais decrescentes**, como previsto pela teoria da firma no curto prazo.
+
+### 2. Custo marginal crescente
+
+Como o produto marginal decresce, o **custo marginal** aumenta. Ele é dado por:
+
+$$
+CMg = \frac{\Delta CT}{\Delta Q}
+$$
+
+Cada unidade adicional de produto exige mais insumo, resultando em um custo marginal crescente. Isso é visível no gráfico, com a curva de custo marginal inclinada positivamente.
+
+### 3. Custos médios em formato de “U”
+
+Os custos médios têm comportamento típico:
+
+- **Custo fixo médio (CFMe)**: sempre decrescente, pois o custo fixo é dividido por quantidades crescentes.
+- **Custo variável médio (CVMe)** e **Custo total médio (CTMe)**: inicialmente decrescentes, atingem um mínimo e depois crescem.
+
+Este comportamento resulta da interação entre a diluição do custo fixo e o aumento do custo marginal.
+
+### 4. Cruzamento do custo marginal com os custos médios
+
+O **custo marginal (CMg)** cruza o **custo médio total (CTMe)** e o **custo variável médio (CVMe)** nos seus respectivos pontos mínimos. Isso é uma propriedade matemática central:
+
+- Quando $CMg < CTMe$, então $CTMe$ está diminuindo.
+- Quando $CMg > CTMe$, então $CTMe$ está aumentando.
+
+Portanto, o ponto de cruzamento indica o valor mínimo dos custos médios.
+
+### 5. Implicações para decisões da firma
+
+O exemplo permite discutir decisões típicas de uma firma no curto prazo:
+
+- A firma maximiza o lucro quando $P = CMg$, ou seja, o preço se iguala ao custo marginal.
+- O ponto de mínimo do $CTMe$ pode indicar a **escala eficiente de produção**.
+- A análise permite discutir o ponto de encerramento da firma no curto prazo, quando o preço não cobre o custo variável médio.
+
+### 6. Curto prazo e estrutura de custos
+Como o capital é fixo, estamos no **curto prazo**. A presença de custo fixo ($CF$) e o comportamento dos custos refletem as restrições técnicas enfrentadas pela firma.
+
+No **longo prazo**, todos os fatores são variáveis, não há custo fixo, e a forma das curvas de custo pode ser diferente.
+

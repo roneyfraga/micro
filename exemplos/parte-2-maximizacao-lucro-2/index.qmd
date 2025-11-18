@@ -1,0 +1,593 @@
+---
+title: "Maximização de Lucro `ex2`"
+date: "`r Sys.time()`"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+## Problema econômico 1
+
+Uma firma tomadora de preços conhece o comportamento de seus custos, descritos pela função:
+
+$$
+C(q) = q^3 - 6q^2 + 25q + 100
+$$
+
+Determine:
+
+`a)` O custo marginal.
+
+`b)` O nivel ótimo de produção de o preço de mercado que o empresário vende de seu produto é $19,75.
+
+`c)` O custo variável médio no pronto ótimo.
+
+`d)` O custo total médio no pronto ótimo.
+
+`e)` O custo fixo médio no ponto ótimo.
+
+## Respostas
+
+### a) Custo Marginal
+
+O **custo marginal (CMg)** representa o custo adicional para produzir uma unidade extra do bem. Ele é obtido derivando a função de custo total em relação à quantidade $q$:
+
+$$
+CMg(q) = \frac{dC}{dq} = 3q^2 - 12q + 25
+$$
+
+::: {.callout-note collapse="true" appearance="default" icons=false}
+
+## Entenda o Custo Marginal
+
+O **custo marginal** representa o custo adicional de produzir uma unidade extra do bem. É obtido pela **derivada da função de custo total**:
+
+$$
+CMg(q) = \frac{dC}{dq}
+$$
+
+Aplicando a regra da potência:
+
+- $\frac{d}{dq}(q^3) = 3q^2$
+- $\frac{d}{dq}(-6q^2) = -12q$
+- $\frac{d}{dq}(25q) = 25$
+- $\frac{d}{dq}(100) = 0$
+
+Portanto, a função custo marginal é:
+
+$$
+CMg(q) = 3q^2 - 12q + 25
+$$
+
+**Derivada do Custo Marginal**
+
+A derivada do custo marginal nos mostra **como o custo marginal varia** conforme a produção muda. Isso corresponde à **segunda derivada da função custo total**:
+
+$$
+CMg'(q) = \frac{d^2C}{dq^2}
+$$
+
+Calculando:
+
+- $\frac{d}{dq}(3q^2) = 6q$
+- $\frac{d}{dq}(-12q) = -12$
+- $\frac{d}{dq}$
+
+Portanto, a função custo marginal é:
+
+$$
+CMg(q) = 3q^2 - 12q + 25
+$$
+
+A **Derivada do Custo Marginal** mostra **como o custo marginal varia** conforme a produção muda. Isso corresponde à **segunda derivada da função custo total**:
+
+$$
+CMg'(q) = \frac{d^2C}{dq^2}
+$$
+
+Calculando:
+
+- $\frac{d}{dq}(3q^2) = 6q$
+- $\frac{d}{dq}(-12q) = -12$
+- $\frac{d}{dq}(25) = 0$
+
+Logo:
+
+$$
+CMg'(q) = 6q - 12
+$$
+
+**Interpretação Econômica**
+
+- Se $CMg'(q) > 0$: o custo marginal está **crescendo**. Isso significa que produzir unidades adicionais é cada vez mais caro.
+- Se $CMg'(q) < 0$: o custo marginal está **diminuindo**, indicando ganhos marginais de escala.
+- Se $CMg'(q) = 0$: o custo marginal atinge um **ponto de inflexão** (mínimo ou máximo local).
+
+Na análise de maximização de lucro, essa derivada é usada para verificar se a solução $p = CMg(q)$ representa um **máximo**:
+
+- Se $CMg'(q^*) > 0$, estamos em uma região de **crescimento dos custos marginais**, o que garante a concavidade adequada da função lucro para um máximo local.
+:::
+
+### b) Nível ótimo de produção
+
+A firma maximizadora de lucro escolhe a quantidade que iguala o **preço** (receita marginal) ao **custo marginal**:
+
+$$
+p = CMg(q) \Rightarrow 19{,}75 = 3q^2 - 12q + 25
+$$
+
+Subtraindo 19,75 de ambos os lados:
+
+$$
+3q^2 - 12q + 5{,}25 = 0
+$$
+
+Dividindo por 3:
+
+$$
+q^2 - 4q + 1{,}75 = 0
+$$
+
+Usamos a fórmula de Bhaskara:
+
+$$
+q = \frac{4 \pm \sqrt{(-4)^2 - 4 \cdot 1 \cdot 1{,}75}}{2 \cdot 1} 
+= \frac{4 \pm \sqrt{16 - 7}}{2}
+= \frac{4 \pm \sqrt{9}}{2}
+= \frac{4 \pm 3}{2}
+$$
+
+$$
+\Rightarrow
+\begin{cases}
+q_1 = \frac{4 - 3}{2} = 0{,}5 \\
+q_2 = \frac{4 + 3}{2} = 3{,}5
+\end{cases}
+$$
+
+Para identificar qual é o **máximo local**, aplicamos a segunda derivada:
+
+$$
+CMg'(q) = \frac{d^2C}{dq^2} = 6q - 12
+$$
+
+Avaliando em $q = 0{,}5$:
+
+$$
+6(0{,}5) - 12 = -9 < 0 \Rightarrow \text{máximo local}
+$$
+
+Avaliando em $q = 3{,}5$:
+
+$$
+6(3{,}5) - 12 = 9 > 0 \Rightarrow \text{mínimo local}
+$$
+
+Como buscamos **maximização de lucro**, escolhemos:
+
+$$
+q^* = 3{,}5
+$$
+
+### c) Custo Variável Médio no ponto ótimo
+
+A função de **custo variável (CV)** é a parte do custo total que depende da produção, ou seja:
+
+$$
+CV(q) = C(q) - CF = q^3 - 6q^2 + 25q
+$$
+
+O **custo variável médio (CVMe)** é:
+
+$$
+CVMe(q) = \frac{CV(q)}{q} = \frac{q^3 - 6q^2 + 25q}{q} = q^2 - 6q + 25
+$$
+
+Substituindo $q = 3{,}5$:
+
+$$
+CVMe(3{,}5) = (3{,}5)^2 - 6(3{,}5) + 25 = 12{,}25 - 21 + 25 = 16{,}25
+$$
+
+### d) Custo Total Médio no ponto ótimo
+
+O **custo total médio (CTMe)** é dado por:
+
+$$
+CTMe(q) = \frac{C(q)}{q}
+$$
+
+Calculamos o custo total no ponto $q = 3{,}5$:
+
+$$
+C(3{,}5) = (3{,}5)^3 - 6(3{,}5)^2 + 25(3{,}5) + 100
+$$
+
+$$
+= 42{,}875 - 73{,}5 + 87{,}5 + 100 = 156{,}875
+$$
+
+$$
+CTMe = \frac{156{,}875}{3{,}5} = 44{,}82
+$$
+
+### e) Custo Fixo Médio no ponto ótimo
+
+O **custo fixo** é a parte do custo que não depende de $q$, ou seja:
+
+$$
+CF = 100
+$$
+
+O **custo fixo médio (CFMe)** é:
+
+$$
+CFMe(q) = \frac{CF}{q} = \frac{100}{3{,}5} = 28{,}57
+$$
+
+### Resumo dos Resultados
+
+- `a)` $CMg(q) = 3q^2 - 12q + 25$
+- `b)` Quantidade ótima: $q^* = 3{,}5$
+- `c)` $CVMe(3{,}5) = 16{,}25$
+- `d)` $CTMe(3{,}5) = 44{,}82$
+- `e)` $CFMe(3{,}5) = 28{,}57$
+
+### Gráficos das Funções de Custo e Suas Derivadas
+
+```{r}
+#| message: false
+#| warning: false
+#| fig-width: 8
+#| fig-height: 6
+
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(dplyr)
+})
+
+# Domínio de produção
+q <- seq(0.5, 8, by = 0.1)
+
+# Funções
+C <- function(q) q^3 - 6 * q^2 + 25 * q + 100
+CV <- function(q) q^3 - 6 * q^2 + 25 * q
+CMg <- function(q) 3 * q^2 - 12 * q + 25
+CTMe <- function(q) C(q) / q
+CVMe <- function(q) CV(q) / q
+RMg <- function(q) 19.75  # preço constante
+
+# Data frame longo para ggplot
+df <- tibble(
+  q = q,
+  `Custo Marginal` = CMg(q),
+  `Custo Total Médio` = CTMe(q),
+  `Custo Variável Médio` = CVMe(q),
+  `Receita Marginal` = RMg(q)
+) |>
+  tidyr::pivot_longer(-q, names_to = "Curva", values_to = "valor")
+
+# Gráfico com todas as curvas
+ggplot(df, aes(x = q, y = valor, color = Curva, linetype = Curva)) +
+  geom_line(linewidth = 1.2) +
+  coord_cartesian(ylim = c(0, 100)) +
+  geom_vline(xintercept = 3.5, linetype = "dashed", color = "darkgray") +
+  labs(
+    title = "Curvas de Custo e Receita Marginal",
+    x = "Quantidade (q)",
+    y = "Valor"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.title = element_blank(),
+    legend.position = "bottom"
+  )
+```
+
+### Análise econômica
+
+**Problema Econômico**
+
+Uma firma tomadora de preços possui a seguinte função de custo:
+
+$$
+C(q) = q^3 - 6q^2 + 25q + 100
+$$
+
+O preço de mercado do produto é:
+
+$$
+p = 19{,}75
+$$
+
+O ponto ótimo de produção, obtido ao igualar o custo marginal à receita marginal, é:
+
+$$
+q^* = 3{,}5
+$$
+
+**Receita Total no Ponto Ótimo**
+
+A receita total é dada por:
+
+$$
+RT = p \cdot q = 19{,}75 \cdot 3{,}5 = 69{,}125
+$$
+
+**Custo Total no Ponto Ótimo**
+
+Substituímos $q = 3{,}5$ na função de custo:
+
+$$
+C(3{,}5) = (3{,}5)^3 - 6(3{,}5)^2 + 25 \cdot 3{,}5 + 100
+$$
+
+$$
+= 42{,}875 - 73{,}5 + 87{,}5 + 100 = 156{,}875
+$$
+
+**Cálculo do Lucro Econômico**
+
+$$
+\Pi = RT - C = 69{,}125 - 156{,}875 = -87{,}75
+$$
+
+**Interpretação Econômica**
+
+A firma **opera com prejuízo econômico** de:
+
+$$
+\Pi^* = -87{,}75
+$$
+
+**Motivos:**
+
+- O preço de mercado cobre os **custos variáveis médios**:
+
+$$
+CVMe(3{,}5) = 16{,}25 < p = 19{,}75
+$$
+
+Isso significa que **vale a pena continuar operando no curto prazo**, pois a firma cobre os custos variáveis.
+
+- No entanto, o preço **não cobre o custo total médio**:
+
+$$
+CTMe(3{,}5) = \frac{C(3{,}5)}{3{,}5} \approx 44{,}82 > p
+$$
+
+Portanto, a firma **não cobre os custos fixos totais**, e isso gera **prejuízo econômico**.
+
+- A firma:
+  - Opera com prejuízo econômico de 87,75 unidades monetárias;
+  - Cobre seus custos variáveis, mas não cobre os custos fixos;
+  - Tem incentivo a continuar produzindo no curto prazo, pois o encerramento resultaria em perda igual ao custo fixo ($CF = 100$), que é maior que o prejuízo atual.
+
+Essa é uma típica situação de uma firma operando **com prejuízo no curto prazo**, mas **com resultado menos negativo do que se interrompesse a produção**.
+
+## Problema econômico 2
+
+A firma possui a seguinte função de custo total:
+
+$$
+C(q) = q^3 - 6q^2 + 25q + 100
+$$
+
+Ela opera em concorrência perfeita, vendendo seu produto a um preço de mercado $p$. 
+
+`a)` Encontre  a curva de oferta de curto prazo da firma.
+
+## Respostas
+
+### Etapa 1: Custo Variável Médio (CVMe)
+
+A parte variável do custo total é:
+
+$$
+CV(q) = C(q) - CF = q^3 - 6q^2 + 25q
+$$
+
+O custo variável médio é:
+
+$$
+CVMe(q) = \frac{CV(q)}{q} = q^2 - 6q + 25
+$$
+
+Derivando para encontrar o ponto mínimo:
+
+$$
+\frac{d(CVMe)}{dq} = 2q - 6 \Rightarrow 2q - 6 = 0 \Rightarrow q = 3
+$$
+
+Substituímos na função $CVMe$:
+
+$$
+CVMe(3) = 3^2 - 6 \cdot 3 + 25 = 9 - 18 + 25 = 16
+$$
+
+Portanto, a firma só produzirá se $p \geq 16$.
+
+### Etapa 2: Custo Marginal
+
+Derivando $C(q)$:
+
+$$
+CMg(q) = \frac{dC}{dq} = 3q^2 - 12q + 25
+$$
+
+Derivada segunda:
+
+$$
+\frac{d^2C}{dq^2} = 6q - 12 \Rightarrow q = 2 \quad \Rightarrow \quad CMg(2) = 13
+$$
+
+Apesar do custo marginal atingir mínimo em $p = 13$, a oferta começa só a partir de $p = 16$, pois o custo variável ainda não está coberto abaixo disso.
+
+### Etapa 3: Curva de Oferta
+
+A condição de maximização de lucro é:
+
+$$
+CMg(q) = p
+$$
+
+$$
+3q^2 - 12q + 25 = p 
+$$
+
+$$
+3q^2 - 12q + (25 - p) = 0
+$$
+
+Resolvendo a equação:
+
+$$
+q(p) = \frac{12 \pm \sqrt{12p - 156}}{6}, \quad \text{válido para } p \geq 16
+$$
+
+Selecionamos a raiz positiva:
+
+$$
+q(p) = \frac{12 + \sqrt{12p - 156}}{6}
+$$
+
+### Interpretação Econômica
+
+- A firma **não produz** se $p < 16$, pois não cobre o **custo variável médio mínimo**;
+- A partir de $p = 16$, ela passa a ofertar quantidade positiva;
+- A **curva de oferta** coincide com o **ramo crescente do custo marginal**, a partir do ponto onde o preço cobre $CVMe_{\min}$.
+
+Essa é a lógica da **oferta de curto prazo** em mercados perfeitamente competitivos, onde o produtor reage ao preço de mercado igualando-o ao custo marginal.
+
+### Gráfico: Custo Marginal, Preço e Curva de Oferta
+
+```{r}
+#| message: false
+#| warning: false
+#| fig-width: 8
+#| fig-height: 6
+
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(dplyr)
+  library(Deriv)
+})
+
+# Domínio da produção
+q <- seq(0.5, 8, by = 0.1)
+
+# Definição da função de custo marginal
+CMg <- function(q) 3 * q^2 - 12 * q + 25
+
+# Data frame geral
+df <- tibble(
+  q = q,
+  CMg = CMg(q),
+  deriv = 6 * q - 12  # derivada de CMg
+) |>
+  mutate(
+    tipo = ifelse(deriv > 0, "Oferta", "Inviável"),
+    RMg = 16 # mínimo do CVMe
+  )
+
+# Subconjunto da curva de oferta
+df |>
+  filter(tipo == "Oferta") ->
+  df_oferta
+
+# Gráfico
+ggplot(df, aes(x = q)) +
+  # Custo marginal total (tracejado)
+  geom_line(aes(y = CMg), color = "gray70", linetype = "dotted", linewidth = 1.2) +
+  # Ramo crescente (oferta)
+  geom_line(data = df_oferta, aes(y = CMg), color = "#1f77b4", linewidth = 1.4) +
+  # Receita marginal
+  geom_hline(yintercept = 16, color = "#d62728", linetype = "dashed", linewidth = 1) +
+  # Anotações
+  annotate("text", x = 6.5, y = 17, label = "p = RMg = 16", color = "#d62728") +
+  annotate("text", x = 6.5, y = 45, label = "Curva de Oferta", color = "#1f77b4") +
+  annotate("text", x = 2.2, y = 35, label = "Curva de Custo Marginal", color = "gray40") +
+  labs(
+    title = "Curva de Oferta, Custo Marginal e Receita Marginal",
+    x = "Quantidade (q)",
+    y = "Preço / Custo"
+  ) +
+  coord_cartesian(ylim = c(0, 60)) +
+  theme_minimal()
+```
+
+- Interpretação do gráfico
+  - A curva tracejada cinza é o custo marginal completo;
+  - A curva azul é o ramo crescente do custo marginal, que define a curva de oferta da firma;
+  - A linha vermelha horizontal representa a receita marginal, que é igual ao preço de mercado;
+  - A quantidade ofertada pela firma será aquela onde $CMg (q) = p$, isto é, o ponto de interseção da linha vermelha com a curva azul.
+
+::: {.callout-note collapse="true" appearance="default"}
+
+## Matemática simbólica no R
+
+**Caminho 1**: função nativa `D()`
+
+```{r}
+#| eval: false
+#| echo: true
+#| output: true
+#| code-fold: show
+#| warning: false
+#| error: false
+#| include: true
+
+C <- function(q) q^3 - 6 * q^2 + 25 * q + 100
+
+# Derivada primeira
+dC <- expression(q^3 - 6 * q^2 + 25 * q + 100)
+
+primeira_derivada <- D(dC, "q")
+primeira_derivada
+# 3 * q^2 - 6 * (2 * q) + 25
+
+segunda_derivada <- D(primeira_derivada, "q")
+segunda_derivada
+# 3 * (2 * q) - 6 * 2
+```
+
+**Caminho 2**: pacote `Deriv` (derivação simbólica)
+
+```{r}
+#| eval: false
+#| echo: true
+#| output: true
+#| code-fold: show
+#| warning: false
+#| error: false
+#| include: true
+
+library(Deriv)
+
+# 1. Definir a função custo total
+C <- expression(q^3 - 6*q^2 + 25*q + 100)
+
+# 2. Derivar simbolicamente: Custo marginal
+CMg <- Deriv(C, "q")
+CMg
+# Resultado: expression(3 * q^2 - 12 * q + 25)
+
+# 3. Derivar novamente: derivada do custo marginal
+dCMg <- Deriv(CMg, "q")
+dCMg
+# Resultado: expression(6 * q - 12)
+
+# 4. Resolver 6*q - 12 = 0 para encontrar ponto de mínimo usando uniroot
+f_dCMg <- function(q) eval(dCMg, list(q = q))
+min_q <- uniroot(f_dCMg, c(0, 10))$root  # encontra q tal que dCMg == 0
+min_q
+
+# 5. Avaliar o custo marginal nesse ponto
+f_CMg <- function(q) eval(CMg, list(q = q))
+f_CMg(min_q)  # resultado: 13
+
+```
+
+:::

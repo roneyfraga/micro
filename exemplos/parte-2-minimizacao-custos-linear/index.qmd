@@ -1,0 +1,600 @@
+---
+title: "Minimização de Custos FP Linear `ex`"
+date: "`r Sys.time()`"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+## Problema econômico
+
+Uma firma deseja produzir uma quantidade $\bar{Q} = 30$ unidades de produto com o **menor custo possível**. A função de produção da firma é linear:
+
+$$
+Q = 3L + 2K
+$$
+
+Onde:
+
+- $L$: unidades de trabalho;
+- $K$: unidades de capital;
+- $Q$: produto total.
+
+Os preços dos fatores são:
+
+- Custo unitário do trabalho: $w = 10$;
+- Custo unitário do capital: $r = 5$.
+
+### Objetivo da firma
+
+Minimizar o custo total:
+
+$$
+C = wL + rK = 10L + 5K
+$$
+
+Sujeito à restrição de produção:
+
+$$
+3L + 2K = 30
+$$
+
+## Resolução por eficiência relativa
+
+Calculamos o custo por unidade de produto para cada fator:
+
+1. Para trabalho:
+   $\frac{w}{PMg_L} = \frac{10}{3} \approx 3.33$
+
+2. Para capital:
+   $\frac{r}{PMg_K} = \frac{5}{2} = 2.5$
+
+Como $2.5 < 3.33$, o capital é mais eficiente por unidade monetária.
+
+### Solução Ótima
+
+A firma usará apenas capital:
+$3(0) + 2K = 30 \Rightarrow K = 15$
+
+### Cálculo do Custo Mínimo
+
+$C = 10(0) + 5(15) = 75$
+
+### Resultado
+
+- Combinação ótima de fatores:
+  - Trabalho: $L = 0$
+  - Capital: $K = 15$
+
+Custo mínimo de produção: $\boxed{C = 75}$
+
+::: {.callout-note collapse="true"}
+
+## Interpretação de $\frac{w}{PMg_L}$ e $\frac{r}{PMg_K}$
+
+Essas expressões representam o **custo de produzir uma unidade adicional de produto** utilizando, respectivamente, os fatores **trabalho** e **capital**.
+
+### $\frac{w}{PMg_L}$: custo marginal do produto via trabalho
+
+- $w$: salário — o custo de uma unidade do fator trabalho.
+- $PMg_L$: produto marginal do trabalho — o acréscimo na produção ao usar uma unidade a mais de trabalho.
+
+$$
+\frac{w}{PMg_L} = \text{Custo de produzir uma unidade adicional de output via trabalho}
+$$
+
+### $\frac{r}{PMg_K}$: custo marginal do produto via capital
+
+- $r$: preço do capital — o custo de uma unidade do fator capital.
+- $PMg_K$: produto marginal do capital — o acréscimo na produção ao usar uma unidade a mais de capital.
+
+$$
+\frac{r}{PMg_K} = \text{Custo de produzir uma unidade adicional de output via capital}
+$$
+
+## Exemplo numérico
+
+Suponha que uma firma observe os seguintes dados:
+
+- Salário: $w = 30$
+- Produto marginal do trabalho: $PMg_L = 6$
+- Preço do capital: $r = 60$
+- Produto marginal do capital: $PMg_K = 12$
+
+Cálculo dos custos marginais:
+
+$$
+\frac{w}{PMg_L} = \frac{30}{6} = 5
+\qquad \text{e} \qquad
+\frac{r}{PMg_K} = \frac{60}{12} = 5
+$$
+
+### Interpretação:
+
+Neste caso:
+
+- O **custo de produzir uma unidade extra de produto via trabalho** é 5.
+- O **custo de produzir uma unidade extra de produto via capital** também é 5.
+
+Como os custos marginais por unidade de produto são **iguais**, a firma está **minimizando seus custos** dado o nível de produção. Ou seja, está utilizando os fatores de forma **eficiente**.
+
+### Regra de eficiência na minimização de custos
+
+Para minimizar o custo total de produção, a firma deve ajustar os fatores até satisfazer:
+
+$$
+\frac{w}{PMg_L} = \frac{r}{PMg_K}
+$$
+
+Caso contrário, ela pode realocar recursos (ex.: substituir trabalho por capital) para reduzir custos.
+
+## Resumo
+
+| Expressão                  | Significado |
+|---------------------------|-------------|
+| $\frac{w}{PMg_L}$     | Custo de 1 unidade de output via trabalho |
+| $\frac{r}{PMg_K}$     | Custo de 1 unidade de output via capital |
+| Igualdade entre os dois   | Eficiência na escolha de insumos |
+:::
+
+::: {.callout-note collapse="true"}
+
+## Comportamento da Isoquanta e Relação com a Função de Produção
+
+**1. Conceito Fundamental**
+
+Uma **isoquanta** representa todas as combinações de fatores $(L, K)$ que produzem o mesmo nível de output $Q$. Sua forma é determinada pela **função de produção** subjacente.
+
+**2. Propriedades Matemáticas**
+
+A Taxa Marginal de Substituição Técnica (TMST) é dada por:
+
+$$ 
+TMST_{LK} = -\frac{dK}{dL} = \frac{PMg_L}{PMg_K} 
+$$
+
+- Onde:
+  - $PMg_L = \frac{\partial Q}{\partial L}$ (Produtividade Marginal do Trabalho)
+  - $PMg_K = \frac{\partial Q}{\partial K}$ (Produtividade Marginal do Capital)
+
+### Substituição Perfeita (Linear)
+
+Função: $Q = aL + bK$
+
+- Características:
+  - Isoquantas são retas com inclinação constante $-\frac{a}{b}$
+  - TMST constante: $\frac{a}{b}$
+  - Solução ótima: especialização completa em um fator
+
+### Cobb-Douglas
+
+Função: $Q = AL^\alpha K^\beta$
+
+- Características:
+  - Isoquantas convexas e suaves
+  - TMST variável: $\frac{\alpha}{\beta}\cdot\frac{K}{L}$
+  - Elasticidade de substituição unitária
+
+###  Minimização de Custo
+A combinação ótima ocorre quando:
+
+$$ 
+\frac{PMg_L}{PMg_K} = \frac{w}{r} 
+$$
+
+**Resumo:**
+
+| Tipo de Função       | Forma da Isoquanta | TMST                | Elasticidade Subst. |
+|----------------------|--------------------|---------------------|---------------------|
+| Linear               | Reta               | Constante           | Infinita            |
+| Cobb-Douglas         | Convexa            | Decrescente         | 1                   |
+
+### Conclusão
+
+A forma da isoquanta revela:
+
+1. As possibilidades tecnológicas de substituição entre fatores
+2. A flexibilidade produtiva da firma
+3. A estratégia ótima de minimização de custos
+
+**Exemplo:** No caso $Q = 3L + 2K$, a isoquanta linear levou à solução de canto $K=15$, $L=0$ quando $\frac{w}{r} > \frac{PMg_L}{PMg_K}$.
+:::
+
+## Resolução por substituição 
+
+Queremos minimizar o custo total:
+
+$$
+C = 10L + 5K
+$$
+
+Sujeito à função de produção:
+
+$$
+Q = 3L + 2K = 30
+$$
+
+### Etapa 1: Resolver a restrição
+
+Reescrevemos a equação de produção isolando uma das variáveis. Por exemplo, isolando $K$:
+
+$$
+3L + 2K = 30 \Rightarrow 2K = 30 - 3L \Rightarrow K = \frac{30 - 3L}{2}
+$$
+
+### Etapa 2: Substituir na função de custo
+
+Substituímos $K$ na função de custo:
+
+$$
+C(L) = 10L + 5K = 10L + 5 \cdot \left(\frac{30 - 3L}{2} \right)
+$$
+
+$$
+C(L) = 10L + \frac{5}{2}(30 - 3L) = 10L + 75 - \frac{15L}{2}
+$$
+
+$$
+C(L) = \left(10L - \frac{15L}{2} \right) + 75 = \left(\frac{20L - 15L}{2} \right) + 75 = \frac{5L}{2} + 75
+$$
+
+### Etapa 3: Analisar o comportamento de $C(L)$
+
+A função custo em função de $L$ é:
+
+$$
+C(L) = \frac{5L}{2} + 75
+$$
+
+Como o coeficiente de $L$ é **positivo**, o custo cresce com $L$. Ou seja, **quanto menor o valor de $L$, menor será o custo**.
+
+### Etapa 4: Determinar o menor $L$ viável
+
+Da equação da restrição:
+
+$$
+3L + 2K = 30
+\Rightarrow \text{mínimo de } L \text{ ocorre quando } K \text{ é máximo}
+$$
+
+O valor mínimo viável de $L$ é quando a firma usa **apenas capital** ($L = 0$):
+
+$$
+Q = 3 \cdot 0 + 2K = 30 \Rightarrow K = 15
+$$
+
+$$
+C = 10 \cdot 0 + 5 \cdot 15 = 75
+$$
+
+
+## Solução ótima
+
+- $L^* = 0$
+- $K^* = 15$
+- Custo mínimo: $C^* = 75$
+
+### Conclusão
+
+Neste problema com função de produção **linear**:
+
+- A solução ótima ocorre em um **extremo** (ou “ponto de canto”), e
+- Pode ser obtida diretamente por substituição e análise do comportamento da função custo.
+
+## Resolução por Lagrange
+
+Vamos usar o método dos **multiplicadores de Lagrange** para resolver o seguinte problema de minimização com restrição:
+
+Minimizar $C = 10L + 5K$  
+Sujeito a $3L + 2K = 30$
+
+Definimos a função Lagrangiana:
+
+$$
+\mathcal{L}(L, K, \lambda) = 10L + 5K + \lambda(30 - 3L - 2K)
+$$
+
+### Derivadas parciais
+
+Calculamos as condições de primeira ordem:
+
+- Em relação a $L$:
+
+  $$
+  \frac{\partial \mathcal{L}}{\partial L} = 10 - 3\lambda = 0 \Rightarrow \lambda = \frac{10}{3}
+  $$
+
+- Em relação a $K$:
+
+  $$
+  \frac{\partial \mathcal{L}}{\partial K} = 5 - 2\lambda = 0 \Rightarrow \lambda = \frac{5}{2}
+  $$
+
+### Inconsistência
+
+Note que:
+
+$$
+\frac{10}{3} \ne \frac{5}{2}
+$$
+
+Ou seja, **não há solução interior** com $L > 0$ e $K > 0$ que satisfaça ambas as equações. Isso ocorre porque a função de produção linear gera isoquantas **em linha reta** — não convexas — e a minimização ocorre em **pontos de canto** (corner solutions).
+
+::: {.callout-note collapse="true"}
+
+## Resolução detalhada via multiplicadores de Lagrange
+
+### Revisão
+
+O método de Lagrange permite **maximizar ou minimizar** uma função, quando há uma ou mais **restrições** que precisam ser satisfeitas.
+
+Queremos otimizar uma função $f(x, y)$, sujeita a uma restrição $g(x, y) = c$.
+
+#### Etapas do método
+
+```{text lagrange-revisao}
+#| code-fold: show
+
+1. Construir a função Lagrangiana:
+
+   𝓛(x, y, λ) = f(x, y) + λ(c - g(x, y))
+
+2. Calcular as derivadas parciais:
+
+   ∂𝓛/∂x = 0
+   ∂𝓛/∂y = 0
+   ∂𝓛/∂λ = 0
+
+3. Resolver o sistema de equações para encontrar os
+   valores ótimos de x, y e λ.
+```
+
+### Exemplo econômico
+
+Neste problema, queremos minimizar o custo total de produção de uma firma que usa trabalho $L$ e capital $K$, sujeitos a uma função de produção linear.
+
+### Problema de otimização
+
+Minimizar:
+
+$$
+C = 10L + 5K
+$$
+
+Sujeito à restrição de produção:
+
+$$
+Q = 3L + 2K = 30
+$$
+
+### Etapa 1: Construção da função Lagrangiana
+
+Para resolver esse problema com restrição, utilizamos o método de Lagrange. A função Lagrangiana combina a função objetivo com a restrição da seguinte forma:
+
+$$
+\mathcal{L}(L, K, \lambda) = 10L + 5K + \lambda(30 - 3L - 2K)
+$$
+
+Onde:
+
+- $10L + 5K$: é o custo total a ser minimizado;
+- $\lambda$: é o multiplicador de Lagrange, interpretado como o custo marginal de produção (quanto o custo aumenta se exigirmos produzir uma unidade a mais);
+- $30 - 3L - 2K$: é a restrição de produção reescrita para ficar igual a zero.
+
+### Etapa 2: Cálculo das derivadas parciais
+
+A seguir, derivamos a função $\mathcal{L}(L, K, \lambda)$ em relação a cada uma das variáveis $L$, $K$ e $\lambda$. Cada derivada representa uma **condição de primeira ordem** para que o ponto seja um candidato a mínimo.
+
+#### Derivada em relação a $L$:
+
+$$
+\frac{\partial \mathcal{L}}{\partial L} = \frac{d}{dL}(10L + 5K + \lambda(30 - 3L - 2K)) = 10 - 3\lambda
+$$
+
+Explicação:
+
+- A derivada de $10L$ em relação a $L$ é $10$
+- A derivada de $5K$ em relação a $L$ é zero (pois $K$ é constante)
+- A derivada de $\lambda(30 - 3L - 2K)$ em relação a $L$ é $-3\lambda$
+
+#### Derivada em relação a $K$:
+
+$$
+\frac{\partial \mathcal{L}}{\partial K} = \frac{d}{dK}(10L + 5K + \lambda(30 - 3L - 2K)) = 5 - 2\lambda
+$$
+
+Explicação:
+
+- A derivada de $5K$ em relação a $K$ é $5$
+- Os termos $10L$ e $-3L$ não dependem de $K$, portanto suas derivadas são zero
+- A derivada de $-2K$ é $-2$, e multiplicado por $\lambda$ dá $-2\lambda$
+
+#### Derivada em relação a $\lambda$:
+
+$$
+\frac{\partial \mathcal{L}}{\partial \lambda} = 30 - 3L - 2K
+$$
+
+Explicação:
+
+- Aqui derivamos a função Lagrangiana em relação ao multiplicador $\lambda$, o que simplesmente reproduz a **restrição original**
+
+### Etapa 3: Sistema de equações
+
+Para encontrar os pontos críticos, impomos que todas as derivadas parciais sejam iguais a zero:
+
+$$
+\begin{cases}
+10 - 3\lambda = 0 \\
+5 - 2\lambda = 0 \\
+30 - 3L - 2K = 0
+\end{cases}
+$$
+
+#### Solução da primeira equação:
+
+$$
+\lambda = \frac{10}{3}
+$$
+
+#### Solução da segunda equação:
+
+$$
+\lambda = \frac{5}{2}
+$$
+
+### Inconsistência
+
+Os valores de $\lambda$ obtidos pelas duas equações são diferentes:
+
+$$
+\frac{10}{3} \ne \frac{5}{2}
+$$
+
+Portanto, **não existe um valor de $\lambda$** que satisfaça simultaneamente as duas condições de primeira ordem. Isso indica que **não existe solução interior**, ou seja, não há ponto com $L > 0$ e $K > 0$ que satisfaça as condições de otimalidade.
+
+### Conclusão: solução de canto
+
+Como não há tangência entre a isoquanta e a linha de isocusto, a solução ótima ocorre em um **ponto extremo do conjunto de possibilidades**, isto é, usando **somente trabalho** ou **somente capital**. A escolha será determinada por qual insumo apresenta maior eficiência econômica (produto marginal por real gasto).
+
+### Interpretação econômica
+
+A condição de minimização de custos em problemas suaves é:
+
+$$
+\frac{MP_L}{MP_K} = \frac{w}{r}
+$$
+
+Neste problema:
+
+- Produto marginal do trabalho: $MP_L = 3$
+- Produto marginal do capital: $MP_K = 2$
+- Razão dos produtos marginais: $\frac{3}{2} = 1{,}5$
+- Razão dos preços: $\frac{10}{5} = 2$
+
+Como $\frac{MP_L}{MP_K} \ne \frac{w}{r}$, a linha de isocusto nunca tangencia a isoquanta. A firma escolherá o fator com maior eficiência:
+
+$$
+\frac{MP_K}{r} = \frac{2}{5} = 0{,}4 > \frac{MP_L}{w} = \frac{3}{10} = 0{,}3
+$$
+
+Logo, a firma usará **somente capital** para atingir a produção desejada com o **menor custo possível**.
+:::
+
+### Teste das soluções de canto
+
+#### Caso 1: Produção com apenas trabalho $(K = 0)$
+
+Se $K = 0$, então:
+
+$$
+Q = 3L \Rightarrow L = \frac{30}{3} = 10
+$$
+
+Custo:
+
+$$
+C = 10L + 5K = 10 \cdot 10 + 0 = 100
+$$
+
+#### Caso 2: Produção com apenas capital $(L = 0)$
+
+Se $L = 0$, então:
+
+$$
+Q = 2K \Rightarrow K = \frac{30}{2} = 15
+$$
+
+Custo:
+
+$$
+C = 10L + 5K = 0 + 5 \cdot 15 = 75
+$$
+
+### Solução ótima
+
+A melhor escolha é utilizar **apenas capital**, pois o custo é menor:
+
+- $L^* = 0$
+- $K^* = 15$
+- $C^* = 75$
+
+### Interpretação econômica
+
+Como a produtividade marginal por real gasto com capital é maior do que a do trabalho, a firma utiliza **somente capital**. Isso é típico em problemas com **funções de produção lineares**, onde as isoquantas são retas e o ótimo ocorre num vértice do conjunto de possibilidades.
+
+### Observação matemática final
+
+A condição de minimização de custos em funções de produção suaves requer que:
+
+$$
+\text{TMST} = \frac{MP_L}{MP_K} = \frac{w}{r}
+$$
+
+Mas, neste caso:
+
+- $MP_L = 3$, $MP_K = 2$
+- $\text{TMST} = \frac{3}{2}$
+- $\frac{w}{r} = \frac{10}{5} = 2$
+
+Como $\frac{3}{2} \ne 2$, não é possível tangenciar a isocusto com a isoquanta. Logo, ocorre **solução de canto**.
+
+## Representação gráfica da solução
+
+```{r grafico}
+#| message: false
+#| warning: false
+#| fig-width: 6
+#| fig-height: 5
+
+library(ggplot2)
+library(dplyr)
+
+# Parâmetros
+w <- 10
+r <- 5
+Q_bar <- 30
+
+# Função de produção (isoquanta): Q = 3L + 2K → K = (Q - 3L)/2
+isoquanta <- function(L, Q) (Q - 3 * L) / 2
+
+# Funções de isocusto: C = 10L + 5K → K = (C - 10L)/5
+isocusto <- function(L, C) (C - 10 * L) / 5
+
+# Geração dos dados
+L_vals <- seq(0, 12, length.out = 300)
+
+dados <- tibble(
+  L = L_vals,
+  isoquanta = isoquanta(L, Q_bar),
+  isocusto_75 = isocusto(L, 75),
+  isocusto_100 = isocusto(L, 100)
+)
+
+# Gráfico
+ggplot(dados, aes(x = L)) +
+  geom_line(aes(y = isoquanta), color = "#1f78b4", size = 1.2) +
+  geom_line(aes(y = isocusto_75), color = "#33a02c", linetype = "dashed", size = 1) +
+  geom_line(aes(y = isocusto_100), color = "#e31a1c", linetype = "dotted", size = 1) +
+  geom_point(aes(x = 0, y = 15), color = "#33a02c", size = 3) +
+  geom_point(aes(x = 10, y = 0), color = "#e31a1c", size = 3) +
+  annotate("text", x = 2, y = 15.5, label = "Custo mínimo", color = "#33a02c", hjust = 0) +
+  annotate("text", x = 6, y = 10, label = "Isoquanta Q = 30", color = "#1f78b4") +
+  labs(
+    x = "Trabalho (L)",
+    y = "Capital (K)",
+    title = "Minimização de custos com função de produção linear"
+  ) +
+  coord_cartesian(ylim = c(0, 20)) +
+  theme_minimal()
+```
+
+### Interpretação do gráfico
+
+- A **curva azul** representa a **isoquanta** para $Q = 30$;
+- As **curvas verdes/vermelhas** são **linhas de isocusto** para $C = 75$ e $C = 100$;
+- O **ponto verde** é a solução ótima (capital = 15, trabalho = 0);
+- O **ponto vermelho** mostra a solução de canto alternativa com custo mais alto (trabalho = 10, capital = 0).
+

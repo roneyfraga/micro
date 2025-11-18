@@ -1,0 +1,95 @@
+/* Navbar mais fina */
+.navbar {
+  min-height: 45px !important;
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.25rem !important;
+}
+
+.navbar-brand {
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.25rem !important;
+  font-size: 1.1rem !important;
+}
+
+.navbar-nav .nav-link {
+  padding-top: 0.35rem !important;
+  padding-bottom: 0.35rem !important;
+}
+
+.navbar .navbar-toggler {
+  padding: 0.15rem 0.5rem !important;
+}
+
+/* Ajustar ícones da navbar */
+.navbar .bi {
+  font-size: 1.1rem !important;
+}
+
+/* Garantir que as referências sejam visíveis */
+.references {
+  display: block !important;
+}
+
+#refs {
+  display: block !important;
+}
+
+.references.csl-bib-body {
+  display: block !important;
+}
+
+div[id="refs"] {
+  display: block !important;
+}
+
+/* Forçar visibilidade das referências */
+div[style*="display: none"].references {
+  display: block !important;
+}
+
+div[style*="display: none"]#refs {
+  display: block !important;
+}
+
+.references[style*="display: none"] {
+  display: block !important;
+}
+
+/* Remover espaço entre o menu e o primeiro item */
+.sidebar {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+.sidebar-header {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+.sidebar-menu-container {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* Remover espaço do primeiro item do menu */
+.sidebar .sidebar-menu-container > .nav-item:first-child {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Ajustar o container do menu para colar no topo */
+#quarto-sidebar {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* Remover espaçamento do logo/header do sidebar */
+.sidebar-logo-link {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.sidebar-header-stacked {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}

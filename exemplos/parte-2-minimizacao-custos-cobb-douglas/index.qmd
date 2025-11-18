@@ -1,0 +1,804 @@
+---
+title: "Minimização de Custos com Função Cobb-Douglas `ex`"
+date: "`r Sys.time()`"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+## Função de produção Cobb-Douglas
+
+Neste exemplo, analisamos como uma firma escolhe as quantidades ótimas de trabalho $L$ e capital $K$ para **minimizar o custo de produção**, dado que deseja produzir uma quantidade fixa $\bar{Q}$ usando uma função de produção do tipo Cobb-Douglas.
+
+**Problema de otimização**
+
+A função de produção é:
+
+$$
+Q = L^{0{,}5}K^{0{,}5}
+$$
+
+Ou seja, uma função Cobb-Douglas com retornos constantes de escala.
+
+A firma deseja produzir:
+
+$$
+Q = 10
+$$
+
+Os preços dos fatores são:
+
+- Trabalho: $w = 4$
+- Capital: $r = 1$
+
+A função custo total é:
+
+$$
+C = 4L + 1K
+$$
+
+::: {.callout-note collapse="true" appearance="default" icons=true}
+
+## Análise dos Coeficientes da Função Cobb-Douglas
+
+Uma função de produção do tipo Cobb-Douglas tem a forma geral:
+
+$$
+Q = A \cdot L^{\alpha} \cdot K^{\beta}
+$$
+
+- Onde:
+  - $Q$: produto;
+  - $L$: trabalho;
+  - $K$: capital;
+  - $\alpha$, $\beta$: elasticidades do produto em relação a $L$ e $K$;
+  - $A$: constante tecnológica (pode ser normalizada).
+
+### 1. Interpretação dos Coeficientes
+
+- $\alpha$: elasticidade do produto em relação ao trabalho.
+- $\beta$: elasticidade do produto em relação ao capital.
+
+Esses coeficientes indicam quanto o produto varia proporcionalmente com a variação de cada insumo, mantendo o outro constante.
+
+### 2. Retornos de Escala
+
+A soma $\alpha + \beta$ determina os **retornos de escala** da tecnologia:
+
+- Se $\alpha + \beta = 1$: **Retornos constantes de escala**.
+- Se $\alpha + \beta > 1$: **Retornos crescentes de escala**.
+- Se $\alpha + \beta < 1$: **Retornos decrescentes de escala**.
+
+### 3. Exemplo Prático
+
+Considere a função:
+
+$$
+Q = L^{0{,}3} \cdot K^{0{,}7}
+$$
+
+- $\alpha = 0{,}3$, $\beta = 0{,}7$
+- $\alpha + \beta = 1 \Rightarrow$ **Retornos constantes de escala**
+
+O capital tem maior influência sobre o produto do que o trabalho, dado que sua elasticidade é maior.
+
+### 4. Quadro-Resumo
+
+| Coeficiente         | Significado                                 |
+|---------------------|----------------------------------------------|
+| $\alpha$         | Elasticidade do trabalho                    |
+| $\beta$          | Elasticidade do capital                     |
+| $\alpha + \beta$ | Determina os retornos de escala            |
+
+
+:::
+
+## Resolução por Lagrange
+
+### Etapa 1: Construção da função Lagrangiana
+
+Vamos usar o método dos multiplicadores de Lagrange:
+
+$$
+\mathcal{L}(L, K, \lambda) = 4L + K + \lambda(10 - L^{0{,}5}K^{0{,}5})
+$$
+
+Onde:
+
+- $4L + K$: custo total a ser minimizado
+- $\lambda$: multiplicador de Lagrange
+- $10 - L^{0{,}5}K^{0{,}5}$: restrição de produção (reescrita como $= 0$)
+
+### Etapa 2: Derivadas parciais (condições de primeira ordem)
+
+#### Derivada em relação a $L$:
+
+$$
+\frac{\partial \mathcal{L}}{\partial L} = 4 - \lambda \cdot \frac{1}{2}L^{-0{,}5}K^{0{,}5}
+$$
+
+#### Derivada em relação a $K$:
+
+$$
+\frac{\partial \mathcal{L}}{\partial K} = 1 - \lambda \cdot \frac{1}{2}L^{0{,}5}K^{-0{,}5}
+$$
+
+#### Derivada em relação a $\lambda$:
+
+$$
+\frac{\partial \mathcal{L}}{\partial \lambda} = 10 - L^{0{,}5}K^{0{,}5}
+$$
+
+### Etapa 3: Sistema de equações
+
+Igualamos as derivadas a zero:
+
+$$
+\begin{cases}
+4 = \lambda \cdot \frac{1}{2}L^{-0{,}5}K^{0{,}5} \\
+1 = \lambda \cdot \frac{1}{2}L^{0{,}5}K^{-0{,}5} \\
+L^{0{,}5}K^{0{,}5} = 10
+\end{cases}
+$$
+
+### Etapa 4: Resolvendo o sistema
+
+Dividimos os dois lados das equações para eliminar $\lambda$:
+
+$$
+\frac{4}{1} = \frac{\frac{1}{2}L^{-1/2}K^{1/2}}{\frac{1}{2}L^{1/2}K^{-1/2}} = \frac{K}{L}
+$$
+
+Logo, obtemos a relação:
+
+$$
+\frac{4}{1} = \frac{K}{L} \Rightarrow K = 4L
+$$
+
+Sabemos, a partir da divisão das equações do Lagrangeano, que:
+
+$$
+K = 4L
+$$
+
+Substituímos essa relação na equação da restrição:
+
+$$
+L^{1/2}(4L)^{1/2} = 10
+$$
+
+::: {.callout-note collapse="false"}
+
+Aplicamos propriedades de potências:
+
+$$
+(4L)^{1/2} = 4^{1/2} \cdot L^{1/2} = 2L^{1/2}
+$$
+
+Multiplicamos os termos semelhantes:
+
+$$
+2L^{1/2} \cdot L^{1/2} = 2L
+$$
+:::
+
+Portanto:
+
+$$
+2L = 10 
+$$
+
+$$
+L = \frac{10}{2}
+$$
+
+$$
+L = 5
+$$
+
+Como $K = 4L$, temos $K = 4 \times 5 = 20$.
+
+### Resultado
+
+A firma deve empregar:
+
+- $L^* = 5$
+- $K^* = 20$
+
+O custo mínimo será:
+
+$$
+C^* = 4L + K = 4 \cdot 5 + 20 = 40
+$$
+
+
+::: {.callout-note collapse="true"}
+
+## Resolução detalhada via multiplicadores de Lagrange
+
+### Revisão
+
+O método de Lagrange permite **maximizar ou minimizar** uma função, quando há uma ou mais **restrições** que precisam ser satisfeitas.
+
+Queremos otimizar uma função $f(x, y)$, sujeita a uma restrição $g(x, y) = c$.
+
+#### Etapas do método
+
+```text
+1. Construir a função Lagrangiana:
+
+   𝓛(x, y, λ) = f(x, y) + λ(c - g(x, y))
+
+2. Calcular as derivadas parciais:
+
+   ∂𝓛/∂x = 0  
+   ∂𝓛/∂y = 0  
+   ∂𝓛/∂λ = 0
+
+3. Resolver o sistema de equações para encontrar os valores ótimos de x, y e λ.
+```
+
+### Exemplo econômico
+
+Queremos determinar os valores ótimos de trabalho $L$ e capital $K$ que **minimizam o custo total**, sujeitos à condição de que a produção atinja uma quantidade fixa $\bar{Q} = 10$. A função de produção é do tipo Cobb-Douglas.
+
+### Função de produção
+
+$$
+Q = L^{0{,}5}K^{0{,}5}
+$$
+
+### Função de custo total
+
+$$
+C = wL + rK = 4L + 1K
+$$
+
+### Construção da função Lagrangiana
+
+Para resolver esse problema com restrição, usamos o método dos multiplicadores de Lagrange. A função Lagrangiana é dada por:
+
+$$
+\mathcal{L}(L, K, \lambda) = 4L + K + \lambda(10 - L^{0{,}5}K^{0{,}5})
+$$
+
+Nessa expressão:
+
+- $4L + K$: é o custo total a ser minimizado.
+- $\lambda$: é o multiplicador de Lagrange, que mede a variação marginal do custo total quando aumentamos ligeiramente a produção.
+- $10 - L^{0{,}5}K^{0{,}5}$: é a restrição de produção reescrita como $= 0$.
+
+### Derivadas parciais da Lagrangiana
+
+A seguir, derivamos a função Lagrangiana em relação a $L$, $K$ e $\lambda$, obtendo as **condições de primeira ordem**.
+
+#### Derivada em relação a $L$
+
+Aplicando a regra da cadeia:
+
+$$
+\frac{\partial \mathcal{L}}{\partial L} = 4 - \lambda \cdot \frac{\partial}{\partial L}(L^{0{,}5}K^{0{,}5}) = 4 - \lambda \cdot \frac{1}{2}L^{-0{,}5}K^{0{,}5}
+$$
+
+Interpretação:
+
+- $4$: vem da derivada de $4L$
+- $\lambda \cdot \frac{1}{2}L^{-0{,}5}K^{0{,}5}$: é a sensibilidade do produto em relação ao trabalho, ponderada pelo valor da produção (via $\lambda$)
+
+#### Derivada em relação a $K$
+
+De modo análogo:
+
+$$
+\frac{\partial \mathcal{L}}{\partial K} = 1 - \lambda \cdot \frac{\partial}{\partial K}(L^{0{,}5}K^{0{,}5}) = 1 - \lambda \cdot \frac{1}{2}L^{0{,}5}K^{-0{,}5}
+$$
+
+Interpretação:
+
+- $1$: vem da derivada de $K$
+- $\lambda \cdot \frac{1}{2}L^{0{,}5}K^{-0{,}5}$: é a sensibilidade do produto em relação ao capital, ponderada por $\lambda$
+
+#### Derivada em relação a $\lambda$
+
+$$
+\frac{\partial \mathcal{L}}{\partial \lambda} = 10 - L^{0{,}5}K^{0{,}5}
+$$
+
+Interpretação:
+
+- Reproduz a restrição de produção: queremos que a produção seja igual a 10.
+
+### Sistema de equações
+
+As condições de otimalidade impõem que todas as derivadas parciais sejam zero:
+
+$$
+\begin{cases}
+4 = \lambda \cdot \frac{1}{2}L^{-0{,}5}K^{0{,}5} \\
+1 = \lambda \cdot \frac{1}{2}L^{0{,}5}K^{-0{,}5} \\
+L^{0{,}5}K^{0{,}5} = 10
+\end{cases}
+$$
+
+### Resolvendo o sistema
+
+$$
+\frac{4}{1} = \frac{
+\lambda \cdot \frac{1}{2}L^{-1/2}K^{1/2}
+}{
+\lambda \cdot \frac{1}{2}L^{1/2}K^{-1/2}
+}
+$$
+
+Cancelamos os fatores comuns $\lambda$ e $\frac{1}{2}$:
+
+$$
+\frac{4}{1} = \frac{L^{-1/2}K^{1/2}}{L^{1/2}K^{-1/2}}
+$$
+
+
+Aplicamos propriedades de potências
+
+Utilizamos:
+
+$\frac{L^{-1/2}}{L^{1/2}} = L^{-1}$
+
+$\frac{K^{1/2}}{K^{-1/2}} = K^{1}$
+
+Logo:
+
+$$
+\frac{4}{1} = \frac{K}{L}
+$$
+
+Substituímos na equação da restrição:
+
+$$
+L^{0{,}5}(4L)^{0{,}5} = 10 \Rightarrow L^{0{,}5} \cdot 2L^{0{,}5} = 2L = 10 \Rightarrow L = 5
+$$
+
+$$
+K = 4L = 4 \times 5 = 20
+$$
+
+### Solução ótima
+
+A combinação de fatores que minimiza o custo total é:
+
+- $L^* = 5$
+- $K^* = 20$
+
+Custo mínimo:
+
+$$
+C^* = 4L + K = 4 \cdot 5 + 20 = 40
+$$
+
+### Interpretação econômica
+
+A condição de mínimo exige que a **taxa marginal de substituição técnica (TMST)** seja igual à razão dos preços dos fatores:
+
+$$
+\text{TMST} = \frac{MP_L}{MP_K} = \frac{K}{L} = \frac{20}{5} = 4
+\quad\text{e}\quad \frac{w}{r} = \frac{4}{1} = 4
+$$
+
+Como:
+
+$$
+\text{TMST} = \frac{w}{r}
+$$
+
+Há tangência entre a isoquanta e a linha de isocusto: a solução ótima ocorre com ambos insumos positivos.
+
+O multiplicador de Lagrange $\lambda$ pode ser interpretado como o **custo marginal de produzir uma unidade adicional de $Q$**. Podemos obtê-lo substituindo $L = 5$, $K = 20$ em qualquer uma das equações:
+
+$$
+4 = \lambda \cdot \frac{1}{2}(5^{-0{,}5})(20^{0{,}5})
+\Rightarrow \lambda = \frac{4}{\frac{1}{2} \cdot \frac{1}{\sqrt{5}} \cdot \sqrt{20}} = 4
+$$
+
+Assim, o custo de produzir uma unidade adicional de $Q$ é aproximadamente 4 unidades monetárias.
+:::
+
+### Interpretação econômica
+
+A condição de ótimo exige que a taxa marginal de substituição técnica (TMST) seja igual à razão entre os preços dos fatores:
+
+$$
+\text{TMST} = \frac{MP_L}{MP_K} = \frac{K}{L} = \frac{4L}{L} = 4 = \frac{w}{r}
+$$
+
+Como a condição é satisfeita, o ponto de mínimo ocorre em um ponto interior, com uso positivo de ambos os insumos.
+
+## Resolução por TMST
+
+### Dados do Problema
+
+**Função de produção:**
+
+$$ Q = L^{0.5}K^{0.5} $$
+
+**Meta de produção:**
+
+$$ \bar{Q} = 10 $$
+
+**Preços dos fatores:**
+
+- Trabalho: $w = 4$
+- Capital: $r = 1$
+
+**Função de custo:**
+
+$$ C = 4L + K $$
+
+### Passo 1: Cálculo das Produtividades Marginais
+
+Para encontrar a TMST, primeiro calculamos as derivadas parciais da função de produção:
+
+1. **Produtividade Marginal do Trabalho ($PMg_L$):**
+
+$$ \frac{\partial Q}{\partial L} = 0.5L^{-0.5}K^{0.5} $$
+
+2. **Produtividade Marginal do Capital ($PMg_K$):**
+
+$$ \frac{\partial Q}{\partial K} = 0.5L^{0.5}K^{-0.5} $$
+
+::: {.callout-note collapse="true"}
+## Explicação da Derivação da Produtividade Marginal do Trabalho
+
+Regra de Derivação Aplicada
+
+Para calcular $\frac{\partial Q}{\partial L}$ da função de produção Cobb-Douglas $Q = L^{0.5}K^{0.5}$, utilizamos:
+
+1. **Regra da Potência para Derivadas Parciais**
+
+A regra básica utilizada foi:
+
+$$ \frac{\partial}{\partial x} x^n = nx^{n-1} $$
+
+2. **Tratamento da Variável K**
+
+Como estamos derivando em relação a L, tratamos K como constante:
+$$ \frac{\partial}{\partial L} (K^{0.5}) = 0 $$
+
+3. **Aplicação Passo a Passo**
+
+Para $Q = L^{0.5}K^{0.5}$:
+
+1. Aplicamos a regra da potência a $L^{0.5}$:
+   $$ \frac{\partial}{\partial L} L^{0.5} = 0.5L^{0.5-1} = 0.5L^{-0.5} $$
+
+2. Mantemos o termo constante $K^{0.5}$ multiplicando:
+   $$ \frac{\partial Q}{\partial L} = 0.5L^{-0.5} \times K^{0.5} $$
+
+3. Resultado final:
+   $$ \frac{\partial Q}{\partial L} = 0.5L^{-0.5}K^{0.5} $$
+
+Observações Importantes:
+
+- O expoente 0.5 equivale à raiz quadrada ($\sqrt{L} = L^{0.5}$)
+- O termo $L^{-0.5}$ pode ser reescrito como $\frac{1}{\sqrt{L}}$
+- Esta é uma derivação parcial porque consideramos K constante ao derivar em relação a L
+:::
+
+### Passo 2: Derivação Detalhada da TMST
+
+A Taxa Marginal de Substituição Técnica é obtida pela razão das produtividades marginais:
+
+$$
+TMST = \frac{PMg_L}{PMg_K} = \frac{0.5L^{-0.5}K^{0.5}}{0.5L^{0.5}K^{-0.5}} 
+$$
+
+Utilizamos as seguintes propriedades:
+
+- $\displaystyle \frac{a^m}{a^n} = a^{m-n}$
+
+Assim, aplicando para as variáveis $L$ e $K$:
+
+- $\displaystyle \frac{L^{-0{,}5}}{L^{0{,}5}} = L^{-0{,}5 - 0{,}5} = L^{-1}$
+
+- $\displaystyle \frac{K^{0{,}5}}{K^{-0{,}5}} = K^{0{,}5 - (-0{,}5)} = K^1 = K$
+
+Portanto, temos:
+
+$$
+TMST = \frac{K}{L}
+$$
+
+### Passo 3: Condição de Minimização de Custo
+
+Igualamos a TMST à razão de preços dos fatores:
+
+$$ \frac{K}{L} = \frac{w}{r} = \frac{4}{1} $$
+
+Obtemos a relação ótima:
+
+$$ K = 4L $$
+
+### Passo 4: Substituição na Restrição de Produção
+
+Substituindo $K = 4L$ na função de produção com $\bar{Q} = 10$:
+
+$$ 10 = L^{0.5}(4L)^{0.5} $$
+
+Desenvolvendo:
+
+- $(4L)^{0.5} = 2L^{0.5}$
+- $L^{0.5} \times 2L^{0.5} = 2L$
+
+obs.: $L^{0.5+0.5} = L^1$
+
+Portanto:
+
+$$ 10 = 2L \implies L = 5 $$
+
+E consequentemente:
+$$ K = 4 \times 5 = 20 $$
+
+### Passo 5: Cálculo do Custo Mínimo
+
+$$ C = 4(5) + 1(20) = 20 + 20 = 40 $$
+
+### Solução Final
+
+**Combinação ótima:**
+
+- Trabalho: $L^* = 5$
+- Capital: $K^* = 20$
+
+**Custo mínimo:**
+$$ C^* = 40 $$
+
+### Verificação
+
+Substituindo na função de produção:
+
+$$ Q = (5)^{0.5}(20)^{0.5} = \sqrt{5} \times \sqrt{20} = \sqrt{100} = 10  $$
+
+Atinge a meta de produzir 10 unidades ao menor custo.
+
+## Representação gráfica via isocusto e isoquanta
+
+Dada a função de produção do tipo Cobb-Douglas:
+
+$$
+Q = L^{0{,}5}K^{0{,}5}
+$$
+
+**1. Função de Isoquanta**
+
+A isoquanta representa todas as combinações de insumos $L$ e $K$ que resultam em um mesmo nível de produção $\bar{Q}$. A partir da função de produção, fixamos $Q = \bar{Q}$ e isolamos uma variável (por exemplo, $K$):
+
+$$
+L^{0{,}5}K^{0{,}5} = \bar{Q}
+\Rightarrow
+\sqrt{L}\sqrt{K} = \bar{Q}
+\Rightarrow
+\sqrt{LK} = \bar{Q}
+\Rightarrow
+LK = \bar{Q}^2
+\Rightarrow
+K = \frac{\bar{Q}^2}{L}
+$$
+
+**Equação da isoquanta:**
+
+$$
+K = \frac{\bar{Q}^2}{L}
+$$
+
+Essa é a equação que define a **curva de isoquanta**, que é uma hipérbole no plano $(L, K)$.
+
+**2. Função de Isocusto**
+
+A isocusto representa todas as combinações de insumos $L$ e $K$ que custam o mesmo valor total $\bar{C}$, dado os preços dos insumos:
+
+- Preço do trabalho: $w$
+- Preço do capital: $r$
+
+A função de custo total é:
+
+$$
+C = wL + rK
+\Rightarrow
+\bar{C} = wL + rK
+\Rightarrow
+K = \frac{\bar{C}}{r} - \frac{w}{r}L
+$$
+
+**Equação da reta de isocusto:**
+
+$$
+K = \frac{\bar{C}}{r} - \frac{w}{r}L
+$$
+
+É uma reta com intercepto $\frac{\bar{C}}{r}$ e inclinação $-\frac{w}{r}$.
+
+**3. Interpretação**
+
+- A **isoquanta** mostra as diferentes formas de combinar trabalho e capital para produzir o mesmo nível de produto.
+- A **isocusto** mostra as diferentes formas de combinar insumos que mantêm o custo constante.
+- O **ponto de tangência** entre a isoquanta e a isocusto determina a **combinação ótima** de $L$ e $K$ para produzir $\bar{Q}$ ao **menor custo possível**.
+
+```{r}
+#| warning: false
+#| message: false
+#| fig-width: 6
+#| fig-height: 5
+
+library(ggplot2)
+library(dplyr)
+
+# Função de produção Q = L^0.5 * K^0.5 → K = Q^2 / L
+isoquanta <- function(L, Q) (Q^2) / L
+
+# Linha de isocusto: C = wL + rK → K = (C - wL)/r
+isocusto <- function(L, C, w = 4, r = 1) (C - w * L) / r
+
+# Valores de L
+# L_vals <- seq(1, 12)
+L_vals <- seq(1, 12, length.out = 300)
+
+dados <- tibble(
+  L = L_vals,
+  isoquanta = isoquanta(L, 10),
+  isocusto_40 = isocusto(L, 40),
+  isocusto_50 = isocusto(L, 50)
+)
+
+ggplot(dados, aes(x = L)) +
+  geom_line(aes(y = isoquanta), color = "#1f78b4", size = 1.2) +
+  geom_line(aes(y = isocusto_40), color = "#33a02c", linetype = "dashed", size = 1) +
+  # geom_line(aes(y = isocusto_50), color = "#e31a1c", linetype = "dotted", size = 1) +
+  geom_point(aes(x = 5, y = 20), color = "#33a02c", size = 3) +
+  annotate("text", x = 5.5, y = 20.5, label = "Ótimo (C = 40)", color = "#33a02c") +
+  annotate("text", x = 3, y = 33, label = "Isoquanta Q = 10", color = "#1f78b4") +
+  labs(
+    x = "Trabalho (L)",
+    y = "Capital (K)",
+    title = "Minimização de custo com função Cobb-Douglas"
+  ) +
+  coord_cartesian(ylim = c(0, 50)) +
+  theme_minimal()
+```
+
+## Resolução por substituição
+
+Queremos minimizar o custo total:
+
+$$
+C = 4L + K
+$$
+
+Sujeito à função de produção:
+
+$$
+Q = L^{0{,}5}K^{0{,}5} = 10
+$$
+
+### Etapa 1: Isolar uma variável a partir da função de produção
+
+Vamos isolar $K$ na equação da produção:
+
+$$
+L^{0{,}5}K^{0{,}5} = 10 \Rightarrow K^{0{,}5} = \frac{10}{L^{0{,}5}} \Rightarrow K = \left(\frac{10}{L^{0{,}5}} \right)^2 = \frac{100}{L}
+$$
+
+### Etapa 2: Substituir na função de custo
+
+Substituímos a expressão de $K$ na função de custo:
+
+$$
+C(L) = 4L + \frac{100}{L}
+$$
+
+### Etapa 3: Minimizar $C(L)$
+
+Agora temos um problema de **minimização não restrita** de uma função de uma variável. Derivamos $C(L)$ e igualamos a zero:
+
+$$
+C(L) = 4L + \frac{100}{L}
+\Rightarrow C'(L) = 4 - \frac{100}{L^2}
+$$
+
+Igualando a zero:
+
+$$
+4 - \frac{100}{L^2} = 0 \Rightarrow \frac{100}{L^2} = 4 \Rightarrow L^2 = 25 \Rightarrow L = 5
+$$
+
+Substituímos em $K = \frac{100}{L}$:
+
+$$
+K = \frac{100}{5} = 20
+$$
+
+::: {.callout-note collapse="true"}
+
+## Derivada de $C(L) = 4L + \frac{100}{L}$
+
+Queremos derivar a função custo total:
+
+$$
+C(L) = 4L + \frac{100}{L}
+$$
+
+Essa função é composta por dois termos: um termo linear e um termo inverso.
+
+### Passo 1: Derivada do termo linear
+
+$$
+\frac{d}{dL}(4L) = 4
+$$
+
+A derivada de um termo da forma $aL$ em relação a $L$ é simplesmente a constante $a$.
+
+### Passo 2: Derivada do termo inverso
+
+Reescrevemos:
+
+$$
+\frac{100}{L} = 100 \cdot L^{-1}
+$$
+
+Usando a regra da potência:
+
+$$
+\frac{d}{dL}(L^{-1}) = -1 \cdot L^{-2} = -\frac{1}{L^2}
+$$
+
+Logo:
+
+$$
+\frac{d}{dL} \left( \frac{100}{L} \right) = -\frac{100}{L^2}
+$$
+
+### Passo 3: Soma das derivadas
+
+A derivada total da função custo é:
+
+$$
+C'(L) = 4 - \frac{100}{L^2}
+$$
+
+
+### Interpretação
+
+A derivada $C'(L)$ representa o **custo marginal** da firma ao variar a quantidade de trabalho $L$, levando em conta a substituição implícita do capital $K = \frac{100}{L}$.
+
+Para encontrar o mínimo da função, basta resolver:
+
+$$
+C'(L) = 0 \Rightarrow 4 - \frac{100}{L^2} = 0
+\Rightarrow L^2 = 25 \Rightarrow L = 5
+$$
+:::
+
+
+### Etapa 4: Cálculo do custo mínimo
+
+$$
+C = 4L + K = 4 \times 5 + 20 = 40
+$$
+
+### Solução ótima
+
+- $L^* = 5$
+- $K^* = 20$
+- Custo mínimo: $C^* = 40$
+
+### Conclusão
+
+Mesmo com função Cobb-Douglas, é possível resolver o problema de minimização de custos por **substituição**, desde que a função de produção permita isolar uma variável. O procedimento é:
+
+1. Usar a função de produção para expressar $K$ em função de $L$;
+2. Substituir em $C(L)$;
+3. Derivar e encontrar o valor ótimo de $L$;
+4. Recuperar $K$ e o custo mínimo.
+
+Esse método é totalmente equivalente ao método de Lagrange, mas usa cálculo diferencial direto em uma função de uma variável.
+
+

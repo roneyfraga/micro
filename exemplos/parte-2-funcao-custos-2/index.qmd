@@ -1,0 +1,444 @@
+---
+title: "Função Custos `ex2`"
+date: "`r Sys.time()`"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+## Enunciado
+
+A função de custo total anual da indústria é:
+
+$$
+C(q) = 0{,}33q^3 - 7{,}5q^2 + 100q + 1000
+$$
+
+- Onde:
+  - $q$: milhares de chips produzidos por ano,
+  - $C(q)$: custo total anual, em mil \$.
+
+* Determine:
+  - `a)` a função custo marginal e o ponto de mínimo do custo marginal;
+  - `b)` a função custo variável médio e o seu ponto de mínimo;
+  - `c)` o custo marginal e custo variável médio no ponto de mínimo deste último;
+  - `d)` a função de custo total médio e o mínimo desta função;
+  - `e)` o valor do custo marginal e o valor do custo total médio no ponto de mínimo deste último;
+  - `g)` um gráfico mostrando que a curva de custo marginal intercepta as curvas de custo variável médio e custo total médio em seus respectivos pontos de mínimo.
+
+## a) Função custo marginal e seu ponto de mínimo
+
+### Derivando o custo marginal:
+
+O custo marginal $CMg(q)$ é a derivada da função $C(q)$:
+
+$$
+CMg(q) = C'(q) = \frac{d}{dq} \left( 0{,}33q^3 - 7{,}5q^2 + 100q + 1000 \right)
+= 0{,}99q^2 - 15q + 100
+$$
+
+::: {.callout-note collapse="true"}
+
+## Derivada da Função de Custo Total — Passo a Passo
+
+Desejamos encontrar a **função custo marginal**, que é a **derivada da função de custo total**:
+
+$$
+CMg(q) = C'(q) = \frac{d}{dq} \left( 0{,}33q^3 - 7{,}5q^2 + 100q + 1000 \right)
+$$
+
+### Regra da Potência
+
+Usamos a regra:
+
+$$
+\frac{d}{dq}(a q^n) = a \cdot n \cdot q^{n-1}
+$$
+
+### Derivando termo a termo
+
+#### 1. Termo: $0{,}33q^3$
+
+$$
+\frac{d}{dq}(0{,}33q^3) = 0{,}33 \cdot 3 \cdot q^2 = 0{,}99q^2
+$$
+
+#### 2. Termo: $-7{,}5q^2$
+
+$$
+\frac{d}{dq}(-7{,}5q^2) = -7{,}5 \cdot 2 \cdot q = -15q
+$$
+
+#### 3. Termo: $100q$
+
+$$
+\frac{d}{dq}(100q) = 100
+$$
+
+#### 4. Termo: $1000$ (constante)
+
+$$
+\frac{d}{dq}(1000) = 0
+$$
+
+### Resultado Final
+
+Somando os termos:
+
+$$
+CMg(q) = 0{,}99q^2 - 15q + 100
+$$
+
+### Interpretação
+
+A função $CMg(q)$ representa o **custo marginal**, isto é, o acréscimo no custo total ao se produzir uma unidade adicional (mil chips). Como é uma função quadrática, ela pode ter um ponto de mínimo.
+:::
+
+### Encontrando o ponto de mínimo de $CMg(q)$
+
+Derivamos novamente para localizar extremos:
+
+$$
+CMg'(q) = \frac{d}{dq} \left( 0{,}99q^2 - 15q + 100 \right) = 1{,}98q - 15
+$$
+
+Igualamos a zero:
+
+$$
+1{,}98q - 15 = 0 \Rightarrow q = \frac{15}{1{,}98} \approx 7{,}58
+$$
+
+**Resultado:**
+O custo marginal atinge o mínimo em:
+
+$$
+q \approx \boxed{7{,}58} \text{ mil chips}
+$$
+
+## b) Função custo variável médio e seu ponto de mínimo
+
+### Custo variável:
+
+Dada a função de custo total:
+
+$$
+C(q) = 0{,}33q^3 - 7{,}5q^2 + 100q + 1000
+$$
+
+Sabemos que:
+
+- O termo $1000$ é o **custo fixo**, pois independe da produção.
+- Os demais termos representam o **custo variável**.
+
+Subtraímos o custo fixo:
+
+$$
+CV(q) = C(q) - 1000 = 0{,}33q^3 - 7{,}5q^2 + 100q
+$$
+
+Definir o custo variável médio, por definição:
+
+$$
+CVMe(q) = \frac{CV(q)}{q}
+= \frac{0{,}33q^3 - 7{,}5q^2 + 100q}{q}
+$$
+
+Dividimos cada termo do numerador por $q$:
+
+- $\frac{0{,}33q^3}{q} = 0{,}33q^2$
+- $\frac{-7{,}5q^2}{q} = -7{,}5q$
+- $\frac{100q}{q} = 100$
+
+Temos:
+
+$$
+CVMe(q) = 0{,}33q^2 - 7{,}5q + 100
+$$
+
+### Derivando $CVMe(q)$:
+
+A função do custo variável médio é:
+
+$$
+CVMe(q) = 0{,}33q^2 - 7{,}5q + 100
+$$
+
+Aplicamos a regra da potência termo a termo:
+
+- $\frac{d}{dq}(0{,}33q^2) = 0{,}66q$
+- $\frac{d}{dq}(-7{,}5q) = -7{,}5$
+- $\frac{d}{dq}(100) = 0$
+
+Logo, a derivada é:
+
+$$
+CVMe'(q) = 0{,}66q - 7{,}5
+$$
+
+Encontrando o ponto crítico, igualamos a derivada a zero para encontrar o ponto de mínimo:
+
+$$
+0{,}66q - 7{,}5 = 0
+\Rightarrow 0{,}66q = 7{,}5
+\Rightarrow q = \frac{7{,}5}{0{,}66} \approx 11{,}36
+$$
+
+O custo variável médio atinge seu valor mínimo quando:
+
+$$
+q \approx 11{,}36 \text{ mil chips}
+$$
+
+**Interpretação**
+
+Antes de $q \approx 11{,}36$, o custo variável médio está diminuindo; depois desse ponto, ele começa a aumentar. Isso indica que há economias de escala variáveis até esse ponto, seguidas por deseconomias de escala.
+
+## c) Custo marginal e custo variável médio nesse ponto
+
+Substituímos $q = 11{,}36$ nas expressões:
+
+- $CMg(q) = 0{,}99q^2 - 15q + 100$
+- $CVMe(q) = 0{,}33q^2 - 7{,}5q + 100$
+
+### Cálculo:
+
+- $CMg(11{,}36) \approx 0{,}99 \cdot (11{,}36)^2 - 15 \cdot 11{,}36 + 100 \approx \boxed{57{,}83}$
+- $CVMe(11{,}36) \approx 0{,}33 \cdot (11{,}36)^2 - 7{,}5 \cdot 11{,}36 + 100 \approx \boxed{57{,}83}$
+
+**Confirmação**: O custo marginal **é igual ao custo variável médio** no ponto de mínimo de CVMe.
+
+## d) Função custo total médio e seu ponto de mínimo
+
+$$
+CTMe(q) = \frac{C(q)}{q}
+$$
+
+$$
+CTMe(q) = \frac{0{,}33q^3 - 7{,}5q^2 + 100q + 1000}{q}
+$$
+
+$$
+CTMe(q) = 0{,}33q^2 - 7{,}5q + 100 + \frac{1000}{q}
+$$
+
+Derivando:
+
+Aplicamos as regras básicas de derivação:
+
+- Regra da potência: $\frac{d}{dq}(aq^n) = anq^{n-1}$
+- Regra da derivada de fração: $\frac{d}{dq} \left( \frac{1}{q} \right) = -\frac{1}{q^2}$
+
+Derivando cada termo:
+
+1. $\frac{d}{dq}(0{,}33q^2) = 0{,}66q$
+2. $\frac{d}{dq}(-7{,}5q) = -7{,}5$
+3. $\frac{d}{dq}(100) = 0$
+4. $\frac{d}{dq} \left( \frac{1000}{q} \right) = -\frac{1000}{q^2}$
+
+Somando os termos, temos:
+
+$$
+CTMe'(q) = 0{,}66q - 7{,}5 - \frac{1000}{q^2}
+$$
+
+Igualamos a zero:
+
+$$
+0{,}66q - 7{,}5 - \frac{1000}{q^2} = 0
+$$
+
+O ponto de mínimo obtêm-se investigando os pontos críticos de $0{,}66q - 7{,}5 - \frac{1000}{q^2} = 0$, a saber $\boxed{q \approx 16{,}76}$.
+
+::: {.callout-note collapse="true"}
+
+## Como encontrar o ponto de mínimo da equação $0{,}66q - 7{,}5 - \frac{1000}{q^2} = 0$
+
+Esta equação representa a derivada da função de custo total médio. O valor de $q$ que satisfaz essa equação é o ponto onde o custo total médio atinge seu valor mínimo.
+
+**Passo 1: Isolar o termo fracionário**
+
+$$ 0{,}66q - 7{,}5 = \frac{1000}{q^2} $$
+
+**Passo 2: Eliminar o denominador**
+
+Multiplicamos ambos os lados por $q^2$:  
+
+$$ q^2 \cdot (0{,}66q - 7{,}5) = 1000 $$
+
+**Passo 3: Expandir e reorganizar**
+
+$$ 0{,}66q^3 - 7{,}5q^2 = 1000 $$  
+$$ 0{,}66q^3 - 7{,}5q^2 - 1000 = 0 $$
+
+**Passo 4: Simplificar** (opcional)
+
+Multiplicamos por 100 para eliminar decimais:  
+
+$$ 66q^3 - 750q^2 - 100000 = 0 $$  
+
+Simplificamos dividindo por 2:  
+
+$$ 33q^3 - 375q^2 - 50000 = 0 $$
+
+**Passo 5: Resolver a equação cúbica**
+
+Como não há fatoração óbvia, usamos métodos numéricos.  
+
+**Tentativas de raízes racionais:**
+
+- Testando $q = 10$:  
+  $$ 33(1000) - 375(100) - 50000 = -54500 \neq 0 $$  
+
+- Testando $q = 15$:
+  $$ 33(3375) - 375(225) - 50000 = -23000 \neq 0 $$  
+
+- Testando $q = 20$:
+  $$ 33(8000) - 375(400) - 50000 = 64000 \neq 0 $$  
+
+**Aproximação numérica** (Newton-Raphson ou calculadora):
+
+Solução aproximada:  
+
+$$ q \approx 16{,}76 $$
+
+### Conclusão
+
+O ponto de mínimo da função de custo total médio ocorre em:
+
+$$
+\boxed{q \approx 16{,}76}
+$$
+
+Nesse ponto, o custo total médio atinge seu valor mínimo.
+:::
+
+## e) Custo marginal e custo total médio nesse ponto
+
+**Função de custo total**
+
+A função de custo total é:
+
+$$
+C(q) = 0{,}33q^3 - 7{,}5q^2 + 100q + 1000
+$$
+
+O ponto de mínimo da função de custo total médio foi determinado pela equação derivada:
+
+$$
+CTMe'(q) = 0{,}66q - 7{,}5 - \frac{1000}{q^2} = 0
+$$
+
+Resolvendo numericamente, obtemos:
+
+$$
+q \approx 16{,}76
+$$
+
+**Cálculo do custo marginal**
+
+A função do custo marginal é a derivada da função de custo total:
+
+$$
+CMg(q) = \frac{d}{dq} C(q) = 0{,}99q^2 - 15q + 100
+$$
+
+Substituindo $q = 16{,}76$:
+
+$$
+CMg(16{,}76) = 0{,}99 \cdot (16{,}76)^2 - 15 \cdot 16{,}76 + 100 \approx 126{,}66
+$$
+
+**Cálculo do custo total médio**
+
+A função do custo total médio é:
+
+$$
+CTMe(q) = \frac{C(q)}{q} = 0{,}33q^2 - 7{,}5q + 100 + \frac{1000}{q}
+$$
+
+Substituindo $q = 16{,}76$:
+
+$$
+CTMe(16{,}76) \approx 0{,}33 \cdot (16{,}76)^2 - 7{,}5 \cdot 16{,}76 + 100 + \frac{1000}{16{,}76}
+\approx 126{,}66
+$$
+
+**Conclusão**
+
+No ponto de mínimo da função $CTMe(q)$, temos:
+
+- Quantidade ótima:
+$$
+q \approx \boxed{16{,}76}
+$$
+
+- Custo marginal:
+$$
+CMg(q) \approx \boxed{126{,}66}
+$$
+
+- Custo total médio:
+$$
+CTMe(q) \approx \boxed{126{,}66}
+$$
+
+Portanto, confirmamos a igualdade:
+
+$$
+\boxed{CMg(q) = CTMe(q)} \quad \text{no ponto de mínimo da função de custo total médio}
+$$
+
+## g) Gráfico: Interseções entre CMg, CVMe e CTMe
+
+```{r}
+#| message: false
+#| warning: false
+#| fig-width: 8
+#| fig-height: 5
+
+library(ggplot2)
+library(dplyr)
+library(gt)
+
+# Funções
+CMg <- function(q) 0.99 * q^2 - 15 * q + 100
+CVMe <- function(q) 0.33 * q^2 - 7.5 * q + 100
+CTMe <- function(q) 0.33 * q^2 - 7.5 * q + 100 + 1000 / q
+
+# Dados
+q <- seq(1, 40, length.out = 300)
+df <- tibble(
+  q = q,
+  `Custo Marginal` = CMg(q),
+  `Custo Variável Médio` = CVMe(q),
+  `Custo Total Médio` = CTMe(q)
+) |>
+  tidyr::pivot_longer(-q, names_to = "Tipo", values_to = "Custo")
+
+# Gráfico
+ggplot(df, aes(x = q, y = Custo, color = Tipo, linetype = Tipo)) +
+  geom_line(size = 1.2) +
+  labs(
+    title = "Curvas de Custo Marginal e Custos Médios",
+    x = "Quantidade produzida (milhares)",
+    y = "Custo (mil $)"
+  ) +
+  theme_minimal(base_size = 14) +
+  scale_color_manual(values = c(
+    "Custo Marginal" = "blue",
+    "Custo Variável Médio" = "darkgreen",
+    "Custo Total Médio" = "red"
+  ))
+
+tibble(
+  quantidade = 1:40,
+  `Custo Marginal` = CMg(quantidade),
+  `Custo Variável Médio` = CVMe(quantidade),
+  `Custo Total Médio` = CTMe(quantidade)
+) |>
+  gt()
+```
+
+

@@ -1,0 +1,179 @@
+---
+title: "Oligopólio `cc`"
+date: "`r Sys.time()`"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+# Oligopólio
+
+## Introdução
+
+O **oligopólio** é uma estrutura de mercado caracterizada por um pequeno número de firmas que interagem estrategicamente. As decisões de cada firma afetam e são afetadas pelas decisões das outras firmas.
+
+## Características do Oligopólio
+
+1. **Poucas firmas**: Pequeno número de vendedores
+2. **Interdependência estratégica**: As decisões de uma firma afetam as outras
+3. **Barreiras à entrada**: Impedem ou dificultam a entrada de novas firmas
+4. **Produtos homogêneos ou diferenciados**: Dependendo do mercado
+
+## Teoria dos Jogos
+
+A análise de oligopólio utiliza **teoria dos jogos** para modelar a interação estratégica entre firmas.
+
+### Elementos de um Jogo
+
+1. **Jogadores**: As firmas
+2. **Estratégias**: Ações disponíveis para cada firma
+3. **Payoffs**: Lucros resultantes de cada combinação de estratégias
+
+### Equilíbrio de Nash
+
+Um **Equilíbrio de Nash** é uma combinação de estratégias tal que nenhuma firma tem incentivo para desviar unilateralmente.
+
+Formalmente, $(q_1^*, q_2^*, ..., q_n^*)$ é um Equilíbrio de Nash se:
+
+$$\pi_i(q_i^*, q_{-i}^*) \geq \pi_i(q_i, q_{-i}^*) \quad \forall q_i, \forall i$$
+
+## Modelo de Cournot
+
+No **modelo de Cournot**, as firmas escolhem quantidades simultaneamente.
+
+### Duopólio de Cournot
+
+Considere duas firmas com custos marginais constantes $c_1$ e $c_2$, enfrentando demanda de mercado $P = a - bQ$, onde $Q = q_1 + q_2$.
+
+**Função lucro da firma 1**:
+
+$$\pi_1 = [a - b(q_1 + q_2)]q_1 - c_1q_1$$
+
+**Condição de primeira ordem** (função de reação):
+
+$$\frac{\partial \pi_1}{\partial q_1} = a - 2bq_1 - bq_2 - c_1 = 0$$
+
+$$q_1 = \frac{a - c_1 - bq_2}{2b}$$
+
+Similarmente para a firma 2:
+
+$$q_2 = \frac{a - c_2 - bq_1}{2b}$$
+
+**Equilíbrio de Nash**: Resolver o sistema de funções de reação.
+
+Se $c_1 = c_2 = c$:
+
+$$q_1^* = q_2^* = \frac{a - c}{3b}$$
+
+$$Q^* = \frac{2(a - c)}{3b}$$
+
+$$P^* = \frac{a + 2c}{3}$$
+
+## Modelo de Bertrand
+
+No **modelo de Bertrand**, as firmas escolhem preços simultaneamente.
+
+### Duopólio de Bertrand com Produtos Homogêneos
+
+Se as firmas têm custos marginais iguais $c$, o único Equilíbrio de Nash é:
+
+$$P_1^* = P_2^* = c$$
+
+Resultado: **Paradoxo de Bertrand** - com apenas duas firmas, o resultado é o mesmo da concorrência perfeita.
+
+### Duopólio de Bertrand com Produtos Diferenciados
+
+Com produtos diferenciados, as firmas podem cobrar preços acima do custo marginal.
+
+Demandas:
+
+$$q_1 = a - bp_1 + dp_2$$
+$$q_2 = a - bp_2 + dp_1$$
+
+onde $d$ mede o grau de substituibilidade.
+
+## Modelo de Stackelberg
+
+No **modelo de Stackelberg**, uma firma (líder) escolhe sua quantidade primeiro, e a outra firma (seguidora) observa e responde.
+
+**Sequência**:
+
+1. Líder escolhe $q_L$
+2. Seguidora observa $q_L$ e escolhe $q_S$
+
+**Solução por indução reversa**:
+
+1. Encontrar a função de reação da seguidora: $q_S(q_L)$
+2. Líder maximiza lucro considerando a reação da seguidora
+
+**Resultado**: O líder produz mais e tem lucro maior que no equilíbrio de Cournot.
+
+## Conluio e Cartel
+
+**Conluio** ocorre quando as firmas coordenam suas ações para maximizar lucro conjunto.
+
+### Cartel
+
+Um **cartel** é um acordo formal entre firmas para coordenar preços e quantidades.
+
+**Solução de cartel**: As firmas agem como um monopolista:
+
+$$\max_{Q} \quad [P(Q) - c]Q$$
+
+$$P(Q) \cdot Q = \text{Receita Total do Cartel}$$
+
+**Problema**: Cada firma tem incentivo para desviar (produzir mais que sua cota).
+
+## Jogos Repetidos e Sustentabilidade do Conluio
+
+Em **jogos repetidos**, as firmas interagem múltiplas vezes. Isso pode facilitar a cooperação.
+
+### Estratégias de Gatilho
+
+**Estratégia de gatilho**: Cooperar enquanto todos cooperam; punir (reverter para Nash) se alguém desviar.
+
+**Teorema Folk**: Se as firmas são suficientemente pacientes (fator de desconto alto), o conluio pode ser sustentado como Equilíbrio de Nash do jogo repetido.
+
+## Concentração de Mercado
+
+### Índice de Herfindahl-Hirschman (HHI)
+
+$$HHI = \sum_{i=1}^{n} s_i^2$$
+
+onde $s_i$ é a participação de mercado da firma $i$ (em porcentagem).
+
+**Interpretação**:
+- $HHI < 1500$: Mercado não concentrado
+- $1500 \leq HHI < 2500$: Moderadamente concentrado
+- $HHI \geq 2500$: Altamente concentrado
+
+### Razão de Concentração
+
+$$CR_k = \sum_{i=1}^{k} s_i$$
+
+Soma das participações de mercado das $k$ maiores firmas.
+
+## Barreiras à Entrada
+
+1. **Economias de escala**
+2. **Vantagens de custo absoluto**
+3. **Diferenciação de produto e lealdade à marca**
+4. **Requisitos de capital**
+5. **Acesso a canais de distribuição**
+6. **Políticas governamentais**
+7. **Barreiras estratégicas** (investimentos em capacidade, contratos exclusivos)
+
+## Referências
+
+Ver @pindyck2013 [capítulo 12], @baidya2014 [capítulo 6], @perloff2022 [capítulo 13].
+
+---
+
+**Nota:** Este capítulo será expandido com mais detalhes teóricos. Os exemplos computacionais estão disponíveis nos capítulos seguintes.
+
+## Referências
+
+::: {#refs}
+:::

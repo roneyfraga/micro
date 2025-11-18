@@ -1,0 +1,1903 @@
+---
+title: "Equilíbrio Geral - Trocas `cc`"
+date: "%Y-%m-%d"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+## Por onde começar?
+
+::: {.callout-note appearance="simple"}
+**Apresentação interativa:** Use as setas de navegação ou as teclas ← → para navegar entre os slides.
+
+[Abrir em tela cheia](equilibrio-geral-revealjs/index.html){target="_blank"}, ou acessar na pequena janela abaixo ↓.
+
+:::
+
+<div style="margin: 20px 0;">
+
+```{=html}
+<iframe class="slide-deck" src="equilibrio-geral-revealjs/index.html" width="100%" height="600px" style="border: 2px solid #dee2e6; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"></iframe>
+```
+
+</div>
+
+<!-- baidya2014 Capítulo 9 Exemplo 9.1 - Equilíbrio Parcial  {{{ -->
+
+::: {#tip-baidya-cap9-ex91 .callout-tip collapse="true" appearance="default" icons=true}
+
+## @baidya2014 Capítulo 9 Exemplo 9.1 - Equilíbrio Parcial
+
+Considere que a oferta anual de soja pelo Brasil no mercado internacional é dada por $Q=\frac{P}{2} - 5$, onde $5 ≤ Q ≤ 100$ e $Q$ é empresso em *MMtoneladas* (milhões de toneladas) e $p$ é o preço em \$/tonelada. A demanda de soja pela mercado norte-americano é dada por $P=180-1.8Q$. Encontre a quantidade de soja que será exportada e o preço da tonelada.
+
+### Desenvolvimento Teórico
+
+#### Conceitos Fundamentais
+
+**Equilíbrio de mercado** ocorre quando a quantidade ofertada iguala-se à quantidade demandada a um determinado preço. Matematicamente:
+
+$$Q_o(P) = Q_d(P)$$
+
+Onde:
+
+- $Q_o(P)$ é a função de oferta
+- $Q_d(P)$ é a função de demanda
+- $P$ é o preço de equilíbrio
+
+#### Funções do Problema
+
+**Oferta do Brasil:** $Q = \frac{P}{2} - 5$
+
+Esta é uma função de oferta linear onde:
+
+- O intercepto vertical (preço mínimo) ocorre quando $Q = 0$: $P = 10$
+- A inclinação indica que a cada aumento de $2$ no preço, a quantidade ofertada aumenta em $1$ unidade
+
+**Demanda dos EUA:** $P = 180 - 1.8Q$
+
+Esta é uma função de demanda linear onde:
+
+- O preço máximo (intercepto vertical) é $P = 180$ quando $Q = 0$
+- A inclinação negativa indica que a cada aumento de $1$ unidade na quantidade, o preço diminui $1.8$
+
+### Formalização Matemática
+
+#### Passo a Passo da Resolução
+
+**Passo 1:** Igualar oferta e demanda
+
+Temos:
+
+- Oferta: $Q = \frac{P}{2} - 5$
+- Demanda: $P = 180 - 1.8Q$
+
+Substituindo a oferta na demanda:
+
+$$P = 180 - 1.8\left(\frac{P}{2} - 5\right)$$
+
+**Passo 2:** Resolver para $P$
+
+$$P = 180 - 1.8\left(\frac{P}{2}\right) + 1.8 \times 5$$
+$$P = 180 - 0.9P + 9$$
+$$P + 0.9P = 189$$
+$$1.9P = 189$$
+$$P^* = \frac{189}{1.9}$$
+$$P^* = 99.47$$
+
+**Passo 3:** Encontrar $Q^*$
+
+Substituindo $P^*$ na função de oferta:
+
+$$Q^* = \frac{99.47}{2} - 5$$
+$$Q^* = 49.735 - 5$$
+$$Q^* = 44.735$$
+
+**Passo 4:** Verificação
+
+Substituindo $Q^*$ na função de demanda:
+
+$$P = 180 - 1.8 \times 44.735$$
+$$P = 180 - 80.523$$
+$$P = 99.47$$ ✓
+
+#### Interpretação Econômica
+
+- **Preço de equilíbrio:** $P^* = \$99.47$ por tonelada
+- **Quantidade de equilíbrio:** $Q^* = 44.735$ milhões de toneladas
+- **Verificação de restrições:** $5 ≤ Q^* ≤ 100$ ✓
+
+O preço de equilíbrio está acima do preço mínimo de oferta ($\$10$), garantindo que os produtores brasileiros tenham incentivo para ofertar soja no mercado internacional.
+
+### Exemplos Numéricos
+
+#### Análise de Sensibilidade
+
+Vamos analisar o comportamento das funções em diferentes pontos:
+
+| Preço ($P$) | Oferta ($Q_o$) | Demanda ($Q_d$) | Excesso |
+|-------------|----------------|-----------------|---------|
+| \$50 | 20 | 72.22 | -52.22 (escassez) |
+| \$80 | 35 | 55.56 | -20.56 (escassez) |
+| \$99.47 | 44.735 | 44.735 | 0 (equilíbrio) |
+| \$120 | 55 | 33.33 | +21.67 (excesso) |
+| \$150 | 70 | 16.67 | +53.33 (excesso) |
+
+
+## Implementação em R
+
+```{r}
+#| eval: true
+#| echo: true
+#| code-fold: true
+#| message: false
+#| warning: false
+
+# Carregar bibliotecas necessárias
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(dplyr)
+  library(tidyr)
+  library(scales)
+})
+
+# 1. Definir parâmetros e funções
+preco_min_oferta <- 10
+preco_max_demanda <- 180
+
+# Função de oferta: Q = P/2 - 5
+oferta <- function(preco) {
+  q <- preco/2 - 5
+  # Garantir que Q esteja no domínio válido
+  pmax(pmin(q, 100), 0)
+}
+
+# Função de demanda: P = 180 - 1.8Q
+demanda <- function(quantidade) {
+  p <- 180 - 1.8 * quantidade
+  # Garantir que P seja não-negativo
+  pmax(p, 0)
+}
+
+# Função inversa da demanda: Q = (180 - P)/1.8
+demanda_inversa <- function(preco) {
+  q <- (180 - preco) / 1.8
+  pmax(q, 0)
+}
+
+# 2. Calcular equilíbrio
+# Encontrar P* e Q* numericamente
+precos <- seq(10, 180, by = 0.01)
+diferencas <- oferta(precos) - demanda_inversa(precos)
+indice_equilibrio <- which.min(abs(diferencas))
+
+preco_equilibrio <- precos[indice_equilibrio]
+quantidade_equilibrio <- oferta(preco_equilibrio)
+
+# cat("Preço de equilíbrio (P*):", round(preco_equilibrio, 2), "\n")
+# cat("Quantidade de equilíbrio (Q*):", round(quantidade_equilibrio, 3), "\n")
+
+# 3. Criar dados para visualização
+dados_grafico <- tibble::tibble(
+  preco = seq(0, 180, by = 1)
+) |>
+  dplyr::mutate(
+    oferta = oferta(preco),
+    demanda = demanda_inversa(preco)
+  ) |>
+  tidyr::pivot_longer(
+    cols = c(oferta, demanda),
+    names_to = "tipo",
+    values_to = "quantidade"
+  )
+
+# 4. Visualizar equilíbrio
+grafico_equilibrio <- ggplot2::ggplot(dados_grafico, ggplot2::aes(x = quantidade, y = preco, color = tipo)) +
+  ggplot2::geom_line(linewidth = 1.2) +
+  ggplot2::geom_point(
+    data = tibble::tibble(
+      quantidade = quantidade_equilibrio,
+      preco = preco_equilibrio,
+      tipo = "Equilíbrio"
+    ),
+    ggplot2::aes(x = quantidade, y = preco),
+    color = "red",
+    size = 4,
+    shape = 17
+  ) +
+  ggplot2::geom_hline(yintercept = preco_equilibrio, linetype = "dashed", color = "gray50") +
+  ggplot2::geom_vline(xintercept = quantidade_equilibrio, linetype = "dashed", color = "gray50") +
+  ggplot2::annotate(
+    "text", x = quantidade_equilibrio + 10, y = preco_equilibrio + 10,
+    label = paste("E* (", round(quantidade_equilibrio, 1), ", ", round(preco_equilibrio, 1), ")", sep = ""),
+    color = "red", fontface = "bold"
+  ) +
+  ggplot2::scale_color_manual(
+    values = c(oferta = "blue", demanda = "darkgreen", "Equilíbrio" = "red"),
+    labels = c(oferta = "Oferta (Q = P/2 - 5)", demanda = "Demanda (P = 180 - 1.8Q)")
+  ) +
+  ggplot2::labs(
+    title = "Equilíbrio de Mercado - Soja (Brasil × EUA)",
+    subtitle = "Oferta brasileira e demanda norte-americana",
+    x = "Quantidade (milhões de toneladas)",
+    y = "Preço ($/tonelada)",
+    color = "Função"
+  ) +
+  ggplot2::scale_x_continuous(
+    limits = c(0, 100),
+    labels = scales::comma
+  ) +
+  ggplot2::scale_y_continuous(
+    limits = c(0, 200),
+    labels = scales::dollar
+  ) +
+  ggplot2::theme_minimal() +
+  ggplot2::theme(
+    plot.title = ggplot2::element_text(size = 14, face = "bold"),
+    plot.subtitle = ggplot2::element_text(size = 12),
+    axis.title = ggplot2::element_text(size = 11),
+    legend.position = "bottom"
+  )
+
+# Exibir gráfico
+print(grafico_equilibrio)
+```
+
+## Resumo do Problema
+
+**Solução encontrada:**
+
+- **Preço de equilíbrio:** $P^* = \$99.47$ por tonelada
+- **Quantidade de equilíbrio:** $Q^* = 44.735$ milhões de toneladas
+
+O equilíbrio ocorre dentro das restrições especificadas ($5 ≤ Q ≤ 100$), indicando uma solução válida para o mercado internacional de soja entre Brasil e Estados Unidos.
+
+:::
+
+ <!-- }}} -->
+
+<!-- Curva de Contratos com matemática simbólica  {{{ -->
+
+::: {#tip-curva-de-contrato-simbolica .callout-tip collapse="true" appearance="default" icons="false"}
+
+## Curva de Contratos Simbólica
+
+Determine a equação da curva de contrato e esboce seu gráfico considerando as seguintes funções:
+
+$$U_A (x^{A}_{1}, x^{A}_{2}) = {x^{A}_{1}}^\alpha {x^{A}_{2}}^\beta$$
+
+$$U_B (x^{B}_{1}, x^{B}_{2}) = {x^{B}_{1}}^\alpha {x^{B}_{2}}^\beta$$
+
+## Resolução Matemática Simbólica
+
+### Passo 1: Igualar as $TMS_A$ com $TMS_B$ para encontrar o ponto de tangência
+
+Taxa marginal de substituição do indivíduo A:
+
+$$TMS_A = \frac{\partial U_A/\partial x_1^A}{\partial U_A/\partial x_2^A} = \frac{\alpha (x_1^A)^{\alpha-1} (x_2^A)^\beta}{\beta (x_1^A)^\alpha (x_2^A)^{\beta-1}} = \frac{\alpha}{\beta} \cdot \frac{x_2^A}{x_1^A}$$
+
+Taxa marginal de substituição do indivíduo B:
+
+$$TMS_B = \frac{\partial U_B/\partial x_1^B}{\partial U_B/\partial x_2^B} = \frac{\alpha (x_1^B)^{\alpha-1} (x_2^B)^\beta}{\beta (x_1^B)^\alpha (x_2^B)^{\beta-1}} = \frac{\alpha}{\beta} \cdot \frac{x_2^B}{x_1^B}$$
+
+Igualando as TMS (condição de eficiência de Pareto):
+
+$$\frac{\alpha}{\beta} \cdot \frac{x_2^A}{x_1^A} = \frac{\alpha}{\beta} \cdot \frac{x_2^B}{x_1^B}$$
+
+Simplificando (cancelando $\frac{\alpha}{\beta}$ de ambos os lados):
+
+$$\frac{x_2^A}{x_1^A} = \frac{x_2^B}{x_1^B}$$
+
+### Passo 2: Encontrar a condição para a alocação
+
+As restrições de factibilidade (dotações totais) são:
+
+$$x_1^A + x_1^B = \omega_1$$
+$$x_2^A + x_2^B = \omega_2$$
+
+Isolando as alocações do indivíduo B:
+
+$$x_1^B = \omega_1 - x_1^A$$
+$$x_2^B = \omega_2 - x_2^A$$
+
+### Passo 3: Encontrar a curva de contrato substituindo 1. em 2.
+
+Substituindo as restrições de factibilidade na igualdade das TMS:
+
+$$\frac{x_2^A}{x_1^A} = \frac{\omega_2 - x_2^A}{\omega_1 - x_1^A}$$
+
+Multiplicando cruzadamente:
+
+$$x_2^A (\omega_1 - x_1^A) = x_1^A (\omega_2 - x_2^A)$$
+
+Expandindo os produtos:
+
+$$x_2^A \omega_1 - x_2^A x_1^A = x_1^A \omega_2 - x_1^A x_2^A$$
+
+Observamos que os termos $-x_2^A x_1^A$ e $-x_1^A x_2^A$ se cancelam:
+
+$$x_2^A \omega_1 = x_1^A \omega_2$$
+
+Isolando $x_2^A$:
+
+$$x_2^A = \frac{x_1^A \omega_2}{\omega_1}$$
+
+Equação final da curva de contrato:
+
+$$\boxed{x_2^A = \frac{\omega_2}{\omega_1} \cdot x_1^A}$$
+
+## Interpretação do Resultado
+
+A equação $x_2^A = \frac{\omega_2}{\omega_1} \cdot x_1^A$ representa uma reta que passa pela origem com inclinação $\frac{\omega_2}{\omega_1}$.
+
+Isso significa que, quando ambos os indivíduos têm preferências idênticas (mesmos parâmetros $\alpha$ e $\beta$), a curva de contrato coincide com a diagonal da caixa de Edgeworth.
+
+Neste caso, qualquer alocação eficiente mantém a mesma proporção entre os bens para ambos os indivíduos, refletindo que eles valorizam os bens de forma idêntica.
+
+## Ilustração Gráfica da Caixa de Edgeworth
+
+```
+        x₂^A
+         │
+    ω₂   ┌────────────────B
+         │               ╱│
+         │              ╱ │
+         │             ╱  │
+         │            ╱   │
+         │ Curva de  ╱    │
+         │ Contrato ╱     │
+         │         ╱      │
+         │        ╱       │
+         │       ╱        │
+         │      ╱         │
+         │     ╱          │
+         │    ╱           │
+         │   ╱            │
+         │  ╱             │
+         │ ╱              │
+       0 O╱───────────────┘─────── x₁^A
+         A                ω₁
+```
+
+### Interpretação do Gráfico
+
+- O retângulo representa a Caixa de Edgeworth com dimensões $\omega_1 \times \omega_2$
+- O ponto O (origem) no canto inferior esquerdo $(0,0)$ é a origem do consumidor A
+- O ponto B no canto superior direito $(\omega_1, \omega_2)$ é a origem do consumidor B
+- A linha diagonal partindo de O até B é a curva de contrato, representando todas as alocações Pareto-eficientes
+- Como ambos os consumidores têm preferências idênticas, a curva de contrato é uma reta que conecta as duas origens
+- Qualquer ponto sobre esta linha representa uma alocação onde as TMS dos dois consumidores são iguais
+- A equação da curva é $x_2^A = \frac{\omega_2}{\omega_1} \cdot x_1^A$, que passa pela origem $(0,0)$
+
+:::
+
+ <!-- }}} -->
+
+<!-- Curva de Contratos com ${x^{A}_{1}}^2$ {{{ -->
+::: {#tip-curva-de-contrato-1-melhor .callout-tip collapse="true" appearance="default" icons="false"}
+
+## Curva de Contratos com ${x^{A}_{1}}^2$
+
+Determine a equação da curva de contrato e esboce gráfico da curva de contrato assumindo as seguintes funções utilidades:
+
+$U_A (x^{A}_{1}, x^{A}_{2}) = {x^{A}_{1}}^2 x^{A}_{2}$
+
+$U_B (x^{B}_{1}, x^{B}_{2}) = x^{B}_{1} x^{B}_{2}$
+
+## Resolução Matemática Simbólica
+
+### Passo 1: Calcular as TMS de cada indivíduo
+
+Taxa marginal de substituição do indivíduo A:
+
+$$TMS_A = \frac{\partial U_A/\partial x_1^A}{\partial U_A/\partial x_2^A}$$
+
+Calculando as derivadas parciais:
+
+$$\frac{\partial U_A}{\partial x_1^A} = 2x_1^A \cdot x_2^A$$
+
+$$\frac{\partial U_A}{\partial x_2^A} = (x_1^A)^2$$
+
+Portanto:
+
+$$TMS_A = \frac{2x_1^A \cdot x_2^A}{(x_1^A)^2} = \frac{2x_2^A}{x_1^A}$$
+
+Taxa marginal de substituição do indivíduo B:
+
+$$TMS_B = \frac{\partial U_B/\partial x_1^B}{\partial U_B/\partial x_2^B}$$
+
+Calculando as derivadas parciais:
+
+$$\frac{\partial U_B}{\partial x_1^B} = x_2^B$$
+
+$$\frac{\partial U_B}{\partial x_2^B} = x_1^B$$
+
+Portanto:
+
+$$TMS_B = \frac{x_2^B}{x_1^B}$$
+
+Igualando as TMS (condição de eficiência de Pareto):
+
+$$\frac{2x_2^A}{x_1^A} = \frac{x_2^B}{x_1^B}$$
+
+### Passo 2: Aplicar as restrições de factibilidade
+
+As restrições de factibilidade (dotações totais) são:
+
+$$x_1^A + x_1^B = \omega_1$$
+$$x_2^A + x_2^B = \omega_2$$
+
+Isolando as alocações do indivíduo B:
+
+$$x_1^B = \omega_1 - x_1^A$$
+$$x_2^B = \omega_2 - x_2^A$$
+
+### Passo 3: Encontrar a curva de contrato
+
+Substituindo as restrições de factibilidade na igualdade das TMS:
+
+$$\frac{2x_2^A}{x_1^A} = \frac{\omega_2 - x_2^A}{\omega_1 - x_1^A}$$
+
+Multiplicando cruzadamente:
+
+$$2x_2^A (\omega_1 - x_1^A) = x_1^A (\omega_2 - x_2^A)$$
+
+Expandindo os produtos:
+
+$$2x_2^A \omega_1 - 2x_2^A x_1^A = x_1^A \omega_2 - x_1^A x_2^A$$
+
+Reorganizando os termos:
+
+$$2x_2^A \omega_1 - 2x_2^A x_1^A = x_1^A \omega_2 - x_1^A x_2^A$$
+
+$$2x_2^A \omega_1 = x_1^A \omega_2 - x_1^A x_2^A + 2x_2^A x_1^A$$
+
+$$2x_2^A \omega_1 = x_1^A \omega_2 + x_1^A x_2^A$$
+
+$$2x_2^A \omega_1 = x_1^A (\omega_2 + x_2^A)$$
+
+Isolando $x_2^A$:
+
+$$2x_2^A \omega_1 = x_1^A \omega_2 + x_1^A x_2^A$$
+
+$$2x_2^A \omega_1 - x_1^A x_2^A = x_1^A \omega_2$$
+
+$$x_2^A (2\omega_1 - x_1^A) = x_1^A \omega_2$$
+
+Equação final da curva de contrato:
+
+$$\boxed{x_2^A = \frac{x_1^A \omega_2}{2\omega_1 - x_1^A}}$$
+
+## Interpretação do Resultado
+
+A equação $x_2^A = \frac{x_1^A \omega_2}{2\omega_1 - x_1^A}$ representa uma curva não-linear (hipérbole) que passa pela origem.
+
+Diferentemente do caso com preferências idênticas, aqui os indivíduos têm preferências diferentes:
+
+- Indivíduo A tem função $U_A = (x_1^A)^2 x_2^A$, valorizando relativamente mais o bem 1 (expoente 2)
+- Indivíduo B tem função $U_B = x_1^B x_2^B$, valorizando ambos os bens igualmente (expoentes iguais a 1)
+
+Características da curva de contrato:
+
+- Passa pela origem $(0,0)$: quando $x_1^A = 0$, temos $x_2^A = 0$
+- É uma curva côncava (hipérbole)
+- Tem assíntota vertical em $x_1^A = 2\omega_1$ (fora da caixa de Edgeworth)
+- Reflete que as alocações eficientes não mantêm proporção constante entre os bens
+
+## Ilustração Gráfica da Caixa de Edgeworth
+
+```{r}
+#| eval: true
+#| echo: true
+#| code-fold: true
+#| message: false
+#| warning: false
+
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(dplyr)
+  library(latex2exp)
+  library(glue)
+})
+
+# Parâmetros das dotações
+omega_1 <- 10
+omega_2 <- 10
+
+# Curva de contrato: x2^A = (x1^A * omega_2) / (2*omega_1 - x1^A)
+# Válida para 0 <= x1^A < 2*omega_1 (mas limitada a omega_1 pela caixa)
+seq(0.01, omega_1 * 0.99, length.out = 200) |>
+  tibble::tibble(x1_A = _) |>
+  dplyr::mutate(
+    x2_A = (x1_A * omega_2) / (2 * omega_1 - x1_A)
+  ) |>
+  dplyr::filter(x2_A >= 0, x2_A <= omega_2) ->
+  curva_contrato
+
+# Criar a Caixa de Edgeworth
+ggplot2::ggplot() +
+  # Retângulo da caixa
+  ggplot2::geom_rect(
+    ggplot2::aes(xmin = 0, xmax = omega_1, ymin = 0, ymax = omega_2),
+    fill = NA, color = "black", linewidth = 1
+  ) +
+  # Curva de contrato
+  ggplot2::geom_line(
+    data = curva_contrato,
+    ggplot2::aes(x = x1_A, y = x2_A),
+    color = "red", linewidth = 1.5
+  ) +
+  # Ponto de origem A (0,0)
+  ggplot2::geom_point(
+    ggplot2::aes(x = 0, y = 0),
+    size = 4, color = "blue"
+  ) +
+  ggplot2::annotate(
+    "text", x = 0.7, y = 0.5, label = "O (A)", size = 5, color = "blue"
+  ) +
+  # Ponto de origem B (omega_1, omega_2)
+  ggplot2::geom_point(
+    ggplot2::aes(x = omega_1, y = omega_2),
+    size = 4, color = "darkgreen"
+  ) +
+  ggplot2::annotate(
+    "text", x = omega_1 - 0.7, y = omega_2 - 0.5, 
+    label = "B", size = 5, color = "darkgreen"
+  ) +
+  # Anotação da curva de contrato
+  ggplot2::annotate(
+    "text", x = 4, y = 7, 
+    label = "Curva de Contrato\n(hipérbole)", 
+    size = 4, color = "red"
+  ) +
+  # Eixos e labels
+  ggplot2::scale_x_continuous(
+    breaks = seq(0, omega_1, by = 2),
+    limits = c(0, omega_1)
+  ) +
+  ggplot2::scale_y_continuous(
+    breaks = seq(0, omega_2, by = 2),
+    limits = c(0, omega_2)
+  ) +
+  ggplot2::labs(
+    # title = "Caixa de Edgeworth com Curva de Contrato",
+    subtitle = latex2exp::TeX(
+      glue::glue(r"($U_A = (x_1^A)^2 x_2^A, U_B = x_1^B x_2^B, \omega_1 = {omega_1}, \omega_2 = {omega_2}$)")
+    ),
+    x = latex2exp::TeX(r"($x_1^A$ (Bem 1 para A))"),
+    y = latex2exp::TeX(r"($x_2^A$ (Bem 2 para A))")
+  ) +
+  ggplot2::theme_minimal() +
+  ggplot2::theme(
+    plot.title = ggplot2::element_text(hjust = 0.5, face = "bold", size = 14),
+    plot.subtitle = ggplot2::element_text(hjust = 0.5, size = 10),
+    axis.title = ggplot2::element_text(size = 11),
+    panel.grid.minor = ggplot2::element_blank()
+  ) +
+  ggplot2::coord_fixed()
+```
+
+### Interpretação do Gráfico
+
+- O retângulo representa a Caixa de Edgeworth com dimensões $\omega_1 \times \omega_2$
+- O ponto O (origem) no canto inferior esquerdo $(0,0)$ é a origem do consumidor A
+- O ponto B no canto superior direito $(\omega_1, \omega_2)$ é a origem do consumidor B
+- A curva vermelha partindo de O é a curva de contrato, representando todas as alocações Pareto-eficientes
+- Diferentemente do caso com preferências idênticas, esta curva é não-linear (hipérbole)
+- A curvatura reflete as diferentes preferências: A valoriza mais o bem 1, B valoriza ambos igualmente
+- Qualquer ponto sobre esta curva representa uma alocação onde as TMS dos dois consumidores são iguais
+- A equação da curva é $x_2^A = \frac{x_1^A \omega_2}{2\omega_1 - x_1^A}$, que passa pela origem $(0,0)$
+
+:::
+
+ <!-- }}} -->
+
+<!-- Curva de Contratos com $\ln(x^{A}_{1})$ e $\sqrt{x^{B}_{1}}$ {{{ -->
+
+::: {#tip-curva-de-contrato-nao-linear .callout-tip collapse="true" appearance="defult" icons="false"}
+
+## Curva de Contratos com $\ln(x^{A}_{1})$ e $\sqrt{x^{B}_{1}}$
+
+Determine a equação da curva de contrato e esboce seu gráfico considerando as seguintes funções utilidades:
+
+$$U_A (x^{A}_{1}, x^{A}_{2}) = \ln(x^{A}_{1}) x^{A}_{2}$$
+
+$$U_B (x^{B}_{1}, x^{B}_{2}) = \sqrt{x^{B}_{1}} x^{B}_{2}$$
+
+Considere também que: $\omega_1 = \omega_2 = 2$
+
+## Resolução Matemática Simbólica
+
+### Passo 1: Calcular as TMS de cada indivíduo
+
+Taxa marginal de substituição do indivíduo A:
+
+$$TMS_A = \frac{\partial U_A/\partial x_1^A}{\partial U_A/\partial x_2^A}$$
+
+Calculando as derivadas parciais:
+
+$$\frac{\partial U_A}{\partial x_1^A} = \frac{1}{x_1^A} \cdot x_2^A = \frac{x_2^A}{x_1^A}$$
+
+$$\frac{\partial U_A}{\partial x_2^A} = \ln(x_1^A)$$
+
+Portanto:
+
+$$TMS_A = \frac{x_2^A/x_1^A}{\ln(x_1^A)} = \frac{x_2^A}{x_1^A \ln(x_1^A)}$$
+
+Taxa marginal de substituição do indivíduo B:
+
+$$TMS_B = \frac{\partial U_B/\partial x_1^B}{\partial U_B/\partial x_2^B}$$
+
+Calculando as derivadas parciais:
+
+$$\frac{\partial U_B}{\partial x_1^B} = \frac{1}{2\sqrt{x_1^B}} \cdot x_2^B = \frac{x_2^B}{2\sqrt{x_1^B}}$$
+
+$$\frac{\partial U_B}{\partial x_2^B} = \sqrt{x_1^B}$$
+
+Portanto:
+
+$$TMS_B = \frac{x_2^B/(2\sqrt{x_1^B})}{\sqrt{x_1^B}} = \frac{x_2^B}{2x_1^B}$$
+
+Igualando as TMS (condição de eficiência de Pareto):
+
+$$\frac{x_2^A}{x_1^A \ln(x_1^A)} = \frac{x_2^B}{2x_1^B}$$
+
+### Passo 2: Aplicar as restrições de factibilidade
+
+As restrições de factibilidade (dotações totais) são:
+
+$$x_1^A + x_1^B = \omega_1$$
+$$x_2^A + x_2^B = \omega_2$$
+
+Isolando as alocações do indivíduo B:
+
+$$x_1^B = \omega_1 - x_1^A$$
+$$x_2^B = \omega_2 - x_2^A$$
+
+### Passo 3: Encontrar a curva de contrato
+
+Substituindo as restrições de factibilidade na igualdade das TMS:
+
+$$\frac{x_2^A}{x_1^A \ln(x_1^A)} = \frac{\omega_2 - x_2^A}{2(\omega_1 - x_1^A)}$$
+
+Multiplicando cruzadamente:
+
+$$2(\omega_1 - x_1^A) x_2^A = x_1^A \ln(x_1^A) (\omega_2 - x_2^A)$$
+
+Expandindo os produtos:
+
+$$2\omega_1 x_2^A - 2x_1^A x_2^A = x_1^A \omega_2 \ln(x_1^A) - x_1^A x_2^A \ln(x_1^A)$$
+
+Reorganizando os termos:
+
+$$2\omega_1 x_2^A - 2x_1^A x_2^A = x_1^A \omega_2 \ln(x_1^A) - x_1^A x_2^A \ln(x_1^A)$$
+
+$$2\omega_1 x_2^A = x_1^A \omega_2 \ln(x_1^A) - x_1^A x_2^A \ln(x_1^A) + 2x_1^A x_2^A$$
+
+$$2\omega_1 x_2^A = x_1^A \omega_2 \ln(x_1^A) + x_2^A (2x_1^A - x_1^A \ln(x_1^A))$$
+
+Isolando $x_2^A$:
+
+$$2\omega_1 x_2^A - x_2^A (2x_1^A - x_1^A \ln(x_1^A)) = x_1^A \omega_2 \ln(x_1^A)$$
+
+$$x_2^A [2\omega_1 - 2x_1^A + x_1^A \ln(x_1^A)] = x_1^A \omega_2 \ln(x_1^A)$$
+
+Equação final da curva de contrato:
+
+$$\boxed{x_2^A = \frac{x_1^A \omega_2 \ln(x_1^A)}{2\omega_1 - 2x_1^A + x_1^A \ln(x_1^A)}}$$
+
+## Interpretação do Resultado
+
+A equação $x_2^A = \frac{x_1^A \omega_2 \ln(x_1^A)}{2\omega_1 - 2x_1^A + x_1^A \ln(x_1^A)}$ representa uma curva não-linear complexa.
+
+Os indivíduos têm preferências diferentes:
+
+- Indivíduo A tem função $U_A = \ln(x_1^A) x_2^A$, com utilidade marginal decrescente logarítmica no bem 1
+- Indivíduo B tem função $U_B = \sqrt{x_1^B} x_2^B$, com utilidade marginal decrescente em raiz quadrada no bem 1
+
+Características da curva de contrato:
+
+- Não passa pela origem devido ao termo $\ln(x_1^A)$ (indefinido em $x_1^A = 0$)
+- É uma curva não-linear que depende de $\ln(x_1^A)$
+- Reflete as diferentes taxas de substituição entre os bens para cada consumidor
+- Com $\omega_1 = \omega_2 = 2$, a curva está limitada ao quadrado $[0,2] \times [0,2]$
+
+## Ilustração Gráfica da Caixa de Edgeworth
+
+```{r}
+#| eval: true
+#| echo: true
+#| code-fold: true
+#| message: false
+#| warning: false
+
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(dplyr)
+  library(latex2exp)
+  library(glue)
+})
+
+# Parâmetros das dotações
+omega_1 <- 2
+omega_2 <- 2
+
+# Curva de contrato: x2^A = (x1^A * omega_2 * ln(x1^A)) / (2*omega_1 - 2*x1^A + x1^A*ln(x1^A))
+seq(0.05, omega_1 * 0.99, length.out = 200) |>
+  tibble::tibble(x1_A = _) |>
+  dplyr::mutate(
+    x2_A = (x1_A * omega_2 * log(x1_A)) / (2 * omega_1 - 2 * x1_A + x1_A * log(x1_A))
+  ) |>
+  dplyr::filter(x2_A >= 0, x2_A <= omega_2) ->
+  curva_contrato
+
+# Criar a Caixa de Edgeworth
+ggplot2::ggplot() +
+  # Retângulo da caixa
+  ggplot2::geom_rect(
+    ggplot2::aes(xmin = 0, xmax = omega_1, ymin = 0, ymax = omega_2),
+    fill = NA, color = "black", linewidth = 1
+  ) +
+  # Curva de contrato
+  ggplot2::geom_line(
+    data = curva_contrato,
+    ggplot2::aes(x = x1_A, y = x2_A),
+    color = "red", linewidth = 1.5
+  ) +
+  # Ponto de origem A (0,0)
+  ggplot2::geom_point(
+    ggplot2::aes(x = 0, y = 0),
+    size = 4, color = "blue"
+  ) +
+  ggplot2::annotate(
+    "text", x = 0.15, y = 0.1, label = "O (A)", size = 5, color = "blue"
+  ) +
+  # Ponto de origem B (omega_1, omega_2)
+  ggplot2::geom_point(
+    ggplot2::aes(x = omega_1, y = omega_2),
+    size = 4, color = "darkgreen"
+  ) +
+  ggplot2::annotate(
+    "text", x = omega_1 - 0.15, y = omega_2 - 0.1, 
+    label = "B", size = 5, color = "darkgreen"
+  ) +
+  # Anotação da curva de contrato
+  ggplot2::annotate(
+    "text", x = 1, y = 1.5, 
+    label = "Curva de Contrato", 
+    size = 4, color = "red"
+  ) +
+  # Eixos e labels
+  ggplot2::scale_x_continuous(
+    breaks = seq(0, omega_1, by = 0.5),
+    limits = c(0, omega_1)
+  ) +
+  ggplot2::scale_y_continuous(
+    breaks = seq(0, omega_2, by = 0.5),
+    limits = c(0, omega_2)
+  ) +
+  ggplot2::labs(
+    # title = "Caixa de Edgeworth com Curva de Contrato",
+    subtitle = latex2exp::TeX(
+      glue::glue(r"($U_A = \ln(x_1^A) x_2^A, U_B = \sqrt{x_1^B} x_2^B, \omega_1 = <<omega_1>>, \omega_2 = <<omega_2>>$)", .open = "<<", .close = ">>")
+    ),
+    x = latex2exp::TeX(r"($x_1^A$ (Bem 1 para A))"),
+    y = latex2exp::TeX(r"($x_2^A$ (Bem 2 para A))")
+  ) +
+  ggplot2::theme_minimal() +
+  ggplot2::theme(
+    plot.title = ggplot2::element_text(hjust = 0.5, face = "bold", size = 14),
+    plot.subtitle = ggplot2::element_text(hjust = 0.5, size = 10),
+    axis.title = ggplot2::element_text(size = 11),
+    panel.grid.minor = ggplot2::element_blank()
+  ) +
+  ggplot2::coord_fixed()
+```
+
+### Interpretação do Gráfico
+
+- O retângulo representa a Caixa de Edgeworth com dimensões $\omega_1 \times \omega_2 = 2 \times 2$
+- O ponto O (origem) no canto inferior esquerdo $(0,0)$ é a origem do consumidor A
+- O ponto B no canto superior direito $(2, 2)$ é a origem do consumidor B
+- A curva vermelha é a curva de contrato, representando todas as alocações Pareto-eficientes
+- Esta curva é não-linear devido às diferentes formas funcionais das utilidades
+- A curvatura reflete as diferentes preferências: A tem utilidade logarítmica em $x_1$, B tem utilidade em raiz quadrada em $x_1$
+- Qualquer ponto sobre esta curva representa uma alocação onde as TMS dos dois consumidores são iguais
+- A equação da curva é $x_2^A = \frac{x_1^A \omega_2 \ln(x_1^A)}{2\omega_1 - 2x_1^A + x_1^A \ln(x_1^A)}$
+
+:::
+
+ <!-- }}} -->
+
+<!-- Partindo das Utitilidades e dotações, encontrar: demandas brutas, líquidas e agregadas  {{{ -->
+
+::: {#tip-demandas-brutas-liquidas-agregadas .callout-tip collapse="true" appearance="defult" icons="false"}
+
+## Partindo das utitilidades e dotações, encontrar: demandas brutas, líquidas e agregadas
+
+Considere dois consumidores com as seguintes funções de utilidade:
+
+$$U_A (x^{A}_{1}, x^{A}_{2}) = x^{A}_{1} x^{A}_{2}$$
+
+$$U_B (x^{B}_{1}, x^{B}_{2}) = x^{B}_{1} x^{B}_{2}$$
+
+Dotações iniciais:
+
+* $\omega_1^A = 10$
+* $\omega_2^A = 5$
+* $\omega_1^B = 5$
+* $\omega_2^B = 5$
+
+Sendo os preços: $p_1 = 2$ e $p_2 = 1$
+
+Encontre:
+
+* demandas brutas
+* demandas líquidas
+* excessos de demanda agregada
+
+Por fim, aplique a lei de Walras para saber se os preços conseguem levar a economia ao equilíbrio.
+
+## 1. Introdução ao Tópico
+
+Este problema aborda a análise de equilíbrio geral em uma economia de troca pura com dois consumidores e dois bens. O objetivo é determinar as demandas individuais, calcular os excessos de demanda agregada e verificar se os preços dados levam a economia ao equilíbrio através da Lei de Walras.
+
+**Objetivos de aprendizagem:**
+
+- Compreender a derivação de demandas a partir de funções de utilidade
+- Calcular demandas brutas e líquidas
+- Analisar excessos de demanda agregada
+- Aplicar a Lei de Walras para verificar equilíbrio
+
+## 2. Função Demanda Marshalliana
+
+### 2.1 Conceito e Definição
+
+A **função demanda Marshalliana** (ou demanda bruta) representa a quantidade ótima que um consumidor deseja adquirir de cada bem, dados os preços de mercado e sua renda. Matematicamente, é a solução do problema de maximização da utilidade sujeita à restrição orçamentária:
+
+$$\max_{x_1, x_2} U(x_1, x_2)$$
+
+Sujeito a:
+$$p_1 x_1 + p_2 x_2 = m$$
+
+onde:
+
+* $p_1, p_2$ são os preços dos bens
+* $m$ é a renda do consumidor
+* $x_1, x_2$ são as quantidades demandadas
+
+### 2.2 Derivação da Função Demanda Marshallana via Lagrange
+
+Para resolver o problema de maximização da utilidade sujeito à restrição orçamentária, utilizamos o **método de Lagrange**. Este método transforma um problema com restrição em um problema de otimização sem restrições.
+
+#### 2.2.1 Configuração do Problema de Lagrange
+
+O problema original é:
+$$\max_{x_1, x_2} U(x_1, x_2) = x_1^{\alpha_1} x_2^{\alpha_2}$$
+
+Sujeito à restrição orçamentária:
+$$g(x_1, x_2) = p_1 x_1 + p_2 x_2 - m = 0$$
+
+O **Lagrangiano** é construído como:
+$$\mathcal{L}(x_1, x_2, \lambda) = x_1^{\alpha_1} x_2^{\alpha_2} + \lambda(m - p_1 x_1 - p_2 x_2)$$
+
+onde $\lambda$ é o **multiplicador de Lagrange**, que representa o valor marginal da renda.
+
+#### 2.2.2 Condições de Primeira Ordem (CPO)
+
+As condições de primeira ordem são obtidas derivando o Lagrangiano em relação a cada variável:
+
+**Derivada parcial em relação a $x_1$:**
+$$\frac{\partial \mathcal{L}}{\partial x_1} = \alpha_1 x_1^{\alpha_1-1} x_2^{\alpha_2} - \lambda p_1 = 0$$
+
+**Derivada parcial em relação a $x_2$:**
+$$\frac{\partial \mathcal{L}}{\partial x_2} = \alpha_2 x_1^{\alpha_1} x_2^{\alpha_2-1} - \lambda p_2 = 0$$
+
+**Derivada parcial em relação a $\lambda$:**
+$$\frac{\partial \mathcal{L}}{\partial \lambda} = m - p_1 x_1 - p_2 x_2 = 0$$
+
+#### 2.2.3 Resolução do Sistema
+
+Das duas primeiras condições, podemos isolar $\lambda$:
+
+Da CPO para $x_1$:
+$$\lambda = \frac{\alpha_1 x_1^{\alpha_1-1} x_2^{\alpha_2}}{p_1}$$
+
+Da CPO para $x_2$:
+$$\lambda = \frac{\alpha_2 x_1^{\alpha_1} x_2^{\alpha_2-1}}{p_2}$$
+
+Igualando as duas expressões para $\lambda$:
+$$\frac{\alpha_1 x_1^{\alpha_1-1} x_2^{\alpha_2}}{p_1} = \frac{\alpha_2 x_1^{\alpha_1} x_2^{\alpha_2-1}}{p_2}$$
+
+Simplificando a expressão:
+$$\frac{\alpha_1}{p_1} \cdot \frac{x_2}{x_1} = \frac{\alpha_2}{p_2}$$
+
+Isolando a relação $x_2/x_1$:
+$$\frac{x_2}{x_1} = \frac{\alpha_2 p_1}{\alpha_1 p_2}$$
+
+Esta é a **taxa marginal de substituição (TMS)** igualada à relação de preços, uma condição fundamental de otimização.
+
+#### 2.2.4 Encontrando as Demandas Ótimas
+
+Da relação acima, expressamos $x_2$ em função de $x_1$:
+$$x_2 = \frac{\alpha_2 p_1}{\alpha_1 p_2} \cdot x_1$$
+
+Substituindo na restrição orçamentária:
+$$p_1 x_1 + p_2 \left(\frac{\alpha_2 p_1}{\alpha_1 p_2} \cdot x_1\right) = m$$
+
+Simplificando:
+$$p_1 x_1 + \frac{\alpha_2 p_1}{\alpha_1} x_1 = m$$
+$$p_1 x_1 \left(1 + \frac{\alpha_2}{\alpha_1}\right) = m$$
+$$p_1 x_1 \left(\frac{\alpha_1 + \alpha_2}{\alpha_1}\right) = m$$
+
+Resolvendo para $x_1$:
+$$x_1 = \frac{\alpha_1}{\alpha_1 + \alpha_2} \cdot \frac{m}{p_1}$$
+
+Por simetria, para $x_2$:
+$$x_2 = \frac{\alpha_2}{\alpha_1 + \alpha_2} \cdot \frac{m}{p_2}$$
+
+#### 2.2.5 Função Demanda Marshallana para Cobb-Douglas
+
+Portanto, para uma função de utilidade Cobb-Douglas da forma $U(x_1, x_2) = x_1^{\alpha_1} x_2^{\alpha_2}$, a função demanda Marshallana tem a forma analítica fechada:
+
+$$x_i(p_1, p_2, m) = \frac{\alpha_i}{\alpha_1 + \alpha_2} \cdot \frac{m}{p_i}$$
+
+**Interpretação econômica do resultado:**
+
+* A fração $\frac{\alpha_i}{\alpha_1 + \alpha_2}$ representa a proporção da renda alocada ao bem $i$
+* Para Cobb-Douglas, esta fração é **constante** — não depende de preços ou renda
+* A demanda é **homogênea de grau zero** em preços e renda
+* A elasticidade-preço da demanda é igual a -1 (elasticidade unitária)
+
+**Interpretação econômica dos componentes:**
+
+1. **Fração orçamentária** $\frac{\alpha_i}{\alpha_1 + \alpha_2}$:
+
+   * Representa a proporção da renda que o consumidor aloca ao bem $i$
+   * Para Cobb-Douglas, esta fração é constante independente dos preços e renda
+   * Se $\alpha_1 = \alpha_2 = 1$, então $\frac{1}{1+1} = \frac{1}{2}$ (50% da renda para cada bem)
+
+2. **Renda total** $m$:
+
+   * Em economias de troca pura, a renda é o valor da dotação inicial: $m = p_1 \omega_1 + p_2 \omega_2$
+   * Representa o poder de compra do consumidor
+
+3. **Preço do bem** $p_i$:
+
+   * Normaliza a demanda pelo preço do bem
+   * Preços maiores reduzem a quantidade demandada (lei da demanda)
+
+### 2.3 Propriedades Importantes
+
+**Homogeneidade de grau zero:** Se todos os preços e a renda forem multiplicados pela mesma constante positiva $\lambda$, as demandas não se alteram:
+
+$$x_i(\lambda p_1, \lambda p_2, \lambda m) = x_i(p_1, p_2, m)$$
+
+**Aditividade na restrição orçamentária:** A soma dos gastos em todos os bens iguala a renda:
+
+$$p_1 x_1(p_1, p_2, m) + p_2 x_2(p_1, p_2, m) = m$$
+
+### 2.4 Da Demanda Bruta à Demanda Líquida
+
+A **demanda líquida** (ou demanda excess) representa a posição líquida do consumidor no mercado de cada bem:
+
+$$z_i^j = x_i^j - \omega_i^j$$
+
+onde:
+
+* $z_i^j > 0$: consumidor é comprador líquido do bem $i$
+* $z_i^j < 0$: consumidor é vendedor líquido do bem $i$
+* $z_i^j = 0$: consumidor está autossuficiente no bem $i$
+
+### 2.5 Excesso de Demanda Agregada e Lei de Walras
+
+O **excesso de demanda agregada** para cada bem é a soma das demandas líquidas de todos os consumidores:
+
+$$Z_i = \sum_{j} z_i^j = \sum_{j} (x_i^j - \omega_i^j)$$
+
+A **Lei de Walras** estabelece que em uma economia com $n$ bens:
+
+$$\sum_{i=1}^{n} p_i Z_i = 0$$
+
+Esta lei é uma consequência direto da hipótese de que os consumidores respeitam suas restrições orçamentárias. Se $n-1$ mercados estão em equilíbrio ($Z_i = 0$ para $i = 1, ..., n-1$), então o $n$-ésimo mercado também estará em equilíbrio.
+
+## 3. Formalização Matemática
+
+### 3.1 Identificação das Preferências Cobb-Douglas
+
+As funções de utilidade dos consumidores são:
+
+$$U_A (x^{A}_{1}, x^{A}_{2}) = x^{A}_{1} x^{A}_{2} = (x^{A}_{1})^{1} (x^{A}_{2})^{1}$$
+
+$$U_B (x^{B}_{1}, x^{B}_{2}) = x^{B}_{1} x^{B}_{2} = (x^{B}_{1})^{1} (x^{B}_{2})^{1}$$
+
+Ambas as funções são do tipo Cobb-Douglas com coeficientes:
+
+- Consumidor A: $\alpha_1^A = 1$, $\alpha_2^A = 1$
+- Consumidor B: $\alpha_1^B = 1$, $\alpha_2^B = 1$
+
+### 3.2 Derivação das Funções de Demanda Cobb-Douglas
+
+Para uma função de utilidade Cobb-Douglas $U(x_1, x_2) = x_1^{\alpha_1} x_2^{\alpha_2}$, a função demanda Marshallana do bem $i$ é:
+
+$$x_i(p_1, p_2, m) = \frac{\alpha_i}{\alpha_1 + \alpha_2} \cdot \frac{m}{p_i}$$
+
+onde $m = p_1 \omega_1 + p_2 \omega_2$ é a renda do consumidor.
+
+#### 3.2.1 Função Demanda do Consumidor A
+
+Para o consumidor A: $\alpha_1^A = 1$, $\alpha_2^A = 1$
+
+**Demanda pelo bem 1:**
+$$x_1^A(p_1, p_2, \omega_1^A, \omega_2^A) = \frac{\alpha_1^A}{\alpha_1^A + \alpha_2^A} \cdot \frac{p_1 \omega_1^A + p_2 \omega_2^A}{p_1}$$
+
+$$x_1^A(p_1, p_2, \omega_1^A, \omega_2^A) = \frac{1}{1 + 1} \cdot \frac{p_1 \omega_1^A + p_2 \omega_2^A}{p_1}$$
+
+$$x_1^A(p_1, p_2, \omega_1^A, \omega_2^A) = \frac{1}{2} \cdot \frac{p_1 \omega_1^A + p_2 \omega_2^A}{p_1}$$
+
+**Demanda pelo bem 2:**
+$$x_2^A(p_1, p_2, \omega_1^A, \omega_2^A) = \frac{\alpha_2^A}{\alpha_1^A + \alpha_2^A} \cdot \frac{p_1 \omega_1^A + p_2 \omega_2^A}{p_2}$$
+
+$$x_2^A(p_1, p_2, \omega_1^A, \omega_2^A) = \frac{1}{2} \cdot \frac{p_1 \omega_1^A + p_2 \omega_2^A}{p_2}$$
+
+#### 3.2.2 Função Demanda do Consumidor B
+
+Para o consumidor B: $\alpha_1^B = 1$, $\alpha_2^B = 1$
+
+**Demanda pelo bem 1:**
+$$x_1^B(p_1, p_2, \omega_1^B, \omega_2^B) = \frac{1}{2} \cdot \frac{p_1 \omega_1^B + p_2 \omega_2^B}{p_1}$$
+
+**Demanda pelo bem 2:**
+$$x_2^B(p_1, p_2, \omega_1^B, \omega_2^B) = \frac{1}{2} \cdot \frac{p_1 \omega_1^B + p_2 \omega_2^B}{p_2}$$
+
+### 3.3 Resumo das Funções de Demanda Bruta
+
+**Consumidor A:**
+$$x_1^A = \frac{p_1 \omega_1^A + p_2 \omega_2^A}{2p_1}$$
+$$x_2^A = \frac{p_1 \omega_1^A + p_2 \omega_2^A}{2p_2}$$
+
+**Consumidor B:**
+$$x_1^B = \frac{p_1 \omega_1^B + p_2 \omega_2^B}{2p_1}$$
+$$x_2^B = \frac{p_1 \omega_1^B + p_2 \omega_2^B}{2p_2}$$
+
+### 3.4 Funções de Demanda Líquida
+
+As demandas líquidas são obtidas subtraindo as dotações iniciais:
+
+**Consumidor A:**
+$$z_1^A = x_1^A - \omega_1^A = \frac{p_1 \omega_1^A + p_2 \omega_2^A}{2p_1} - \omega_1^A$$
+$$z_2^A = x_2^A - \omega_2^A = \frac{p_1 \omega_1^A + p_2 \omega_2^A}{2p_2} - \omega_2^A$$
+
+**Consumidor B:**
+$$z_1^B = x_1^B - \omega_1^B = \frac{p_1 \omega_1^B + p_2 \omega_2^B}{2p_1} - \omega_1^B$$
+$$z_2^B = x_2^B - \omega_2^B = \frac{p_1 \omega_1^B + p_2 \omega_2^B}{2p_2} - \omega_2^B$$
+
+### 3.5 Excesso de Demanda Agregada
+
+O excesso de demanda agregada para cada bem é:
+
+$$Z_1 = z_1^A + z_1^B = \left(\frac{p_1 \omega_1^A + p_2 \omega_2^A}{2p_1} - \omega_1^A\right) + \left(\frac{p_1 \omega_1^B + p_2 \omega_2^B}{2p_1} - \omega_1^B\right)$$
+
+$$Z_2 = z_2^A + z_2^B = \left(\frac{p_1 \omega_1^A + p_2 \omega_2^A}{2p_2} - \omega_2^A\right) + \left(\frac{p_1 \omega_1^B + p_2 \omega_2^B}{2p_2} - \omega_2^B\right)$$
+
+Simplificando:
+
+$$Z_1 = \frac{p_1 (\omega_1^A + \omega_1^B) + p_2 (\omega_2^A + \omega_2^B)}{2p_1} - (\omega_1^A + \omega_1^B)$$
+
+$$Z_2 = \frac{p_1 (\omega_1^A + \omega_1^B) + p_2 (\omega_2^A + \omega_2^B)}{2p_2} - (\omega_2^A + \omega_2^B)$$
+
+### 3.6 Verificação da Lei de Walras
+
+A Lei de Walras estabelece que:
+
+$$p_1 Z_1 + p_2 Z_2 = 0$$
+
+Substituindo as expressões de excesso de demanda:
+
+$$p_1 \left[\frac{p_1 \omega_1 + p_2 \omega_2}{2p_1} - \omega_1\right] + p_2 \left[\frac{p_1 \omega_1 + p_2 \omega_2}{2p_2} - \omega_2\right]$$
+
+$$= \frac{p_1 \omega_1 + p_2 \omega_2}{2} - p_1 \omega_1 + \frac{p_1 \omega_1 + p_2 \omega_2}{2} - p_2 \omega_2$$
+
+$$= (p_1 \omega_1 + p_2 \omega_2) - (p_1 \omega_1 + p_2 \omega_2) = 0$$
+
+Portanto, a Lei de Walras é sempre satisfeita para quaisquer preços positivos.
+
+## 4. Exemplos Numéricos
+
+### 4.1 Parâmetros do Problema
+
+- Preços: $p_1 = 2$, $p_2 = 1$
+- Funções de utilidade: $U_A = x_1^A x_2^A$, $U_B = x_1^B x_2^B$
+
+Dotações iniciais:
+
+- $\omega_1^A = 10$, $\omega_2^A = 5$
+- $\omega_1^B = 5$, $\omega_2^B = 5$
+
+Dotação total da economia:
+
+- $\omega_1 = 15$, $\omega_2 = 10$
+
+### 4.2 Aplicação das Funções de Demanda Cobb-Douglas
+
+Usando as funções de demanda derivadas na seção anterior:
+
+#### 4.2.1 Demandas Brutas do Consumidor A
+
+**Renda do consumidor A:**
+$$m^A = p_1 \omega_1^A + p_2 \omega_2^A = 2 \times 10 + 1 \times 5 = 20 + 5 = 25$$
+
+**Demanda pelo bem 1:**
+$$x_1^A = \frac{p_1 \omega_1^A + p_2 \omega_2^A}{2p_1} = \frac{25}{2 \times 2} = \frac{25}{4} = 6.25$$
+
+**Demanda pelo bem 2:**
+$$x_2^A = \frac{p_1 \omega_1^A + p_2 \omega_2^A}{2p_2} = \frac{25}{2 \times 1} = \frac{25}{2} = 12.5$$
+
+#### 4.2.2 Demandas Brutas do Consumidor B
+
+**Renda do consumidor B:**
+$$m^B = p_1 \omega_1^B + p_2 \omega_2^B = 2 \times 5 + 1 \times 5 = 10 + 5 = 15$$
+
+**Demanda pelo bem 1:**
+$$x_1^B = \frac{p_1 \omega_1^B + p_2 \omega_2^B}{2p_1} = \frac{15}{2 \times 2} = \frac{15}{4} = 3.75$$
+
+**Demanda pelo bem 2:**
+$$x_2^B = \frac{p_1 \omega_1^B + p_2 \omega_2^B}{2p_2} = \frac{15}{2 \times 1} = \frac{15}{2} = 7.5$$
+
+### 4.3 Demandas Líquidas
+
+#### 4.3.1 Consumidor A
+
+$$z_1^A = x_1^A - \omega_1^A = 6.25 - 10 = -3.75$$
+$$z_2^A = x_2^A - \omega_2^A = 12.5 - 5 = 7.5$$
+
+**Interpretação:** O consumidor A deseja vender 3.75 unidades do bem 1 e comprar 7.5 unidades do bem 2.
+
+#### 4.3.2 Consumidor B
+
+$$z_1^B = x_1^B - \omega_1^B = 3.75 - 5 = -1.25$$
+$$z_2^B = x_2^B - \omega_2^B = 7.5 - 5 = 2.5$$
+
+**Interpretação:** O consumidor B deseja vender 1.25 unidades do bem 1 e comprar 2.5 unidades do bem 2.
+
+### 4.4 Excesso de Demanda Agregada
+
+$$Z_1 = z_1^A + z_1^B = -3.75 + (-1.25) = -5.0$$
+$$Z_2 = z_2^A + z_2^B = 7.5 + 2.5 = 10.0$$
+
+**Interpretação:** 
+* Bem 1: Excesso de oferta de 5.0 unidades (mercado não está em equilíbrio)
+* Bem 2: Excesso de demanda de 10.0 unidades (mercado não está em equilíbrio)
+
+### 4.5 Verificação da Lei de Walras
+
+$$p_1 Z_1 + p_2 Z_2 = 2 \times (-5.0) + 1 \times 10.0 = -10.0 + 10.0 = 0$$
+
+A Lei de Walras é satisfeita, mas os mercados individuais não estão em equilíbrio. Os preços $p_1 = 2$, $p_2 = 1$ **não** levam a economia ao equilíbrio geral.
+
+### 4.6 Análise do Desequilíbrio
+
+Com os preços $p_1 = 2$, $p_2 = 1$, a economia apresenta as seguintes características:
+
+1. **Alocação desejada:**
+
+   * Consumidor A: $(x_1^A, x_2^A) = (6.25, 12.5)$
+   * Consumidor B: $(x_1^B, x_2^B) = (3.75, 7.5)$
+
+2. **Viabilidade:** $6.25 + 3.75 = 10.0 \neq 15 = \omega_1$ e $12.5 + 7.5 = 20.0 \neq 10 = \omega_2$
+
+3. **Inconsistência de mercado:**
+
+   * Excesso de oferta do bem 1: os consumidores desejam apenas 10.0 unidades, mas existem 15 unidades disponíveis
+   * Excesso de demanda do bem 2: os consumidores desejam 20.0 unidades, mas existem apenas 10 unidades disponíveis
+
+4. **Necessidade de ajuste de preços:** Para alcançar o equilíbrio, o preço do bem 1 deveria diminuir (estimular demanda) e/ou o preço do bem 2 deveria aumentar (reduzir demanda).
+
+
+## 5. Análise Econômica
+
+### 5.1 Interpretação dos Resultados
+
+**Demandas Brutas:**
+
+* Consumidor A: demanda $(x_1^A, x_2^A) = (6.25, 12.5)$ - mais do bem 2 (relativamente mais barato)
+* Consumidor B: demanda $(x_1^B, x_2^B) = (3.75, 7.5)$ - também mais do bem 2
+* O padrão reflete a resposta racional aos preços relativos: $p_2/p_1 = 1/2 = 0.5$
+
+**Demandas Líquidas:**
+
+* Consumidor A: $z_1^A = -3.75$, $z_2^A = 7.5$ - vendedor líquido do bem 1, comprador líquido do bem 2
+* Consumidor B: $z_1^B = -1.25$, $z_2^B = 2.5$ - também vendedor líquido do bem 1, comprador líquido do bem 2
+* Ambos os consumidores desejam realizar trocas na mesma direção
+
+**Excesso de Demanda Agregada:**
+
+* $Z_1 = -5.0$: excesso de oferta do bem 1 (preço muito alto)
+* $Z_2 = 10.0$: excesso de demanda do bem 2 (preço muito baixo)
+* Mercados desequilibrados indicam que os preços não são de equilíbrio
+
+### 5.2 Verificação da Lei de Walras
+
+A Lei de Walras é satisfeita:
+$$p_1 Z_1 + p_2 Z_2 = 2 \times (-5.0) + 1 \times 10.0 = -10.0 + 10.0 = 0$$
+
+**Interpretação importante:** A Lei de Walras sendo satisfeita **não garante** equilíbrio individual dos mercados. Ela apenas garante consistência agregada.
+
+### 5.3 Análise do Desequilíbrio e Ajuste de Preços
+
+**Diagnóstico do problema:**
+
+1. **Preço relativo distorcido:** Com $p_1 = 2$ e $p_2 = 1$, o bem 2 é relativamente barato ($p_2/p_1 = 0.5$)
+2. **Resposta excessiva:** Os consumidores demandam muito mais do bem 2 do que está disponível
+3. **Inviabilidade da alocação:** Demanda total do bem 1 (10.0) < oferta total (15); Demanda total do bem 2 (20.0) > oferta total (10)
+
+**Mecanismo de ajuste de preços:**
+
+* **Bem 1:** Preço deve diminuir para estimular demanda (atualmente $p_1$ muito alto)
+* **Bem 2:** Preço deve aumentar para reduzir demanda (atualmente $p_2$ muito baixo)
+* **Direção do ajuste:** $p_1 \downarrow$ e/ou $p_2 \uparrow$ até que $Z_1 = Z_2 = 0$
+
+:::
+
+ <!-- }}} -->
+
+<!-- Partindo das Utitilidades e dotações, encontrar preços de equilíbrio {{{ -->
+
+::: {#tip-precos-de-equilibrio .callout-tip collapse="true" appearance="defult" icons="false"}
+
+## Partindo das utitilidades e dotações, encontrar preços de equilíbrio
+
+Considere dois consumidores com as seguintes funções de utilidade:
+
+$$U_A (x^{A}_{1}, x^{A}_{2}) = x^{A}_{1} x^{A}_{2}$$
+
+$$U_B (x^{B}_{1}, x^{B}_{2}) = x^{B}_{1} x^{B}_{2}$$
+
+Dotações iniciais:
+
+* $\omega_1^A = 10$
+* $\omega_2^A = 5$
+* $\omega_1^B = 5$
+* $\omega_2^B = 10$
+
+Quais preços que levam essa economia ao equilíbrio?
+
+## 1. Introdução ao Tópico
+
+Este problema aborda a determinação de preços de equilíbrio geral em uma economia de troca pura com dois consumidores e dois bens. O objetivo é encontrar os preços relativos que igualam a demanda agregada à oferta agregada em todos os mercados, garantindo uma alocação eficiente dos recursos.
+
+**Objetivos de aprendizagem:**
+
+- Compreender a derivação de demandas a partir de funções de utilidade Cobb-Douglas
+- Calcular excessos de demanda agregada como função dos preços
+- Determinar preços de equilíbrio através da condição $Z_i = 0$
+- Aplicar a Lei de Walras para verificar a consistência do equilíbrio
+- Interpretar economicamente as alocações de equilíbrio
+
+## 2. Desenvolvimento Teórico
+
+### 2.1 Equilíbrio Geral em Economias de Troca Pura
+
+Em uma economia de troca pura com dois bens e dois consumidores, o **equilíbrio geral** é caracterizado por:
+
+1. **Otimização individual:** Cada consumidor maximiza sua utilidade sujeita à restrição orçamentária
+2. **Equilíbrio de mercado:** A demanda agregada iguala a oferta agregada em todos os mercados
+3. **Consistência orçamentária:** A Lei de Walras é satisfeita
+
+Matematicamente, o equilíbrio é um vetor de preços $(p_1^*, p_2^*)$ tal que:
+
+$$Z_i(p_1^*, p_2^*) = 0 \quad \forall i \in \{1, 2\}$$
+
+onde $Z_i$ é o excesso de demanda agregada do bem $i$.
+
+### 2.2 Funções de Demanda Cobb-Douglas
+
+Para uma função de utilidade Cobb-Douglas $U(x_1, x_2) = x_1^{\alpha_1} x_2^{\alpha_2}$, a função demanda Marshallana tem forma analítica fechada:
+
+$$x_i(p_1, p_2, m) = \frac{\alpha_i}{\alpha_1 + \alpha_2} \cdot \frac{m}{p_i}$$
+
+onde $m = p_1 \omega_1 + p_2 \omega_2$ é a renda do consumidor (valor da dotação inicial).
+
+**Propriedades importantes:**
+
+- **Homogeneidade de grau zero:** $x_i(\lambda p_1, \lambda p_2, \lambda m) = x_i(p_1, p_2, m)$
+- **Fração orçamentária constante:** $\frac{\alpha_i}{\alpha_1 + \alpha_2}$ da renda é alocada ao bem $i$
+- **Elasticidade-preço unitária:** A demanda responde proporcionalmente a mudanças nos preços
+
+### 2.3 Excesso de Demanda Agregada e Lei de Walras
+
+O **excesso de demanda agregada** para cada bem é:
+
+$$Z_i = \sum_{j} (x_i^j - \omega_i^j)$$
+
+A **Lei de Walras** estabelece que:
+
+$$\sum_{i=1}^{n} p_i Z_i = 0$$
+
+Esta lei implica que se $n-1$ mercados estão em equilíbrio, o $n$-ésimo mercado também estará em equilíbrio.
+
+## 3. Formalização Matemática
+
+### 3.1 Identificação das Preferências e Dotações
+
+**Funções de utilidade:**
+
+- Consumidor A: $U_A(x_1^A, x_2^A) = x_1^A x_2^A$ → $\alpha_1^A = 1$, $\alpha_2^A = 1$
+- Consumidor B: $U_B(x_1^B, x_2^B) = x_1^B x_2^B$ → $\alpha_1^B = 1$, $\alpha_2^B = 1$
+
+**Dotações iniciais:**
+
+- Consumidor A: $\omega_1^A = 10$, $\omega_2^A = 5$
+- Consumidor B: $\omega_1^B = 5$, $\omega_2^B = 10$
+
+**Dotação total da economia:**
+
+- $\omega_1 = \omega_1^A + \omega_1^B = 10 + 5 = 15$
+- $\omega_2 = \omega_2^A + \omega_2^B = 5 + 10 = 15$
+
+### 3.2 Derivação das Funções de Demanda
+
+Para ambos os consumidores (com $\alpha_1 = \alpha_2 = 1$):
+
+**Demanda do consumidor A:**
+$$x_1^A = \frac{1}{2} \cdot \frac{p_1 \omega_1^A + p_2 \omega_2^A}{p_1} = \frac{p_1 \cdot 10 + p_2 \cdot 5}{2p_1}$$
+
+$$x_2^A = \frac{1}{2} \cdot \frac{p_1 \omega_1^A + p_2 \omega_2^A}{p_2} = \frac{p_1 \cdot 10 + p_2 \cdot 5}{2p_2}$$
+
+**Demanda do consumidor B:**
+$$x_1^B = \frac{1}{2} \cdot \frac{p_1 \omega_1^B + p_2 \omega_2^B}{p_1} = \frac{p_1 \cdot 5 + p_2 \cdot 10}{2p_1}$$
+
+$$x_2^B = \frac{1}{2} \cdot \frac{p_1 \omega_1^B + p_2 \omega_2^B}{p_2} = \frac{p_1 \cdot 5 + p_2 \cdot 10}{2p_2}$$
+
+### 3.3 Excesso de Demanda Agregada
+
+**Demanda agregada do bem 1:**
+
+$$X_1 = x_1^A + x_1^B = \frac{10p_1 + 5p_2}{2p_1} + \frac{5p_1 + 10p_2}{2p_1} = \frac{15p_1 + 15p_2}{2p_1} = \frac{15(p_1 + p_2)}{2p_1}$$
+
+**Excesso de demanda do bem 1:**
+$$Z_1 = X_1 - \omega_1 = \frac{15(p_1 + p_2)}{2p_1} - 15 = 15\left(\frac{p_1 + p_2}{2p_1} - 1\right)$$
+
+$$Z_1 = 15\left(\frac{p_1 + p_2 - 2p_1}{2p_1}\right) = 15\left(\frac{p_2 - p_1}{2p_1}\right) = \frac{15(p_2 - p_1)}{2p_1}$$
+
+**Demanda agregada do bem 2:**
+
+$$X_2 = x_2^A + x_2^B = \frac{10p_1 + 5p_2}{2p_2} + \frac{5p_1 + 10p_2}{2p_2} = \frac{15p_1 + 15p_2}{2p_2} = \frac{15(p_1 + p_2)}{2p_2}$$
+
+**Excesso de demanda do bem 2:**
+$$Z_2 = X_2 - \omega_2 = \frac{15(p_1 + p_2)}{2p_2} - 15 = 15\left(\frac{p_1 + p_2}{2p_2} - 1\right)$$
+
+$$Z_2 = 15\left(\frac{p_1 + p_2 - 2p_2}{2p_2}\right) = 15\left(\frac{p_1 - p_2}{2p_2}\right) = \frac{15(p_1 - p_2)}{2p_2}$$
+
+### 3.4 Determinação dos Preços de Equilíbrio
+
+Para o equilíbrio geral, precisamos que $Z_1 = 0$ e $Z_2 = 0$.
+
+**Condição de equilíbrio do bem 1:**
+
+$$Z_1 = \frac{15(p_2 - p_1)}{2p_1} = 0$$
+
+$$p_2 - p_1 = 0 \Rightarrow p_2 = p_1$$
+
+**Condição de equilíbrio do bem 2:**
+$$Z_2 = \frac{15(p_1 - p_2)}{2p_2} = 0$$
+
+$$p_1 - p_2 = 0 \Rightarrow p_1 = p_2$$
+
+Ambas as condições levam à mesma solução: **preços relativos iguais**.
+
+### 3.5 Normalização dos Preços
+
+Como as demandas são homogêneas de grau zero, podemos normalizar um preço. Normalizando $p_1 = 1$:
+
+$$p_1^* = 1$$
+$$p_2^* = 1$$
+
+**Preços de equilíbrio (normalizados):** $(p_1^*, p_2^*) = (1, 1)$
+
+Qualquer múltiplo positivo destes preços também é de equilíbrio devido à homogeneidade.
+
+## 4. Exemplos Numéricos
+
+### 4.1 Verificação do Equilíbrio
+
+Com os preços de equilíbrio $p_1 = 1$, $p_2 = 1$:
+
+**Renda dos consumidores:**
+
+- $m^A = 1 \times 10 + 1 \times 5 = 15$
+- $m^B = 1 \times 5 + 1 \times 10 = 15$
+
+**Demandas brutas:**
+
+- Consumidor A: $x_1^A = \frac{15}{2 \times 1} = 7.5$, $x_2^A = \frac{15}{2 \times 1} = 7.5$
+- Consumidor B: $x_1^B = \frac{15}{2 \times 1} = 7.5$, $x_2^B = \frac{15}{2 \times 1} = 7.5$
+
+**Demanda agregada:**
+
+- $X_1 = 7.5 + 7.5 = 15 = \omega_1$ ✓
+- $X_2 = 7.5 + 7.5 = 15 = \omega_2$ ✓
+
+**Excesso de demanda:**
+- $Z_1 = 15 - 15 = 0$ ✓
+- $Z_2 = 15 - 15 = 0$ ✓
+
+### 4.2 Alocação de Equilíbrio
+
+**Alocação final:**
+
+- Consumidor A: $(x_1^A, x_2^A) = (7.5, 7.5)$
+- Consumidor B: $(x_1^B, x_2^B) = (7.5, 7.5)$
+
+**Demandas líquidas:**
+
+- Consumidor A: $z_1^A = 7.5 - 10 = -2.5$, $z_2^A = 7.5 - 5 = 2.5$
+- Consumidor B: $z_1^B = 7.5 - 5 = 2.5$, $z_2^B = 7.5 - 10 = -2.5$
+
+**Interpretação:** O consumidor A vende 2.5 unidades do bem 1 e compra 2.5 unidades do bem 2. O consumidor B faz a operação inversa.
+
+### 4.3 Verificação da Lei de Walras
+
+$$p_1 Z_1 + p_2 Z_2 = 1 \times 0 + 1 \times 0 = 0$$
+
+A Lei de Walras é satisfeita no equilíbrio.
+
+## 5. Análise Econômica
+
+### 5.1 Interpretação dos Preços de Equilíbrio
+
+**Preços relativos iguais:** $p_1^* = p_2^*$
+
+Este resultado tem uma interpretação econômica clara:
+
+1. **Simetria das preferências:** Ambos os consumidores têm preferências idênticas (mesmos parâmetros Cobb-Douglas)
+2. **Simetria das dotações totais:** A economia tem quantidades iguais dos dois bens (15 unidades cada)
+3. **Neutralidade de risco:** Os consumidores valorizam ambos os bens igualmente
+
+**Implicações:**
+
+- Não há vantagem comparativa na produção (economia de troca pura)
+- O equilíbrio reflete apenas as preferências e dotações relativas
+- Qualquer desvio de $p_1 = p_2$ criaria pressões para ajuste
+
+### 5.2 Análise da Alocação de Equilíbrio
+
+**Convergência para o meio-termo:**
+
+- Consumidor A: Parte de $(10, 5)$ para $(7.5, 7.5)$
+- Consumidor B: Parte de $(5, 10)$ para $(7.5, 7.5)$
+
+**Padrão de troca:**
+
+- A é relativamente rico em bem 1, pobre em bem 2 → vende bem 1, compra bem 2
+- B é relativamente rico em bem 2, pobre em bem 1 → vende bem 2, compra bem 1
+- Ambos convergem para a mesma cesta de consumo
+
+**Eficiência de Pareto:**
+
+- A alocação de equilíbrio é Pareto-eficiente
+- Não é possível melhorar a situação de um consumidor sem piorar a do outro
+- As taxas marginais de substituição são iguais: $TMS_A = TMS_B = p_1/p_2 = 1$
+
+### 5.3 Propriedades do Equilíbrio
+
+**Homogeneidade dos preços:**
+
+- Se $(p_1^*, p_2^*)$ é de equilíbrio, então $(\lambda p_1^*, \lambda p_2^*)$ também é
+- Por convenção, normalizamos um preço (geralmente $p_1 = 1$)
+- Apenas os preços relativos importam para as decisões econômicas
+
+**Unicidade:**
+
+- Neste caso, o equilíbrio é único (exceto pela escala)
+- A convexidade das preferências garante unicidade
+- Não existem múltiplos equilíbrios locais
+
+**Estabilidade:**
+
+- Se $p_1 > p_2$, então $Z_1 < 0$ e $Z_2 > 0$ → pressão para $p_1 \downarrow$, $p_2 \uparrow$
+- Se $p_1 < p_2$, então $Z_1 > 0$ e $Z_2 < 0$ → pressão para $p_1 \uparrow$, $p_2 \downarrow$
+- O sistema converge para $p_1 = p_2$
+
+:::
+
+ <!-- }}} -->
+
+<!-- Aplicativo Cobb-Douglas Preços Equilíbrio  {{{ -->
+
+::: {#tip-aplicativo-cobb-douglas-trocas .callout-tip collapse="true" appearance="defult" icons="false"}
+
+### Aplicativo Cobb-Douglas Preços Equilíbrio
+
+[http://roneyfraga.com/micro-cobb-douglas-trocas](http://roneyfraga.com/micro-cobb-douglas-trocas)
+
+:::
+
+ <!-- }}} -->
+
+<!-- Cobb-Douglas Preços Equilíbrio com constantes  {{{ -->
+
+::: {#tip-aplicativo-cobb-douglas-trocas .callout-tip collapse="true" appearance="defult" icons="false"}
+
+### Cobb-Douglas Preços Equilíbrio com constantes
+
+Considere um modelo de equilíbrio geral de trocas puras com dois indivíduos: $A$ e $B$, e dois bens: $x$ e $y$.
+
+**Dotações iniciais:**
+
+- $A$: $\omega_x^A = 10$ e $\omega_y^A = 2.5$
+- $B$: $\omega_x^B = 10$ e $\omega_y^B = 20$
+
+**Funções de utilidade:**
+
+- $U_A(x,y) = 2 x^{0.2} y^{0.3}$
+- $U_B(x,y) = 3 x^{0.5} y^{4.5}$
+
+**Questão:** Se fixamos o preço do bem $x$ em $1$ unidade monetária ($p_x = 1$), qual será o preço do bem $y$ no equilíbrio competitivo?
+
+## 1. Desenvolvimento Teórico
+
+### 1.1 Função Cobb-Douglas Generalizada
+
+A função de utilidade Cobb-Douglas generalizada tem a forma:
+
+$$U(x, y) = A \cdot x^{\alpha} \cdot y^{\beta}$$
+
+onde:
+
+- $A > 0$ é uma constante multiplicativa (fator de escala)
+- $\alpha, \beta > 0$ são os expoentes que determinam as preferências relativas
+
+### 1.2 Demanda Marshalliana
+
+Para a função Cobb-Douglas $U(x, y) = A \cdot x^{\alpha} \cdot y^{\beta}$, a demanda Marshalliana é:
+
+$$x^* = \frac{\alpha}{\alpha + \beta} \cdot \frac{m}{p_x}$$
+
+$$y^* = \frac{\beta}{\alpha + \beta} \cdot \frac{m}{p_y}$$
+
+onde $m = p_x \omega_x + p_y \omega_y$ é a renda do consumidor.
+
+**Propriedade importante:** A constante $A$ não afeta as demandas Marshallianas, apenas os expoentes $\alpha$ e $\beta$ importam para as escolhas ótimas.
+
+### 1.3 Condição de Equilíbrio
+
+No equilíbrio competitivo, o excesso de demanda agregada deve ser zero para todos os bens:
+
+$$Z_i = \sum_{j} (x_i^j - \omega_i^j) = 0 \quad \forall i$$
+
+Pela Lei de Walras, se $n-1$ mercados estão em equilíbrio, o $n$-ésimo mercado também estará. Portanto, basta encontrar o preço que zera o excesso de demanda de um dos bens.
+
+## 2. Formalização Matemática
+
+### 2.1 Identificação dos Parâmetros
+
+**Consumidor A:**
+
+- Função: $U_A(x,y) = 2 x^{0.2} y^{0.3}$
+- Parâmetros: $A_A = 2$, $\alpha_A = 0.2$, $\beta_A = 0.3$
+- Dotação: $(\omega_x^A, \omega_y^A) = (10, 2.5)$
+
+**Consumidor B:**
+
+- Função: $U_B(x,y) = 3 x^{0.5} y^{4.5}$
+- Parâmetros: $A_B = 3$, $\alpha_B = 0.5$, $\beta_B = 4.5$
+- Dotação: $(\omega_x^B, \omega_y^B) = (10, 20)$
+
+**Dotação total:**
+
+- $\omega_x^{total} = 10 + 10 = 20$
+- $\omega_y^{total} = 2.5 + 20 = 22.5$
+
+### 2.2 Frações Orçamentárias
+
+**Consumidor A:**
+
+$$\frac{\alpha_A}{\alpha_A + \beta_A} = \frac{0.2}{0.2 + 0.3} = \frac{0.2}{0.5} = 0.4$$
+
+$$\frac{\beta_A}{\alpha_A + \beta_A} = \frac{0.3}{0.2 + 0.3} = \frac{0.3}{0.5} = 0.6$$
+
+**Consumidor B:**
+
+$$\frac{\alpha_B}{\alpha_B + \beta_B} = \frac{0.5}{0.5 + 4.5} = \frac{0.5}{5.0} = 0.1$$
+
+$$\frac{\beta_B}{\alpha_B + \beta_B} = \frac{4.5}{0.5 + 4.5} = \frac{4.5}{5.0} = 0.9$$
+
+### 2.3 Funções de Demanda
+
+Fixando $p_x = 1$ e denotando $p_y = p$ (a ser determinado):
+
+**Consumidor A:**
+
+Renda: $m^A = 1 \cdot 10 + p \cdot 2.5 = 10 + 2.5p$
+
+Demandas:
+
+$$x^A = 0.4 \cdot \frac{10 + 2.5p}{1} = 0.4(10 + 2.5p) = 4 + p$$
+
+$$y^A = 0.6 \cdot \frac{10 + 2.5p}{p} = \frac{0.6(10 + 2.5p)}{p} = \frac{6 + 1.5p}{p}$$
+
+**Consumidor B:**
+
+Renda: $m^B = 1 \cdot 10 + p \cdot 20 = 10 + 20p$
+
+Demandas:
+
+$$x^B = 0.1 \cdot \frac{10 + 20p}{1} = 0.1(10 + 20p) = 1 + 2p$$
+
+$$y^B = 0.9 \cdot \frac{10 + 20p}{p} = \frac{0.9(10 + 20p)}{p} = \frac{9 + 18p}{p}$$
+
+### 2.4 Excesso de Demanda Agregada
+
+**Bem $x$:**
+
+$$Z_x = (x^A - \omega_x^A) + (x^B - \omega_x^B)$$
+
+$$Z_x = (4 + p - 10) + (1 + 2p - 10)$$
+
+$$Z_x = (p - 6) + (2p - 9)$$
+
+$$Z_x = 3p - 15 = 3(p - 5)$$
+
+**Bem $y$:**
+
+$$Z_y = (y^A - \omega_y^A) + (y^B - \omega_y^B)$$
+
+$$Z_y = \left(\frac{6 + 1.5p}{p} - 2.5\right) + \left(\frac{9 + 18p}{p} - 20\right)$$
+
+$$Z_y = \frac{6 + 1.5p - 2.5p}{p} + \frac{9 + 18p - 20p}{p}$$
+
+$$Z_y = \frac{6 - p}{p} + \frac{9 - 2p}{p}$$
+
+$$Z_y = \frac{15 - 3p}{p} = \frac{3(5 - p)}{p}$$
+
+### 2.5 Determinação do Preço de Equilíbrio
+
+Para o equilíbrio, precisamos que $Z_x = 0$ ou $Z_y = 0$ (pela Lei de Walras, se um é zero, o outro também será).
+
+**Usando $Z_x = 0$:**
+
+$$3(p - 5) = 0$$
+
+$$p - 5 = 0$$
+
+$$p = 5$$
+
+**Verificação com $Z_y = 0$:**
+
+$$\frac{3(5 - p)}{p} = 0$$
+
+$$5 - p = 0$$
+
+$$p = 5$$
+
+**Preço de equilíbrio:** $p_y^* = 5$
+
+## 3. Verificação Numérica
+
+### 3.1 Cálculo das Alocações de Equilíbrio
+
+Com $p_x = 1$ e $p_y = 5$:
+
+**Consumidor A:**
+
+Renda: $m^A = 1 \cdot 10 + 5 \cdot 2.5 = 22.5$
+
+Demandas:
+
+$$x^A = 0.4 \cdot \frac{22.5}{1} = 9$$
+
+$$y^A = 0.6 \cdot \frac{22.5}{5} = 2.7$$
+
+**Consumidor B:**
+
+Renda: $m^B = 1 \cdot 10 + 5 \cdot 20 = 110$
+
+Demandas:
+
+$$x^B = 0.1 \cdot \frac{110}{1} = 11$$
+
+$$y^B = 0.9 \cdot \frac{110}{5} = 19.8$$
+
+### 3.2 Verificação do Equilíbrio
+
+**Demanda agregada do bem $x$:**
+
+$$X = x^A + x^B = 9 + 11 = 20 = \omega_x^{total}$$
+
+**Demanda agregada do bem $y$:**
+
+$$Y = y^A + y^B = 2.7 + 19.8 = 22.5 = \omega_y^{total}$$
+
+**Excesso de demanda:**
+
+$$Z_x = 20 - 20 = 0$$
+
+$$Z_y = 22.5 - 22.5 = 0$$
+
+### 3.3 Lei de Walras
+
+$$p_x Z_x + p_y Z_y = 1 \cdot 0 + 5 \cdot 0 = 0$$
+
+## 4. Análise Econômica
+
+### 4.1 Interpretação do Preço de Equilíbrio
+
+O preço de equilíbrio encontrado é $p_y^* = 5$, o que significa que **o bem $y$ é 5 vezes mais caro que o bem $x$** no equilíbrio competitivo.
+
+**Preço relativo:** $\frac{p_x}{p_y} = \frac{1}{5} = 0.2$
+
+Este resultado reflete a **forte preferência do consumidor B pelo bem $y$** (90% de sua renda destinada a $y$), o que torna o bem $y$ relativamente escasso e mais caro.
+
+### 4.2 Padrão de Troca
+
+**Consumidor A:**
+
+- Dotação inicial: $(10, 2.5)$
+- Alocação de equilíbrio: $(9, 2.7)$
+- Demanda líquida: $(-1, 0.2)$
+- **Padrão:** Vende 1 unidade de $x$ e compra 0.2 unidades de $y$
+
+**Consumidor B:**
+
+- Dotação inicial: $(10, 20)$
+- Alocação de equilíbrio: $(11, 19.8)$
+- Demanda líquida: $(1, -0.2)$
+- **Padrão:** Compra 1 unidade de $x$ e vende 0.2 unidades de $y$
+
+**Interpretação:** As trocas são relativamente pequenas porque o preço alto de $y$ já reflete sua escassez relativa. B tem preferência intensa por $y$, mas o preço de equilíbrio limita sua demanda.
+
+### 4.3 Frações Orçamentárias e Preferências
+
+**Consumidor A:**
+
+- Aloca 40% da renda para $x$ e 60% para $y$
+- Prefere relativamente mais o bem $y$ ($\beta_A = 0.3 > \alpha_A = 0.2$)
+
+**Consumidor B:**
+
+- Aloca 10% da renda para $x$ e 90% para $y$
+- Preferência extremamente forte pelo bem $y$ ($\beta_B = 4.5 \gg \alpha_B = 0.5$)
+
+### 4.4 Eficiência de Pareto
+
+A alocação de equilíbrio é Pareto-eficiente. As taxas marginais de substituição são iguais para ambos os consumidores:
+
+$$TMS_A = TMS_B = \frac{p_x}{p_y} = \frac{1}{5} = 0.2$$
+
+Para Cobb-Douglas, a TMS é:
+
+$$TMS = \frac{\alpha}{\beta} \cdot \frac{y}{x}$$
+
+**Consumidor A:**
+
+$$TMS_A = \frac{0.2}{0.3} \cdot \frac{2.7}{9} = \frac{2}{3} \cdot 0.3 = 0.2$$
+
+**Consumidor B:**
+
+$$TMS_B = \frac{0.5}{4.5} \cdot \frac{19.8}{11} = \frac{1}{9} \cdot 1.8 = 0.2$$
+
+## 5. Resposta Final
+
+**Resposta:** O preço do bem $y$ no equilíbrio competitivo é $p_y^* = 5$ unidades monetárias.
+
+Com $p_x = 1$ (fixado) e $p_y = 5$ (determinado), o preço relativo é $\frac{p_x}{p_y} = 0.2$, refletindo a forte preferência do consumidor B pelo bem $y$.
+
+**Alocação de equilíbrio:**
+
+- Consumidor A: $(x^A, y^A) = (9, 2.7)$
+- Consumidor B: $(x^B, y^B) = (11, 19.8)$
+
+**Verificação:** Ambos os mercados estão em equilíbrio com excesso de demanda zero.
+:::
+
+ <!-- }}} -->
+
+<embed src="../notas-digitais/parte-4-equilibrio-geral-guena-usp-ex-pagina-29.pdf" width="100%" height="650">
+
+<embed src="../notas-digitais/parte-4-equilibrio-geral-guena-usp-ex-pagina-32.pdf" width="100%" height="650">
+
+<embed src="../notas-digitais/parte-4-equilibrio-geral-ex-curva-de-contrato.pdf" width="100%" height="650">
+
+<embed src="../notas-digitais/parte-4-equilibrio-geral-ex-equilibrio-sem-producao.pdf" width="100%" height="650">
+
+<embed src="../notas-digitais/parte-4-equilibrio-geral-ex-equilibrio-com-producao.pdf" width="100%" height="650">
+
+
+
+<!--
+Roberto Guena - USP Ribeirão
+
+Trocas parte I
+  - https://www.youtube.com/watch?v=ndeLQPliBl0
+  - focado em conceitos e introdução do curso
+
+Trocas parte II
+  - https://www.youtube.com/watch?v=Hk0JMaNZJZ8
+  - exemplos numéricos fáceis
+  - Demanda
+  - Lei de Walras
+  - Equilíbrio
+  - Existência de equilíbrio
+  - Exemplos: página 17, página 23, página 24, página 26
+
+Trocas parte III  
+  - https://www.youtube.com/watch?v=0bSZNJALIK0
+  - Existência do equilíbrio geral e os dois teoremas do bem estar social
+  - Exemplo: página 29
+
+Trocas parte IV
+  - https://www.youtube.com/watch?v=i9HAHG7Us9M
+  - Monopólio
+  - Exemplo: página 32
+
+Produção parte I 
+  - https://www.youtube.com/watch?v=A9QZkCrkQSk
+
+Produção parte II
+  - https://www.youtube.com/watch?v=raoi1pkNU6I
+
+-->
+
+<!--
+Alexandre Sartoris - Unesp
+Equilíbrio Geral com exemplo numérico
+
+Trocas
+https://www.youtube.com/watch?v=c6II-T0i-RM
+
+Producao
+https://www.youtube.com/watch?v=_uap0sMuNnY
+-->
+
+<!--
+Matt Birch
+
+General Equilibrium Part 1: Market Set-Up and a System of Equations
+https://www.youtube.com/watch?v=9dJBXt1KlOc
+
+General Equilibrium Part 2: Getting quantities as functions of prices
+https://www.youtube.com/watch?v=XAOInG1LbfI
+
+General Equilibrium Part 3: How to Get All 7 Solutions
+https://www.youtube.com/watch?v=BfVV9jh5k8Y
+-->
+
+<!--
+
+## Produção e Bem-Estar
+
+- Varian (2012) Capítulo 32 - Produção
+- Varian (2012) Capítulo 33 - Bem-Estar
+
+- @demelo2010
+  - estimar função demanda
+  - estimar função função custo
+  - maximizar utilidade dos consumidores garantindo a sobrevivência das empresas
+
+Alexandre Sartoris - Unesp
+  - Bem-Estar - Axiomas e o Teorema de Arrow
+  - https://www.youtube.com/watch?v=xUKBj3zLAmA
+
+Ashley Hodgson
+  - [Arrow's Impossibility Theorem Explained](https://www.youtube.com/watch?v=GzLY8pLU95c&pp=ygUOd2VsZmFyZSBhcnJvdyA%3D)
+  - [Utilitarian, Rawlsian and Weighted Social Welfare Functions](https://www.youtube.com/watch?v=BD9vTLIrIPE&pp=ygUOd2VsZmFyZSBhcnJvdyA%3D)
+  - [Modelling Social Welfare (Same style as Principal-Agent)](https://www.youtube.com/watch?v=_DTSpOMvopo)
+  - [Social Welfare Function with Constraints](https://www.youtube.com/watch?v=v2f1mH9rgoc)
+
+Toby Handfield
+  - [playlist: Social Choice Theory](https://www.youtube.com/playlist?list=PLqthw1OvR-jcmAIiVmRgkgWK3VbtYh-pi)
+
+Nishant Mehra
+  - [playlist: Complete Microeconoics II](https://www.youtube.com/playlist?list=PL1IuDhwCHdcD4uqTrb8xvj2-w2jDIQkAx)
+
+-->
+
+## Referências
+
+::: {#refs}
+::::
+
+<!-- vim: fdm=marker foldlevel=0 -->

@@ -1,0 +1,46 @@
+/.quarto/
+**/*.quarto_ipynb
+/.chat/
+.DS_Store
+._*
+*_cache/
+*_files/
+*_index/
+/_book/
+
+/notas-digitais/
+
+# Ignore index, cache, and files folders except inside _book at any level
+# !_book/**/*_index/
+# !_book/**/*_cache/
+# !_book/**/*_files/
+
+/_freeze/
+AGENTS.md
+micro-ii-old/
+micro-iii-old/
+
+# Backup files
+*.backup
+*.old
+*~
+
+# Test and debug files
+test_*.html
+debug_*.html
+
+# Temporary files
+*.tmp
+*.temp
+
+# Temporary folders
+tmp/
+temp/
+temp2/
+temp_*/
+tests/
+
+# R temporary files
+.Rhistory
+.RData
+.Rproj.user

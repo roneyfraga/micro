@@ -1,0 +1,128 @@
+---
+title: "1.3 Escolha Ótima do Consumidor `cc`"
+date: "today"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+## Introdução
+
+A **escolha ótima do consumidor** é a combinação de bens que maximiza sua utilidade, sujeita à restrição orçamentária.
+
+## Problema de Otimização
+
+O consumidor resolve:
+
+$$\max_{x,y} U(x,y)$$
+
+sujeito a:
+
+$$p_x x + p_y y = R$$
+
+## Condição de Otimalidade
+
+No ponto ótimo, a curva de indiferença é tangente à reta orçamentária:
+
+$$TMS_{xy} = \frac{p_x}{p_y}$$
+
+Ou, em termos de utilidade marginal:
+
+$$\frac{UMg_x}{UMg_y} = \frac{p_x}{p_y}$$
+
+Isso pode ser reescrito como:
+
+$$\frac{UMg_x}{p_x} = \frac{UMg_y}{p_y}$$
+
+**Interpretação:** A utilidade marginal por real gasto deve ser igual para todos os bens.
+
+## Método de Lagrange
+
+O problema pode ser resolvido usando o método dos multiplicadores de Lagrange:
+
+$$\mathcal{L} = U(x,y) + \lambda(R - p_x x - p_y y)$$
+
+Condições de primeira ordem:
+
+1. $\frac{\partial \mathcal{L}}{\partial x} = \frac{\partial U}{\partial x} - \lambda p_x = 0$
+2. $\frac{\partial \mathcal{L}}{\partial y} = \frac{\partial U}{\partial y} - \lambda p_y = 0$
+3. $\frac{\partial \mathcal{L}}{\partial \lambda} = R - p_x x - p_y y = 0$
+
+## Funções Demanda
+
+As **funções demanda** mostram a quantidade ótima de cada bem como função dos preços e da renda:
+
+$$x^* = x(p_x, p_y, R)$$
+$$y^* = y(p_x, p_y, R)$$
+
+## Exemplos de Demanda Ótima
+
+### Utilidade Cobb-Douglas
+Para $U(x,y) = x^\alpha y^\beta$:
+
+$$x^* = \frac{\alpha}{\alpha + \beta} \cdot \frac{R}{p_x}$$
+$$y^* = \frac{\beta}{\alpha + \beta} \cdot \frac{R}{p_y}$$
+
+### Utilidade Quasilinear
+Para $U(x,y) = v(x) + y$:
+
+$$x^* \text{ resolve } v'(x) = p_x$$
+$$y^* = R - p_x x^*$$
+
+### Bens Substitutos Perfeitos
+Para $U(x,y) = ax + by$:
+
+- Se $\frac{a}{p_x} > \frac{b}{p_y}$: $x^* = \frac{R}{p_x}, y^* = 0$
+- Se $\frac{a}{p_x} < \frac{b}{p_y}$: $x^* = 0, y^* = \frac{R}{p_y}$
+- Se $\frac{a}{p_x} = \frac{b}{p_y}$: qualquer combinação na reta orçamentária
+
+### Bens Complementares Perfeitos
+Para $U(x,y) = \min\{ax, by\}$:
+
+$$x^* = \frac{R}{p_x + \frac{a}{b}p_y}$$
+$$y^* = \frac{a}{b} x^*$$
+
+## Casos Especiais
+
+### Solução de Canto
+Ocorre quando a condição de otimalidade interna não pode ser satisfeita:
+
+$$TMS_{xy} > \frac{p_x}{p_y} \Rightarrow x^* = \frac{R}{p_x}, y^* = 0$$
+$$TMS_{xy} < \frac{p_x}{p_y} \Rightarrow x^* = 0, y^* = \frac{R}{p_y}$$
+
+### Bens Inferiores
+Um bem é inferior quando sua demanda diminui com o aumento da renda:
+
+$$\frac{\partial x^*}{\partial R} < 0$$
+
+### Bens de Giffen
+Um bem de Giffen é um bem inferior cuja demanda aumenta quando seu preço aumenta:
+
+$$\frac{\partial x^*}{\partial p_x} > 0$$
+
+## Aplicações
+
+### Análise de Políticas Públicas
+- **Impostos:** Efeito sobre o consumo e bem-estar
+- **Subsídios:** Impacto na escolha do consumidor
+- **Programas de transferência:** Efeito renda vs efeito substituição
+
+### Previsão de Demanda
+As funções demanda permitem prever como as quantidades demandadas respondem a mudanças em preços e renda.
+
+## Referências
+
+- @pindyck2013 [capítulo 3]
+- @varian2012 [capítulo 5]
+- @perloff2022 [capítulo 4]
+
+---
+
+**Nota:** Este capítulo será expandido com mais exemplos numéricos e exercícios.
+
+## Referências
+
+::: {#refs}
+:::

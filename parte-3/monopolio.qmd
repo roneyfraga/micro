@@ -1,0 +1,1359 @@
+---
+title: "Monopólio `cc`"
+date: "`r Sys.time()`"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+## Um mercado competitivo
+
+```{r}
+#| label: grafico-demanda-mercado-competitivo
+#| fig-width: 9
+#| fig-height: 6
+#| code-fold: true
+#| warning: false
+#| error: false
+#| include: true
+
+suppressPackageStartupMessages({
+  library(ggplot2)
+})
+
+p1 <- 10 # nível de preço (linha horizontal)
+q <- 6 # quantidade q
+x_max <- 14 # limite base do eixo x
+y_max <- 16 # limite base do eixo y
+
+p <- ggplot() +
+  # Áreas A e B
+  annotate("rect", xmin = 0, xmax = q, ymin = 0, ymax = p1,
+    fill = "#5DA9E9", alpha = 0.6) + # A
+  annotate("rect", xmin = q, xmax = q + 1, ymin = 0, ymax = p1,
+    fill = "#91D18B", alpha = 0.8) + # B
+
+  # Curva de demanda horizontal (preço dado)
+  geom_segment(aes(x = 0, xend = x_max, y = p1, yend = p1),
+    colour = "#1E88E5", linewidth = 1) +
+
+  # Linhas verticais pontilhadas em q e q+1
+  geom_segment(aes(x = q, xend = q, y = 0, yend = p1),
+    linetype = "dashed", linewidth = 0.6, colour = "grey40") +
+  geom_segment(aes(x = q + 1, xend = q + 1, y = 0, yend = p1),
+    linetype = "dashed", linewidth = 0.6, colour = "grey40") +
+
+  # Eixos com setas (estendidos um pouco além dos limites para não cortar a ponta)
+  annotate("segment", x = 0, y = 0, xend = x_max * 1.05, yend = 0,
+    arrow = arrow(length = unit(6, "pt")), linewidth = 0.7) +
+  annotate("segment", x = 0, y = 0, xend = 0, yend = y_max * 1.05,
+    arrow = arrow(length = unit(6, "pt")), linewidth = 0.7) +
+
+  # Rótulos das áreas
+  annotate("text", x = q/2, y = p1/2, label = "A", size = 6, colour = "white") +
+  annotate("text", x = q + 0.5, y = p1/2, label = "B", size = 6, colour = "white") +
+
+  # Rótulo da curva
+  annotate("text", x = x_max*0.7, y = p1 + 0.6, label = "Curva de Demanda = RMg = RMe = Preço", colour = "#1E88E5", size = 4.2) +
+
+  # >>> Escalas com rótulos nos eixos (ticks) <<<
+  scale_x_continuous(
+    breaks = c(q, q + 1),
+    labels = c("q", "q+1"),
+    limits = c(0, x_max * 1.10), # margem extra p/ a seta aparecer inteira
+    expand = c(0, 0)
+  ) +
+  scale_y_continuous(
+    breaks = c(p1),
+    labels = c("p1"),
+    limits = c(0, y_max * 1.10), # margem extra p/ a seta aparecer inteira
+    expand = c(0, 0)
+  ) +
+
+  labs(
+    title = "Receita Média e Marginal para uma Empresa Competitiva",
+    x = "(Quantidade) q",
+    y = "(Preço) p"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    panel.grid = element_blank(),
+    plot.title = element_text(face = "bold", hjust = 0.5)
+  )
+
+p
+```
+
+- empresas como tomadoras de preços
+- uma firma competitiva enfrenta uma curva de demanda horizontal
+- ao vender uma unidade a mais ela lucra o retângulo `B`, logo, a Receita Marginal é o Preço.
+
+## Monopólio
+
+```{r}
+#| label: grafico-demanda-monopolio
+#| fig-width: 9
+#| fig-height: 6
+#| code-fold: true
+#| warning: false
+#| error: false
+#| include: true
+
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(grid)
+})
+
+# ===== Parâmetros =====
+p1 <- 12
+p2 <- 7
+Q <- 6
+
+# Reta de demanda p = a - b q
+b <- (p1 - p2)
+a <- p1 + b*Q
+x_int <- a/b
+
+x_max <- max(Q + 3, ceiling(x_int) + 1)
+y_max <- max(p1, p2, a) * 1.1
+
+ang <- atan2((p2 - p1), 1) * 180/pi
+
+p <- ggplot() +
+  # Áreas A, B, C
+  annotate("rect", xmin=0, xmax=Q, ymin=0, ymax=p2, fill="#5DA9E9", alpha=0.8) +
+  annotate("rect", xmin=Q, xmax=Q+1, ymin=0, ymax=p2, fill="#91D18B", alpha=0.9) +
+  annotate("rect", xmin=0, xmax=Q, ymin=p2, ymax=p1, fill="#F28B82", alpha=0.7) +
+
+  # Curva de demanda
+  geom_abline(intercept = a, slope = -b, linewidth = 1.2, colour = "#1565C0") +
+
+  # Guias pontilhadas
+  geom_segment(aes(x=Q, xend=Q, y=0, yend=p1), linetype="dashed", colour="grey40") +
+  geom_segment(aes(x=Q+1, xend=Q+1, y=0, yend=p2), linetype="dashed", colour="grey40") +
+  geom_segment(aes(x=0, xend=Q, y=p1, yend=p1), linetype="dashed", colour="grey40") +
+  geom_segment(aes(x=0, xend=Q+1, y=p2, yend=p2), linetype="dashed", colour="grey40") +
+
+  # Eixos com setas
+  annotate("segment", x=0, xend=0, y=0, yend=y_max,
+    arrow=arrow(length=unit(6,"pt")), linewidth=0.8) +
+  annotate("segment", x=0, xend=x_max, y=0, yend=0,
+    arrow=arrow(length=unit(6,"pt")), linewidth=0.8) +
+
+  # Rótulos das áreas
+  annotate("text", x=Q/2, y=p2/2, label="A", colour="white", size=6) +
+  annotate("text", x=Q+0.5, y=p2/2, label="B", colour="white", size=6) +
+  annotate("text", x=Q/2, y=(p1+p2)/2, label="C", colour="white", size=6) +
+
+  # “Demand Curve”
+  annotate("text", x = min(Q + 8.2, x_int - 0.8), y = ((a - b*min(Q + 3.8, x_int - 0.8)) + 7), label = "Curva de Demanda", angle = 0, colour = "#1565C0", size = 4.4) +
+
+  # Escalas com rótulos específicos
+  scale_x_continuous(breaks = c(Q, Q+1),
+    labels = c("Q", "Q+1"),
+    limits = c(0, x_max),
+    expand = c(0,0)) +
+  scale_y_continuous(breaks = c(p1, p2),
+    labels = c("p1", "p2"),
+    limits = c(0, y_max),
+    expand = c(0,0)) +
+
+  labs(
+    title = "Receita Média e Marginal para uma Empresa Monopolista",
+    x = "(Quantidade) Q",
+    y = "(Preço) p"
+  ) +
+  theme_minimal(base_size=13) +
+  theme(
+    panel.grid = element_blank(),
+    plot.title = element_text(face="bold", hjust=0.5)
+  )
+
+p
+```
+
+### Receita Marginal
+
+```{r}
+#| label: grafico-receita-marginal-monopolio
+#| fig-width: 9
+#| fig-height: 6
+#| code-fold: true
+#| warning: false
+#| error: false
+#| include: true
+
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(grid)
+})
+
+# ----- Funções -----
+demand <- function(Q) 24 - Q
+mr <- function(Q) 24 - 2*Q
+
+# ----- Dados -----
+Q_max <- 24 # onde a demanda zera
+Q_seq <- seq(0, Q_max, length.out = 200)
+
+df <- data.frame(
+  Q = Q_seq,
+  Demand = demand(Q_seq),
+  MR = mr(Q_seq)
+)
+
+# ----- Gráfico -----
+p <- ggplot() +
+  # Curva de demanda (azul)
+  geom_line(data = df, aes(x = Q, y = Demand), colour = "#1565C0", linewidth = 1.2) +
+  # Curva de receita marginal (vermelha)
+  geom_line(data = df, aes(x = Q, y = MR), colour = "#D32F2F", linewidth = 1.2) +
+
+  # Eixos com setas
+  annotate("segment", x = 0, xend = Q_max*1.05, y = 0, yend = 0, arrow = arrow(length = unit(6,"pt")), linewidth = 0.7, colour="grey40") +
+  annotate("segment", x = 0, xend = 0, y = 0, yend = 26, arrow = arrow(length = unit(6,"pt")), linewidth = 0.7, colour="grey40") +
+
+  # Rótulos das curvas
+  annotate("text", x = 10, y = 6, label = "RMg = 24 - 2Q", colour = "#D32F2F", size = 4.2, hjust = 0) +
+  annotate("text", x = 12, y = 14, label = "Demanda: p = 24 - Q", colour = "#1565C0", size = 4.2, hjust = 0) +
+
+  # Escalas com rótulos específicos nos eixos
+  scale_x_continuous(
+    breaks = c(12, 24),
+    labels = c("12", "24"),
+    limits = c(0, Q_max*1.05),
+    expand = c(0,0)
+  ) +
+  scale_y_continuous(
+    breaks = c(24),
+    labels = c("24"),
+    limits = c(0, 26),
+    expand = c(0,0)
+  ) +
+  labs(
+    title = "Receita Marginal no Monopólio",
+    x = "Quantidade, Q",
+    y = "Preço, P"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    panel.grid = element_blank(),
+    plot.title = element_text(face="bold", hjust=0.5)
+  )
+
+p
+```
+
+A Demanda, Receita Total e Receita Marginal
+
+$$
+\begin{aligned}
+p(q) &= 24 - q\\
+RT(q) &= p(q)\,q = (24 - q)\,q\\
+       &= 24q - q^2\\
+RMg(q) &= \frac{d}{dq}\,RT(q) = 24 - 2q
+\end{aligned}
+$$
+
+A Receita Marginal e a elasticidade preço da demanda.
+
+$$
+\begin{aligned}
+RMg(q) &= P + Q \cdot \frac{P}{\varepsilon} \\
+       &= P + \left( \frac{\Delta P}{\Delta Q} \right) Q\\
+       &= P + \underbrace{P \left( \frac{\Delta P}{\Delta Q} \right) \frac{Q}{P}}_{\text{inversa da elasticidade da demanda}} \\
+       &= P + P \cdot \frac{1}{\varepsilon}\\
+       &= P \left( 1 + \frac{1}{\varepsilon} \right)\\
+\end{aligned}
+$$
+
+- se a elasticidade preço da demanda for -1, o monopolista deve ser indiferente entre aumentar a quantidade com o menor preço ou vender menos com maior preço, pois, a área `C` é igual a `B`.
+- se a elasticidade preço da demanda for menor que 1, o monopolista ganha dinheiro com o aumento do preço.
+
+### Maximização de lucro
+
+```{r}
+#| label: grafico-maximizacao-lucro-monopolio
+#| fig-width: 9
+#| fig-height: 6
+#| code-fold: true
+#| warning: false
+#| error: false
+#| include: true
+
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(grid)
+})
+
+# ---------- Funções ----------
+CTMe <- function(q) 12/q + q # custo total médio
+CVMe <- function(q) q # custo variável médio
+CMg <- function(q) 2*q # custo marginal
+P <- function(q) 24 - q # demanda
+RMg <- function(q) 24 - 2*q # receita marginal
+
+# Ótimo monopolista: RMg = CMg -> 24 - 2q = 2q -> q* = 6, p* = 18
+q_estrela <- 6
+p_estrela <- P(q_estrela)
+ctme_estrela <- CTMe(q_estrela)
+
+# ---------- Domínio ----------
+q_max <- 30
+q_seq <- seq(0.2, q_max, length.out = 600)
+
+df <- data.frame(
+  q = q_seq,
+  CTMe = CTMe(q_seq),
+  CVMe = CVMe(q_seq),
+  CMg = CMg(q_seq),
+  Dem = P(q_seq),
+  RMg = RMg(q_seq)
+)
+
+# ---------- Gráfico ----------
+p <- ggplot(df) +
+  # Retângulo do lucro
+  annotate("rect", xmin = 0, xmax = q_estrela, ymin = ctme_estrela, ymax = p_estrela, fill = "grey60", alpha = 0.3) +
+
+  # Curvas
+  geom_line(aes(q, CMg), colour = "#2E7D32", linewidth = 1.0) +
+  geom_line(aes(q, CTMe), colour = "#43A047", linewidth = 1.0) +
+  geom_line(aes(q, CVMe), colour = "#66BB6A", linewidth = 1.0) +
+  geom_line(aes(q, Dem), colour = "#1565C0", linewidth = 1.2) +
+  geom_line(aes(q, RMg), colour = "#D32F2F", linewidth = 1.2) +
+
+  # Eixos com setas
+  annotate("segment", x = 0, xend = q_max*1.05, y = 0, yend = 0, arrow = arrow(length = unit(6,"pt")), linewidth = 0.8, colour = "grey40") +
+  annotate("segment", x = 0, xend = 0, y = 0, yend = 32, arrow = arrow(length = unit(6,"pt")), linewidth = 0.8, colour = "grey40") +
+
+  # Ponto ótimo e guias
+  geom_point(aes(x = q_estrela, y = p_estrela), colour = "#1565C0", size = 3) +
+  geom_segment(aes(x = q_estrela, xend = q_estrela, y = 0, yend = p_estrela), linetype = "dashed", colour = "grey45") +
+  geom_segment(aes(x = 0, y = p_estrela, xend = q_estrela, yend = p_estrela), linetype = "dashed", colour = "grey45") +
+  geom_segment(aes(x = 0, y = ctme_estrela, xend = q_estrela, yend = ctme_estrela), linetype = "dashed", colour = "grey55") +
+
+  # Rótulos das curvas (em português)
+  annotate("text", x = 11, y = 16, label = "Demanda", colour = "#1565C0", size = 4.2) +
+  annotate("text", x = 10, y = 7, label = "RMg", colour = "#D32F2F", size = 4.2) +
+  annotate("text", x = 15, y = 28, label = "CMg", colour = "#2E7D32", size = 4.2) +
+  annotate("text", x = 22, y = 24, label = "CTMe", colour = "#43A047", size = 4.0) +
+  annotate("text", x = 22, y = 20, label = "CVMe", colour = "#66BB6A", size = 4.0) +
+  annotate("text", x = 1.5, y = (p_estrela+ctme_estrela)/2, label = "π = 60", colour = "black", size = 4.2, parse = FALSE) +
+
+  # Escalas com rótulos nos eixos
+  scale_x_continuous(breaks = c(6, 24, 30),
+    labels = c("6", "24", "30"),
+    limits = c(0, q_max*1.05), expand = c(0,0)) +
+
+  scale_y_continuous(breaks = c(6, 8, 12, 18, 24, 30),
+    labels = c("6", "8", "12","18","24","30"),
+    limits = c(0, 32), expand = c(0,0)) +
+
+  labs(
+    title = "Maximização de Lucro para um Monopolista",
+    x = "Quantidade",
+    y = "Preço"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    panel.grid = element_blank(),
+    plot.title = element_text(face = "bold", hjust = 0.5)
+  )
+
+p
+```
+
+- no monopólio para encontrar o preço de equilíbrio, primeiro é necessário resolver para a quantidade.
+- também é necessário checar se o preço é maior ou igual ao custo variável médio, se não for, a firma encerra suas operações.
+
+### Peso morto
+
+```{r}
+#| label: grafico-peso-morto-monopolio
+#| fig-width: 9
+#| fig-height: 6
+#| code-fold: true
+#| warning: false
+#| error: false
+#| include: true
+
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(grid)
+})
+
+# ----- Funções -----
+Demanda <- function(q) 24 - q
+RMg <- function(q) 24 - 2*q
+CMg <- function(q) 2*q
+
+# ----- Pontos-chave -----
+q_m <- 6; p_m <- Demanda(q_m) # 18
+q_c <- 8; p_c <- Demanda(q_c) # 16
+p_eq <- RMg(q_m) # 12 (= CMg(6))
+
+# Áreas (para rótulos)
+A_val <- 0.5 * (24 - p_m) * q_m # 18
+B_val <- (p_m - p_c) * q_m # 12
+C_val <- 0.5 * (p_m - p_c) * (q_c - q_m) # 2
+D_val <- 16*q_m - (q_m^2) # 60
+E_val <- 0.5 * (p_c - p_eq) * (q_c - q_m) #* 2 # 4 (ou integral: 4)
+
+# ----- Dados contínuos -----
+q_max <- 30; y_max <- 26
+qs <- seq(0, 24, length.out = 400)
+df <- data.frame(q = qs, Dem = Demanda(qs), RMg = RMg(qs), CMg = CMg(qs))
+
+# Faixas para sombreamentos
+# A: 0..6, entre p=18 e Demanda
+qA <- seq(0, q_m, length.out = 200)
+dfA <- data.frame(q = qA, ymin = p_m, ymax = Demanda(qA))
+
+# D: 0..6, entre CMg e p=16
+qD <- seq(0, q_m, length.out = 200)
+dfD <- data.frame(q = qD, ymin = CMg(qD), ymax = p_c)
+
+# C: 6..8, entre Demanda e p=16 (SEM sobreposição com E)
+qC <- seq(q_m, q_c, length.out = 200)
+dfC <- data.frame(q = qC, ymin = p_c, ymax = Demanda(qC))
+
+# E: 6..8, entre p=16 e CMg (SEM sobreposição com C)
+qE <- seq(q_m, q_c, length.out = 200)
+dfE <- data.frame(q = qE, ymin = CMg(qE), ymax = p_c)
+
+# ----- Gráfico -----
+p <- ggplot() +
+  # D: acima de CMg até p=16, 0..6
+  geom_ribbon(data = dfD, aes(x = q, ymin = ymin, ymax = ymax), fill = "#A5D6A7", alpha = 0.35) +
+  annotate("text", x = q_m*0.35, y = (p_c + CMg(q_m))*0.55, label = paste0("D = $", D_val), size = 4.2) +
+
+  # B: entre p=16 e p=18, 0..6
+  annotate("rect", xmin = 0, xmax = q_m, ymin = p_c, ymax = p_m, fill = "#C8E6C9", alpha = 0.65) +
+  annotate("text", x = q_m*0.27, y = (p_c+p_m)/2, label = paste0("B = $", B_val), size = 4.2) +
+
+  # A: sob Demanda e acima de p=18, 0..6
+  geom_ribbon(data = dfA, aes(x = q, ymin = ymin, ymax = ymax), fill = "#90CAF9", alpha = 0.55) +
+  annotate("text", x = q_m*0.45, y = p_m + (24 - p_m)*0.5, label = paste0("A = $", A_val), size = 4.4) +
+
+  # C: 6..8, entre Demanda e p=16 (PPM)
+  geom_ribbon(data = dfC, aes(x = q, ymin = ymin, ymax = ymax), fill = "grey40", alpha = 0.35) +
+  annotate("text", x = (q_m+q_c)/2, y = (Demanda(q_m)+p_c)/2 + 0.5, label = paste0("C = $", C_val), size = 4.2, colour = "black") +
+
+  # E: 6..8, entre p=16 e CMg
+  geom_ribbon(data = dfE, aes(x = q, ymin = ymin, ymax = ymax), fill = "grey70", alpha = 0.45) +
+  annotate("text", x = (q_m+q_c)/2, y = (p_c + CMg(q_c))/2 - 0.3, label = paste0("E = $", E_val), size = 4.2, colour = "black") +
+
+  # Curvas
+  geom_line(data = df, aes(q, Dem), colour = "#1565C0", linewidth = 1.3) + # Demanda
+  geom_line(data = df, aes(q, RMg), colour = "#D32F2F", linewidth = 1.2) + # RMg
+  geom_line(data = df, aes(q, CMg), colour = "#2E7D32", linewidth = 1.2) + # CMg
+
+  # Eixos com setas
+  annotate("segment", x = 0, xend = q_max*1.05, y = 0, yend = 0,
+    arrow = arrow(length = unit(6,"pt")), linewidth = 0.8, colour = "grey40") +
+  annotate("segment", x = 0, xend = 0, y = 0, yend = y_max,
+    arrow = arrow(length = unit(6,"pt")), linewidth = 0.8, colour = "grey40") +
+
+  # Guias tracejadas
+  geom_segment(aes(x = 0, xend = q_m, y = p_m, yend = p_m), linetype = "dashed", colour = "grey55") +
+  geom_segment(aes(x = 0, xend = q_m, y = p_eq, yend = p_eq), linetype = "dashed", colour = "grey55") +
+  geom_segment(aes(x = 0, xend = q_c, y = p_c, yend = p_c), linetype = "dashed", colour = "grey55") +
+  geom_segment(aes(x = q_m, xend = q_m, y = 0, yend = p_m), linetype = "dashed", colour = "grey55") +
+  geom_segment(aes(x = q_c, xend = q_c, y = 0, yend = p_c), linetype = "dashed", colour = "grey55") +
+
+  # Pontos em e_m e e_c
+  geom_point(aes(x = q_m, y = p_m), colour = "#1565C0", size = 3) +
+  geom_point(aes(x = q_c, y = p_c), colour = "#1565C0", size = 3) +
+  annotate("text", x = q_m - 0.25, y = p_m + 0.8, label = "e[m]",
+    colour = "#1565C0", size = 4, parse = TRUE) +
+  annotate("text", x = q_c - 0.25, y = p_c - 0.8, label = "e[c]",
+    colour = "#1565C0", size = 4, parse = TRUE) +
+
+  # Rótulos das curvas
+  annotate("text", x = 11, y = 6.5, label = "RMg", colour = "#D32F2F", size = 4.4) +
+  annotate("text", x = 13, y = 14, label = "Demanda", colour = "#1565C0", size = 4.4) +
+  annotate("text", x = 13, y = 23, label = "CMg", colour = "#2E7D32", size = 4.4) +
+
+  # Eixos (ticks/legendas)
+  scale_x_continuous(breaks = c(q_m, q_c, 12, 18, 24, 30), labels = c("Q[m] = 6", "Q[c] = 8", "12", "18", "24", "30"), limits = c(0, q_max*1.05), expand = c(0,0)) +
+  scale_y_continuous(breaks = c(12, 16, 18, 24, 30), labels = c("RMg = CMg = 12", "p[c] = 16", "p[m] = 18", "24", "30"), limits = c(0, y_max), expand = c(0,0)) +
+
+  labs(
+    title = "Perda de Peso Morto do Monopólio",
+    x = "Quantidade, q",
+    y = "Preço, p"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    panel.grid = element_blank(),
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    axis.text.x = element_text(angle = 45, hjust = 1, vjust = 0.5)
+  )
+
+p
+```
+
+- $A = \frac{1}{2} \times (24-18) \times 6 = 18$
+- $B = 2 \times (18-16) = 12$
+- $C = \frac{1}{2} \times (18-16) \times (8-6) = 2$
+- $D = \left( \frac{1}{2} \times 16 \times (8 \right) - E = 60$
+- $E = \frac{1}{2} \times (16-12) \times (8-6) = 4$
+
+<br>
+
+- Equilíbrio de mercado monopólio: $Q = 6$ e $P = 18$
+- Equilíbrio de mercado competitivo: $Q = 8$ e $P = 16$
+
+<br>
+
+- $B + D$ = excedente do produtor, área abaixo do preço `p_m` e superior a curva de oferta
+- $A$ = excedente do consumidor, área acima do preço `p_m` 
+- $C + E$ = peso morto, ineficiência, é inferior a curva de demanda
+
+<br>
+
+- O mercado falha
+  - o equilíbrio de mercado não maximiza o bem-estar social
+  - abrindo espaço para a regulamentação econômica
+
+### Discriminação de preços
+
+```{r}
+#| label: grafico-discriminacao-preços-monopolio
+#| fig-width: 9
+#| fig-height: 6
+#| code-fold: true
+#| warning: false
+#| error: false
+#| include: true
+
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(grid)
+})
+
+# - área A, preços $24-18$, quantidades $6-0$ (triângulo)
+# - área B, preços $18-16$, quantidades $6-0$ (retângulo)
+# - área C, preços $18-16$, quantidades $8-6$ (triângulo)
+# - área E, preços $16-12$, quantidades $8-6$ (triângulo)
+# - área D, preços $16-0$, quantidades $8-0$ (triângulo) menos a área de E
+
+# ----- Funções -----
+Demanda <- function(q) 24 - q
+RMg <- function(q) 24 - 2*q
+CMg <- function(q) 2*q
+
+# ----- Pontos-chave -----
+q_m <- 6; p_m <- Demanda(q_m) # 18
+q_c <- 8; p_c <- Demanda(q_c) # 16
+p_eq <- RMg(q_m) # 12 (= CMg(6))
+
+# Valores das áreas
+A_val <- 0.5 * (24 - p_m) * (q_m - 0) # 18
+B_val <- (p_m - p_c) * (q_m - 0) # 12
+C_val <- 0.5 * (p_m - p_c) * (q_c - q_m) # 2
+E_val <- 0.5 * (p_c - p_eq) * (q_c - q_m) # 4
+D_val <- 60
+
+# Dados para curvas
+q_max <- 30; y_max <- 26
+qs <- seq(0, 24, length.out = 400)
+df <- data.frame(q = qs,
+  Dem = Demanda(qs),
+  RMg = RMg(qs),
+  CMg = CMg(qs))
+
+# Áreas como ribbons/polígonos
+# A: 0..6, entre p=18 e Demanda
+qA <- seq(0, q_m, length.out = 200)
+dfA <- data.frame(q = qA, ymin = p_m, ymax = Demanda(qA))
+
+# B: retângulo 0..6, entre 18 e 16 (usaremos annotate("rect"))
+
+# C: 6..8, entre Demanda e p=16 (triângulo acima de 16)
+qC <- seq(q_m, q_c, length.out = 200)
+dfC <- data.frame(q = qC, ymin = p_c, ymax = Demanda(qC))
+
+# E: 6..8, entre p=16 e CMg (triângulo acima da CMg) **CORRIGIDO**
+qE <- seq(q_m, q_c, length.out = 200)
+dfE <- data.frame(q = qE, ymin = CMg(qE), ymax = p_c)
+
+# D: 0..6, entre CMg e p=16
+qD <- seq(0, q_m, length.out = 200)
+dfD <- data.frame(q = qD, ymin = CMg(qD), ymax = p_c)
+
+# Cor única para TODAS as áreas
+fill_blue <- "#90CAF9"; alpha_val <- 0.55
+
+# ----- Gráfico -----
+p <- ggplot() +
+  # D: acima de CMg até p=16, em 0..6
+  geom_ribbon(data = dfD, aes(x = q, ymin = ymin, ymax = ymax), fill = fill_blue, alpha = alpha_val) +
+  annotate("text", x = 2.3, y = 10.8,
+    label = paste0("D = $", D_val), size = 4.2) +
+
+  # B: retângulo entre 18 e 16, 0..6
+  annotate("rect", xmin = 0, xmax = q_m, ymin = p_c, ymax = p_m,
+    fill = fill_blue, alpha = alpha_val) +
+  annotate("text", x = 1.6, y = 17, label = paste0("B = $", B_val), size = 4.2) +
+
+  # A: triângulo sob Demanda e acima de 18, 0..6
+  geom_ribbon(data = dfA, aes(x = q, ymin = ymin, ymax = ymax),
+    fill = fill_blue, alpha = alpha_val) +
+  annotate("text", x = 3.0, y = 21, label = paste0("A = $", A_val), size = 4.4) +
+
+  # C: 6..8, entre Demanda e 16 (PPM acima de 16)
+  geom_ribbon(data = dfC, aes(x = q, ymin = ymin, ymax = ymax),
+    fill = fill_blue, alpha = alpha_val) +
+  annotate("text", x = 7.2, y = 17.2, label = paste0("C = $", C_val), size = 4.2) +
+
+  # E: 6..8, entre 16 e CMg (triângulo acima da CMg) **CORRIGIDO**
+  geom_ribbon(data = dfE, aes(x = q, ymin = ymin, ymax = ymax),
+    fill = fill_blue, alpha = alpha_val) +
+  annotate("text", x = 7.1, y = 14.5, label = paste0("E = $", E_val), size = 4.2) +
+
+  # Curvas
+  geom_line(data = df, aes(q, Dem), colour = "#1565C0", linewidth = 1.3) + # Demanda
+  geom_line(data = df, aes(q, RMg), colour = "#D32F2F", linewidth = 1.2) + # RMg
+  geom_line(data = df, aes(q, CMg), colour = "#2E7D32", linewidth = 1.2) + # CMg
+
+  # Eixos com setas
+  annotate("segment", x = 0, xend = q_max*1.05, y = 0, yend = 0,
+    arrow = arrow(length = unit(6,"pt")), linewidth = 0.8, colour = "grey40") +
+  annotate("segment", x = 0, xend = 0, y = 0, yend = y_max,
+    arrow = arrow(length = unit(6,"pt")), linewidth = 0.8, colour = "grey40") +
+
+  # Guias tracejadas
+  geom_segment(aes(x = 0, xend = q_m, y = p_m, yend = p_m), linetype = "dashed", colour = "grey55") +
+  geom_segment(aes(x = 0, xend = q_c, y = p_c, yend = p_c), linetype = "dashed", colour = "grey55") +
+  geom_segment(aes(x = 0, xend = q_m, y = p_eq, yend = p_eq), linetype = "dashed", colour = "grey55") +
+  geom_segment(aes(x = q_m, xend = q_m, y = 0, yend = p_m), linetype = "dashed", colour = "grey55") +
+  geom_segment(aes(x = q_c, xend = q_c, y = 0, yend = p_c), linetype = "dashed", colour = "grey55") +
+
+  # Pontos
+  geom_point(aes(x = q_m, y = p_m), colour = "#1565C0", size = 3) +
+  geom_point(aes(x = q_c, y = p_c), colour = "#1565C0", size = 3) +
+  annotate("text", x = q_m - 0.25, y = p_m + 0.8, label = "e[m]", colour = "#1565C0", size = 4, parse = TRUE) +
+  annotate("text", x = q_c - 0.25, y = p_c - 0.8, label = "e[c]", colour = "#1565C0", size = 4, parse = TRUE) +
+
+  # Rótulos das curvas
+  annotate("text", x = 11, y = 6.5, label = "RMg", colour = "#D32F2F", size = 4.4) +
+  annotate("text", x = 13, y = 14, label = "Demanda", colour = "#1565C0", size = 4.4) +
+  annotate("text", x = 12, y = 22, label = "CMg", colour = "#2E7D32", size = 4.4) +
+
+  # Ticks/legendas
+  scale_x_continuous(breaks = c(q_m, q_c, 12, 18, 24, 30),
+    labels = c("Q[m] = 6", "Q[c] = 8", "12", "18", "24", "30"),
+    limits = c(0, q_max*1.05), expand = c(0,0)) +
+  scale_y_continuous(breaks = c(12, 16, 18, 24, 30),
+    labels = c("RMg = CMg = 12", "p[c] = 16", "p[m] = 18", "24", "30"),
+    limits = c(0, y_max), expand = c(0,0)) +
+
+  labs(
+    title = "Decomposição de Áreas com Monopólio",
+    x = "Quantidade, q",
+    y = "Preço, p"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    panel.grid = element_blank(),
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    axis.text.x = element_text(angle = 45, hjust = 1, vjust = 0.5)
+  )
+
+p
+```
+
+- $e_m$ equilíbrio monopolista 
+- $e_c$ equilíbrio competitivo
+
+- Discriminação de preços é:
+  - Vender cada unidade com preços diferentes.
+  - Se monopólio faz discriminação de preços, é possível maximizar o bem-estar social.
+    - excedente do consumidor é transferido para o excedente do produtor.
+    - contudo, o excedente total é maximizado.
+
+- o monopolista vende a próxima unidade por quanto os próximos consumidores estão dispostos a pagar.
+- não há peso morto, mas todo o excedente vai para o monopolista. O excedente será maior por não haver perda de bem-estar, mas ele será concentrado.
+- $\text{Excedente} = ExC + ExP$
+
+- Exemplos:
+  - A Amazon tentava vender pelo endereço de IP para discriminar preços.
+  - Companhias aéreas tentavam o mesmo utilizando o histórico do navegador de internet.
+  - O ofertante busca sinais de predisposição de compra de determinado consumidor para inferir sobre a elasticidade preço da demanda do consumidor. Clientes que buscam comprar passagens de última hora têm predisposição inelástica, como comprar passagens de última hora, e, portanto, o consumidor pagaria mais pela passagem.
+  - Ricos são menos sensíveis a variações de preço; as companhias aéreas exploram essa característica cobrando muito mais por passagens na classe executiva ou primeira classe.
+  - Nos EUA, comprar no McDonald's nas autoestradas é mais caro do que comprar nas cidades; na estrada, os consumidores têm predisposição de compra mais inelástica, eles aceitam mais facilmente os preços. 
+  - Empresas discriminam preços por horário de acesso:
+    - Ingressos do cinema mais baratos à tarde e caros à noite.
+    - Restaurantes podem cobrar mais barato para reservas adiantadas.
+    - Sessões de lançamento são mais caras.
+  - A Disney cobra mais barato se você mora perto do parque, pois essas pessoas podem escolher ir ou não ao parque. Turistas que viajaram para ir ao "Mundo Disney" são menos sensíveis a preços elevados.
+  - A Tesla vendia carros com autonomia de 300 km e 450 km de bateria. As baterias eram as mesmas, apenas um software alterava a autonomia das baterias. Quem está disposto a comprar o carro que tem maior autonomia de bateria está disposto a pagar muito mais pelo carro. A qualidade é um fator de discriminação.
+  - Pessoas que vendem workshops de fotografia entregam muito conteúdo gratuito, mas cobram valores elevados (15 mil reais) para cursos com 20 pessoas, que desejam receber o mesmo conteúdo presencialmente.
+  - Lançamentos de carros e apartamentos cobram ágil. 
+
+### Solução numérica
+
+Assumindo os Custo Total e derivados
+
+$$
+\begin{aligned}
+CT(q) &= 12 + q^{2}\\
+CMg(q) &= \frac{d}{dq}\,CT(q) = 2q\\
+CV(q) &= CT(q) - CF = (12 + q^{2}) - 12 = q^{2}\\
+CVMe(q) &= \frac{CV(q)}{q} = q \quad (q>0)\\
+CTMe(q) &= \frac{CT(q)}{q} = \frac{12 + q^{2}}{q} = \frac{12}{q} + q \quad (q>0)
+\end{aligned}
+$$
+
+A Demanda, Receita Total e Receita Marginal
+
+$$
+\begin{aligned}
+p(q) &= 24 - q\\
+RT(q) &= p(q)\,q = (24 - q)\,q\\
+RMg(q) &= \frac{d}{dq}\,RT(q) = 24 - 2q
+\end{aligned}
+$$
+
+```{r}
+#| label: tabela-funcoes-monopolio
+#| fig-width: 9
+#| fig-height: 6
+#| code-fold: true
+#| warning: false
+#| error: false
+#| include: true
+
+CTMe <- function(q) ifelse(q == 0, NA_real_, 12/q + q) # custo total médio
+CVMe <- function(q) q # custo variável médio
+CMg <- function(q) 2*q # custo marginal
+P <- function(q) 24 - q # demanda (preço)
+RMg <- function(q) 24 - 2*q # receita marginal
+CT <- function(q) 12 + q^2 # custo total
+RT <- function(q) (24 - q) * q # receita total
+
+q <- 0:24
+
+data.frame(
+  "Q" = q,
+  "P" = P(q),
+  "RT" = RT(q),
+  "RMg" = RMg(q),
+  "CMg" = CMg(q),
+  "CVMe" = CVMe(q),
+  "CT" = CT(q),
+  "CTMe" = round(CTMe(q), 2),
+  check.names = FALSE
+) |>
+  gt::gt()
+
+```
+
+### Solução por função
+
+Demanda, receita marginal e custo marginal:
+$$
+\begin{aligned}
+p(q) &= 24 - q,\\
+\mathrm{RMg}(q) &= 24 - 2q,\\
+\mathrm{CMg}(q) &= 2q.
+\end{aligned}
+$$
+
+**1. Condição do ponto ótimo (monopolista)**
+
+Defina $q^*$ tal que a receita marginal iguala o custo marginal:
+$$
+\mathrm{RMg}(q^*)=\mathrm{CMg}(q^*).
+$$
+
+Substituindo:
+$$
+24-2q^* \;=\; 2q^* \;\;\Longrightarrow\;\; 24=4q^* \;\;\Longrightarrow\;\; q^* = 6.
+$$
+
+Preço correspondente
+
+**2. O preço vem da curva de demanda:**
+$$
+p^* \;=\; p(q^*) \;=\; 24 - q^* \;=\; 24 - 6 \;=\; \boxed{18}.
+$$
+
+Verificação (opcional)
+
+Derivadas:
+$$
+\frac{d\,\mathrm{RMg}}{dq}=-2<0, \qquad \frac{d\,\mathrm{CMg}}{dq}=+2>0.
+$$
+
+Assim, $\mathrm{RMg}$ cruza $\mathrm{CMg}$ de cima para baixo em $q^*=6$, caracterizando o ponto de maximização de lucro.
+
+**3. Qual seria o preço no ponto onde CMg é igual a RMg**
+
+Dados:
+$$
+\mathrm{RMg}(q)=24-2q,\qquad \mathrm{CMg}(q)=2q,\qquad p(q)=24-q.
+$$
+
+Condição:
+$$
+\mathrm{RMg}(q^*)=\mathrm{CMg}(q^*) \;\Rightarrow\; 24-2q^*=2q^* \;\Rightarrow\; q^*=6.
+$$
+
+Sendo $q=6$:
+
+$$
+\mathrm{RMg}(6)=24-2\cdot 6=24-12=12
+$$
+
+$$
+\mathrm{CMg}(6)=2\cdot 6=12
+$$
+
+Portanto,
+$$
+\mathrm{RMg}(6)=\mathrm{CMg}(6)=12.
+$$
+
+**4. Encontre qual seria o ponto de equilíbrio se o mercado fosse competitivo**
+
+No equilíbrio competitivo (preço = CMg)
+
+Dados:
+$$
+p(q)=24-q, \qquad CMg(q)=2q.
+$$
+
+No mercado competitivo, o equilíbrio ocorre quando o preço se iguala ao custo marginal:
+$$
+p(q_c)=CMg(q_c).
+$$
+
+Substituindo as funções:
+$$
+24-q_c = 2q_c \;\;\Longrightarrow\;\; 3q_c=24 \;\;\Longrightarrow\;\; q_c=8.
+$$
+
+Preço correspondente pela curva de demanda:
+$$
+p_c = p(q_c) = 24-8 = 16.
+$$
+
+Resultado: $Q_c=8$ e $p_c=16$.
+
+## Condição de maximização de lucro
+
+No monopólio, a firma escolhe a quantidade $Q$ que maximiza o lucro:
+
+$$
+\pi(Q) = RT(Q) - CT(Q)
+$$
+
+- onde:
+  - $RT(Q) = P(Q) \cdot Q$ é a receita total.
+  - $CT(Q)$ é o custo total.
+
+A condição de primeira ordem para maximização de lucro é:
+
+$$
+\frac{d\pi(Q)}{dQ} = \frac{dRT(Q)}{dQ} - \frac{dCT(Q)}{dQ} = 0
+$$
+
+$$
+RMg(Q) = CMg(Q)
+$$
+
+## Elasticidade-preço da demanda
+
+A elasticidade-preço da demanda é definida como:
+
+\begin{align*}
+\varepsilon_{P}^{D} &= \frac{\% \Delta Q}{\% \Delta P} \\
+\varepsilon_{P}^{D} &= \frac{\frac{\Delta Q}{Q}}{\frac{\Delta P}{P}} \\
+\varepsilon_{P}^{D} &= \frac{\Delta Q}{Q} \times \frac{P}{\Delta P} \\
+\varepsilon_{P}^{D} &= \frac{P}{Q} \times \frac{\Delta Q}{\Delta P}
+\end{align*}
+
+ou
+
+$$
+\varepsilon = \frac{dQ}{dP} \cdot \frac{P}{Q}
+$$
+
+Com demanda decrescente, $\varepsilon < 0$. É comum trabalhar com o valor absoluto $|\varepsilon|$.
+
+Invertendo a definição:
+$$
+\frac{dP}{dQ} = \frac{1}{\frac{dQ}{dP}} = \frac{P}{\varepsilon_Q}
+$$
+
+Esse valor é negativo para $\varepsilon < 0$.
+
+::: {.callout-note collapse="true"}
+
+## Definição da elasticidade-preço da demanda
+
+A elasticidade-preço da demanda, em forma diferencial, é definida por:
+
+$$
+\varepsilon = \frac{dQ}{dP} \cdot \frac{P}{Q}
+$$
+
+Ela mede a variação percentual da quantidade demandada para uma variação percentual no preço.
+
+## Isolando $\frac{dQ}{dP}$
+
+A partir da definição:
+
+$$
+\varepsilon = \frac{dQ}{dP} \cdot \frac{P}{Q}
+$$
+
+multiplicando ambos os lados por $\frac{Q}{P}$:
+
+$$
+\frac{dQ}{dP} = \varepsilon \cdot \frac{Q}{P}
+$$
+
+## Obtendo $\frac{dP}{dQ}$
+
+O termo $\frac{dP}{dQ}$ é o inverso de $\frac{dQ}{dP}$:
+
+$$
+\frac{dP}{dQ} = \frac{1}{\frac{dQ}{dP}}
+$$
+
+Substituindo a expressão encontrada:
+
+$$
+\frac{dP}{dQ} = \frac{1}{\varepsilon \cdot \frac{Q}{P}}
+$$
+
+## Simplificação
+
+Reescrevendo:
+
+$$
+\frac{dP}{dQ} = \frac{1}{\varepsilon} \cdot \frac{P}{Q}
+$$
+$$
+\frac{dP}{dQ} = \frac{P}{\varepsilon Q}
+$$
+
+## Observação sobre o sinal
+
+Para uma demanda decrescente, $\varepsilon < 0$, logo $\frac{dP}{dQ} < 0$, refletindo que o preço cai quando a quantidade aumenta.
+
+## Exemplo numérico com demanda linear
+
+Se a demanda for $P(Q) = 100 - 2Q$:
+
+- $\frac{dP}{dQ} = -2$
+- Em $Q = 20$ e $P = 60$
+
+Lembrando que a demada inversa é:
+
+\begin{align*}
+P &= 100 - 2Q \\
+2Q &= 100 - P \\
+Q &= 50 - 0.5Q
+\end{align*}
+
+Na elasticidade:
+
+$$
+\varepsilon = \frac{dQ}{dP} \cdot \frac{P}{Q} = \frac{-0.5 \cdot 60}{20} = -1.5
+$$
+
+- Pela fórmula derivada:
+
+$$
+\frac{P}{\varepsilon Q} = \frac{60}{(-1.5) \cdot 20} = -2
+$$
+que confirma o resultado de $\frac{dP}{dQ}$ obtido diretamente.
+
+:::
+
+## Regra do markup
+
+`Markup` ou poder de mercado.
+
+$$
+P > CMg
+$$
+
+Sendo:
+
+$$
+RMg = p \left( 1 + \frac{1}{\varepsilon} \right) = CMg
+$$
+
+$$
+\frac{CMg}{P} = 1 + \frac{1}{\varepsilon}
+$$
+
+$$
+\text{markup} = \frac{P - CMg}{P}
+$$
+
+- a firma precisa eu o preço seja acima do custo por unidade.
+
+$$
+\text{markup} = - \frac{1}{\varepsilon}
+$$
+
+- se $\varepsilon = \infty$, curva de demanda perfeitamento horizontal, o mercado funciona competitivamente, sem poder de mercado para a firma.
+- se $\varepsilon = 0$, curva de demanda perfeitamento vertical, a firma tem elevado poder de mercado.
+
+## Curva de demanda e receita marginal com regiões de elasticidade
+
+```{r}
+#| label: grafico-demanda-mr
+#| fig-width: 9
+#| fig-height: 6
+#| code-fold: true
+#| warning: false
+#| error: false
+#| include: true
+
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(dplyr)
+  library(tibble)
+})
+
+# Funções e parâmetros
+p_demanda <- function(Q) 24 - Q
+mr <- function(Q) 24 - 2 * Q
+
+Q_max <- 24
+
+# Encontra onde a demanda se torna zero
+Q_zero_demanda <- 24
+
+tibble::tibble(Q = seq(0, Q_max, by = 0.1)) |>
+  dplyr::mutate(
+    Demanda = p_demanda(Q),
+    MR = ifelse(Q >= Q_zero_demanda, NA_real_, pmax(mr(Q), -1))
+  ) ->
+  df
+
+# Pontos-chave
+Q_star <- 12
+p_star <- p_demanda(Q_star) # 12
+mr_zero_Q <- Q_star # onde MR = 0
+
+# Base do gráfico
+ggplot() +
+  # Curva de demanda
+  geom_line(data = df, aes(Q, Demanda), linewidth = 1.2, color = "#1f77b4") +
+  # Curva de receita marginal
+  geom_line(data = df, aes(Q, MR), linewidth = 1.2, color = "#7f3c8d", na.rm = TRUE) +
+  # Pontos de intercepto da demanda
+  geom_point(aes(x = 0, y = 24), size = 2) +
+  geom_point(aes(x = 24, y = 0), size = 2) +
+  # Ponto onde epsilon = -1 (Q=12, p=12)
+  geom_point(aes(x = Q_star, y = p_star), size = 2) +
+  # Rótulos
+  annotate("text", size = 5, x = 3, y = 22.5, label = "Perfeitamente elástica, \u03B5 \u2192 -\u221E", hjust = 0) +
+  annotate("text", size = 5, x = Q_star, y = p_star - 0.7, label = "\u03B5 = -1", vjust = 1) +
+  annotate("text", size = 5, x = 9, y = 18, label = "Elástica, \u03B5 < -1") +
+  annotate("text", size = 5, x = 20, y = 8, label = "Inelástica, -1 < \u03B5 < 0") +
+  annotate("text", size = 5, x = 23.5, y = 1.2, label = "Perfeitamente inelástica, \u03B5 = 0", hjust = 1) +
+  annotate("text", size = 5, x = 4, y = 3.2, label = "Receita marginal\nRMg = 24 - 2Q", color = "#7f3c8d", hjust = 0) +
+  annotate("text", size = 5, x = 13, y = 14.8, label = "Demanda\np = 24 - Q \n ou Receita Média", color = "#1f77b4", hjust = 0) +
+  # Eixos e limites
+  scale_x_continuous(expand = expansion(mult = c(0, 0.01)), limits = c(0, 24)) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.03)), limits = c(0, 24)) +
+  labs(x = "Q, unidades por dia", y = "p, R$ por unidade") +
+  theme_minimal(base_size = 14)
+```
+
+## Como os monopólios surgem?
+
+### Custos
+
+- vantagens de custos
+  - monopólios naturais
+  - uma única firma sempre produz com menor custo total média `CTMe` que várias firmas
+  - mercados com custos totais médios decrescentes tendem ao monopólio
+  - custos fixos elevados, fazendo a natureza dos custos fixos médios decrescentes representarem uma vantagem competitiva
+  - ex.: fornecimento de água
+  - só existe espaço para uma única firma, não existe incentivo para competição
+
+```{r}
+#| fig-width: 9
+#| fig-height: 6
+#| code-fold: true
+#| warning: false
+#| error: false
+#| include: true
+
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(grid)
+})
+
+# Parâmetros
+m       <- 10           # MC constante
+Ffix    <- 60           # custo fixo para AC(q) = F/q + m
+q_min   <- 2            # começa > 0 para não "tocar" o eixo Y
+q_max   <- 100
+y_max   <- 45
+
+ac_fun <- function(q) Ffix/q + m
+
+# Dados
+df <- data.frame(
+  q  = seq(q_min, q_max, length.out = 600)
+)
+df$AC <- ac_fun(df$q)
+
+# Gráfico
+ggplot(df, aes(q, AC)) +
+  # Eixos com setas
+  annotate("segment", x = 0, xend = q_max*1.02, y = 0, yend = 0,
+           colour = "grey55", linewidth = 1,
+           arrow = grid::arrow(length = unit(7, "pt"))) +
+  annotate("segment", x = 0, xend = 0, y = 0, yend = y_max,
+           colour = "grey55", linewidth = 1,
+           arrow = grid::arrow(length = unit(7, "pt"))) +
+
+  # Curvas
+  geom_line(linewidth = 1.1, colour = "#1E6BB8") +                         # AC
+  geom_segment(inherit.aes = FALSE, x = 0, xend = q_max, y = m, yend = m,
+               linewidth = 1.1, colour = "#1E6BB8") +                      # MC
+
+  # Limites/tema
+  coord_cartesian(xlim = c(0, q_max*1.02), ylim = c(0, y_max),
+                  expand = FALSE, clip = "off") +
+  theme_void(base_size = 14) +
+  labs(title = "Curva de Custos para uma Concessionária de Água") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold")) ->
+  p
+
+# Rótulos (no topo)
+p +
+  annotate("text", x = q_max*0.92, y = ac_fun(q_max*0.92) + 0.6, label = "CTMe", size = 5, colour = "#1E6BB8", vjust = -1) +
+  annotate("text", x = q_max*0.92, y = m + 0.6, label = "CMg", size = 5, colour = "#1E6BB8", vjust = 2) +
+  annotate("text", x = q_max*1.015, y = -0.5, label = "q", colour = "grey40") +
+  annotate("text", x = -0.6, y = y_max*1.01, label = "c", colour = "grey40") +
+  theme_classic()
+
+```
+
+### Ações governamentais
+
+- Serviços de postagem
+- Criar barreiras a entrada, como patentes
+  - peso morto por 20 anos
+  - contudo, gera incentivo ao investimento para cobrir os custos fixos com pesquisa e desenvolvimento
+
+## Lidando com monopólios
+
+### Reguração governamental
+
+```{r}
+#| fig-width: 9
+#| fig-height: 6
+#| code-fold: true
+#| warning: false
+#| error: false
+#| include: true
+
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(grid)
+})
+
+# ---- Funções (suas) ----
+CTMe <- function(q) ifelse(q == 0, NA_real_, 12/q + q)
+CVMe <- function(q) q
+CMg  <- function(q) 2*q
+P    <- function(q) 24 - q
+RMg  <- function(q) 24 - 2*q
+CT   <- function(q) 12 + q^2
+RT   <- function(q) (24 - q) * q
+
+# ---- Pontos-chave ----
+q_m <- 6;  p_m <- P(q_m)
+q_0 <- 8;  p_c <- 16
+q_int <- 24
+
+# deslocamento visual para separar linhas coincidentes
+y_reg_horiz <- 16.05   # Demanda regulada (0..8)
+y_rmg_horiz <- 15.95   # RMg_r (0..8) um pouco abaixo
+
+# ---- Dados contínuos ----
+q_max <- 26; y_max <- 26
+qs <- seq(0, q_int, length.out = 400)
+df <- data.frame(q = qs, Dem = P(qs), RMg = RMg(qs), CMg = CMg(qs))
+
+# RMg em duas cores (claro até 8; escuro depois)
+df_rmg1 <- subset(df, q <= q_0)
+df_rmg2 <- subset(df, q >= q_0)
+
+# ---- Áreas ----
+qA  <- seq(0, q_m, length.out = 200)
+dfA <- data.frame(q = qA, ymin = p_m, ymax = P(qA))                 # A (azul médio)
+
+qD  <- seq(0, q_m, length.out = 200)
+dfD <- data.frame(q = qD, ymin = CMg(qD), ymax = p_c)               # D (laranja)
+
+qC  <- seq(q_m, q_0, length.out = 150)
+dfC <- data.frame(q = qC, ymin = p_c, ymax = P(qC))                 # C (azul claro)
+
+qE  <- seq(q_m, q_0, length.out = 150)
+dfE <- data.frame(q = qE, ymin = CMg(qE), ymax = p_c)               # E (laranja = D)
+
+# ---- Gráfico base ----
+p <- ggplot() +
+  # eixos
+  annotate("segment", x = 0, xend = q_max*1.02, y = 0, yend = 0,
+           colour = "grey55", linewidth = 1,
+           arrow = grid::arrow(length = unit(7, "pt"))) +
+  annotate("segment", x = 0, xend = 0, y = 0, yend = y_max,
+           colour = "grey55", linewidth = 1,
+           arrow = grid::arrow(length = unit(7, "pt"))) +
+
+  # áreas (D e E MESMA cor)
+  geom_ribbon(data = dfD, aes(q, ymin = ymin, ymax = ymax), fill = "#F4C27E", alpha = 0.70) +   # D
+  geom_rect(aes(xmin = 0, xmax = q_m, ymin = p_c, ymax = p_m), fill = "#B9DBF2", alpha = 0.70, inherit.aes = FALSE) +  # B
+  geom_ribbon(data = dfA, aes(q, ymin = ymin, ymax = ymax), fill = "#9EC7EB", alpha = 0.70) +   # A
+  geom_ribbon(data = dfC, aes(q, ymin = ymin, ymax = ymax), fill = "#B9DBF2", alpha = 0.85) +   # C
+  geom_ribbon(data = dfE, aes(q, ymin = ymin, ymax = ymax), fill = "#F4C27E", alpha = 0.70) +   # E
+
+  # curvas principais
+  geom_line(data = df, aes(q, Dem), colour = "#1565C0", linewidth = 1.2) +      # Demanda de mercado
+  geom_line(data = df_rmg1, aes(q, RMg), colour = "#81C784", linewidth = 1.2) + # RMg (claro) q<=8
+  geom_line(data = df_rmg2, aes(q, RMg), colour = "#2E7D32", linewidth = 1.2) + # RMg (escuro) q>8
+  geom_line(data = df, aes(q, CMg),       colour = "#D32F2F", linewidth = 1.2) +# CMg
+
+  # Demanda regulada — CINZA CLARO (0..8 horizontal deslocada; após 8 descendente real)
+  geom_segment(aes(x = 0,   xend = q_0,  y = y_reg_horiz, yend = y_reg_horiz),
+               colour = "#9CA3AF", linewidth = 1.4) +   # <- cinza claro
+  geom_segment(aes(x = q_0, xend = q_int, y = p_c, yend = 0),
+               colour = "#9CA3AF", linewidth = 1.4) +   # <- cinza claro
+
+  # RMg regulada (um pouco abaixo, visível)
+  geom_segment(aes(x = 0, xend = q_0, y = y_rmg_horiz, yend = y_rmg_horiz),
+               colour = "#2E7D32", linewidth = 1.0, linetype = "dashed") +
+
+  # (REMOVIDO) a linha vertical verde em x=8 entre ~16 e ~22
+  # geom_segment(... x = q_0, xend = q_0, y = p_c + 6, yend = p_c - 6, ...)
+
+  # guias (mantém preço-teto real em 16)
+  geom_segment(aes(x = 0, xend = q_m, y = p_m, yend = p_m),
+               linetype = "dashed", colour = "grey55") +
+  geom_segment(aes(x = 0, xend = q_0, y = p_c, yend = p_c),
+               linetype = "dashed", colour = "grey55") +
+  geom_segment(aes(x = q_m, xend = q_m, y = 0, yend = p_m),
+               linetype = "dashed", colour = "grey55") +
+  geom_segment(aes(x = q_0, xend = q_0, y = 0, yend = p_c),
+               linetype = "dashed", colour = "grey55") +
+
+  # pontos
+  geom_point(aes(x = q_m, y = p_m), colour = "#1565C0", size = 3) +
+  geom_point(aes(x = q_0, y = p_c), colour = "#1565C0", size = 3) +
+
+  # tema/escala
+  scale_x_continuous(breaks = c(0, 6, 8, 12, 24),
+                     labels = c("0","6","8","12","24"),
+                     limits = c(0, q_max*1.02), expand = c(0,0)) +
+  scale_y_continuous(breaks = c(0, 16, 18, 24),
+                     labels = c("0","16","18","24"),
+                     limits = c(0, y_max), expand = c(0,0)) +
+  coord_cartesian(clip = "off") +
+  theme_minimal(base_size = 13) +
+  theme(panel.grid = element_blank(), plot.title = element_text(face = "bold", hjust = 0.5)) +
+  labs(title = "Regulação Ótima de Preços", x = "Q, Unidades por dia", y = "P, preço por unidade")
+
+# ---- Anotações (no topo; letras pretas) ----
+p +
+  annotate("text", x = q_m*0.35, y = 19.4, label = "A", size = 4.6, colour = "black") +
+  annotate("text", x = q_m*0.28, y = 17.1, label = "B", size = 4.6, colour = "black") +
+  annotate("text", x = q_m*0.35, y = 13.8, label = "D", size = 4.6, colour = "black") +
+  annotate("text", x = (q_m+q_0)/2, y = 16.6, label = "C", size = 4.6, colour = "black") +
+  annotate("text", x = (q_m+q_0)/2, y = 15.4, label = "E", size = 4.6, colour = "black") +
+  annotate("text", x = 11,   y = 5.5,  label = "RMg", colour = "#2E7D32", size = 5) +
+  annotate("text", x = 12.5, y = 22.0, label = "CMg", colour = "#D32F2F", size = 5) +
+  annotate("text", x = 6.0,  y = 21,   label = "Demanda de mercado", colour = "#1565C0", size = 4.8) +
+  annotate("text", x = 10.9, y = 16.9, label = "Demanda regulada",  colour = "#4B5563", size = 4.6) + # label em cinza escuro
+  annotate("text", x = 6, y = y_rmg_horiz + 0.8, label = "RMg[r]",
+           colour = "#2E7D32", size = 4.4, vjust = 2.6, parse = TRUE) +
+  annotate("text", x = q_m - 0.25, y = p_m + 0.8, label = "italic(e[m])",
+           colour = "#C62828", size = 4.5, parse = TRUE) +
+  annotate("text", x = q_0 + 0.25, y = p_c - 0.8, label = "italic(e[0])",
+           colour = "#C62828", size = 4.5, parse = TRUE)
+
+```
+
+- Falha de mercado: a empresa produz menos que o possível, gerando peso morto.
+
+* **Como o governo cria monopólios.** Além dos monopólios “naturais”, o governo pode: 
+  * operar diretamente um setor (correios, por exemplo); e 
+  * conceder direitos de propriedade — sobretudo patentes e copyrights. Uma patente dá direito exclusivo de vender por um período (tipicamente 20 anos), o que gera perda de bem-estar (monopólio), mas também incentivos à inovação. A política ótima precisa equilibrar esses dois efeitos;
+
+* **Exemplo farmacêutico.** Desenvolver um novo medicamento é caríssimo (ordem de US\$ 2 bilhões quando se conta todas as tentativas fracassadas). A patente garante exclusividade por 20 anos; depois entram **genéricos**, que produzem a custo marginal e derrubam o preço. Em teoria, isso equilibraria incentivos e bem-estar;
+  * o tempo que conta é o depósito da patente, mas como as empresas também precisam da aprovação na agência de vigilância sanitária, o tempo médio de usufruto da patente é de 11 anos.
+
+* **Por que o sistema não funciona tão bem (algumas vezes).**
+  * “Pay-for-delay”: a marca paga o potencial genérico para adiar a entrada.
+  * “Evergreening”: pequenas mudanças (p.ex., no modo de aplicação de insulina) rendem novas patentes e estendem exclusividade.
+  * Mercado de genéricos nem sempre competitivo (caso do *EpiPen* ainda caro).
+  * Biológicos: muitas vezes não há genéricos viáveis, então a concorrência futura pode não aparecer;
+
+* **Debate e política recente nos EUA.** O governo avaliou que o **sistema de patentes está desequilibrado** e, via **Inflation Reduction Act (IRA)**, passou a **regular preços** de alguns medicamentos com concorrentes — medida **controversa**, mas vista como correção do excesso de poder de mercado;
+
+* **Regulando monopólios via teto de preço** (*exemplo gráfico*)  
+  * Se o governo impõe preço-teto de 16.
+  * A nova RMg (receita marginal regulada) fica horizontal em 16 até o ponto $E$ (ou $e_0$) e depois volta à RMg original.
+  * Pq vender a sétima unidade já não reduz o preço abaixo de 16 (o governo não permite subir a 18), o monopolista  então vende mais: a solução passa a ser $q=8$ (quantidade competitiva) e a perda de peso morto some.
+  * O governo forçou a firma a vender uma quantidade competitiva, reduzindo o peso morto.
+  * O governo utilizou um preço teto para reduzir o peso morto.
+
+* Se o preço-teto melhora o bem-estar eliminando a perda de peso morto, **por que não fazemos sempre isso?** 
+  *  O governo não sabe com precisão qual é o preço competitivo porque é difícil medir a curva de demanda (especialmente para bens públicos/serviços como água) e a curva de oferta/margem de custo da firma. 
+  * Métodos de "valoração contingente" produzem respostas inconsistentes; e as empresas têm incentivo para superestimar custos quando o regulador os usa para definir preços;
+
+* Mesmo com boa intenção, regular mal pode piorar o bem-estar: se o governo fixa $p = 10$, 
+  * a empresa irá produzir onde CMg é igual a RMg, como o preço é regulado: $10 = 2q \Rightarrow q = 5$
+  * a firma produz $q = 5$, gerando **perda de peso morto maior** do que no próprio monopólio ($q = 6$). Em casos extremos, um preço muito baixo pode levar ao fechamento da empresa;
+
+* Moral: falhas de mercado abrem a possibilidade de intervenção melhorar a eficiência, mas não garantem; tudo depende da informação e da calibragem da política;
+
+### Introdução de competição
+
+* Outra via além de controlar preço: **introduzir concorrência onde der**. 
+  * Exemplo: banda larga tem alto custo fixo de cabeamento (característica de monopólio natural). Em vários países europeus há uma rede de fios compartilhada/publicamente gerida, e as empresas competem no serviço (conteúdo/qualidade) sobre essa infraestrutura, evitando a duplicação cara de cabos. Nos EUA, em contraste, as firmas geralmente "cada uma puxa o seu fio".
+
+## Mercados contestáveis
+
+Além do poder da elasticidade:
+
+$$
+\text{markup} = \frac{P - CMg}{P} = - \frac{1}{\varepsilon}
+$$
+
+o tamanho da barreira a entrada é outra variável importante.
+
+* **Mercados contestáveis:** mesmo com um monopolista presente, se os custos fixos não forem enormes, a mera *ameaça de entrada* disciplina preços. Enquanto o preço ficar próximo ao custo marginal, ninguém entra; se subir demais, aparece um entrante que cobre o fixo e lucra. Assim, o monopolista é forçado a se comportar “quase competitivo”;
+
+* **Caso das companhias aéreas (EUA):** até os anos 1970 o setor era regulado (monopólios por rota e preços controlados), sob a visão de “monopólio natural”. O debate levou à *desregulamentação* no fim da década;
+
+* **Efeitos principais da desregulamentação:**
+  * **Preços caíram muito** — cerca de um terço em média; havia voos extremamente baratos;
+  * **Mais rotas** passaram a existir: novas empresas mostraram que várias ligações eram, sim, lucrativas;
+  * **Qualidade caiu** (menos espaço, comida gratuita etc.). Antes, com preço regulado, a competição era em *serviços*; depois, com competição em *preço*, as empresas cortaram amenidades;
+
+* **Lição sobre eficiência competitiva:** a pressão competitiva sempre existia, mas, após a mudança, ela passou do “não-preço” para o **preço**, uma forma mais eficiente de competir dado o que consumidores realmente valorizam;
+
+* **O ponto que os economistas subestimaram:** embora fabricar aviões seja contestável, **slots de aeroportos** são um gargalo com características de monopólio natural (poucos portões, difícil construir novos aeroportos). O modelo **hub-and-spoke** gerou *quase-monopólios* em alguns hubs, mantendo alto poder de mercado em certas rotas;
+
+* **Consequência prática:** por causa desses gargalos, alguns mercados ficaram muito competitivos (ex.: Nova York–Los Angeles), enquanto outros viram **diferenças enormes de preço** (ex.: trajetos curtos caros quando dominados por um hub);
+
+

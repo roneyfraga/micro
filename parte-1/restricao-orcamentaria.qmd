@@ -1,0 +1,112 @@
+---
+title: "1.2 Restrição Orçamentária `cc`"
+date: "today"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+## Introdução
+
+A **restrição orçamentária** representa as combinações de bens que o consumidor pode adquirir, dada sua renda e os preços dos bens.
+
+## Equação da Restrição Orçamentária
+
+Para dois bens $x$ e $y$:
+
+$$p_x x + p_y y = R$$
+
+onde:
+- $p_x, p_y$ = preços dos bens $x$ e $y$
+- $x, y$ = quantidades consumidas
+- $R$ = renda do consumidor
+
+## Interpretação Gráfica
+
+### Interceptos
+- **Intercepto no eixo x**: $\frac{R}{p_x}$ (todo orçamento em $x$)
+- **Intercepto no eixo y**: $\frac{R}{p_y}$ (todo orçamento em $y$)
+
+### Inclinação
+A inclinação da reta orçamentária é:
+
+$$\frac{dy}{dx} = -\frac{p_x}{p_y}$$
+
+O sinal negativo indica o trade-off entre os bens.
+
+## Mudanças na Restrição Orçamentária
+
+### Variação na Renda
+- **Aumento da renda**: deslocamento paralelo para fora
+- **Redução da renda**: deslocamento paralelo para dentro
+
+### Variação nos Preços
+- **Aumento de $p_x$**: rotação no sentido horário
+- **Redução de $p_x$**: rotação no sentido anti-horário
+- **Variação proporcional nos preços**: deslocamento paralelo
+
+## Conjunto Orçamentário
+
+O **conjunto orçamentário** inclui todas as cestas que o consumidor pode comprar:
+
+$$\{(x,y) : p_x x + p_y y \leq R, x \geq 0, y \geq 0\}$$
+
+## Restrição Orçamentária com Mais Bens
+
+Para $n$ bens:
+
+$$\sum_{i=1}^{n} p_i x_i \leq R$$
+
+## Impostos e Subsídios
+
+### Imposto sobre o consumo
+Com imposto $t$ sobre o bem $x$:
+
+$$(p_x + t)x + p_y y = R$$
+
+### Subsídio sobre o consumo
+Com subsídio $s$ sobre o bem $x$:
+
+$$(p_x - s)x + p_y y = R$$
+
+### Racionamento
+Se houver racionamento de $x$ em $\bar{x}$:
+
+$$x \leq \bar{x}$$
+
+## Poder de Compra Real
+
+O poder de compra real pode ser medido pelo índice de Laspeyres:
+
+$$P = \frac{\sum p_i^t x_i^0}{\sum p_i^0 x_i^0}$$
+
+onde o sobrescrito $0$ indica o período base e $t$ o período atual.
+
+## Exemplo Numérico
+
+Se $R = 100$, $p_x = 5$, $p_y = 10$:
+
+- Intercepto em $x$: $\frac{100}{5} = 20$
+- Intercepto em $y$: $\frac{100}{10} = 10$
+- Inclinação: $-\frac{5}{10} = -0.5$
+
+## Preferências Reveladas
+
+A análise de preferências reveladas permite inferir as preferências do consumidor a partir de suas escolhas observadas, sujeitas à restrição orçamentária.
+
+## Referências
+
+- @pindyck2013 [capítulo 3]
+- @varian2012 [capítulo 2]
+- @perloff2022 [capítulo 4]
+
+---
+
+**Nota:** Este capítulo será expandido com exemplos práticos e exercícios.
+
+## Referências
+
+::: {#refs}
+:::

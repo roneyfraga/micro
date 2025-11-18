@@ -1,0 +1,1925 @@
+---
+title: "Equilíbrio Geral"
+date: "`r Sys.time()`"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+bibliography: ../../references.bib
+csl: ../../abnt-ipea.csl
+format:
+  revealjs:
+    controls: true
+    navigation-mode: linear
+    slide-number: true
+    chalkboard: 
+      buttons: true
+    transition: fade
+    incremental: false
+    smaller: false
+    code-fold: true
+    code-tools: false
+    width: 1920
+    height: 1080
+---
+
+
+```{r}
+#| label: setup
+#| include: false
+
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(dplyr)
+  library(tidyr)
+  library(patchwork)
+  library(latex2exp)
+})
+
+# Tema customizado para os gráficos - FIXO para todos os slides
+tema_economico <- theme_minimal(base_size = 18) +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.line = element_line(color = "black", linewidth = 1.5),
+    axis.ticks = element_blank(),
+    axis.text = element_blank(),
+    axis.title = element_text(size = 20, face = "bold"),
+    plot.background = element_rect(fill = "#E6F2FF", color = NA),
+    panel.background = element_rect(fill = "#E6F2FF", color = NA),
+    plot.margin = margin(10, 10, 10, 10)
+  )
+
+# Limites fixos para todos os gráficos
+xlim_fixo <- c(-10, 100)
+ylim_fixo <- c(-10, 100)
+# Limites de visualização (o que aparece na tela)
+xlim_view <- c(0, 100)
+ylim_view <- c(0, 100)
+
+# Parâmetros da caixa de Edgeworth
+w1 <- 100  # dotação total do bem 1
+w2 <- 80   # dotação total do bem 2
+
+# Funções para curvas de indiferença
+# Consumidor A: U1(x1, x2) = x1^0.5 * x2^0.5
+curva_indiferenca_1 <- function(u_nivel, x1_vals) {
+  x2_vals <- (u_nivel / sqrt(x1_vals))^2
+  tibble(x1 = x1_vals, x2 = x2_vals)
+}
+
+# Consumidor B: U2(x1, x2) = x1^0.6 * x2^0.4
+curva_indiferenca_2 <- function(u_nivel, x1_vals) {
+  x2_vals <- (u_nivel / (x1_vals^0.6))^(1/0.4)
+  tibble(x1 = x1_vals, x2 = x2_vals)
+}
+
+# Sequências para gerar curvas (começando mais próximo de 0)
+x1_seq <- seq(0.5, 100, length.out = 200)
+x1_2_seq <- seq(0.5, 100, length.out = 200)
+```
+
+## Equilíbrio Parcial *vs* Equilíbrio Geral
+
+* A análise de equilíbrio parcial pressupõe que as atividades em um mercado sejam independentes das atividades em outros mercados.
+
+* Na análise de equilíbrio geral, os preços e as quantidades de todos os  mercados são determinados simultaneamente, sendo a interdependência entre os mercados considerada explicitamente. 
+
+* Um efeito de retroalimentação é um ajustamento de preço ou quantidade em um mercado causado por ajustamentos de preço e quantidade em outros mercados.
+
+::: {.callout-note collapse="true" appearance="default" icons="false"}
+
+# Exemplo a seguir adaptado de @pindyck2013
+
+* Dois mercados interdependentes – rumo ao equilíbrio geral
+  * Mercados competitivos de:
+    * Locação de DVDs
+    * Ingressos de cinema
+:::
+
+##
+
+```{r}
+#| label: slide-01
+#| echo: false
+#| fig-width: 22
+#| fig-height: 12.4
+
+# Criar gráfico base - Cinema (esquerda)
+p_cinema_base <- ggplot() +
+  xlim(xlim_fixo) +
+  ylim(ylim_fixo) +
+  coord_cartesian(xlim = xlim_view, ylim = ylim_view, clip = "off") +
+  labs(x = "Ingressos\nde cinema", y = "Preço") +
+  tema_economico +
+  theme(
+    axis.line.x = element_line(arrow = arrow(length = unit(0.3, "cm"), type = "closed")),
+    axis.line.y = element_line(arrow = arrow(length = unit(0.3, "cm"), type = "closed")),
+    axis.title.x = element_text(hjust = 0.99),
+    axis.title.y = element_text(hjust = 0.99)
+  )
+
+# Criar gráfico base - DVDs (direita)
+p_dvd_base <- ggplot() +
+  xlim(xlim_fixo) +
+  ylim(ylim_fixo) +
+  coord_cartesian(xlim = xlim_view, ylim = ylim_view, clip = "off") +
+  labs(x = "Número\nde DVDs", y = "Preço") +
+  tema_economico +
+  theme(
+    axis.line.x = element_line(arrow = arrow(length = unit(0.3, "cm"), type = "closed")),
+    axis.line.y = element_line(arrow = arrow(length = unit(0.3, "cm"), type = "closed")),
+    axis.title.x = element_text(hjust = 0.99),
+    axis.title.y = element_text(hjust = 0.99)
+  )
+
+# Combinar
+p_cinema_base + p_dvd_base
+```
+
+##
+
+```{r}
+#| label: slide-02
+#| echo: false
+#| fig-width: 22
+#| fig-height: 12.4
+
+# Dados para as curvas do mercado de cinema
+# Oferta original (Sc) - marrom/laranja escuro
+oferta_cinema <- tibble(
+  x = seq(0, 100, length.out = 100),
+  y = 20 + 0.6 * x
+)
+
+# Demanda original (Dc) - azul claro
+demanda_cinema <- tibble(
+  x = seq(0, 100, length.out = 100),
+  y = 95 - 0.5 * x
+)
+
+# Ponto de equilíbrio inicial
+eq_cinema_inicial <- tibble(x = 68, y = 61)
+
+p_cinema <- p_cinema_base +
+  geom_line(data = oferta_cinema, aes(x = x, y = y),
+    color = "#CC6600", linewidth = 3) +
+  geom_line(data = demanda_cinema, aes(x = x, y = y),
+    color = "#6699CC", linewidth = 3) +
+  geom_point(data = eq_cinema_inicial, aes(x = x, y = y),
+    size = 6, color = "black") +
+  annotate("text", x = 90, y = 70, label = "Sc",
+    size = 8, fontface = "bold.italic", color = "#CC6600") +
+  annotate("text", x = 90, y = 46.5, label = "Dc",
+    size = 8, fontface = "bold.italic", color = "#6699CC") +
+  annotate("text", x = -5.5, y = 61, label = "$6,00",
+    size = 5, fontface = "bold", hjust = 1) +
+  annotate("text", x = 68, y = -7.5, label = "Qc",
+    size = 6, fontface = "bold.italic", angle = 90, vjust = 1) +
+  geom_segment(aes(x = -5, xend = 68, y = 61, yend = 61),
+    linetype = "dashed", color = "black", linewidth = 0.8) +
+  geom_segment(aes(x = 68, xend = 68, y = -5, yend = 61),
+    linetype = "dashed", color = "black", linewidth = 0.8)
+
+p_cinema + p_dvd_base
+```
+
+##
+
+```{r}
+#| label: slide-03
+#| echo: false
+#| fig-width: 22
+#| fig-height: 12.4
+
+# Dados para as curvas do mercado de DVDs
+# Oferta (Sv) - marrom/laranja escuro
+oferta_dvd <- tibble(
+  x = seq(0, 100, length.out = 100),
+  y = 10 + 0.5 * x
+)
+
+# Demanda original (Dv) - azul claro
+demanda_dvd <- tibble(
+  x = seq(0, 100, length.out = 100),
+  y = 80 - 0.6 * x
+)
+
+# Ponto de equilíbrio inicial
+eq_dvd_inicial <- tibble(x = 64, y = 42)
+
+p_dvd <- p_dvd_base +
+  geom_line(data = oferta_dvd, aes(x = x, y = y),
+    color = "#CC6600", linewidth = 3) +
+  geom_line(data = demanda_dvd, aes(x = x, y = y),
+    color = "#6699CC", linewidth = 3) +
+  geom_point(data = eq_dvd_inicial, aes(x = x, y = y),
+    size = 6, color = "black") +
+  annotate("text", x = 90, y = 58, label = "Sv",
+    size = 8, fontface = "bold.italic", color = "#CC6600") +
+  annotate("text", x = 90, y = 22, label = "Dv",
+    size = 8, fontface = "bold.italic", color = "#6699CC") +
+  annotate("text", x = -5.5, y = 42, label = "$3,00",
+    size = 5, fontface = "bold", hjust = 1) +
+  annotate("text", x = 64, y = -7.5, label = "Qv",
+    size = 6, fontface = "bold.italic", angle = 90) +
+  geom_segment(aes(x = -5, xend = 64, y = 42, yend = 42),
+    linetype = "dashed", color = "black", linewidth = 0.8) +
+  geom_segment(aes(x = 64, xend = 64, y = -5, yend = 42),
+    linetype = "dashed", color = "black", linewidth = 0.8)
+
+p_cinema + p_dvd
+```
+
+##
+
+```{r}
+#| label: slide-04
+#| echo: false
+#| fig-width: 22
+#| fig-height: 12.4
+
+# Oferta com imposto (S*c) - azul tracejado
+oferta_cinema_imposto <- tibble(
+  x = seq(0, 100, length.out = 100),
+  y = 20 + 0.6 * x + 6  # Deslocamento para cima
+)
+
+# Novo equilíbrio no cinema (interseção de S*c e Dc)
+# S*c: y = 26 + 0.6*x
+# Dc:  y = 95 - 0.5*x
+# Resolvendo: 26 + 0.6*x = 95 - 0.5*x => x = 62.73, y = 63.64
+eq_cinema_imposto <- tibble(x = 62.73, y = 63.64)
+
+p_cinema_imposto <- p_cinema +
+  geom_line(data = oferta_cinema_imposto, aes(x = x, y = y),
+    color = "#0066CC", linewidth = 3) +
+  geom_point(data = eq_cinema_imposto, aes(x = x, y = y),
+    size = 6, color = "black") +
+  annotate("text", x = 85, y = 81, label = "S*c",
+    size = 8, fontface = "bold.italic", color = "#0066CC") +
+  annotate("text", x = -5.5, y = 63.64, label = "$6,35",
+    size = 5, fontface = "bold", color = "red", hjust = 1) +
+  annotate("text", x = 62.73, y = -7.5, label = "Q'c",
+    size = 6, fontface = "bold.italic", angle = 90) +
+  geom_segment(aes(x = -5, xend = 62.73, y = 63.64, yend = 63.64),
+    linetype = "dashed", color = "red", linewidth = 0.8) +
+  geom_segment(aes(x = 62.73, xend = 62.73, y = -5, yend = 63.64),
+    linetype = "dashed", color = "red", linewidth = 0.8) +
+  # Mensagem dentro do gráfico
+  annotate("text", x = 39, y = 99,
+    label = "1. Suponha que o governo imponha\num imposto de $1 sobre cada\ningresso de cinema.",
+    size = 7, fontface = "bold", lineheight = 1.1)
+
+p_cinema_imposto + p_dvd
+```
+
+##
+
+```{r}
+#| label: slide-05
+#| echo: false
+#| fig-width: 22
+#| fig-height: 12.4
+# Nova demanda por DVDs (D'v) - azul royal contínuo
+demanda_dvd_nova <- tibble(
+  x = seq(0, 100, length.out = 100),
+  y = 85 - 0.6 * x  # Deslocamento para direita
+)
+
+# Novo equilíbrio DVDs
+eq_dvd_novo <- tibble(x = 68, y = 44)
+
+p_dvd_ajuste1 <- p_dvd +
+  geom_line(data = demanda_dvd_nova, aes(x = x, y = y),
+    color = "#4169E1", linewidth = 3, linetype = "dashed") +
+  geom_point(data = eq_dvd_novo, aes(x = x, y = y),
+    size = 6, color = "black") +
+  annotate("text", x = 100, y = 34, label = "D'v",
+    size = 8, fontface = "bold.italic", color = "#4169E1") +
+  annotate("segment", x = 98, xend = 95, y = 32, yend = 28,
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+    color = "#4169E1", linewidth = 1) +
+  annotate("text", x = -5.5, y = 44, label = "$3,50",
+    size = 5, fontface = "bold", color = "red", hjust = 1) +
+  annotate("text", x = 68, y = -7.5, label = "Q'v",
+    size = 6, fontface = "bold.italic", angle = 90) +
+  geom_segment(aes(x = -5, xend = 68, y = 44, yend = 44),
+    linetype = "dashed", color = "red", linewidth = 0.8) +
+  geom_segment(aes(x = 68, xend = 68, y = -5, yend = 44),
+    linetype = "dashed", color = "red", linewidth = 0.8) +
+  # Mensagem dentro do gráfico
+  annotate("text", x = 35, y = 99,
+    label = "2. Análise de equilíbrio geral:\n O aumento nos preços dos ingressos\nde cinema aumenta a demanda por DVDs.",
+    size = 7, fontface = "bold", lineheight = 1.1)
+
+p_cinema_imposto + p_dvd_ajuste1
+```
+
+##
+
+<!-- recomeço aqui -->
+
+```{r}
+#| label: slide-06
+#| echo: false
+#| fig-width: 22
+#| fig-height: 12.4
+# Nova demanda cinema (D'M) - laranja
+demanda_cinema_nova1 <- tibble(
+  x = seq(0, 100, length.out = 100),
+  y = 98 - 0.5 * x
+)
+
+# Novo equilíbrio (interseção de D'M e S*c)
+# D'M: y = 98 - 0.5*x
+# S*c: y = 26 + 0.6*x
+# Resolvendo: 98 - 0.5*x = 26 + 0.6*x => x = 65.45, y = 65.27
+eq_cinema_novo1 <- tibble(x = 65.45, y = 65.27)
+
+p_cinema_ajuste1 <- p_cinema_imposto +
+  geom_line(data = demanda_cinema_nova1, aes(x = x, y = y),
+    color = "#FF9933", linewidth = 3) +
+  geom_point(data = eq_cinema_novo1, aes(x = x, y = y),
+    size = 6, color = "black") +
+  annotate("text", x = 100, y = 54, label = "D'c",
+    size = 8, fontface = "bold.italic", color = "#FF9933") +
+  annotate("segment", x = 98, xend = 90, y = 53, yend = 54,
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+    color = "#FF9933", linewidth = 1.2) +
+  # Rótulo de preço dentro do gráfico com seta
+  annotate("text", x = 35, y = 70, label = "$6,75 - Q''c",
+    size = 5, fontface = "bold", color = "red") +
+  annotate("segment", x = 43, xend = 64.5, y = 69, yend = 66,
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+    color = "red", linewidth = 1.2) +
+  # annotate("text", x = 65.45, y = -8, label = "Q''c",
+  #   size = 6, fontface = "bold.italic", angle = 90) +
+  geom_segment(aes(x = -5, xend = 65.45, y = 65.27, yend = 65.27),
+    linetype = "dashed", color = "red", linewidth = 0.8) +
+  geom_segment(aes(x = 65.45, xend = 65.45, y = -5, yend = 65.27),
+    linetype = "dashed", color = "red", linewidth = 0.8) +
+  # Mensagem dentro do gráfico
+  annotate("text", x = 30, y = 12,
+    label = "3. O aumento no preço dos DVDs\naumenta a demanda por\ningressos de cinema.",
+    size = 7, fontface = "bold", lineheight = 1.1)
+
+p_cinema_ajuste1 + p_dvd_ajuste1
+```
+
+##
+
+```{r}
+#| label: slide-07
+#| echo: false
+#| fig-width: 22
+#| fig-height: 12.4
+# Nova demanda DVDs (D*v) - azul navy contínuo
+demanda_dvd_nova2 <- tibble(
+  x = seq(0, 100, length.out = 100),
+  y = 87 - 0.6 * x
+)
+
+# Novo equilíbrio (interseção de D*v e Sv)
+# D*v: y = 87 - 0.6*x
+# Sv:  y = 10 + 0.5*x
+# Resolvendo: 87 - 0.6*x = 10 + 0.5*x => x = 70, y = 45
+eq_dvd_novo2 <- tibble(x = 70, y = 45)
+
+p_dvd_ajuste2 <- p_dvd_ajuste1 +
+  geom_line(data = demanda_dvd_nova2, aes(x = x, y = y),
+    color = "#000080", linewidth = 3, linetype = "dashed") +
+  geom_point(data = eq_dvd_novo2, aes(x = x, y = y),
+    size = 6, color = "black") +
+  annotate("text", x = 90, y = 38, label = "D*v",
+    size = 8, fontface = "bold.italic", color = "#000080") +
+  # Anotação acima do ponto com seta
+  annotate("text", x = 70, y = 55, label = "$3,58 - Q*v",
+    size = 5, fontface = "bold", color = "red") +
+  annotate("segment", x = 70, xend = 70, y = 53, yend = 47,
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+    color = "red", linewidth = 1.2) +
+  geom_segment(aes(x = -5, xend = 70, y = 45, yend = 45),
+    linetype = "dashed", color = "red", linewidth = 0.8) +
+  geom_segment(aes(x = 70, xend = 70, y = -5, yend = 45),
+    linetype = "dashed", color = "red", linewidth = 0.8)
+
+p_cinema_ajuste1 + p_dvd_ajuste2
+```
+
+##
+
+```{r}
+#| label: slide-08
+#| echo: false
+#| fig-width: 22
+#| fig-height: 12.4
+# Nova demanda cinema (D*M) - azul tracejado
+demanda_cinema_nova2 <- tibble(
+  x = seq(0, 100, length.out = 100),
+  y = 100 - 0.5 * x
+)
+
+# Novo equilíbrio (interseção de D*M e S*c)
+# D*M: y = 100 - 0.5*x
+# S*c: y = 26 + 0.6*x
+# Resolvendo: 100 - 0.5*x = 26 + 0.6*x => x = 67.27, y = 66.36
+eq_cinema_novo2 <- tibble(x = 67.27, y = 66.36)
+
+p_cinema_ajuste2 <- p_cinema_ajuste1 +
+  geom_line(data = demanda_cinema_nova2, aes(x = x, y = y),
+    color = "#0066CC", linewidth = 3, linetype = "dashed") +
+  geom_point(data = eq_cinema_novo2, aes(x = x, y = y),
+    size = 6, color = "red") +
+  annotate("text", x = 90, y = 59, label = "D*c",
+    size = 8, fontface = "bold.italic", color = "#0066CC") +
+  # Anotação acima do ponto vermelho com seta
+  annotate("text", x = 67.27, y = 75, label = "$6,82 - Q*c",
+    size = 5, fontface = "bold", color = "red") +
+  annotate("segment", x = 67.27, xend = 67.27, y = 73, yend = 68,
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+    color = "red", linewidth = 1.2) +
+  annotate("text", x = 67.27, y = -8, label = "Q*c",
+    size = 6, fontface = "bold.italic", angle = 90) +
+  geom_segment(aes(x = -5, xend = 67.27, y = 66.36, yend = 66.36),
+    linetype = "dashed", color = "red", linewidth = 0.8) +
+  geom_segment(aes(x = 67.27, xend = 67.27, y = -5, yend = 66.36),
+    linetype = "dashed", color = "red", linewidth = 0.8)
+
+p_cinema_ajuste2 + p_dvd_ajuste2
+```
+
+##
+
+```{r}
+#| label: slide-09
+#| echo: false
+#| fig-width: 22
+#| fig-height: 12.4
+# Equilíbrio final DVDs (mesmo ponto, apenas adiciona mensagem)
+p_dvd_final <- p_dvd_ajuste2 +
+  # Mensagem dentro do gráfico
+  annotate("text", x = 26, y = 4,
+    label = "4. Esses movimentos continuam\n até que um equilíbrio geral\n seja alcançado.",
+    size = 7, fontface = "bold", lineheight = 1.1)
+
+p_cinema_ajuste2 + p_dvd_final
+```
+
+## Dica {.center}
+
+::: {.callout-tip collapse="true" appearance="default" icons=true}
+
+## Acesse: [@baidya2014 Capítulo 9 Exemplo 9.1 - Equilíbrio Parcial](https://roneyfraga.com/micro/parte-4-equilibrio-geral-falhas-de-mercado/equilibrio-geral.html)
+
+:::
+
+## Hipóteses e notações
+
+::: {.callout-note collapse="false" appearance="default" icons=false}
+Material adaptado de [Roberto Guena de Oliveira](https://robguena.fearp.usp.br/anpec/index.html).
+
+* [Trocas parte I](https://www.youtube.com/watch?v=ndeLQPliBl0)
+* [Trocas parte II](https://www.youtube.com/watch?v=Hk0JMaNZJZ8)
+* [Trocas parte III](https://www.youtube.com/watch?v=0bSZNJALIK0)
+* [Trocas parte IV](https://www.youtube.com/watch?v=i9HAHG7Us9M)
+
+:::
+
+<br>
+
+* Há apenas dois consumidores: o consumidor $A$ e o consumidor $B$.
+
+* Há apenas dois bens: o bem 1 e o bem 2.
+
+* As quantidades inicialmente existentes dos bens 1 e 2 na economia, também chamadas dotações iniciais da economia desses bens, serão consideradas fixas e notadas por $\omega_1$ e $\omega_2$, respectivamente.
+
+* As dotações iniciais são totalmente distribuídas entre os dois consumidores. Notaremos por $\omega_i^J$ a parte da dotação inicial do bem $i$ $(i = 1, 2)$ possuída pelo consumidor $J$ $(J = A, B)$. Assim, temos
+
+$$\omega_1 = \omega_1^A + \omega_1^B \quad \text{e} \quad \omega_2 = \omega_2^A + \omega_2^B$$
+
+
+## Definições
+
+<br>
+
+* Uma alocação econômica do consumo $(x_1^A, x_2^A, x_1^B, x_2^B)$ é uma especificação do consumo de cada bem por parte de cada consumidor na qual $x_i^J$ $(i = 1, 2$ e $J = A, B)$ representa o consumo do bem $i$ por parte do consumidor $J$.
+
+* Uma alocação econômica do consumo é dita factível no modelo de troca caso tenhamos
+
+$$x_1^A + x_1^B \leq \omega_1 \quad \text{e} \quad x_2^A + x_2^B \leq \omega_2$$
+
+* Uma alocação factível para a qual as condições acima se verificam com igualdade, é chamada alocação sem desperdício.
+
+## A Caixa de Edgeworth
+
+```{r}
+#| label: edgeworth-01
+#| echo: false
+#| fig-width: 22
+#| fig-height: 12.4
+
+# Criar gráfico base da caixa de Edgeworth
+p_edgeworth_base <- ggplot() +
+  # Caixa pontilhada
+  geom_rect(aes(xmin = 0, xmax = w1, ymin = 0, ymax = w2),
+    fill = NA, color = "black", linewidth = 2, linetype = "dashed") +
+  # Eixos
+  geom_segment(aes(x = 0, xend = w1 + 5, y = 0, yend = 0),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+    linewidth = 1.5) +
+  geom_segment(aes(x = 0, xend = 0, y = 0, yend = w2 + 5),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+    linewidth = 1.5) +
+  # Rótulos dos eixos
+  annotate("text", x = w1 + 8, y = 3, 
+    label = TeX(r"($x_1^A$)", output = "character"),
+    size = 10, fontface = "bold", parse = TRUE) +
+  annotate("text", x = 3, y = w2 + 8, 
+    label = TeX(r"($x_2^A$)", output = "character"),
+    size = 10, fontface = "bold", parse = TRUE) +
+  # Origem OA
+  annotate("text", x = -7, y = -7, 
+    label = TeX(r"($O^A$)", output = "character"),
+    size = 10, fontface = "bold", parse = TRUE) +
+  # Anotações das dotações
+  annotate("segment", x = 0, xend = w1, y = -8, yend = -8,
+    arrow = arrow(ends = "both", length = unit(0.2, "cm")),
+    linewidth = 1) +
+  annotate("text", x = w1/2, y = -12, 
+    label = TeX(r"($\omega_1$)", output = "character"),
+    size = 8, parse = TRUE) +
+  annotate("segment", x = -8, xend = -8, y = 0, yend = w2,
+    arrow = arrow(ends = "both", length = unit(0.2, "cm")),
+    linewidth = 1) +
+  annotate("text", x = -12, y = w2/2, 
+    label = TeX(r"($\omega_2$)", output = "character"),
+    size = 8, angle = 90, parse = TRUE) +
+  coord_fixed(ratio = 1.22, xlim = c(-20, 120), ylim = c(-20, 100)) +
+  tema_economico +
+  theme(
+    axis.line = element_blank(),
+    axis.title = element_blank(),
+    plot.margin = margin(5, 5, 5, 5)
+  )
+
+p_edgeworth_base
+```
+
+## A Caixa de Edgeworth
+
+```{r}
+#| label: edgeworth-02
+#| echo: false
+#| fig-width: 22
+#| fig-height: 12.4
+
+# Ponto de alocação x*
+x_star <- tibble(
+  x1_1 = 60,
+  x2_1 = 50
+)
+
+p_edgeworth_ponto <- p_edgeworth_base +
+  geom_point(data = x_star, aes(x = x1_1, y = x2_1),
+    size = 8, color = "black") +
+  annotate("text", x = x_star$x1_1 + 8, y = x_star$x2_1 + 5,
+    label = TeX(r"($x^*$)", output = "character"),
+    size = 10, parse = TRUE)
+
+p_edgeworth_ponto
+```
+
+## A Caixa de Edgeworth
+
+```{r}
+#| label: edgeworth-03
+#| echo: false
+#| fig-width: 22
+#| fig-height: 12.4
+
+# Adicionar componentes de x1*
+p_edgeworth_x1 <- p_edgeworth_ponto +
+  # Seta horizontal para x1^1*
+  geom_segment(aes(x = 0, xend = x_star$x1_1 - 2, y = x_star$x2_1, yend = x_star$x2_1),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed", ends = "first"),
+    linewidth = 2, color = "#CC6600") +
+  annotate("text", x = x_star$x1_1/2, y = x_star$x2_1 + 5,
+    label = TeX(r"($x_1^{A*}$)", output = "character"), 
+    size = 8, fontface = "bold", color = "#CC6600", parse = TRUE) +
+  # Seta vertical para x2^1*
+  geom_segment(aes(x = x_star$x1_1, xend = x_star$x1_1, y = 0, yend = x_star$x2_1 - 2),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed", ends = "first"),
+    linewidth = 2, color = "#6699CC") +
+  annotate("text", x = x_star$x1_1 + 6, y = x_star$x2_1/2,
+    label = TeX(r"($x_2^{A*}$)", output = "character"), 
+    size = 8, fontface = "bold", color = "#6699CC", parse = TRUE)
+
+p_edgeworth_x1
+```
+
+## A Caixa de Edgeworth
+
+```{r}
+#| label: edgeworth-04
+#| echo: false
+#| fig-width: 22
+#| fig-height: 12.4
+
+# Calcular componentes de x2*
+x2_star <- tibble(
+  x1_2 = w1 - x_star$x1_1,
+  x2_2 = w2 - x_star$x2_1
+)
+
+# Adicionar componentes de x2*
+p_edgeworth_x2_parcial <- p_edgeworth_x1 +
+  # Seta horizontal para x1^2*
+  geom_segment(aes(x = w1, xend = x_star$x1_1 + 2, y = x_star$x2_1, yend = x_star$x2_1),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed", ends = "first"),
+    linewidth = 2, color = "#CC6600") +
+  annotate("text", x = x_star$x1_1 + x2_star$x1_2/2, y = x_star$x2_1 + 5,
+    label = TeX(r"($x_1^{B*}$)", output = "character"), 
+    size = 8, fontface = "bold", color = "#CC6600", parse = TRUE)
+
+p_edgeworth_x2_parcial
+```
+
+## A Caixa de Edgeworth
+
+```{r}
+#| label: edgeworth-05
+#| echo: false
+#| fig-width: 22
+#| fig-height: 12.4
+
+p_edgeworth_x2_completo <- p_edgeworth_x2_parcial +
+  # Seta vertical para x2^2*
+  geom_segment(aes(x = x_star$x1_1, xend = x_star$x1_1, y = w2, yend = x_star$x2_1 + 2),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed", ends = "first"),
+    linewidth = 2, color = "#6699CC") +
+  annotate("text", x = x_star$x1_1 + 6, y = x_star$x2_1 + x2_star$x2_2/2,
+    label = TeX(r"($x_2^{B*}$)", output = "character"), 
+    size = 8, fontface = "bold", color = "#6699CC", parse = TRUE)
+
+p_edgeworth_x2_completo
+```
+
+## A Caixa de Edgeworth
+
+```{r}
+#| label: edgeworth-06
+#| echo: false
+#| fig-width: 22
+#| fig-height: 12.4
+
+# Adicionar segundo sistema de coordenadas (consumidor B)
+p_edgeworth_completo <- p_edgeworth_x2_completo +
+  # Caixa principal (agora com linhas sólidas)
+  geom_rect(aes(xmin = 0, xmax = w1, ymin = 0, ymax = w2),
+    fill = NA, color = "black", linewidth = 2) +
+  # Eixos do consumidor B (origem no canto superior direito)
+  geom_segment(aes(x = w1, xend = -5, y = w2, yend = w2),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed", ends = "last"),
+    linewidth = 1.5, color = "darkred") +
+  geom_segment(aes(x = w1, xend = w1, y = w2, yend = -5),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed", ends = "last"),
+    linewidth = 1.5, color = "darkred") +
+  # Rótulos dos eixos do consumidor B
+  annotate("text", x = -8, y = w2 + 3, label = TeX(r"($x_1^B$)", output = "character"),
+    size = 10, fontface = "bold", color = "darkred", parse = TRUE) +
+  annotate("text", x = w1 + 3, y = -8, label = TeX(r"($x_2^B$)", output = "character"),
+    size = 10, fontface = "bold", color = "darkred", parse = TRUE) +
+  # Origem OB
+  annotate("text", x = w1 + 7, y = w2 + 7, label = TeX(r"($O^B$)", output = "character"),
+    size = 10, fontface = "bold", color = "darkred", parse = TRUE)
+
+p_edgeworth_completo
+```
+
+## A Caixa de Edgeworth
+
+```{r}
+#| label: edgeworth-07
+#| echo: false
+#| fig-width: 22
+#| fig-height: 12.4
+
+# Adicionar fundo cinza claro e anotação sobre alocações sem desperdício
+p_edgeworth_final <- p_edgeworth_completo +
+  # Fundo cinza claro cobrindo toda a caixa
+  annotate("rect", xmin = 0, xmax = w1, ymin = 0, ymax = w2,
+    fill = "gray85", alpha = 0.5) +
+  annotate("text", x = 75, y = 30, 
+    label = "Alocações\nsem\ndesperdício",
+    size = 7, fontface = "bold", lineheight = 1.1,
+    hjust = 0) +
+  geom_curve(aes(x = 73, xend = 62, y = 35, yend = 48),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+    curvature = 0.3, linewidth = 1.2)
+
+p_edgeworth_final
+```
+
+## Critério de Pareto {.center}
+
+**Definição**
+
+Diz-se que uma alocação de consumo factível $(x_1^A, x_2^A, x_1^B, x_2^B)$ é Pareto superior a outra alocação de consumo factível $(y_1^A, y_2^A, y_1^B, y_2^B)$ caso (notando por $\succsim_A$ e $\succsim_B$ as relações de preferência dos consumidores $A$ e $B$, respectivamente) tenhamos
+
+$$(x_1^A, x_2^A) \succsim_A (y_1^A, y_2^A) \quad \text{e} \quad (x_1^B, x_2^B) \succsim_B (y_1^B, y_2^B)$$
+
+com
+
+$$(x_1^A, x_2^A) \succ_A (y_1^A, y_2^A) \quad \text{e/ou} \quad (x_1^B, x_2^B) \succ_B (y_1^B, y_2^B)$$
+
+::: {.callout-note collapse="false" appearance="simple" icons=false}
+
+A alocação $X$ domina a alocação $Y$.
+
+:::
+
+::: {.callout-tip collapse="false" appearance="simple" icons=false}
+
+$\succsim_A$ e $\succsim_B$: a alocação $A$ é ao menos tão boa quanto a alocação $B$.
+
+:::
+
+## Eficiência de Pareto {.center}
+
+* Definição
+  * Uma alocação de consumo factível é dita Pareto eficiente caso não haja qualquer outra alocação de consumo factível que lhe seja Pareto superior.
+  * O conjunto de todas as alocações eficientes de uma economia é chamado conjunto de Pareto ou curva de contrato.
+
+:::{style="font-size: 120%; text-align: left; line-height: 1.0em; color: black; "}
+::: {.callout-note collapse="false" appearance="default" icons=false}
+
+# Definição de @varian2012
+
+* Uma alocação eficiente no sentido de Pareto pode ser descrita como uma alocação em que: 
+  * 1. não há como fazer com que todas as pessoas envolvidas melhorem; ou 
+  * 2. não há como fazer com que uma pessoa melhore sem piorar outra; ou 
+  * 3. todos os ganhos com as trocas se exauriram; ou 
+  * 4. não há trocas mutuamente vantajosas para serem efetuadas, e assim por diante. 
+:::
+:::
+
+
+
+
+## Preferências na Caixa de Edgeworth
+
+```{r}
+#| label: edgeworth-preferencias-01
+#| echo: false
+#| fig-width: 22
+#| fig-height: 12.4
+
+# Gerar curvas de indiferença para consumidor A (OA)
+ci1_1 <- curva_indiferenca_1(30, x1_seq)
+ci1_2 <- curva_indiferenca_1(45, x1_seq)
+ci1_3 <- curva_indiferenca_1(60, x1_seq)
+
+# Criar gráfico base da caixa de Edgeworth
+p_edgeworth_pref <- ggplot() +
+  # Caixa pontilhada
+  geom_rect(aes(xmin = 0, xmax = w1, ymin = 0, ymax = w2),
+    fill = NA, color = "black", linewidth = 2, linetype = "dashed") +
+  # Eixos do consumidor A (OA) - pretos
+  geom_segment(aes(x = 0, xend = w1 + 5, y = 0, yend = 0),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+    linewidth = 1.5, color = "black") +
+  geom_segment(aes(x = 0, xend = 0, y = 0, yend = w2 + 5),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+    linewidth = 1.5, color = "black") +
+  # Eixos do consumidor 2 (O2) - cinza claro
+  geom_segment(aes(x = w1, xend = -5, y = w2, yend = w2),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed", ends = "last"),
+    linewidth = 1.5, color = "gray70") +
+  geom_segment(aes(x = w1, xend = w1, y = w2, yend = -5),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed", ends = "last"),
+    linewidth = 1.5, color = "gray70") +
+  # Curvas de indiferença do consumidor A (OA) - VERMELHO
+  geom_line(data = ci1_1 |> filter(x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#CC0000", linewidth = 2.5) +
+  geom_line(data = ci1_2 |> filter(x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#CC0000", linewidth = 2.5) +
+  geom_line(data = ci1_3 |> filter(x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#CC0000", linewidth = 2.5) +
+  # Rótulos dos eixos do consumidor A
+  annotate("text", x = w1 + 8, y = 3, label = TeX(r"($x_1^A$)", output = "character"),
+    size = 10, fontface = "bold", parse = TRUE) +
+  annotate("text", x = 3, y = w2 + 8, label = TeX(r"($x_2^A$)", output = "character"),
+    size = 10, fontface = "bold", parse = TRUE) +
+  # Rótulos dos eixos do consumidor B (cinza)
+  annotate("text", x = -8, y = w2 + 3, label = TeX(r"($x_1^B$)", output = "character"),
+    size = 10, fontface = "bold", color = "gray70", parse = TRUE) +
+  annotate("text", x = w1 + 3, y = -8, label = TeX(r"($x_2^B$)", output = "character"),
+    size = 10, fontface = "bold", color = "gray70", parse = TRUE) +
+  # Origem OA
+  annotate("text", x = -7, y = -7, label = "O^A",
+    size = 10, fontface = "bold", parse = TRUE) +
+  # Origem OB (cinza)
+  annotate("text", x = w1 + 7, y = w2 + 7, label = "O^B",
+    size = 10, fontface = "bold", color = "gray70", parse = TRUE) +
+  # Título
+  # annotate("text", x = 50, y = 95, 
+  #   label = "preferências na caixa de edgeworth",
+  #   size = 12, fontface = "bold") +
+  annotate("text", x = 50, y = 88, 
+    label = "Consumidor A",
+    size = 10, fontface = "bold") +
+  coord_fixed(ratio = 1.22, xlim = c(-20, 120), ylim = c(-20, 100)) +
+  tema_economico +
+  theme(
+    axis.line = element_blank(),
+    axis.title = element_blank(),
+    plot.margin = margin(5, 5, 5, 5)
+  )
+
+p_edgeworth_pref
+```
+
+## Preferências na Caixa de Edgeworth
+
+```{r}
+#| label: edgeworth-preferencias-02
+#| echo: false
+#| fig-width: 22
+#| fig-height: 12.4
+
+# Gerar curvas de indiferença para consumidor B (OB)
+# Usando a função do consumidor 2 e transformando coordenadas
+ci2_1_raw <- curva_indiferenca_2(35, x1_2_seq)
+ci2_2_raw <- curva_indiferenca_2(50, x1_2_seq)
+ci2_3_raw <- curva_indiferenca_2(65, x1_2_seq)
+
+# Transformar para coordenadas do consumidor A (sistema de referência do gráfico)
+ci2_1 <- tibble(x1 = w1 - ci2_1_raw$x1, x2 = w2 - ci2_1_raw$x2)
+ci2_2 <- tibble(x1 = w1 - ci2_2_raw$x1, x2 = w2 - ci2_2_raw$x2)
+ci2_3 <- tibble(x1 = w1 - ci2_3_raw$x1, x2 = w2 - ci2_3_raw$x2)
+
+# Criar gráfico base da caixa de Edgeworth
+p_edgeworth_pref2 <- ggplot() +
+  # Caixa pontilhada
+  geom_rect(aes(xmin = 0, xmax = w1, ymin = 0, ymax = w2),
+    fill = NA, color = "black", linewidth = 2, linetype = "dashed") +
+  # Eixos do consumidor A (OA) - cinza claro (agora em segundo plano)
+  geom_segment(aes(x = 0, xend = w1 + 5, y = 0, yend = 0),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+    linewidth = 1.5, color = "gray70") +
+  geom_segment(aes(x = 0, xend = 0, y = 0, yend = w2 + 5),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+    linewidth = 1.5, color = "gray70") +
+  # Eixos do consumidor B (OB) - pretos (agora em destaque)
+  geom_segment(aes(x = w1, xend = -5, y = w2, yend = w2),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed", ends = "last"),
+    linewidth = 1.5, color = "black") +
+  geom_segment(aes(x = w1, xend = w1, y = w2, yend = -5),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed", ends = "last"),
+    linewidth = 1.5, color = "black") +
+  # Curvas de indiferença do consumidor B (OB) - AZUL
+  geom_line(data = ci2_1 |> filter(x1 >= 0, x1 <= w1, x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#0066CC", linewidth = 2.5) +
+  geom_line(data = ci2_2 |> filter(x1 >= 0, x1 <= w1, x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#0066CC", linewidth = 2.5) +
+  geom_line(data = ci2_3 |> filter(x1 >= 0, x1 <= w1, x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#0066CC", linewidth = 2.5) +
+  # Rótulos dos eixos do consumidor A (cinza)
+  annotate("text", x = w1 + 8, y = 3, label = TeX(r"($x_1^A$)", output = "character"),
+    size = 10, fontface = "bold", color = "gray70", parse = TRUE) +
+  annotate("text", x = 3, y = w2 + 8, label = TeX(r"($x_2^A$)", output = "character"),
+    size = 10, fontface = "bold", color = "gray70", parse = TRUE) +
+  # Rótulos dos eixos do consumidor B (pretos)
+  annotate("text", x = -8, y = w2 + 3, label = TeX(r"($x_1^B$)", output = "character"),
+    size = 10, fontface = "bold", parse = TRUE) +
+  annotate("text", x = w1 + 3, y = -8, label = TeX(r"($x_2^B$)", output = "character"),
+    size = 10, fontface = "bold", parse = TRUE) +
+  # Origem OA (cinza)
+  annotate("text", x = -7, y = -7, label = "O^A",
+    size = 10, fontface = "bold", color = "gray70", parse = TRUE) +
+  # Origem OB (preta)
+  annotate("text", x = w1 + 7, y = w2 + 7, label = "O^B",
+    size = 10, fontface = "bold", parse = TRUE) +
+  # Título
+  # annotate("text", x = 50, y = 95, 
+  #   label = "preferências na caixa de edgeworth",
+  #   size = 12, fontface = "bold") +
+  annotate("text", x = 50, y = 88, 
+    label = "Consumidor B",
+    size = 10, fontface = "bold") +
+  coord_fixed(ratio = 1.22, xlim = c(-20, 120), ylim = c(-20, 100)) +
+  tema_economico +
+  theme(
+    axis.line = element_blank(),
+    axis.title = element_blank(),
+    plot.margin = margin(5, 5, 5, 5)
+  )
+
+p_edgeworth_pref2
+```
+
+## Preferências na Caixa de Edgeworth
+
+```{r}
+#| label: edgeworth-preferencias-03
+#| echo: false
+#| fig-width: 22
+#| fig-height: 12.4
+
+# Gerar curvas de indiferença para consumidor A (OA)
+ci1_1 <- curva_indiferenca_1(30, x1_seq)
+ci1_2 <- curva_indiferenca_1(45, x1_seq)
+ci1_3 <- curva_indiferenca_1(60, x1_seq)
+
+# Gerar curvas de indiferença para consumidor B (OB)
+ci2_1_raw <- curva_indiferenca_2(35, x1_2_seq)
+ci2_2_raw <- curva_indiferenca_2(50, x1_2_seq)
+ci2_3_raw <- curva_indiferenca_2(65, x1_2_seq)
+
+# Transformar para coordenadas do consumidor A
+ci2_1 <- tibble(x1 = w1 - ci2_1_raw$x1, x2 = w2 - ci2_1_raw$x2)
+ci2_2 <- tibble(x1 = w1 - ci2_2_raw$x1, x2 = w2 - ci2_2_raw$x2)
+ci2_3 <- tibble(x1 = w1 - ci2_3_raw$x1, x2 = w2 - ci2_3_raw$x2)
+
+# Criar gráfico com ambos os consumidores
+p_edgeworth_ambos <- ggplot() +
+  # Caixa sólida (SEM pontilhado)
+  geom_rect(aes(xmin = 0, xmax = w1, ymin = 0, ymax = w2),
+    fill = NA, color = "black", linewidth = 2) +
+  # Eixos do consumidor A (OA) - pretos
+  geom_segment(aes(x = 0, xend = w1 + 5, y = 0, yend = 0),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+    linewidth = 1.5, color = "black") +
+  geom_segment(aes(x = 0, xend = 0, y = 0, yend = w2 + 5),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+    linewidth = 1.5, color = "black") +
+  # Eixos do consumidor B (OB) - pretos
+  geom_segment(aes(x = w1, xend = -5, y = w2, yend = w2),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed", ends = "last"),
+    linewidth = 1.5, color = "black") +
+  geom_segment(aes(x = w1, xend = w1, y = w2, yend = -5),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed", ends = "last"),
+    linewidth = 1.5, color = "black") +
+  # Curvas de indiferença do consumidor A (OA) - VERMELHO
+  geom_line(data = ci1_1 |> filter(x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#CC0000", linewidth = 2.5) +
+  geom_line(data = ci1_2 |> filter(x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#CC0000", linewidth = 2.5) +
+  geom_line(data = ci1_3 |> filter(x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#CC0000", linewidth = 2.5) +
+  # Curvas de indiferença do consumidor B (OB) - AZUL
+  geom_line(data = ci2_1 |> filter(x1 >= 0, x1 <= w1, x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#0066CC", linewidth = 2.5) +
+  geom_line(data = ci2_2 |> filter(x1 >= 0, x1 <= w1, x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#0066CC", linewidth = 2.5) +
+  geom_line(data = ci2_3 |> filter(x1 >= 0, x1 <= w1, x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#0066CC", linewidth = 2.5) +
+  # Rótulos dos eixos do consumidor A
+  annotate("text", x = w1 + 8, y = 3, label = TeX(r"($x_1^A$)", output = "character"),
+    size = 10, fontface = "bold", parse = TRUE) +
+  annotate("text", x = 3, y = w2 + 8, label = TeX(r"($x_2^A$)", output = "character"),
+    size = 10, fontface = "bold", parse = TRUE) +
+  # Rótulos dos eixos do consumidor B
+  annotate("text", x = -8, y = w2 + 3, label = TeX(r"($x_1^B$)", output = "character"),
+    size = 10, fontface = "bold", parse = TRUE) +
+  annotate("text", x = w1 + 3, y = -8, label = TeX(r"($x_2^B$)", output = "character"),
+    size = 10, fontface = "bold", parse = TRUE) +
+  # Origem OA
+  annotate("text", x = -7, y = -7, label = "O^A",
+    size = 10, fontface = "bold", parse = TRUE) +
+  # Origem OB
+  annotate("text", x = w1 + 7, y = w2 + 7, label = "O^B",
+    size = 10, fontface = "bold", parse = TRUE) +
+  # Título
+  # annotate("text", x = 50, y = 95, 
+  #   label = "preferências na caixa de edgeworth",
+  #   size = 12, fontface = "bold") +
+  # annotate("text", x = 50, y = 88, 
+  #   label = "Consumidor B",
+  #   size = 10, fontface = "bold") +
+  coord_fixed(ratio = 1.22, xlim = c(-20, 120), ylim = c(-20, 100)) +
+  tema_economico +
+  theme(
+    axis.line = element_blank(),
+    axis.title = element_blank(),
+    plot.margin = margin(5, 5, 5, 5)
+  )
+
+p_edgeworth_ambos
+```
+
+## Alocação Ineficiente
+
+```{r}
+#| label: edgeworth-alocacao-ineficiente
+#| echo: false
+#| fig-width: 22
+#| fig-height: 12.4
+
+# Gerar curvas de indiferença para consumidor A (OA) - CÓPIA DO SLIDE 3
+ci1_1 <- curva_indiferenca_1(30, x1_seq)
+ci1_2 <- curva_indiferenca_1(45, x1_seq)
+ci1_3 <- curva_indiferenca_1(60, x1_seq)
+
+# Gerar curvas de indiferença para consumidor B (OB) - CÓPIA DO SLIDE 3
+ci2_1_raw <- curva_indiferenca_2(35, x1_2_seq)
+ci2_2_raw <- curva_indiferenca_2(50, x1_2_seq)
+ci2_3_raw <- curva_indiferenca_2(65, x1_2_seq)
+
+# Transformar para coordenadas do consumidor A
+ci2_1 <- tibble(x1 = w1 - ci2_1_raw$x1, x2 = w2 - ci2_1_raw$x2)
+ci2_2 <- tibble(x1 = w1 - ci2_2_raw$x1, x2 = w2 - ci2_2_raw$x2)
+ci2_3 <- tibble(x1 = w1 - ci2_3_raw$x1, x2 = w2 - ci2_3_raw$x2)
+
+# Encontrar ponto x⁰ entre ci2_1 (primeira azul) e ci1_2 (segunda vermelha)
+# Na parte superior onde elas se cruzam (perspectiva de O1)
+# ci2_1: u2 = 35 (primeira curva azul, mais próxima de O2)
+# ci1_2: u1 = 45 (segunda curva vermelha, intermediária)
+
+# Procurar interseção aproximada na parte superior
+# Testar x1 = 55 (região superior-direita da perspectiva de O1)
+x0_inef <- tibble(
+  x1_1 = 30,
+  x2_1 = 67.5
+)
+
+# Criar gráfico - CÓPIA INTEGRAL DO SLIDE 3
+p_edgeworth_inef <- ggplot() +
+  # Caixa sólida (SEM pontilhado)
+  geom_rect(aes(xmin = 0, xmax = w1, ymin = 0, ymax = w2),
+    fill = NA, color = "black", linewidth = 2) +
+  # Eixos do consumidor A (OA) - pretos
+  geom_segment(aes(x = 0, xend = w1 + 5, y = 0, yend = 0),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+    linewidth = 1.5, color = "black") +
+  geom_segment(aes(x = 0, xend = 0, y = 0, yend = w2 + 5),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+    linewidth = 1.5, color = "black") +
+  # Eixos do consumidor B (OB) - pretos
+  geom_segment(aes(x = w1, xend = -5, y = w2, yend = w2),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed", ends = "last"),
+    linewidth = 1.5, color = "black") +
+  geom_segment(aes(x = w1, xend = w1, y = w2, yend = -5),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed", ends = "last"),
+    linewidth = 1.5, color = "black") +
+  # Curvas de indiferença do consumidor A (OA) - VERMELHO
+  geom_line(data = ci1_1 |> filter(x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#CC0000", linewidth = 2.5) +
+  geom_line(data = ci1_2 |> filter(x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#CC0000", linewidth = 2.5) +
+  geom_line(data = ci1_3 |> filter(x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#CC0000", linewidth = 2.5) +
+  # Curvas de indiferença do consumidor B (OB) - AZUL
+  geom_line(data = ci2_1 |> filter(x1 >= 0, x1 <= w1, x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#0066CC", linewidth = 2.5) +
+  geom_line(data = ci2_2 |> filter(x1 >= 0, x1 <= w1, x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#0066CC", linewidth = 2.5) +
+  geom_line(data = ci2_3 |> filter(x1 >= 0, x1 <= w1, x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#0066CC", linewidth = 2.5) +
+  # Ponto x⁰
+  geom_point(data = x0_inef, aes(x = x1_1, y = x2_1),
+    size = 10, color = "black", shape = 21, fill = "white", stroke = 2.5) +
+  # Rótulo do ponto x⁰
+  annotate("text", x = x0_inef$x1_1 - 8, y = x0_inef$x2_1 - 2,
+    label = TeX(r"($x^0$)", output = "character"), size = 12, fontface = "bold", parse = TRUE) +
+  # Rótulos dos eixos do consumidor A
+  annotate("text", x = w1 + 8, y = 3, label = TeX(r"($x_1^A$)", output = "character"),
+    size = 10, fontface = "bold", parse = TRUE) +
+  annotate("text", x = 3, y = w2 + 8, label = TeX(r"($x_2^A$)", output = "character"),
+    size = 10, fontface = "bold", parse = TRUE) +
+  # Rótulos dos eixos do consumidor B
+  annotate("text", x = -8, y = w2 + 3, label = TeX(r"($x_1^B$)", output = "character"),
+    size = 10, fontface = "bold", parse = TRUE) +
+  annotate("text", x = w1 + 3, y = -8, label = TeX(r"($x_2^B$)", output = "character"),
+    size = 10, fontface = "bold", parse = TRUE) +
+  # Origem OA
+  annotate("text", x = -7, y = -7, label = "O^A",
+    size = 10, fontface = "bold", parse = TRUE) +
+  # Origem OB
+  annotate("text", x = w1 + 7, y = w2 + 7, label = "O^B",
+    size = 10, fontface = "bold", parse = TRUE) +
+  coord_fixed(ratio = 1.22, xlim = c(-20, 120), ylim = c(-20, 100)) +
+  tema_economico +
+  theme(
+    axis.line = element_blank(),
+    axis.title = element_blank(),
+    plot.margin = margin(5, 5, 5, 5)
+  )
+
+p_edgeworth_inef
+```
+
+## Alocação Ineficiente
+
+```{r}
+#| label: edgeworth-alocacao-ineficiente-2
+#| echo: false
+#| fig-width: 22
+#| fig-height: 12.4
+
+# CÓPIA DO SLIDE ANTERIOR + região azul para Consumidor 2
+
+# Gerar curvas de indiferença - MESMAS DO SLIDE ANTERIOR
+ci1_1 <- curva_indiferenca_1(30, x1_seq)
+ci1_2 <- curva_indiferenca_1(45, x1_seq)
+ci1_3 <- curva_indiferenca_1(60, x1_seq)
+
+ci2_1_raw <- curva_indiferenca_2(35, x1_2_seq)
+ci2_2_raw <- curva_indiferenca_2(50, x1_2_seq)
+ci2_3_raw <- curva_indiferenca_2(65, x1_2_seq)
+
+ci2_1 <- tibble(x1 = w1 - ci2_1_raw$x1, x2 = w2 - ci2_1_raw$x2)
+ci2_2 <- tibble(x1 = w1 - ci2_2_raw$x1, x2 = w2 - ci2_2_raw$x2)
+ci2_3 <- tibble(x1 = w1 - ci2_3_raw$x1, x2 = w2 - ci2_3_raw$x2)
+
+# Mesmo ponto x⁰
+x0_inef <- tibble(
+  x1_1 = 30,
+  x2_1 = 67.5
+)
+
+# Criar gráfico - CÓPIA DO ANTERIOR
+p_edgeworth_inef2 <- ggplot() +
+  # Caixa sólida
+  geom_rect(aes(xmin = 0, xmax = w1, ymin = 0, ymax = w2),
+    fill = NA, color = "black", linewidth = 2) +
+  # Eixos do consumidor A (OA) - pretos
+  geom_segment(aes(x = 0, xend = w1 + 5, y = 0, yend = 0),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+    linewidth = 1.5, color = "black") +
+  geom_segment(aes(x = 0, xend = 0, y = 0, yend = w2 + 5),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+    linewidth = 1.5, color = "black") +
+  # Eixos do consumidor B (OB) - pretos
+  geom_segment(aes(x = w1, xend = -5, y = w2, yend = w2),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed", ends = "last"),
+    linewidth = 1.5, color = "black") +
+  geom_segment(aes(x = w1, xend = w1, y = w2, yend = -5),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed", ends = "last"),
+    linewidth = 1.5, color = "black") +
+  # Curvas de indiferença do consumidor A (OA) - VERMELHO
+  geom_line(data = ci1_1 |> filter(x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#CC0000", linewidth = 2.5) +
+  geom_line(data = ci1_2 |> filter(x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#CC0000", linewidth = 2.5) +
+  geom_line(data = ci1_3 |> filter(x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#CC0000", linewidth = 2.5) +
+  # Curvas de indiferença do consumidor B (OB) - AZUL
+  geom_line(data = ci2_1 |> filter(x1 >= 0, x1 <= w1, x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#0066CC", linewidth = 2.5) +
+  geom_line(data = ci2_2 |> filter(x1 >= 0, x1 <= w1, x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#0066CC", linewidth = 2.5) +
+  geom_line(data = ci2_3 |> filter(x1 >= 0, x1 <= w1, x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#0066CC", linewidth = 2.5) +
+  # Ponto x⁰
+  geom_point(data = x0_inef, aes(x = x1_1, y = x2_1),
+    size = 10, color = "black", shape = 21, fill = "white", stroke = 2.5) +
+  # Rótulo do ponto x⁰
+  annotate("text", x = x0_inef$x1_1 - 8, y = x0_inef$x2_1 - 2,
+    label = "x^0", size = 12, fontface = "bold", parse = TRUE) +
+  # Região de preferência do Consumidor A (acima de ci1_2) - VERMELHO
+  geom_ribbon(data = ci1_2 |> filter(x2 >= 0, x2 <= w2),
+    aes(x = x1, ymin = x2, ymax = w2),
+    fill = "#FF6666", alpha = 0.2) +
+  # Texto Consumidor A
+  annotate("text", x = 69, y = 75,
+    label = "Alocações que A\nprefere a x⁰",
+    size = 9, fontface = "bold", lineheight = 1.1) +
+  # Rótulos dos eixos do consumidor A
+  annotate("text", x = w1 + 8, y = 3, label = TeX(r"($x_1^A$)", output = "character"),
+    size = 10, fontface = "bold", parse = TRUE) +
+  annotate("text", x = 3, y = w2 + 8, label = TeX(r"($x_2^A$)", output = "character"),
+    size = 10, fontface = "bold", parse = TRUE) +
+  # Rótulos dos eixos do consumidor B
+  annotate("text", x = -8, y = w2 + 3, label = TeX(r"($x_1^B$)", output = "character"),
+    size = 10, fontface = "bold", parse = TRUE) +
+  annotate("text", x = w1 + 3, y = -8, label = TeX(r"($x_2^B$)", output = "character"),
+    size = 10, fontface = "bold", parse = TRUE) +
+  # Origem OA
+  annotate("text", x = -7, y = -7, label = "O^A",
+    size = 10, fontface = "bold", parse = TRUE) +
+  # Origem OB
+  annotate("text", x = w1 + 7, y = w2 + 7, label = "O^B",
+    size = 10, fontface = "bold", parse = TRUE) +
+  coord_fixed(ratio = 1.22, xlim = c(-20, 120), ylim = c(-20, 100)) +
+  tema_economico +
+  theme(
+    axis.line = element_blank(),
+    axis.title = element_blank(),
+    plot.margin = margin(5, 5, 5, 5)
+  )
+
+p_edgeworth_inef2
+```
+
+## Alocação Ineficiente
+
+```{r}
+#| label: edgeworth-alocacao-ineficiente-2b
+#| echo: false
+#| fig-width: 22
+#| fig-height: 12.4
+
+# Adicionar área azul ao slide anterior
+p_edgeworth_inef2b <- p_edgeworth_inef2 +
+  # Região de preferência do Consumidor B (abaixo de ci2_1) - AZUL
+  geom_ribbon(data = ci2_1 |> filter(x1 >= 0, x1 <= w1, x2 >= 0, x2 <= w2),
+    aes(x = x1, ymin = 0, ymax = x2),
+    fill = "#6666FF", alpha = 0.2) +
+  # Texto Consumidor B
+  annotate("text", x = 17, y = 15,
+    label = "Alocações\n que B prefere\n a x⁰",
+    size = 9, fontface = "bold", lineheight = 1.1)
+
+p_edgeworth_inef2b
+```
+
+## Alocação Ineficiente
+
+```{r}
+#| label: edgeworth-alocacao-ineficiente-3
+#| echo: false
+#| fig-width: 22
+#| fig-height: 12.4
+
+# CÓPIA DO SLIDE ANTERIOR + seta apontando para interseção
+
+# Mesmo código do slide anterior, adicionando apenas seta e texto
+
+p_edgeworth_inef3 <- p_edgeworth_inef2b +
+  # SETA apontando para região de interseção (área roxa)
+  geom_curve(aes(x = 70, xend = 60, y = -10, yend = 40),
+    arrow = arrow(length = unit(0.4, "cm"), type = "closed"),
+    curvature = 0.1, linewidth = 2, color = "#9966CC") +
+  # TEXTO explicativo da interseção (FORA DO GRÁFICO, embaixo)
+  annotate("text", x = 50, y = -15,
+    label = "Alocações que A e B\npreferem a x⁰",
+    size = 10, fontface = "bold", color = "#9966CC", lineheight = 1.1)
+
+p_edgeworth_inef3
+```
+
+## Alocação Eficiente
+
+```{r}
+#| label: edgeworth-alocacao-x0
+#| echo: false
+#| fig-width: 22
+#| fig-height: 12.4
+
+# Definir ponto de alocação x⁰ (onde duas curvas se cruzam)
+x0 <- tibble(
+  x1_1 = 45,
+  x2_1 = 40
+)
+
+# Calcular níveis de utilidade em x⁰
+u1_x0 <- sqrt(x0$x1_1) * sqrt(x0$x2_1)
+u2_x0 <- ((w1 - x0$x1_1)^0.6) * ((w2 - x0$x2_1)^0.4)
+
+# Gerar curvas de indiferença passando por x⁰
+ci1_x0 <- curva_indiferenca_1(u1_x0, x1_seq)
+ci2_x0_raw <- curva_indiferenca_2(u2_x0, x1_2_seq)
+ci2_x0 <- tibble(x1 = w1 - ci2_x0_raw$x1, x2 = w2 - ci2_x0_raw$x2)
+
+# Criar gráfico base (mesmo do slide anterior)
+p_edgeworth_x0 <- ggplot() +
+  # Caixa sólida
+  geom_rect(aes(xmin = 0, xmax = w1, ymin = 0, ymax = w2),
+    fill = NA, color = "black", linewidth = 2) +
+  # Eixos do consumidor A (OA) - pretos
+  geom_segment(aes(x = 0, xend = w1 + 5, y = 0, yend = 0),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+    linewidth = 1.5, color = "black") +
+  geom_segment(aes(x = 0, xend = 0, y = 0, yend = w2 + 5),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+    linewidth = 1.5, color = "black") +
+  # Eixos do consumidor B (OB) - pretos
+  geom_segment(aes(x = w1, xend = -5, y = w2, yend = w2),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed", ends = "last"),
+    linewidth = 1.5, color = "black") +
+  geom_segment(aes(x = w1, xend = w1, y = w2, yend = -5),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed", ends = "last"),
+    linewidth = 1.5, color = "black") +
+  # Curvas de indiferença passando por x⁰ - DESTAQUE
+  geom_line(data = ci1_x0 |> filter(x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#CC0000", linewidth = 3) +
+  geom_line(data = ci2_x0 |> filter(x1 >= 0, x1 <= w1, x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#0066CC", linewidth = 3) +
+  # Ponto x⁰
+  geom_point(data = x0, aes(x = x1_1, y = x2_1),
+    size = 10, color = "black", shape = 21, fill = "white", stroke = 2.5) +
+  # Rótulo do ponto x⁰
+  annotate("text", x = x0$x1_1 + 8, y = x0$x2_1 + 3,
+    label = TeX(r"($x^*$)", output = "character"), size = 12, fontface = "bold", parse = TRUE) +
+  # Rótulos dos eixos do consumidor A
+  annotate("text", x = w1 + 8, y = 3, label = TeX(r"($x_1^A$)", output = "character"),
+    size = 10, fontface = "bold", parse = TRUE) +
+  annotate("text", x = 3, y = w2 + 8, label = TeX(r"($x_2^A$)", output = "character"),
+    size = 10, fontface = "bold", parse = TRUE) +
+  # Rótulos dos eixos do consumidor B
+  annotate("text", x = -8, y = w2 + 3, label = TeX(r"($x_1^B$)", output = "character"),
+    size = 10, fontface = "bold", parse = TRUE) +
+  annotate("text", x = w1 + 3, y = -8, label = TeX(r"($x_2^B$)", output = "character"),
+    size = 10, fontface = "bold", parse = TRUE) +
+  # Origem OA
+  annotate("text", x = -7, y = -7, label = "O^A",
+    size = 10, fontface = "bold", parse = TRUE) +
+  # Origem OB
+  annotate("text", x = w1 + 7, y = w2 + 7, label = "O^B",
+    size = 10, fontface = "bold", parse = TRUE) +
+  coord_fixed(ratio = 1.22, xlim = c(-20, 120), ylim = c(-20, 100)) +
+  tema_economico +
+  theme(
+    axis.line = element_blank(),
+    axis.title = element_blank(),
+    plot.margin = margin(5, 5, 5, 5)
+  )
+
+p_edgeworth_x0
+```
+
+## Alocação Eficiente
+
+```{r}
+#| label: edgeworth-alocacao-x0-areas
+#| echo: false
+#| fig-width: 22
+#| fig-height: 12.4
+
+# Adicionar áreas sombreadas ao gráfico anterior
+p_edgeworth_x0_areas <- p_edgeworth_x0 +
+  # Região de preferência do Consumidor 1 (acima de ci1_x0) - VERMELHO
+  geom_ribbon(data = ci1_x0 |> filter(x2 >= 0, x2 <= w2),
+    aes(x = x1, ymin = x2, ymax = w2),
+    fill = "#FF6666", alpha = 0.2) +
+  # Região de preferência do Consumidor 2 (abaixo de ci2_x0) - AZUL
+  geom_ribbon(data = ci2_x0 |> filter(x1 >= 0, x1 <= w1, x2 >= 0, x2 <= w2),
+    aes(x = x1, ymin = 0, ymax = x2),
+    fill = "#6666FF", alpha = 0.2)
+
+p_edgeworth_x0_areas
+```
+
+## Alocação Eficiente
+
+```{r}
+#| label: edgeworth-alocacao-x0-areas-texto
+#| echo: false
+#| fig-width: 22
+#| fig-height: 12.4
+
+# Adicionar textos às áreas sombreadas
+p_edgeworth_x0_areas_texto <- p_edgeworth_x0_areas +
+  # Texto Consumidor A
+  annotate("text", x = 65, y = 70,
+    label = "Alocações que A\nprefere a x*",
+    size = 9, fontface = "bold", lineheight = 1.1) +
+  # Texto Consumidor B
+  annotate("text", x = 25, y = 15,
+    label = "Alocações que A \nprefere a x*",
+    size = 9, fontface = "bold", lineheight = 1.1)
+
+p_edgeworth_x0_areas_texto
+```
+
+
+## Alocação Eficiente - Pressupostos
+
+<br>
+
+:::{style="font-size: 130%; text-align: left; line-height: 1.0em; color: black; "}
+::: {.callout-note appearance="default" icons="false"}
+
+# Funções bem comportadas
+
+* Pressuposto de funções monotônicas em $x^*$, $|TMS_A| = |TMS_B|$ 
+  * o que $A$ abre mão de 1 por 2  é igual
+  * ao que $B$ abre mão de 2 por 1
+:::
+:::
+
+<br>
+
+**Funções monotônicas** são aquelas que são sempre crescentes ou sempre decrescentes em todo o seu domínio. Isso significa que elas nunca mudam de direção, ou seja, nunca começam a subir depois de descer ou vice-versa. Existem diferentes tipos de funções monotônicas, como as estritamente crescentes, estritamente decrescentes e constantes.
+
+<br>
+
+**Preferências do consumidor "bem comportadas"** são aquelas que seguem premissas lógicas e razoáveis, como a monotonicidade (mais é melhor) e a transitividade (se A é preferível a B e B é preferível a C, então A é preferível a C). Essas premissas são importantes na microeconomia para modelar o comportamento do consumidor, simplificando o comportamento de escolha e resultando em curvas de indiferença com inclinação negativa.
+
+## Preferências Não Convexas `TODO`
+
+::: columns
+::: {.column width="50%"}
+
+![Fonte: <https://www.wikiwand.com/en/articles/Edgeworth_box>](equilibrio-geral-edgeworth-counter.png)
+
+:::
+::: {.column width="50%"}
+
+<br>
+
+::: {.callout-warning appearance="default" icons="true"}
+
+## Ótimo de Pareto que não é Equilíbrio Competitivo
+
+A Figura ilustra um caso importante onde **preferências não convexas** geram um resultado paradoxal:
+
+* O ponto **x** é um ótimo de Pareto (não há como melhorar a situação de um consumidor sem piorar a do outro)
+
+* Porém, x não satisfaz a definição de equilíbrio competitivo de Arrow-Debreu, que exige que as curvas de indiferença sejam globalmente separadas por uma linha de preços
+
+* Arrow e Debreu sempre incluíram a convexidade das curvas de indiferença entre suas premissas, pois sua definição de equilíbrio não abrange todos os equilíbrios possíveis quando as curvas são não convexas
+
+* Implicação: A economia pode se estabelecer em um ponto que é ótimo de Pareto, mas que não é reconhecido como equilíbrio pela definição formal de equilíbrio competitivo
+
+:::
+
+:::
+:::
+
+
+## Curva de Contrato
+
+```{r}
+#| label: edgeworth-curva-contrato
+#| echo: false
+#| fig-width: 22
+#| fig-height: 12.4
+
+# Definir pontos de tangência na curva de contrato
+# A curva de contrato para estas funções é: x2 = (w2 * x1) / w1
+# Escolher pontos bem distribuídos ao longo da curva
+pontos_tangencia <- tibble(
+  x1 = c(15, 30, 50, 70),
+  x2 = (w2 * x1) / w1
+)
+
+# Calcular níveis de utilidade nos pontos de tangência
+# Para Consumidor A: U1 = x1^0.5 * x2^0.5
+u1_tangencia <- pontos_tangencia |>
+  mutate(u1 = sqrt(x1) * sqrt(x2)) |>
+  pull(u1)
+
+# Para Consumidor B: U2 = x1^0.6 * x2^0.4
+# Precisamos das coordenadas do consumidor 2
+u2_tangencia <- pontos_tangencia |>
+  mutate(
+    x1_2 = w1 - x1,
+    x2_2 = w2 - x2,
+    u2 = (x1_2^0.6) * (x2_2^0.4)
+  ) |>
+  pull(u2)
+
+# Gerar curvas de indiferença para consumidor 1 passando pelos pontos de tangência
+ci1_contrato_1 <- curva_indiferenca_1(u1_tangencia[1], x1_seq)
+ci1_contrato_2 <- curva_indiferenca_1(u1_tangencia[2], x1_seq)
+ci1_contrato_3 <- curva_indiferenca_1(u1_tangencia[3], x1_seq)
+ci1_contrato_4 <- curva_indiferenca_1(u1_tangencia[4], x1_seq)
+
+# Gerar curvas de indiferença para consumidor 2 passando pelos pontos de tangência
+ci2_contrato_1_raw <- curva_indiferenca_2(u2_tangencia[1], x1_2_seq)
+ci2_contrato_2_raw <- curva_indiferenca_2(u2_tangencia[2], x1_2_seq)
+ci2_contrato_3_raw <- curva_indiferenca_2(u2_tangencia[3], x1_2_seq)
+ci2_contrato_4_raw <- curva_indiferenca_2(u2_tangencia[4], x1_2_seq)
+
+# Transformar para coordenadas do consumidor A
+ci2_contrato_1 <- tibble(x1 = w1 - ci2_contrato_1_raw$x1, x2 = w2 - ci2_contrato_1_raw$x2)
+ci2_contrato_2 <- tibble(x1 = w1 - ci2_contrato_2_raw$x1, x2 = w2 - ci2_contrato_2_raw$x2)
+ci2_contrato_3 <- tibble(x1 = w1 - ci2_contrato_3_raw$x1, x2 = w2 - ci2_contrato_3_raw$x2)
+ci2_contrato_4 <- tibble(x1 = w1 - ci2_contrato_4_raw$x1, x2 = w2 - ci2_contrato_4_raw$x2)
+
+# Gerar curva de contrato (da origem O1 até a origem O2)
+curva_contrato <- tibble(
+  x1 = seq(0, w1, length.out = 100)
+) |>
+  mutate(
+    x2 = (w2 * x1) / w1
+  )
+
+# Criar gráfico
+p_curva_contrato <- ggplot() +
+  # Caixa sólida
+  geom_rect(aes(xmin = 0, xmax = w1, ymin = 0, ymax = w2),
+    fill = NA, color = "black", linewidth = 2) +
+  # Eixos do consumidor A (OA) - pretos
+  geom_segment(aes(x = 0, xend = w1 + 5, y = 0, yend = 0),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+    linewidth = 1.5, color = "black") +
+  geom_segment(aes(x = 0, xend = 0, y = 0, yend = w2 + 5),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+    linewidth = 1.5, color = "black") +
+  # Eixos do consumidor B (OB) - pretos
+  geom_segment(aes(x = w1, xend = -5, y = w2, yend = w2),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed", ends = "last"),
+    linewidth = 1.5, color = "black") +
+  geom_segment(aes(x = w1, xend = w1, y = w2, yend = -5),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed", ends = "last"),
+    linewidth = 1.5, color = "black") +
+  # Curvas de indiferença do consumidor A (OA) - VERMELHO
+  geom_line(data = ci1_contrato_1 |> filter(x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#CC0000", linewidth = 2.5) +
+  geom_line(data = ci1_contrato_2 |> filter(x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#CC0000", linewidth = 2.5) +
+  geom_line(data = ci1_contrato_3 |> filter(x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#CC0000", linewidth = 2.5) +
+  geom_line(data = ci1_contrato_4 |> filter(x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#CC0000", linewidth = 2.5) +
+  # Curvas de indiferença do consumidor B (OB) - AZUL
+  geom_line(data = ci2_contrato_1 |> filter(x1 >= 0, x1 <= w1, x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#0066CC", linewidth = 2.5) +
+  geom_line(data = ci2_contrato_2 |> filter(x1 >= 0, x1 <= w1, x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#0066CC", linewidth = 2.5) +
+  geom_line(data = ci2_contrato_3 |> filter(x1 >= 0, x1 <= w1, x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#0066CC", linewidth = 2.5) +
+  geom_line(data = ci2_contrato_4 |> filter(x1 >= 0, x1 <= w1, x2 >= 0, x2 <= w2),
+    aes(x = x1, y = x2), color = "#0066CC", linewidth = 2.5) +
+  # Curva de contrato - LARANJA
+  geom_line(data = curva_contrato,
+    aes(x = x1, y = x2), color = "#FF8C00", linewidth = 3.5) +
+  # Pontos de tangência
+  geom_point(data = pontos_tangencia, aes(x = x1, y = x2),
+    size = 8, color = "black", shape = 21, fill = "#FF8C00", stroke = 2) +
+  # Rótulos dos eixos do consumidor A
+  annotate("text", x = w1 + 8, y = 3, label = TeX(r"($x_1^A$)", output = "character"),
+    size = 10, fontface = "bold", parse = TRUE) +
+  annotate("text", x = 3, y = w2 + 8, label = TeX(r"($x_2^A$)", output = "character"),
+    size = 10, fontface = "bold", parse = TRUE) +
+  # Rótulos dos eixos do consumidor B
+  annotate("text", x = -8, y = w2 + 3, label = TeX(r"($x_1^B$)", output = "character"),
+    size = 10, fontface = "bold", parse = TRUE) +
+  annotate("text", x = w1 + 3, y = -8, label = TeX(r"($x_2^B$)", output = "character"),
+    size = 10, fontface = "bold", parse = TRUE) +
+  # Origem OA
+  annotate("text", x = -7, y = -7, label = "O^A",
+    size = 10, fontface = "bold", parse = TRUE) +
+  # Origem OB
+  annotate("text", x = w1 + 7, y = w2 + 7, label = "O^B",
+    size = 10, fontface = "bold", parse = TRUE) +
+  # Texto da curva de contrato (parte superior direita, entre O2 e x2^1)
+  annotate("text", x = 60, y = 88,
+    label = "Curva de contrato ou \nconjunto de  Pareto",
+    size = 8, fontface = "bold", lineheight = 1.1, hjust = 0.5) +
+  # Seta conectando o texto à curva de contrato
+  geom_curve(aes(x = 69, xend = 85, y = 83, yend = 70),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+    curvature = -0.2, linewidth = 1.2, color = "black") +
+  coord_fixed(ratio = 1.22, xlim = c(-20, 120), ylim = c(-20, 100)) +
+  tema_economico +
+  theme(
+    axis.line = element_blank(),
+    axis.title = element_blank(),
+    plot.margin = margin(5, 5, 5, 5)
+  )
+
+p_curva_contrato
+```
+
+## Dica {.center}
+
+::: {.callout-tip collapse="true" appearance="default" icons=true}
+
+### Acesse: [Curva de Contratos Simbólica](https://roneyfraga.com/micro/parte-4-equilibrio-geral-falhas-de-mercado/equilibrio-geral.html)
+
+:::
+
+<br>
+
+::: {.callout-tip collapse="true" appearance="default" icons=true}
+
+### Acesse: [Curva de Contratos com ${x^{A}_{1}}^2$](https://roneyfraga.com/micro/parte-4-equilibrio-geral-falhas-de-mercado/equilibrio-geral.html)
+:::
+
+<br>
+
+::: {.callout-tip collapse="true" appearance="default" icons=true}
+
+### Acesse: [Curva de Contratos com $\ln(x^{A}_{1})$ e $\sqrt{x^{B}_{1}}$](https://roneyfraga.com/micro/parte-4-equilibrio-geral-falhas-de-mercado/equilibrio-geral.html)
+:::
+
+
+
+## Demandas Brutas e Líquidas {.smaller}
+
+As **demandas brutas** pelos bens 1 e 2 por parte dos consumidores $A$ e $B$ são, respectivamente
+
+$$x_1^A(p_1, p_2, p_1\omega_1^A + p_2\omega_2^A) \quad , \quad x_2^A(p_1, p_2, p_1\omega_1^A + p_2\omega_2^A)$$
+
+$$x_1^B(p_1, p_2, p_1\omega_1^B + p_2\omega_2^B) \quad \text{e} \quad x_2^B(p_1, p_2, p_1\omega_1^B + p_2\omega_2^B)$$
+
+As **demandas líquidas** ou os excessos de demanda pelos bens 1 e 2 por parte dos consumidores $A$ e $B$ são, respectivamente
+
+$$e_1^A(p_1, p_2, \omega_1^A, \omega_2^A) = x_1^A(p_1, p_2, p_1\omega_1^A + p_2\omega_2^A) - \omega_1^A$$
+
+$$e_2^A(p_1, p_2, \omega_1^A, \omega_2^A) = x_2^A(p_1, p_2, p_1\omega_1^A + p_2\omega_2^A) - \omega_2^A$$
+
+$$e_1^B(p_1, p_2, \omega_1^B, \omega_2^B) = x_1^B(p_1, p_2, p_1\omega_1^B + p_2\omega_2^B) - \omega_1^B$$
+
+$$e_2^B(p_1, p_2, \omega_1^B, \omega_2^B) = x_2^B(p_1, p_2, p_1\omega_1^B + p_2\omega_2^B) - \omega_2^B$$
+
+Os **excessos de demanda agregados** pelos bens 1 e 2 são dados pelas funções
+
+$$z_1(p_1, p_2) = e_1^A(p_1, p_2) + e_1^B(p_1, p_2) = x_1^A(p_1, p_2) + x_1^B(p_1, p_2) - \omega_1$$
+
+$$z_2(p_1, p_2) = e_2^A(p_1, p_2) + e_2^B(p_1, p_2) = x_2^A(p_1, p_2) + x_2^B(p_1, p_2) - \omega_2$$
+
+## Dica {.center}
+
+::: {.callout-tip collapse="true" appearance="default" icons=true}
+
+### Acesse: [Partindo das utitilidades e dotações, encontrar: demandas brutas, líquidas e agregadas](https://roneyfraga.com/micro/parte-4-equilibrio-geral-falhas-de-mercado/equilibrio-geral.html)
+
+:::
+
+## Demandas na caixa de Edgeworth 
+
+::: {.panel-tabset}
+### 1
+::: columns
+::: {.column width="50%"}
+![](demandas-na-caixa-de-edgeworth-01.png)
+:::
+::: {.column width="50%"}
+* dotação inicial: as escolhas dos consumidores $A$ e $B$ 
+:::
+:::
+
+### 2
+::: columns
+::: {.column width="50%"}
+![](demandas-na-caixa-de-edgeworth-02.png)
+:::
+::: {.column width="50%"}
+* adicionando a restrição orçamentária, com inclinação com preço relativa $p_1/p_2$
+:::
+:::
+
+### 3
+::: columns
+::: {.column width="50%"}
+![](demandas-na-caixa-de-edgeworth-03.png)
+:::
+::: {.column width="50%"}
+* restrição orçamentária de $A$ e $B$
+* $A$ fica a esquerda ou sobre a linha reta 
+* $B$ fica a direita ou sobre a linha reta
+:::
+:::
+
+### 4
+::: columns
+::: {.column width="50%"}
+![](demandas-na-caixa-de-edgeworth-04.png)
+:::
+::: {.column width="50%"}
+* a demanda bruta de $A$ é diferente de sua dotação inicial
+* curva de indiferença de $A$
+* demanda bruta de $A$ pelo bem $1$: $x^A_1(p_1, p_2)$
+* demanda bruta de $A$ pelo bem $2$: $x^A_2(p_1, p_2)$
+:::
+:::
+
+### 5
+::: columns
+::: {.column width="50%"}
+![](demandas-na-caixa-de-edgeworth-05.png)
+:::
+::: {.column width="50%"}
+* a direrença entre a demamanda bruta do bem $1$ e a dotação inicial forma o excesso de demanda 
+  * $x^A_1(p_1, p_2)$ -- dotação incial = $e^A_1$
+* aumento do consumo do bem $1$
+:::
+:::
+
+### 6
+::: columns
+::: {.column width="50%"}
+![](demandas-na-caixa-de-edgeworth-06.png)
+:::
+::: {.column width="50%"}
+* a direrença entre a demamanda bruta do bem $2$ e a dotação inicial forma o excesso de demanda 
+  * $x^A_2(p_1, p_2)$ -- dotação incial = $e^A_2$
+* redução do consumo do bem $2$
+:::
+:::
+
+### 7
+::: columns
+::: {.column width="50%"}
+![](demandas-na-caixa-de-edgeworth-07.png)
+:::
+::: {.column width="50%"}
+* a demanda bruta de $B$ é diferente de sua dotação inicial
+:::
+:::
+
+### 8
+::: columns
+::: {.column width="50%"}
+![](demandas-na-caixa-de-edgeworth-08.png)
+:::
+::: {.column width="50%"}
+* $B$ deseja reduzir o consumo do bem $1$
+* $B$ desaja aumentar o consumo do bem $1$
+:::
+:::
+
+### 9
+::: columns
+::: {.column width="50%"}
+![](demandas-na-caixa-de-edgeworth-09.png)
+:::
+::: {.column width="50%"}
+* os excessos de demandas será a soma das demandas líquidas
+* $z_1 = e^A_1 + e^B_1$
+* $z_2 = e^A_2 + e^A_2$
+:::
+:::
+
+:::
+
+## Lei de Walras {.smaller}
+
+**Enunciado**
+
+Caso os consumidores demandem cestas de bens sobre suas linhas de restrição orçamentária, então, para quaisquer $p_1 > 0$ e $p_2 > 0$, teremos
+
+$$p_1 z_1(p_1, p_2) + p_2 z_2(p_1, p_2) = 0$$
+
+**Equilíbrio**
+
+Diz-se que uma economia de trocas encontra-se em equilíbrio geral quando, para cada bem dessa economia, a demanda bruta total é igual à dotação inicial. Ou, equivalentemente, no caso de uma economia com 2 consumidores e 2 bens,
+
+$$\text{condição 1: } \begin{cases} x_1^A(p_1, p_2) + x_1^B(p_1, p_2) = \omega_1^A + \omega_1^B \\ x_2^A(p_1, p_2) + x_2^B(p_1, p_2) = \omega_2^A + \omega_2^B \end{cases}$$
+
+$$\text{condição 2: } \begin{cases} e_1^A(p_1, p_2) + e_1^B(p_1, p_2) = 0 \\ e_2^A(p_1, p_2) + e_2^B(p_1, p_2) = 0 \end{cases}$$
+
+$$\text{condição 3: } \begin{cases} z_1(p_1, p_2) = 0 \\ z_2(p_1, p_2) = 0 \end{cases}$$
+
+Os preços $p_1$ e $p_2$ que garantem as condições acima são chamados preços de equilíbrio.
+
+## Dica {.center}
+
+::: {.callout-tip collapse="true" appearance="default" icons=true}
+
+### Acesse: [Partindo das utitilidades e dotações, encontrar preços de equilíbrio](https://roneyfraga.com/micro/parte-4-equilibrio-geral-falhas-de-mercado/equilibrio-geral.html)
+
+:::
+
+## Equilíbrio na caixa de Edgeworth
+
+::: columns
+::: {.column width="50%"}
+![](equilibrio-geral-equilibrio-na-caixa-de-edgeworth.png)
+:::
+::: {.column width="50%"}
+* Saindo da dotação inicial (em desequilíbrio) em direção a uma alocação Pareto eficiente.
+* A dotação inicial influência a reta de restrição orçamentária, e sua inclinação, a razão dos preços. 
+* Preços relativos definem o equilíbrio, e não preços absolutos.
+* O equilíbro irá ocorrer com uma infinidade de preços (relativos). 
+:::
+:::
+
+## Observação
+
+<br>
+
+* Como as funções de demanda são homogêneas de grau zero em relação aos preços temos que, caso as condições de equilíbrio sejam obtidas aos preços $p_1^*$ e $p_2^*$, elas também serão obtidas aos preços $\alpha p_1^*$ e $\alpha p_2^*$ para qualquer $\alpha > 0$.
+
+* Em particular, pode ser interessante tomar $\alpha = \frac{1}{p_2^*}$, de modo a expressar os preços em termos do preço relativo do bem 1 em relação ao bem 2.
+
+* Da lei de Walras segue que o sistema de equações formados pelas condições de equilíbrio possue um grau de indeterminação, pois uma das equações é uma combinação linear das outras. Desse modo, se $n-1$ mercados estão em equilíbrio, o $n$-ésimo mercado também estará.
+
+## Dica {.center}
+
+<br>
+
+::: {.callout-tip collapse="true" appearance="default" icons=true}
+
+### Acesse: [http://roneyfraga.com/micro-cobb-douglas-trocas](http://roneyfraga.com/micro-cobb-douglas-trocas)
+
+:::
+
+<br>
+
+::: {.callout-tip collapse="true" appearance="default" icons=true}
+
+### Acesse: [Cobb-Douglas Preços Equilíbrio com constantes](https://roneyfraga.com/micro/parte-4-equilibrio-geral-falhas-de-mercado/equilibrio-geral.html)
+
+:::
+
+## Existência do Equilíbrio
+
+::: {layout-ncol=2}
+
+### Um caso de ausência de equilíbrio
+
+```{r}
+#| label: ausencia-equilibrio
+#| echo: false
+#| fig-width: 11
+#| fig-height: 8
+
+# Criar gráfico mostrando ausência de equilíbrio
+# Duas funções separadas: uma termina antes de omega_1, outra começa depois
+# Ambas na mesma altura (mesmo y)
+
+# Altura comum onde as curvas se encontram
+y_comum <- 48
+
+# Função 1: termina antes de omega_1 (x < 30)
+# Calculando para que termine em y_comum quando x = 28
+# y = a + b*x, quando x=28, y=48, quando x=0, y=90
+# 48 = a + b*28 e 90 = a => b = (48-90)/28 = -1.5
+funcao1 <- tibble(
+  x = seq(2, 28, length.out = 50),
+  y = 90 - 1.5 * x
+)
+
+# Função 2: começa depois de omega_1 (x > 30)
+# Deve começar em y_comum quando x = 32
+# y = y_comum - b*(x - 32)
+funcao2 <- tibble(
+  x = seq(32, 80, length.out = 50),
+  y = y_comum - 0.8 * (x - 32)
+)
+
+# Criar gráfico
+p_ausencia <- ggplot() +
+  # Eixo vertical (p1/p2)
+  geom_segment(aes(x = 0, xend = 0, y = 0, yend = 100),
+    linewidth = 2) +
+  # Eixo horizontal (x1)
+  geom_segment(aes(x = 0, xend = 100, y = 0, yend = 0),
+    linewidth = 2) +
+  # Linha vertical em omega_1
+  geom_segment(aes(x = 30, xend = 30, y = 0, yend = 100),
+    linewidth = 1.5, linetype = "solid") +
+  # Função 1 (azul) - termina antes de omega_1
+  geom_line(data = funcao1, aes(x = x, y = y),
+    color = "#0066CC", linewidth = 3) +
+  # Função 2 (azul) - começa depois de omega_1
+  geom_line(data = funcao2, aes(x = x, y = y),
+    color = "#0066CC", linewidth = 3) +
+  # Linha pontilhada conectando as duas curvas (gap)
+  geom_segment(aes(x = 28, xend = 32, y = y_comum, yend = y_comum),
+    color = "#0066CC", linewidth = 2, linetype = "dotted") +
+  # Rótulos (usando plotmath - parse = TRUE)
+  annotate("text", x = 30, y = -5, label = TeX(r"($\omega_1$)", output = "character"),
+    size = 8, fontface = "bold", parse = TRUE) +
+  annotate("text", x = 55, y = -5, label = TeX(r"($x_1$)", output = "character"),
+    size = 8, fontface = "bold", parse = TRUE) +
+  annotate("text", x = -5, y = 50, label = TeX(r"($\frac{p_1}{p_2}$)", output = "character"),
+    size = 8, fontface = "bold", parse = TRUE) +
+  # Rótulo complexo usando latex2exp via annotate (raw string r"()")
+  annotate("text", x = 50, y = 70,
+    label = TeX(r"($x_1^A\left(\frac{p_1}{p_2}\right) + x_1^B\left(\frac{p_1}{p_2}\right)$)", output = "character"),
+    size = 7, parse = TRUE) +
+  coord_cartesian(xlim = c(-10, 100), ylim = c(-10, 100)) +
+  tema_economico +
+  theme(
+    axis.line = element_blank(),
+    axis.title = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank()
+  )
+
+p_ausencia
+```
+
+### Hipóteses que garantem continuidade da demanda
+
+* As preferências são convexas
+
+* Os consumidores são infinitamente pequenos e diferenciados.
+
+:::
+
+## Os Teoremas do Bem-Estar Social
+
+<br>
+
+:::{style="font-size: 125%; text-align: left; line-height: 1.0em; color: black; "}
+
+::: {.callout-note title="Primeiro Teorema do Bem-Estar Social" icon="false"}
+**Todo equilíbrio geral competitivo é eficiente no sentido de Pareto.**
+
+Este teorema demonstra que mercados competitivos, quando funcionam adequadamente, alcançam alocações eficientes sem necessidade de intervenção centralizada. Sua importância reside em fornecer um mecanismo geral — o mercado competitivo — que garante resultados eficientes mesmo com milhões de agentes envolvidos. O sistema de preços reduz drasticamente a necessidade de informação, pois os consumidores precisam conhecer apenas os preços dos bens para tomar decisões ótimas.
+:::
+
+<br>
+
+::: {.callout-note title="Segundo Teorema do Bem-Estar Social" icon="false"}
+**Desde que as preferências sejam convexas, toda alocação eficiente é uma alocação de equilíbrio para uma redistribuição adequada das dotações iniciais.**
+
+Este resultado fundamental mostra que problemas de distribuição e eficiência podem ser separados. Os preços devem refletir escassez (papel alocativo), enquanto transferências de montante fixo devem ajustar metas distributivas (papel distributivo). Qualquer alocação eficiente desejada pode ser alcançada através de mercados competitivos após redistribuição apropriada das dotações, sem perda de eficiência econômica.
+:::
+:::
+
+## Referências
+
+::: {#refs}
+:::
+

@@ -1,0 +1,91 @@
+---
+title: "Função de Produção `cc`"
+date: "`r Sys.time()`"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+## Introdução
+
+A função de produção descreve a relação tecnológica entre insumos e produto. Ela mostra a quantidade máxima de produto que pode ser obtida a partir de diferentes combinações de insumos.
+
+## Função de Produção com Dois Insumos
+
+A forma geral de uma função de produção com dois insumos (trabalho $L$ e capital $K$) é:
+
+$$Q = f(L, K)$$
+
+onde $Q$ representa a quantidade produzida.
+
+## Produto Marginal
+
+O **produto marginal** de um insumo é o acréscimo no produto total resultante do emprego de uma unidade adicional desse insumo, mantendo constantes os demais insumos.
+
+- Produto marginal do trabalho: $PMgL = \frac{\partial Q}{\partial L}$
+- Produto marginal do capital: $PMgK = \frac{\partial Q}{\partial K}$
+
+## Lei dos Rendimentos Marginais Decrescentes
+
+À medida que aumentamos a quantidade de um insumo variável, mantendo fixos os demais insumos, o produto marginal desse insumo eventualmente decresce.
+
+## Isoquantas
+
+Uma **isoquanta** é uma curva que mostra todas as combinações de insumos que produzem o mesmo nível de produto.
+
+Propriedades das isoquantas:
+
+1. Têm inclinação negativa
+2. Não se cruzam
+3. São convexas em relação à origem
+
+## Taxa Marginal de Substituição Técnica (TMST)
+
+A TMST mede a taxa à qual um insumo pode ser substituído por outro, mantendo constante o nível de produção:
+
+$$TMST_{LK} = -\frac{dK}{dL}\bigg|_{\bar{Q}} = \frac{PMgL}{PMgK}$$
+
+## Rendimentos de Escala
+
+Os **rendimentos de escala** descrevem como o produto varia quando todos os insumos são aumentados proporcionalmente.
+
+- **Rendimentos constantes de escala**: $f(tL, tK) = t \cdot f(L, K)$
+- **Rendimentos crescentes de escala**: $f(tL, tK) > t \cdot f(L, K)$
+- **Rendimentos decrescentes de escala**: $f(tL, tK) < t \cdot f(L, K)$
+
+onde $t > 1$.
+
+## Exemplos de Funções de Produção
+
+### Função Linear
+
+$$Q = aL + bK$$
+
+### Função Cobb-Douglas
+
+$$Q = AL^\alpha K^\beta$$
+
+### Função Leontief (Proporções Fixas)
+
+$$Q = \min\{aL, bK\}$$
+
+:::{style="font-size: 100%; text-align: left; line-height: 1.0em; color: red; "}
+
+* Adicionar apostila da Embrapa de Eliseu Alves.
+
+:::
+
+## Referências
+
+Ver @pindyck2013 [capítulo 6], @baidya2014 [capítulo 1], @perloff2022 [capítulo 6].
+
+---
+
+**Nota:** Este capítulo será expandido com mais detalhes teóricos e exemplos. Os exemplos computacionais estão disponíveis nos capítulos seguintes.
+
+## Referências
+
+::: {#refs}
+:::

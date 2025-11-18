@@ -1,0 +1,19 @@
+
+# Custos de Transação `cc`
+
+__Conteúdo teórico.__
+@zylbersztajn2005[capítulo 1]
+@williamson2005
+
+@fiani2011[introdução, capítulos 1, 2, 3 e 4].
+
+__Conteúdo aplicado.__
+
+@silva2021
+
+@ruiz2021
+
+## Referências
+
+::: {#refs}
+:::

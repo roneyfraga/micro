@@ -1,0 +1,418 @@
+---
+title: "Função Custos `ex1`"
+date: "`r Sys.time()`"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+
+format:
+  html:
+    toc: true
+    toc-location: right
+    prefer-html: true
+    fig-width: 8
+    fig-height: 4
+    code-fold: true
+    code-line-numbers: true
+    # number-sections: true
+    theme: 
+      light: flatly
+      dark: darkly
+    appearance: auto  
+
+  docx:
+    toc: true
+    number-sections: true
+    highlight-style: github
+    reference-doc: template-ms-word.docx
+    prefer-html: true
+
+lang: pt
+---
+
+## Enunciado
+
+A produção semanal de uma fábrica de bicicletas é no máximo de 18 unidades. O proprietário da fábrica conhece a função de custo total, dada por:
+
+$$
+C(q) = \frac{1}{3}q^3 - 10q^2 + 75q + 100
+$$
+
+Com base nessa função, calcule:
+
+a) O custo fixo.
+b) O custo variável médio quando o custo total é mínimo.
+c) O custo fixo médio quando o custo total é máximo.
+d) O custo total médio quando a produção é máxima.
+
+## a) Custo Fixo
+
+O custo fixo é o custo quando a produção é igual a zero:
+
+$$
+C(0) = \frac{1}{3}(0)^3 - 10(0)^2 + 75(0) + 100 = 100
+$$
+
+**Resultado:**
+
+$$
+\boxed{CF = 100}
+$$
+
+::: {.callout-note collapse="true"}
+
+## Quadro de Resumo: Como Encontrar Máximos e Mínimos de uma Função
+
+Otimização de funções com uma variável.
+
+### 1. Derivada da Função
+
+Para uma função $f(x)$, calcule a primeira derivada:
+
+$$
+f'(x)
+$$
+
+Essa derivada representa a **taxa de variação** da função — ou seja, a inclinação da reta tangente em cada ponto $x$.
+
+### 2. Pontos Críticos
+
+Encontre os valores de $x$ que **anulam a derivada**:
+
+$$
+f'(x) = 0
+$$
+
+Esses valores são os **pontos críticos** e são candidatos a **máximos, mínimos ou pontos de inflexão**.
+
+### 3. Segunda Derivada (opcional, para classificar)
+
+Calcule a segunda derivada:
+
+$$
+f''(x)
+$$
+
+- Se $f''(x) > 0$: ponto de **mínimo local**
+- Se $f''(x) < 0$: ponto de **máximo local**
+- Se $f''(x) = 0$: teste inconclusivo (pode ser ponto de inflexão)
+
+### 4. Avaliação nos Extremos (em intervalos fechados)
+
+Se a função estiver definida num intervalo fechado $[a, b]$, compare também os valores de $f(x)$ nos extremos:
+
+- Avalie $f(a)$ e $f(b)$
+- Compare com os valores nos pontos críticos
+
+Assim você garante encontrar o **máximo e mínimo absolutos** no intervalo.
+
+### Exemplo Rápido
+
+Seja $f(x) = -x^2 + 4x + 5$:
+
+1. Derivada:
+$$
+f'(x) = -2x + 4
+$$
+
+2. Pontos críticos:
+$$
+-2x + 4 = 0 \Rightarrow x = 2
+$$
+
+3. Segunda derivada:
+$$
+f''(x) = -2 \Rightarrow \text{máximo local}
+$$
+
+4. Valor da função:
+$$
+f(2) = -(2)^2 + 4(2) + 5 = -4 + 8 + 5 = 9
+$$
+
+Portanto, o ponto de **máximo** é $(2, 9)$.
+
+### Gráfico da Função $f(x) = -x^2 + 4x + 5$
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| fig-width: 6
+#| fig-height: 4
+
+library(ggplot2)
+
+f <- function(x) -x^2 + 4*x + 5
+
+ggplot(data.frame(x = c(0, 4)), aes(x)) +
+  stat_function(fun = f, geom = "line", linewidth = 1.2, color = "blue") +
+  geom_point(aes(x = 2, y = f(2)), color = "red", size = 3) +
+  geom_text(aes(x = 2, y = f(2) + 1, label = "Máximo em x = 2"), color = "red") +
+  labs(
+    title = "Gráfico de f(x) = -x² + 4x + 5",
+    x = "x",
+    y = "f(x)"
+  ) +
+  theme_minimal(base_size = 14)
+```
+
+:::
+
+## b) Custo Variável Médio quando o Custo Total é Mínimo
+
+Dada a função de custo total:
+
+$$
+C(q) = \frac{1}{3}q^3 - 10q^2 + 75q + 100
+$$
+
+Logo, o **custo variável** é:
+
+$$
+CV(q) = C(q) - CF = \frac{1}{3}q^3 - 10q^2 + 75q
+$$
+
+O **custo variável médio (CVMe)** é:
+
+$$
+CVMe(q) = \frac{CV(q)}{q} = \frac{1}{3}q^2 - 10q + 75
+$$
+
+### Etapa 1: Derivada da função de custo
+
+Para encontrar o ponto de mínimo da função de custo total, a derivada de $C(q)$ indica onde o custo total atinge mínimo ou máximo:
+
+$$
+C(q) = \frac{1}{3}q^3 - 10q^2 + 75q + 100
+$$
+
+Aplicando a regra da potência:
+
+- A derivada de $\frac{1}{3}q^3$ é $q^2$
+- A derivada de $-10q^2$ é $-20q$
+- A derivada de $75q$ é $75$
+- A derivada de $100$ é zero (constante)
+
+Portanto:
+
+$$
+C'(q) = q^2 - 20q + 75
+$$
+
+### Etapa 2: Pontos críticos
+
+Resolvemos $C'(q) = 0$ para encontrar candidatos a mínimos:
+
+$$
+q^2 - 20q + 75 = 0
+\Rightarrow q = \frac{20 \pm \sqrt{400 - 300}}{2} = \frac{20 \pm 10}{2}
+\Rightarrow q = 5 \text{ ou } q = 15
+$$
+
+Lembrando como encontrar raízes da equação quadrática (Bhaskara):
+
+$$
+q = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+$$
+
+A equação está na forma padrão $ax^2 + bx + c = 0$, com:
+
+- $a = 1$
+- $b = -20$
+- $c = 75$
+
+### Etapa 3: Avaliar os valores de $C(q)$
+
+$$
+C(q) = \frac{1}{3}q^3 - 10q^2 + 75q + 100
+$$
+
+$$
+C(5) = \frac{1}{3}(5^3) - 10(5^2) + 75*5 + 100 = 41{,}67 - 250 + 375 + 100 = 266{,}67
+$$
+
+$$
+C(15) = \frac{1}{3}(15^3) - 10(15^2) + 75*15 + 100 = 41{,}67 - 250 + 375 + 100 = 100
+$$
+
+O custo total **mínimo** ocorre em $q = 15$.
+
+### Etapa 4: Custo variável médio
+
+Custo variável:
+
+$$
+CV(q) = C(q) - CF = C(q) - 100
+$$
+
+Custo variável médio:
+
+$$
+CVMe(q) = \frac{CV(q)}{q} = \frac{1}{3}q^2 - 10q + 75
+$$
+
+$$
+CVMe(15) = \frac{1}{3}15^2 - 10 * 15 + 75 = 0
+$$
+
+**Resultado:**
+
+$$
+\boxed{CVMe = 0 \text{ quando } q = 15}
+$$
+
+## c) Custo Fixo Médio quando o Custo Total é Máximo
+
+### Avaliação de extremos
+
+Verificamos os valores de $C(q)$ nos pontos:
+
+- $C(0) = 100$
+- $C(5) = 266{,}67$
+- $C(15) = 100$
+- $C(18) = \frac{1}{3}(18^3) - 10(18^2) + 75 * 18 + 100 = 154$
+
+Máximo: $C(5) = 266{,}67$
+
+### Custo fixo médio:
+
+$$
+CFMe = \frac{CF}{q} = \frac{100}{5} = 20
+$$
+
+**Resultado:**
+
+$$
+\boxed{CFMe = 20 \text{ quando } q = 5}
+$$
+
+## d) Custo Total Médio na Produção Máxima
+
+Produção máxima: $q = 18$
+
+$$
+C(18) = \frac{1}{3}(18^3) - 10(18^2) + 75 * 18 + 100 = 1944 - 3240 + 1350 + 100 = 154
+$$
+
+Custo total médio:
+
+$$
+CTMe = \frac{C(q)}{q} = \frac{154}{18} \approx 8{,}56
+$$
+
+**Resultado:**
+
+$$
+\boxed{CTMe \approx 8{,}56 \text{ quando } q = 18}
+$$
+
+
+## Resumo
+
+| Item | Resultado |
+|------|-----------|
+| a) Custo Fixo | $CF = 100$ |
+| b) Custo Variável Médio (mínimo de $CT$) | $CVMe = 0$ em $q = 15$ |
+| c) Custo Fixo Médio (máximo de $CT$) | $CFMe = 20$ em $q = 5$ |
+| d) Custo Total Médio (produção máxima) | $CTMe \approx 8{,}56$ em $q = 18$ |
+
+
+## Gráficos: Custo Total, Custo Variável e Custo Fixo
+
+```{r}
+#| message: false
+#| warning: false
+#| fig-width: 8
+#| fig-height: 5
+
+library(ggplot2)
+library(dplyr)
+library(gt)
+
+# Funções
+C <- function(q) (1 / 3) * q^3 - 10 * q^2 + 75 * q + 100
+CV <- function(q) C(q) - 100
+CF <- 100
+
+# Geração dos dados
+q <- seq(0, 18, length.out = 200)
+df <- tibble(
+  q = q,
+  C = C(q),
+  CV = CV(q),
+  CF = CF
+)
+
+# Gráfico
+ggplot(df, aes(x = q)) +
+  geom_line(aes(y = C, color = "Custo Total"), linewidth = 1.2) +
+  geom_line(aes(y = CV, color = "Custo Variável"), linetype = "dashed", linewidth = 1.2) +
+  geom_hline(aes(yintercept = CF, color = "Custo Fixo"), linetype = "dashed", linewidth = 1.2) +
+  scale_color_manual(values = c("Custo Total" = "blue", "Custo Variável" = "darkgreen", "Custo Fixo" = "gray40")) +
+  labs(
+    title = "Função de Custo Total e seus Componentes",
+    x = "Quantidade (q)",
+    y = "Custo",
+    color = "Tipo de Custo"
+  ) +
+  theme_minimal(base_size = 14)
+
+tibble(
+  quantidade = seq(0, 18, by = 1),
+  custo_total = C(quantidade),
+  custo_variavel = CV(quantidade),
+  custo_fixo = CF
+) |>
+  dplyr::mutate(custo_total = round(custo_total), custo_variavel = round(custo_variavel)) |>
+  gt()
+  
+``` 
+
+<!--
+
+## Custo Médio Total, Fixo e Variável
+
+```{r}
+#| message: false
+#| warning: false
+#| fig-width: 8
+#| fig-height: 5
+
+# Funções médias
+CTMe <- function(q) C(q) / q
+CFMe <- function(q) CF / q
+CVMe <- function(q) CV(q) / q
+
+# Evita divisão por zero
+q_medios <- seq(0.1, 18, length.out = 200)
+
+df_medios <- tibble(
+q = q_medios,
+CTMe = CTMe(q),
+CFMe = CFMe(q),
+CVMe = CVMe(q)
+)
+
+# Gráfico
+ggplot(df_medios, aes(x = q)) +
+geom_line(aes(y = CTMe, color = "Custo Total Médio"), linewidth = 1.2) +
+geom_line(aes(y = CFMe, color = "Custo Fixo Médio"), linetype = "dashed") +
+geom_line(aes(y = CVMe, color = "Custo Variável Médio"), linetype = "dotted") +
+scale_color_manual(values = c(
+"Custo Total Médio" = "blue",
+"Custo Fixo Médio" = "gray40",
+"Custo Variável Médio" = "darkgreen"
+)) +
+labs(
+title = "Curvas de Custo Médio",
+x = "Quantidade (q)",
+y = "Custo Médio",
+color = "Tipo de Custo"
+) +
+theme_minimal(base_size = 14)
+```
+-->
+

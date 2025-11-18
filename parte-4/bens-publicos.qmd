@@ -1,0 +1,43 @@
+---
+title: "Bens Públicos `cc`"
+date: "today"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+<embed src="../notas-digitais/bens-publicos-ex-1.pdf" width="100%" height="650">
+
+<embed src="../notas-digitais/bens-publicos-ex-2.pdf" width="100%" height="650">
+
+<embed src="../notas-digitais/parte-4-touffut-2006-cap-1.pdf" width="100%" height="650">
+
+<!--
+Acessar notas do curso em:
+
+<https://bit.ly/caderno-digital-microeconomia>
+
+`microeconomics/falhas-de-mercado`
+-->
+
+- @varian2012 Capítulo 36 - Bens Públicos
+
+- @touffut2006[capítulo 1].
+
+<!--
+Exemplo linear
+https://www.youtube.com/watch?v=sV0tI_ll8Ws
+
+Exemplo intermediário
+https://www.youtube.com/watch?v=Rgz5cZk0wr8
+
+Explicação do Varian
+https://www.youtube.com/watch?v=b9G3PnfD0ls
+-->
+
+## Referências
+
+::: {#refs}
+:::

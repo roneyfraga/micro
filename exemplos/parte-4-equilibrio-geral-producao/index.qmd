@@ -1,0 +1,535 @@
+---
+title: "Equilíbrio Geral com Produção `ex`"
+date: "today"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+## Estrutura da Economia
+
+A economia é composta por:
+
+- **Dois consumidores:** Ana e Bruno.
+- **Dois bens:** Comida ($C$) e Roupa ($R$).
+- **Uma firma:** Produz Roupa ($R$) utilizando Comida ($C$) como insumo produtivo.
+
+- O bem **Comida** é um bem de **dotação inicial**.
+- O bem **Roupa** é um bem **produzido** pela firma.
+
+## Tecnologia de Produção
+
+A firma possui a seguinte função de produção:
+
+$$
+R = F(C_f) = 2\sqrt{C_f}
+$$
+
+ou
+
+$$
+R = F(C_f) = 2 C_{f} ^ \frac{1}{2}
+$$
+
+onde:
+
+- $C_f$ = quantidade de comida utilizada como insumo produtivo pela firma.
+- $R$ = quantidade de roupa produzida.
+
+## Dotação Inicial
+
+Cada consumidor possui:
+
+- 10 unidades de comida ($C$).
+- Zero unidades de roupa ($R$).
+
+## Preferências dos Consumidores
+
+As preferências são idênticas e representadas pela função utilidade do tipo Cobb-Douglas:
+
+$$
+U(C, R) = C^{0,5} \cdot R^{0,5}
+$$
+
+## Decisão da Firma
+
+A firma escolhe $C_f$ para maximizar seu lucro:
+
+$$
+\max_{C_f} \; p_R \cdot F(C_f) - p_C \cdot C_f
+$$
+
+Substituindo a função de produção:
+
+$$
+\max_{C_f} \; p_R \cdot 2\sqrt{C_f} - p_C \cdot C_f
+$$
+
+Derivando a função lucro em relação a $C_f$:
+
+$$
+\frac{d\Pi}{dC_f} = p_R \cdot \frac{1}{\sqrt{C_f}} - p_C = 0
+$$
+
+Resolvendo:
+
+$$
+\frac{p_R}{\sqrt{C_f}} = p_C
+$$
+
+$$
+\sqrt{C_f} = \frac{p_R}{p_C}
+$$
+
+$$
+C_f = \left( \frac{p_R}{p_C} \right)^2
+$$
+
+Produção de roupa:
+
+$$
+R = 2\sqrt{C_f} = 2 \cdot \frac{p_R}{p_C}
+$$
+
+::: {.callout-note collapse="true"}
+
+## Maximização da Função Lucro — Procedimentos Matemáticos
+
+### 1. Definição da Função Lucro
+
+A firma utiliza comida ($C_f$) como insumo para produzir roupa ($R$), cuja função de produção é:
+
+$$
+R = F(C_f) = 2\sqrt{C_f}
+$$
+
+A função lucro da firma é:
+
+$$
+\Pi = p_R \cdot F(C_f) - p_C \cdot C_f
+$$
+
+Substituindo a função de produção:
+
+$$
+\Pi = p_R \cdot 2\sqrt{C_f} - p_C \cdot C_f
+$$
+
+### 2. Problema de Maximização
+
+O problema da firma é:
+
+$$
+\max_{C_f} \; \Pi = p_R \cdot 2\sqrt{C_f} - p_C \cdot C_f
+$$
+
+### 3. Derivada da Função Lucro
+
+#### Derivada da Receita:
+
+A receita é:
+
+$$
+\text{Receita} = p_R \cdot 2\sqrt{C_f}
+$$
+
+Derivando em relação a $C_f$:
+
+$$
+\frac{d}{dC_f} \left( p_R \cdot 2\sqrt{C_f} \right) = p_R \cdot \frac{1}{\sqrt{C_f}}
+$$
+
+> Isso porque a derivada de $\sqrt{C_f}$ é $\frac{1}{2\sqrt{C_f}}$, e multiplicando por 2 resulta em $\frac{1}{\sqrt{C_f}}$.
+
+#### Derivada do Custo:
+
+O custo total é:
+
+$$
+\text{Custo} = p_C \cdot C_f
+$$
+
+Derivando:
+
+$$
+\frac{d}{dC_f} \left( p_C \cdot C_f \right) = p_C
+$$
+
+#### Derivada da Função Lucro:
+
+$$
+\frac{d\Pi}{dC_f} = p_R \cdot \frac{1}{\sqrt{C_f}} - p_C
+$$
+
+### 4. Condição de Primeira Ordem (CPO)
+
+A condição de primeira ordem para maximização do lucro é:
+
+$$
+\frac{d\Pi}{dC_f} = 0
+$$
+
+Portanto:
+
+$$
+p_R \cdot \frac{1}{\sqrt{C_f}} - p_C = 0
+$$
+
+Isolando:
+
+$$
+\frac{p_R}{\sqrt{C_f}} = p_C
+$$
+
+### 5. Solução para $C_f$
+
+Elevando ambos os lados ao quadrado:
+
+$$
+\left( \frac{p_R}{\sqrt{C_f}} \right)^2 = p_C^2
+$$
+
+$$
+\frac{p_R^2}{C_f} = p_C^2
+$$
+
+Multiplicando cruzado:
+
+$$
+C_f = \frac{p_R^2}{p_C^2}
+$$
+
+De forma compacta:
+
+$$
+C_f = \left( \frac{p_R}{p_C} \right)^2
+$$
+
+### 6. Produção Ótima
+
+Substituindo na função de produção:
+
+$$
+R = 2\sqrt{C_f} = 2 \cdot \frac{p_R}{p_C}
+$$
+
+### 7. Interpretação Econômica
+
+- A firma escolhe $C_f$ tal que o **valor do produto marginal** do insumo iguala seu **custo**:
+
+$$
+p_R \cdot F'(C_f) = p_C
+$$
+
+- O produto marginal é:
+
+$$
+F'(C_f) = \frac{1}{\sqrt{C_f}}
+$$
+
+- O valor do produto marginal:
+
+$$
+p_R \cdot \frac{1}{\sqrt{C_f}}
+$$
+
+- A condição ótima é:
+
+$$
+p_R \cdot \frac{1}{\sqrt{C_f}} = p_C
+$$
+
+>  Esta é a regra geral da maximização do lucro: **a firma utiliza o insumo até que o valor do produto marginal iguale seu custo.**
+
+### Resumo da Regra de Decisão da Firma
+
+- Se $p_R$ (preço da roupa) aumenta → a firma demanda mais $C_f$ para produzir mais.
+- Se $p_C$ (preço da comida) aumenta → a firma reduz $C_f$, pois o insumo ficou mais caro.
+- A quantidade ótima de insumo depende do quadrado do preço relativo:
+
+$$
+C_f = \left( \frac{p_R}{p_C} \right)^2
+$$
+
+- A produção ótima é proporcional ao preço relativo:
+
+$$
+R = 2 \cdot \frac{p_R}{p_C}
+$$
+
+:::
+
+## Renda dos Consumidores
+
+Cada consumidor possui renda derivada da venda de sua dotação de comida:
+
+$$
+\text{Renda} = 10 \cdot p_C
+$$
+
+(Supondo que não sejam proprietários da firma.)
+
+## Decisão dos Consumidores
+
+Dada a utilidade Cobb-Douglas, cada consumidor aloca **50% da renda em cada bem**.
+
+Demanda de Ana e Bruno por comida:
+
+$$
+C_A = C_B = \frac{0,5 \cdot 10p_C}{p_C} = 5
+$$
+
+Demanda de Ana e Bruno por roupa:
+
+$$
+R_A = R_B = \frac{0,5 \cdot 10p_C}{p_R} = \frac{5p_C}{p_R}
+$$
+
+::: {.callout-note collapse="false" appearance="default" icons=false}
+
+## Função Demanda
+
+### Maximização da Utilidade
+
+A maximização da utilidade Cobb-Douglas do tipo:
+
+$$
+U(C, R) = C^\alpha R^{1 - \alpha}
+$$
+
+com $\alpha = 0{,}5$ e restrição orçamentária
+
+$$
+p_C C + p_R R = M
+$$
+
+resulta nas funções de demanda:
+
+$$
+C^* = \frac{\alpha M}{p_C} \quad \text{e} \quad R^* = \frac{(1 - \alpha) M}{p_R}
+$$
+
+### Determinação da Renda ($M$)
+
+Cada consumidor possui 10 unidades de comida que pode vender no mercado. Supondo que o preço da comida seja $p_C$, a renda do consumidor é:
+
+$$
+M = p_C \cdot 10
+$$
+
+### Funções de Demanda Individual
+
+Substituindo $\alpha = 0{,}5$ e $M = p_C \cdot 10$:
+
+- **Demanda por comida**:
+
+$$
+C(p_C, p_R) = \frac{0{,}5 \cdot p_C \cdot 10}{p_C} = 5
+$$
+
+- **Demanda por roupa**:
+
+$$
+R(p_C, p_R) = \frac{0{,}5 \cdot p_C \cdot 10}{p_R} = \frac{5 p_C}{p_R}
+$$
+
+### Demanda Agregada
+
+Se houver dois consumidores idênticos, a demanda total (agregada) será:
+
+- **Demanda agregada por comida**:
+
+$$
+C^D(p_C, p_R) = 2 \cdot 5 = 10
+$$
+
+- **Demanda agregada por roupa**:
+
+$$
+R^D(p_C, p_R) = 2 \cdot \frac{5 p_C}{p_R} = \frac{10 p_C}{p_R}
+$$
+
+Essas funções de demanda serão úteis para encontrar o **equilíbrio geral com produção**, comparando-as com a oferta de roupa gerada pela firma produtora.
+:::
+
+## Condições de Equilíbrio
+
+### Mercado de Comida
+
+Oferta total de comida:
+
+$$
+C_O = 10 + 10 = 20
+$$
+
+Demanda:
+
+- Consumo dos consumidores: $C_A + C_B = 5 + 5 = 10$
+- Insumo da firma: $C_f = \left( \frac{p_R}{p_C} \right)^2$
+
+Equilíbrio no mercado de comida:
+
+$$
+10 + \left( \frac{p_R}{p_C} \right)^2 = 20
+$$
+
+$$
+\left( \frac{p_R}{p_C} \right)^2 = 10
+$$
+
+$$
+\frac{p_R}{p_C} = \sqrt{10} \approx 3,16
+$$
+
+### Mercado de Roupa
+
+Oferta de roupa:
+
+$$
+R = 2 \cdot \frac{p_R}{p_C} = 2 \cdot 3,16 = 6,32
+$$
+
+Demanda total de roupa:
+
+$$
+R_A + R_B = 2 \cdot \frac{5p_C}{p_R} = \frac{10p_C}{p_R}
+$$
+
+Substituindo $\frac{p_R}{p_C} = 3,16$:
+
+$$
+R_A + R_B = \frac{10}{3,16} \approx 3,16
+$$
+
+Verificamos que há **excedente de roupa**, indicando que os preços precisariam se ajustar ou que a renda dos consumidores deveria incorporar os lucros da firma.
+
+### Equilíbrio
+
+O preço da roupa que leva o mercado ao equilíbrio, **em termos relativos ao preço da comida**, é:
+
+$$
+\frac{p_R}{p_C} = \sqrt{10} \approx 3,16
+$$
+
+Ou seja, **a roupa deve custar aproximadamente 3,16 unidades de comida por unidade de roupa**.
+
+- O modelo determina apenas o **preço relativo**, não os preços absolutos.
+- Podemos escolher um bem como **numerário**, normalmente $p_C = 1$, então:
+
+$$
+p_R = \sqrt{10} \approx 3,16
+$$
+
+- Nesse caso:
+  - Comida custa 1 (numerário).
+  - Roupa custa aproximadamente 3,16 unidades de comida.
+
+- O preço relativo da roupa reflete os custos de oportunidade do uso da comida como insumo produtivo. 
+- Esse preço garante que, a quantidade de comida destinada ao consumo mais a produção seja igual à dotação total da economia.
+
+## Lucro da Firma
+
+Calculando o lucro:
+
+$$
+\Pi = p_R \cdot R - p_C \cdot C_f
+$$
+
+Substituindo:
+
+$$
+\Pi = 3,16p_C \cdot 6,32 - p_C \cdot 10
+$$
+
+$$
+\Pi = 20p_C - 10p_C = 10p_C
+$$
+
+## Ajuste: Firma Pertence aos Consumidores
+
+Cada consumidor recebe metade do lucro:
+
+- Renda de dotação: $10p_C$
+- Renda de lucro: $5p_C$
+
+Renda total:
+
+$$
+15p_C
+$$
+
+Demanda por comida:
+
+$$
+C = \frac{0,5 \cdot 15p_C}{p_C} = 7,5
+$$
+
+Demanda por roupa:
+
+$$
+R = \frac{0,5 \cdot 15p_C}{p_R} = \frac{7,5p_C}{p_R}
+$$
+
+Substituindo $\frac{p_R}{p_C} = 3,16$:
+
+$$
+R = \frac{7,5}{3,16} \approx 2,37
+$$
+
+Demanda total de roupa:
+
+$$
+2 \cdot 2,37 = 4,74
+$$
+
+Oferta de roupa: 6,32 → ainda existe excesso, indicando que ajustes adicionais seriam necessários no preço ou na produção.
+
+## Conclusão Didática
+
+- Este exemplo ilustra como o equilíbrio geral com produção envolve a interação entre mercados de bens de consumo e mercados de insumos produtivos.
+- Permite discutir os conceitos de alocação eficiente, preço relativo e equilíbrio competitivo.
+- Serve também para ilustrar a necessidade de incorporar a distribuição dos lucros da firma na determinação do equilíbrio.
+
+## Conclusões Econômicas do Modelo de Equilíbrio Geral com Produção
+
+- O modelo ilustra que o equilíbrio competitivo é **eficiente no sentido de Pareto**, desde que:
+  - Não haja externalidades;
+  - Não haja poder de mercado;
+  - Os consumidores sejam proprietários da firma e recebam os lucros.
+
+- O preço relativo entre os bens, dado por:
+
+$$
+\frac{p_R}{p_C} = \sqrt{10} \approx 3,16
+$$
+
+reflete os **custos de oportunidade** e a escassez relativa entre Comida ($C$) e Roupa ($R$).
+
+- A condição de equilíbrio garante que a **Taxa Marginal de Transformação (TMT)** na firma é igual à **Taxa Marginal de Substituição (TMS)** dos consumidores:
+
+$$
+\text{TMT} = \text{TMS} = \frac{p_R}{p_C}
+$$
+
+- O bem **Comida ($C$)** exerce papel duplo:
+  - Como bem de consumo direto;
+  - Como insumo produtivo para a produção de Roupa.
+
+- A presença da firma **expande a fronteira de possibilidades de consumo**, permitindo que os consumidores acessem combinações de bens que seriam impossíveis em uma economia pura de troca.
+
+- A distribuição dos lucros da firma tem papel central:
+  - Sem distribuição, há redução no consumo agregado.
+  - Com distribuição dos lucros, aumenta-se a renda dos consumidores, elevando o bem-estar.
+
+- O modelo permite avaliar os efeitos de:
+  - **Mudanças tecnológicas**, que deslocam a curva de possibilidades de produção;
+  - **Choques de dotação**, que alteram os preços relativos e a alocação de recursos.
+
+- Valida-se o:
+  - **Primeiro Teorema do Bem-Estar**, mostrando que o equilíbrio competitivo é eficiente;
+  - **Segundo Teorema do Bem-Estar**, destacando que qualquer alocação eficiente pode ser alcançada com redistribuições iniciais adequadas.
+
+- O equilíbrio geral com produção conecta decisões de consumo e de produção, demonstrando como os mercados interagem para determinar preços, alocações e níveis de bem-estar.
+

@@ -1,0 +1,329 @@
+---
+title: "Maximização de Lucro `ex1`"
+date: "`r Sys.time()`"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+## Problema econômico
+
+Uma firma tomadora de preços conhece o comportamento de seus custos, descritos pela função:
+
+$$
+C(q) = \frac{1}{3}q^3 - 4{,}5q^2 + 23q + 30
+$$
+
+O preço de mercado do produto é constante:
+
+$$
+p = 15
+$$
+
+Queremos responder:
+
+a) Qual a quantidade ótima $q^*$ que a firma deve produzir para maximizar o lucro?
+
+b) Qual o lucro máximo $\Pi^*$ que pode ser obtido?
+
+## Passo 1: Função Lucro
+
+A função lucro $\Pi(q)$ é definida como a diferença entre a **receita total** e o **custo total**:
+
+$$
+\Pi(q) = R(q) - C(q)
+$$
+
+Como o preço é fixo (firma tomadora de preços), a **receita total** é:
+
+$$
+R(q) = p \cdot q = 15q
+$$
+
+Substituindo na função de lucro:
+
+$$
+\Pi(q) = 15q - \left( \frac{1}{3}q^3 - 4{,}5q^2 + 23q + 30 \right)
+$$
+
+Removendo os parênteses:
+
+$$
+\Pi(q) = 15q - \frac{1}{3}q^3 + 4{,}5q^2 - 23q - 30
+$$
+
+Agrupando os termos:
+
+$$
+\Pi(q) = -\frac{1}{3}q^3 + 4{,}5q^2 - 8q - 30
+$$
+
+## Passo 2: Derivada da Função Lucro
+
+Para encontrar o valor ótimo $q^*$, derivamos $\Pi(q)$ e igualamos a zero:
+
+$$
+\frac{d\Pi}{dq} = -q^2 + 9q - 8
+$$
+
+### Condição de primeira ordem (derivada igual a zero):
+
+$$
+-q^2 + 9q - 8 = 0
+$$
+
+Multiplicando ambos os lados por $-1$:
+
+$$
+q^2 - 9q + 8 = 0
+$$
+
+Resolvendo essa equação quadrática:
+
+$$
+q = \frac{9 \pm \sqrt{(-9)^2 - 4 \cdot 1 \cdot 8}}{2 \cdot 1} = \frac{9 \pm \sqrt{81 - 32}}{2} = \frac{9 \pm \sqrt{49}}{2}
+$$
+
+$$
+q = \frac{9 \pm 7}{2}
+\Rightarrow 
+\begin{cases}
+q_1 = \frac{9 - 7}{2} = 1 \\
+q_2 = \frac{9 + 7}{2} = 8
+\end{cases}
+$$
+
+Temos dois candidatos para a quantidade ótima: $q = 1$ e $q = 8$.
+
+## Passo 3: Verificação da Segunda Ordem
+
+A derivada segunda da função lucro é:
+
+$$
+\frac{d^2\Pi}{dq^2} = -2q + 9
+$$
+
+Avaliamos em $q = 1$:
+
+$$
+\frac{d^2\Pi}{dq^2}\bigg|_{q=1} = -2(1) + 9 = 7 > 0 \Rightarrow \text{mínimo local}
+$$
+
+Avaliamos em $q = 8$:
+
+$$
+\frac{d^2\Pi}{dq^2}\bigg|_{q=8} = -2(8) + 9 = -7 < 0 \Rightarrow \text{máximo local}
+$$
+
+Portanto, a quantidade que **maximiza o lucro** é:
+
+$$
+q^* = 8
+$$
+
+## Passo 4: Cálculo do Lucro Máximo
+
+Substituímos $q = 8$ na função lucro:
+
+$$
+\Pi(8) = -\frac{1}{3}(8)^3 + 4{,}5(8)^2 - 8(8) - 30
+$$
+
+Calculando:
+
+$$
+\Pi(8) = -\frac{1}{3}(512) + 4{,}5(64) - 64 - 30
+$$
+
+$$
+\Pi(8) = -170{,}67 + 288 - 64 - 30 = 23{,}33
+$$
+
+## Respostas
+
+**a)** A quantidade ótima é:
+
+$$
+q^* = 8
+$$
+
+**b)** O lucro máximo é:
+
+$$
+\Pi^* = 23{,}33 \text{ unidades monetárias}
+$$
+
+## Gráficos
+
+```{r}
+
+# Carregar pacotes
+library(ggplot2)
+library(tibble)
+
+# Gerar sequência de valores de q
+q <- seq(0, 12, by = 0.1)
+
+# Definir funções
+lucro <- function(q) -(1 / 3) * q^3 + 4.5 * q^2 - 8 * q - 30
+lucro_prime <- function(q) -q^2 + 9 * q - 8
+
+# Calcular valores
+df <- tibble(
+  q = q,
+  Pi = lucro(q),
+  dPi = lucro_prime(q)
+)
+
+# Gráfico da função lucro
+ggplot(df, aes(x = q, y = Pi)) +
+  geom_line(color = "#1f77b4", linewidth = 1.2) +
+  geom_vline(xintercept = 8, linetype = "dashed", color = "gray") +
+  geom_hline(yintercept = 0, color = "black", linewidth = 0.4) +
+  labs(
+    title = "Função Lucro",
+    x = "Quantidade produzida (q)",
+    y = "Lucro"
+  ) +
+  theme_minimal()
+
+# Gráfico da derivada da função lucro
+ggplot(df, aes(x = q, y = dPi)) +
+  geom_line(color = "#ff7f0e", linewidth = 1.2) +
+  geom_vline(xintercept = 8, linetype = "dashed", color = "gray") +
+  geom_hline(yintercept = 0, color = "black", linewidth = 0.4) +
+  labs(
+    title = "Derivada da Função Lucro",
+    x = "Quantidade produzida (q)",
+    y = expression(frac(d * Pi, dq))
+  ) +
+  theme_minimal()
+
+# Função receita
+# receita = preço x quantidade
+
+preco <- 10
+tibble(q = 1:12, R = q * preco) |>
+  ggplot(aes(x = q, y = R)) +
+  geom_line(color = "darkgreen", linewidth = 1.2) +
+  labs(
+    title = "Função Receita",
+    x = "Quantidade produzida (q)",
+    y = "Receita"
+  ) +
+  theme_minimal()
+```
+
+## Contexto Econômico
+
+A firma opera em **concorrência perfeita**: ela é **tomadora de preços**, ou seja, aceita o preço de mercado como dado e não influencia seu valor. Neste caso, o preço de venda do bem é:
+
+$$
+p = 15
+$$
+
+A função de **custo total** da firma é:
+
+$$
+C(q) = \frac{1}{3}q^3 - 4{,}5q^2 + 23q + 30
+$$
+
+- Essa função contém:
+  - Um termo cúbico positivo, indicando que os **custos marginais crescem rapidamente** após certo ponto;
+  - Um termo quadrático negativo, sugerindo possíveis ganhos de escala iniciais;
+  - Um termo linear e um custo fixo de $30$.
+
+### Objetivo da Firma
+
+A firma busca **maximizar o lucro**, dado por:
+
+$$
+\Pi(q) = R(q) - C(q)
+$$
+
+Como a receita total é linear, temos:
+
+$$
+R(q) = p \cdot q = 15q
+$$
+
+Logo, a função lucro é:
+
+$$
+\Pi(q) = 15q - \left( \frac{1}{3}q^3 - 4{,}5q^2 + 23q + 30 \right)
+= -\frac{1}{3}q^3 + 4{,}5q^2 - 8q - 30
+$$
+
+### Condição de Otimalidade
+
+#### Primeira Ordem (FOC)
+
+Para maximizar o lucro, a firma iguala **receita marginal** ao **custo marginal**:
+
+$$
+\frac{d\Pi}{dq} = -q^2 + 9q - 8 = 0
+$$
+
+Resolvendo a equação:
+
+$$
+q = \frac{9 \pm \sqrt{81 - 32}}{2} = \frac{9 \pm 7}{2}
+\Rightarrow
+\begin{cases}
+q_1 = 1 \quad \text{(mínimo local)} \\
+q_2 = 8 \quad \text{(máximo local)}
+\end{cases}
+$$
+
+### Verificação da Segunda Ordem
+
+A segunda derivada é:
+
+$$
+\frac{d^2\Pi}{dq^2} = -2q + 9
+$$
+
+Avaliando:
+
+- Em $q = 1$: $-2(1) + 9 = 7 > 0$ → mínimo local.
+- Em $q = 8$: $-2(8) + 9 = -7 < 0$ → **máximo local**.
+
+### Interpretação Econômica
+
+A firma obtém **lucro crescente** enquanto o custo marginal é inferior ao preço (receita marginal). À medida que $q$ aumenta, o **custo marginal se aproxima e ultrapassa o preço**, e o lucro começa a cair.
+
+A quantidade ótima $q^* = 8$ é o ponto onde:
+
+$$
+CMg(q) = RMg(q) = 15
+$$
+
+Ou seja, a receita gerada por uma unidade adicional iguala o custo de produzi-la.
+
+Esse ponto é o equilíbrio de produção de uma firma competitiva no curto prazo.
+
+### Lucro Máximo
+
+Substituindo $q = 8$ na função lucro:
+
+$$
+\Pi(8) = -\frac{1}{3}(8)^3 + 4{,}5(8)^2 - 8(8) - 30 = 23{,}33
+$$
+
+Portanto, o **lucro máximo** é de:
+
+$$
+\Pi^* = 23{,}33 \text{ unidades monetárias}
+$$
+
+### Conclusão
+
+- A firma maximizadora de lucro:
+  - Produz até onde o **custo marginal iguala o preço**;
+  - Respeita as **condições de primeira e segunda ordem** da maximização;
+  - Enfrenta limites impostos pelos **custos crescentes** de produção, mesmo com preço constante.
+
+Este exemplo ilustra como **restrições tecnológicas (custos)** e **condições de mercado (preço fixo)** determinam a produção ótima de uma firma competitiva.
+

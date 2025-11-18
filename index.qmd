@@ -1,0 +1,173 @@
+# Apresentação {.unnumbered}
+
+Bem-vindo ao material unificado de **Microeconomia**.
+
+Este material reúne o conteúdo das disciplinas de Microeconomia II e Microeconomia III, oferecidas na Universidade Federal de Mato Grosso.
+
+## Contato {.unnumbered}
+
+- Email: `roneyfraga [@] gmail.com` 
+- Telegram: `[@] roneyfraga`
+
+## Estrutura do Curso {.unnumbered}
+
+O material está organizado em cinco partes:
+
+### Parte I - Teoria do Consumidor  (Microeconomia I)
+
+- Em desenvolvimento...
+
+### Parte II - Teoria da Firma (Microeconomia I)
+
+Aborda os fundamentos da teoria da produção, incluindo:
+
+- Função de produção e rendimentos de escala
+- Teoria dos custos de produção
+- Minimização de custos e escolha ótima de insumos
+- Maximização de lucro e curva de oferta da firma
+
+- Material de apoio:
+  - @pindyck2013 [capítulos 6, 7, 8] (digital)
+  - @baidya2014 [capítulos 1, 2, 3]
+  - @nicholson2018 [capítulos 6, 7, 8] (digital)
+  - @perloff2022 [capítulos 6, 7, 8] (digital)
+  - @henderson1988 [capítulos 3, 4]
+  - @moreira1983 [capítulos 5, 6, 7]
+  - @besanko2004 [capítulos 6, 7, 8]
+
+### Parte III - Estruturas de Mercado (Microeconomia II)
+
+Analisa diferentes estruturas de mercado:
+
+- Concorrência perfeita
+- Monopólio e poder de mercado
+- Oligopólio e teoria dos jogos
+
+- Material de apoio:
+  - @pindyck2013 [capítulos 9, 10, 11, 12, 13] (digital)
+  - @baidya2014 [capítulos 5, 6]
+  - @nicholson2018 [capítulo 9] (digital)
+  - @perloff2022 [capítulos 9, 11, 13, 14] (digital)
+  - @moreira1983 [capítulos 8, 9, 10, 11, 12]
+  - @besanko2004 [capítulos 9, 10, 11, 12, 13, 14]
+
+### Parte IV - Equilíbrio Geral e Falhas de Mercado (Microeconomia III)
+
+#### Equilíbrio Geral {-}
+
+- Material de apoio:
+  - @varian2012[capítulos 31, 32, 33], 
+  - @pindyck2005[capítulo 16], 
+  - @baidya2014[capítulo 9].
+
+#### Falhas de Mercado I: Monopólio Natural, Externalidades e Bens Públicos {-}
+
+- Material de apoio:
+  - @varian2012[capítulos 34, 36], 
+  - @pindyck2005[capítulo 18], 
+  - @ostrom2000, 
+  - @capelari2017, 
+  - @touffut2006[capítulo 1].
+
+#### Falhas de Mercado II: Assimetria de Informações (Risco Moral, Seleção Adversa e Sinalização) {-}
+
+- Material de apoio:
+  - @varian2012[capítulo 37], 
+  - @pindyck2005[capítulo 17], 
+  - @milgrom1992[capítulo 5 páginas 150 a 165, capítulo 6], 
+  - @akerlof1978, 
+  - @spence1973, 
+  - @stiglitz2000, 
+  - @lofgren2002.
+
+#### Tecnologia da Informação {-}
+
+- Material de apoio:
+  - @varian2012[capítulo 35], 
+  - @shapiro2003.
+
+### Parte V - Eficiência, Racionalidade e Contratos (Microeconomia III)
+
+#### Eficiência, Distribuição e Equidade {-}
+
+- Material de apoio:
+  * @fiani2011[capítulos 1 e 2].
+
+#### Racionalidade Limitada, Incerteza e Custos de Transação {-}
+
+- Material de apoio:
+  - @coase1937, 
+  - @williamson2005,
+  - @williamson1985[capítulo 1], 
+  - @williamson1996[capítulo 3], 
+  - @milgrom1992 (cap. 2, p. 28 a 34 e cap. 5 até pag. 149), 
+  - @fiani2011[capítulo 3], 
+  - @zylbersztajn2000[capítulo 2].
+
+#### Estruturas de Governança e Arranjos Contratuais {-}
+
+- Material de apoio:
+  - @fiani2011[capitulo 4], 
+  - @farina1997[capítulos 1 e cap. 3, item 3], 
+  - @zylbersztajn2005[capítulo 6], 
+  - @zylbersztajn2005agro, 
+  - @williamson1985[capítulos 3 a 5], 
+  - @milgrom1992[capítulo 16]. 
+
+### Parte VI - Regulação e Cooperação (Microeconomia III)
+
+#### Concentração Econômica, Poder de Mercado e Eficiência {-}
+
+- Material de apoio:
+  - @farina1997[capítulos 4],
+  - @possas2009,
+  - @geoffroy2010[páginas 69-133], 
+  - @leal2009.
+
+#### Regulação, Controle e Incentivos {-}
+
+- Material de apoio:
+  - @stiglitz2008,
+  - @stiglitz2010regulacion (espanhol),
+  - @stigler2017, 
+  - @posner2017, 
+  - @peltzman2017. 
+
+#### Cooperação {-}
+
+- Material de apoio:
+  - @menard1998, 
+  - @menard2005,
+  - @benkler2010.
+
+## Recursos Adicionais {.unnumbered}
+
+- **Notas de aula do OneNote:** <https://bit.ly/caderno-digital-microeconomia>
+- **Textos:** [GoogleDrive - Textos Microeconomia](https://drive.google.com/drive/folders/1DfqLoP47msQ6-tbxy6EDCGHBgifds3dn?usp=drive_link)
+- **Provas anteriores:** [Provas Microeconomia](https://drive.google.com/drive/folders/1MR4gNf7zwuyDmHUkEusO2tYnFDEG-eFf?usp=drive_link)
+
+## Avaliação {.unnumbered}
+
+A avaliação será realizada através de provas sem consulta a livros e/ou internet. Não é permitida consulta entre estudantes.
+
+## Sobre o Material {.unnumbered}
+
+Este material foi desenvolvido utilizando [Quarto](https://quarto.org/), um sistema de publicação científica e técnica de código aberto. Todos os exemplos computacionais são implementados em R, seguindo as melhores práticas de reprodutibilidade.
+
+O código-fonte está disponível e pode ser executado localmente para reproduzir todas as análises e gráficos apresentados.
+
+Nomeclatura dos capítulos:
+
+- `cc` conceito
+- `ex`: exemplo
+- `mm`: mapa mental
+
+---
+
+**Primeira versão:** 2025-10-29.
+
+## Referências
+
+::: {#refs}
+:::
+

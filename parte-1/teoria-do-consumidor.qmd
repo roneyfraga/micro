@@ -1,0 +1,16 @@
+---
+title: "Teoria do Consumidor `cc`"
+date: "today"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+::: {.callout-note}
+## Em desenvolvimento 🏗️
+
+Conteúdo em elaboração.
+:::
+
