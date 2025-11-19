@@ -10,7 +10,7 @@ author:
 
 Material básico: @pindyck2013 [capítulo 9], @baidya2014 [capítulo 4] e @perloff2022 [capítulo 9].
 
-<!-- Revisão  {{{ -->
+<!-- Revisão {{{ -->
 
 ::: {#tip-revisao .callout-note collapse="true" appearance="default" icons="false"}
 
@@ -101,11 +101,11 @@ O preço iguala o custo marginal, garantindo que o valor marginal para os consum
 
 <!-- }}} -->
 
-<!-- Alvo  {{{ -->
+<!-- Objetivo {{{ -->
 
 ::: {#tip-alvo .callout-note collapse="true" appearance="default" icons="false"}
 
-# Alvo
+# Objetivo
 
 ## Excedente do Consumidor e do Produtor
 
@@ -131,7 +131,7 @@ Implicações.
 
 <!-- }}} -->
 
-<!-- Oferta e Demanda - Excedente do Consumidor e Produtor  {{{ -->
+<!-- Oferta e Demanda - Excedente do Consumidor e Produtor {{{ -->
 
 ::: {#tip-excedentes .callout-note collapse="true" appearance="default" icons="false"}
 
@@ -327,7 +327,7 @@ Este estrutura analítica estabelece as bases para análise de políticas públi
 
 <!-- }}} -->
 
-<!-- Economia do Bem-Estar  {{{ -->
+<!-- Economia do Bem-Estar {{{ -->
 
 ::: {#tip-excedentes .callout-note collapse="true" appearance="default" icons="false"}
 
@@ -453,7 +453,7 @@ Obs.: quem ganha nos táxis é apenas os donos das placas que as obtiveram nos `
 
 </div>
 
-<!-- Calculando excedentes com integral  {{{ -->
+<!-- Calculando Excedentes com integral {{{ -->
 
 ::: {#tip-revisao .callout-note collapse="true" appearance="default" icons="false"}
 
@@ -464,7 +464,6 @@ Obs.: quem ganha nos táxis é apenas os donos das placas que as obtiveram nos `
 :::
 
 <!-- }}} -->
-
 
 ## Referências
 

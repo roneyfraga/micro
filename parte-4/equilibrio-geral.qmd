@@ -1805,9 +1805,10 @@ Com $p_x = 1$ (fixado) e $p_y = 5$ (determinado), o preço relativo é $\frac{p_
 
 <embed src="../notas-digitais/parte-4-equilibrio-geral-ex-equilibrio-com-producao.pdf" width="100%" height="650">
 
-
+<!-- Guia dos vídeos no YT {{{ -->
 
 <!--
+
 Roberto Guena - USP Ribeirão
 
 Trocas parte I
@@ -1839,9 +1840,6 @@ Produção parte I
 Produção parte II
   - https://www.youtube.com/watch?v=raoi1pkNU6I
 
--->
-
-<!--
 Alexandre Sartoris - Unesp
 Equilíbrio Geral com exemplo numérico
 
@@ -1850,9 +1848,7 @@ https://www.youtube.com/watch?v=c6II-T0i-RM
 
 Producao
 https://www.youtube.com/watch?v=_uap0sMuNnY
--->
 
-<!--
 Matt Birch
 
 General Equilibrium Part 1: Market Set-Up and a System of Equations
@@ -1863,9 +1859,6 @@ https://www.youtube.com/watch?v=XAOInG1LbfI
 
 General Equilibrium Part 3: How to Get All 7 Solutions
 https://www.youtube.com/watch?v=BfVV9jh5k8Y
--->
-
-<!--
 
 ## Produção e Bem-Estar
 
@@ -1892,12 +1885,17 @@ Toby Handfield
 
 Nishant Mehra
   - [playlist: Complete Microeconoics II](https://www.youtube.com/playlist?list=PL1IuDhwCHdcD4uqTrb8xvj2-w2jDIQkAx)
-
 -->
+
+<!-- }}} -->
+
+<!-- Referências {{{ -->
 
 ## Referências
 
 ::: {#refs}
 ::::
+
+<!-- }}} -->
 
 <!-- vim: fdm=marker foldlevel=0 -->

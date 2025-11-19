@@ -24,6 +24,18 @@ format:
     height: 1080
 ---
 
+<!-- Setup {{{ -->
+
+```{r}
+#| label: setup-tikz
+#| include: false
+
+# Necessary for using dvisvgm on macOS
+# See https://www.andrewheiss.com/blog/2021/08/27/tikz-knitr-html-svg-fun/
+# Sys.setenv(LIBGS = "/usr/local/share/ghostscript/9.53.3/lib/libgs.dylib.9.53")
+
+font_opts <- list(dvisvgm.opts = "--font-format=woff")
+```
 
 ```{r}
 #| label: setup
@@ -80,6 +92,10 @@ x1_seq <- seq(0.5, 100, length.out = 200)
 x1_2_seq <- seq(0.5, 100, length.out = 200)
 ```
 
+<!-- }}} -->
+
+<!-- Equilíbrio Parcial *vs* Equilíbrio Geral {{{ -->
+
 ## Equilíbrio Parcial *vs* Equilíbrio Geral
 
 * A análise de equilíbrio parcial pressupõe que as atividades em um mercado sejam independentes das atividades em outros mercados.
@@ -97,6 +113,10 @@ x1_2_seq <- seq(0.5, 100, length.out = 200)
     * Locação de DVDs
     * Ingressos de cinema
 :::
+
+<!-- }}} -->
+
+<!-- Cinema versus DVD {{{ -->
 
 ##
 
@@ -467,6 +487,10 @@ p_dvd_final <- p_dvd_ajuste2 +
 p_cinema_ajuste2 + p_dvd_final
 ```
 
+<!-- }}} -->
+
+<!-- Dica: Baidya {{{ -->
+
 ## Dica {.center}
 
 ::: {.callout-tip collapse="true" appearance="default" icons=true}
@@ -474,6 +498,10 @@ p_cinema_ajuste2 + p_dvd_final
 ## Acesse: [@baidya2014 Capítulo 9 Exemplo 9.1 - Equilíbrio Parcial](https://roneyfraga.com/micro/parte-4-equilibrio-geral-falhas-de-mercado/equilibrio-geral.html)
 
 :::
+
+<!-- }}} -->
+
+<!-- Guena - Hipóteses e notações {{{ -->
 
 ## Hipóteses e notações
 
@@ -500,6 +528,10 @@ Material adaptado de [Roberto Guena de Oliveira](https://robguena.fearp.usp.br/a
 $$\omega_1 = \omega_1^A + \omega_1^B \quad \text{e} \quad \omega_2 = \omega_2^A + \omega_2^B$$
 
 
+<!-- }}} -->
+
+<!-- Definições {{{ -->
+
 ## Definições
 
 <br>
@@ -511,6 +543,10 @@ $$\omega_1 = \omega_1^A + \omega_1^B \quad \text{e} \quad \omega_2 = \omega_2^A 
 $$x_1^A + x_1^B \leq \omega_1 \quad \text{e} \quad x_2^A + x_2^B \leq \omega_2$$
 
 * Uma alocação factível para a qual as condições acima se verificam com igualdade, é chamada alocação sem desperdício.
+
+<!-- }}} -->
+
+<!-- A Caixa de Edgeworth {{{ -->
 
 ## A Caixa de Edgeworth
 
@@ -722,6 +758,11 @@ p_edgeworth_final <- p_edgeworth_completo +
 p_edgeworth_final
 ```
 
+<!-- }}} -->
+
+<!-- Critério de Pareto {{{ -->
+
+
 ## Critério de Pareto {.center}
 
 **Definição**
@@ -746,6 +787,10 @@ $\succsim_A$ e $\succsim_B$: a alocação $A$ é ao menos tão boa quanto a aloc
 
 :::
 
+<!-- }}} -->
+
+<!-- Eficiência de Pareto {{{ -->
+
 ## Eficiência de Pareto {.center}
 
 * Definição
@@ -766,7 +811,9 @@ $\succsim_A$ e $\succsim_B$: a alocação $A$ é ao menos tão boa quanto a aloc
 :::
 
 
+<!-- }}} -->
 
+<!-- Preferências na Caixa de Edgeworth {{{ -->
 
 ## Preferências na Caixa de Edgeworth
 
@@ -1009,6 +1056,10 @@ p_edgeworth_ambos <- ggplot() +
 
 p_edgeworth_ambos
 ```
+
+<!-- }}} -->
+
+<!-- Alocação Ineficiente {{{ -->
 
 ## Alocação Ineficiente
 
@@ -1261,6 +1312,10 @@ p_edgeworth_inef3 <- p_edgeworth_inef2b +
 p_edgeworth_inef3
 ```
 
+<!-- }}} -->
+
+<!-- Alocação Eficiente {{{ -->
+
 ## Alocação Eficiente
 
 ```{r}
@@ -1386,6 +1441,10 @@ p_edgeworth_x0_areas_texto
 ```
 
 
+<!-- }}} -->
+
+<!-- Alocação Eficiente - Pressupostos {{{ -->
+
 ## Alocação Eficiente - Pressupostos
 
 <br>
@@ -1408,6 +1467,10 @@ p_edgeworth_x0_areas_texto
 <br>
 
 **Preferências do consumidor "bem comportadas"** são aquelas que seguem premissas lógicas e razoáveis, como a monotonicidade (mais é melhor) e a transitividade (se A é preferível a B e B é preferível a C, então A é preferível a C). Essas premissas são importantes na microeconomia para modelar o comportamento do consumidor, simplificando o comportamento de escolha e resultando em curvas de indiferença com inclinação negativa.
+
+<!-- }}} -->
+
+<!-- Preferências Não Convexas `TODO` {{{ -->
 
 ## Preferências Não Convexas `TODO`
 
@@ -1440,6 +1503,9 @@ A Figura ilustra um caso importante onde **preferências não convexas** geram u
 :::
 :::
 
+<!-- }}} -->
+
+<!-- Curva de Contrato {{{ -->
 
 ## Curva de Contrato
 
@@ -1577,6 +1643,10 @@ p_curva_contrato <- ggplot() +
 p_curva_contrato
 ```
 
+<!-- }}} -->
+
+<!-- Dica: Curva de Contratos Simbólica {{{ -->
+
 ## Dica {.center}
 
 ::: {.callout-tip collapse="true" appearance="default" icons=true}
@@ -1599,7 +1669,9 @@ p_curva_contrato
 ### Acesse: [Curva de Contratos com $\ln(x^{A}_{1})$ e $\sqrt{x^{B}_{1}}$](https://roneyfraga.com/micro/parte-4-equilibrio-geral-falhas-de-mercado/equilibrio-geral.html)
 :::
 
+<!-- }}} -->
 
+<!-- Demandas Brutas e Líquidas {{{ -->
 
 ## Demandas Brutas e Líquidas {.smaller}
 
@@ -1625,6 +1697,10 @@ $$z_1(p_1, p_2) = e_1^A(p_1, p_2) + e_1^B(p_1, p_2) = x_1^A(p_1, p_2) + x_1^B(p_
 
 $$z_2(p_1, p_2) = e_2^A(p_1, p_2) + e_2^B(p_1, p_2) = x_2^A(p_1, p_2) + x_2^B(p_1, p_2) - \omega_2$$
 
+<!-- }}} -->
+
+<!-- Dica: encontrar demandas brutas, líquidas e agregadas{{{ -->
+
 ## Dica {.center}
 
 ::: {.callout-tip collapse="true" appearance="default" icons=true}
@@ -1632,6 +1708,10 @@ $$z_2(p_1, p_2) = e_2^A(p_1, p_2) + e_2^B(p_1, p_2) = x_2^A(p_1, p_2) + x_2^B(p_
 ### Acesse: [Partindo das utitilidades e dotações, encontrar: demandas brutas, líquidas e agregadas](https://roneyfraga.com/micro/parte-4-equilibrio-geral-falhas-de-mercado/equilibrio-geral.html)
 
 :::
+
+<!-- }}} -->
+
+<!-- Demandas na caixa de Edgeworth {{{ -->
 
 ## Demandas na caixa de Edgeworth 
 
@@ -1740,6 +1820,10 @@ $$z_2(p_1, p_2) = e_2^A(p_1, p_2) + e_2^B(p_1, p_2) = x_2^A(p_1, p_2) + x_2^B(p_
 
 :::
 
+<!-- }}} -->
+
+<!-- Lei de Walras {{{ -->
+
 ## Lei de Walras {.smaller}
 
 **Enunciado**
@@ -1760,6 +1844,10 @@ $$\text{condição 3: } \begin{cases} z_1(p_1, p_2) = 0 \\ z_2(p_1, p_2) = 0 \en
 
 Os preços $p_1$ e $p_2$ que garantem as condições acima são chamados preços de equilíbrio.
 
+<!-- }}} -->
+
+<!-- Dica: encontrar preços de equilíbrio {{{ -->
+
 ## Dica {.center}
 
 ::: {.callout-tip collapse="true" appearance="default" icons=true}
@@ -1767,6 +1855,10 @@ Os preços $p_1$ e $p_2$ que garantem as condições acima são chamados preços
 ### Acesse: [Partindo das utitilidades e dotações, encontrar preços de equilíbrio](https://roneyfraga.com/micro/parte-4-equilibrio-geral-falhas-de-mercado/equilibrio-geral.html)
 
 :::
+
+<!-- }}} -->
+
+<!-- Equilíbrio na caixa de Edgeworth {{{ -->
 
 ## Equilíbrio na caixa de Edgeworth
 
@@ -1782,6 +1874,10 @@ Os preços $p_1$ e $p_2$ que garantem as condições acima são chamados preços
 :::
 :::
 
+<!-- }}} -->
+
+<!-- Observação {{{ -->
+
 ## Observação
 
 <br>
@@ -1791,6 +1887,10 @@ Os preços $p_1$ e $p_2$ que garantem as condições acima são chamados preços
 * Em particular, pode ser interessante tomar $\alpha = \frac{1}{p_2^*}$, de modo a expressar os preços em termos do preço relativo do bem 1 em relação ao bem 2.
 
 * Da lei de Walras segue que o sistema de equações formados pelas condições de equilíbrio possue um grau de indeterminação, pois uma das equações é uma combinação linear das outras. Desse modo, se $n-1$ mercados estão em equilíbrio, o $n$-ésimo mercado também estará.
+
+<!-- }}} -->
+
+<!-- Dica: aplicativo shiny {{{ -->
 
 ## Dica {.center}
 
@@ -1809,6 +1909,10 @@ Os preços $p_1$ e $p_2$ que garantem as condições acima são chamados preços
 ### Acesse: [Cobb-Douglas Preços Equilíbrio com constantes](https://roneyfraga.com/micro/parte-4-equilibrio-geral-falhas-de-mercado/equilibrio-geral.html)
 
 :::
+
+<!-- }}} -->
+
+<!-- Existência do Equilíbrio {{{ -->
 
 ## Existência do Equilíbrio
 
@@ -1897,6 +2001,10 @@ p_ausencia
 
 :::
 
+<!-- }}} -->
+
+<!-- Os Teoremas do Bem-Estar Social {{{ -->
+
 ## Os Teoremas do Bem-Estar Social
 
 <br>
@@ -1918,8 +2026,15 @@ Este resultado fundamental mostra que problemas de distribuição e eficiência 
 :::
 :::
 
+<!-- }}} -->
+
+<!-- Referências {{{ -->
+
 ## Referências
 
 ::: {#refs}
 :::
 
+<!-- }}} -->
+
+<!-- vim: fdm=marker foldlevel=0 -->

@@ -1,0 +1,52 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{decorations.pathreplacing} % NECESSÁRIO para brace
+
+\begin{document}
+
+\begin{tikzpicture}[scale=1.1]
+
+% Eixos
+\draw[->] (0,0) -- (8,0) node[right]{Quantidade};
+\draw[->] (0,0) -- (0,6) node[above]{Preço};
+
+% Curva de demanda
+\draw[blue, thick] (0.5,5.5) -- (7.5,0.5) node[right] {$D$};
+
+% Curva de oferta original
+\draw[red, thick] (0.5,0.8) -- (7.2,5.5) node[right] {$S$};
+
+% Ponto de equilíbrio onde S = D
+\filldraw (3.85,2.85) circle (2pt);  
+\filldraw (4.4,3.8) circle (2pt);
+
+% Linhas tracejadas horizontais PV, P0 e PC
+\draw[dashed] (0,3.8) -- (4.4,3.8);
+\draw[dashed] (0,2.85) -- (3.85,2.85);
+\draw[dashed] (0,2.2) -- (4.4,2.2);
+
+% Rótulos no eixo Y
+\node[left] at (0,3.8) {$P_v$};
+\node[left] at (0,2.85) {$P_0$};
+\node[left] at (0,2.2) {$P_c$};
+
+% Linhas tracejadas verticais Q0 e Q1
+\draw[dashed] (3.85,0) -- (3.85,2.85);
+\draw[dashed] (4.4,0) -- (4.4,3.8);
+
+% Rótulos no eixo X
+\node[below] at (3.85,0) {$Q_0$};
+\node[below] at (4.4,0) {$Q_1$};
+
+% Conexão vertical entre Pv e Pc (benefício do subsídio)
+\draw[decorate,decoration={brace,amplitude=8pt,mirror}]
+(4.7,2.2) -- (4.7,3.8) node[midway,left=8pt] {$s$};
+
+\end{tikzpicture}
+
+\end{document}
+
