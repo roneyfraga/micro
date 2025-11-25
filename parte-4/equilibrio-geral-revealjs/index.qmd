@@ -1912,86 +1912,118 @@ Os preços $p_1$ e $p_2$ que garantem as condições acima são chamados preços
 
 <!-- }}} -->
 
-<!-- Existência do Equilíbrio {{{ -->
+<!-- Curva de demanda contínua {{{ -->
 
-## Existência do Equilíbrio
+## Curva de demanda contínua
 
-::: {layout-ncol=2}
+::: columns
+::: {.column width="60%"}
 
-### Um caso de ausência de equilíbrio
+```{tikz engine.opts=font_opts}
+#| label: demanda-continua 
+#| echo: true
+#| code-fold: true
+#| fig-cap: "Necessidade da curva de demanda ser contínua"
+#| fig-align: center
+#| fig-ext: svg
+#| out-width: 100%
 
-```{r}
-#| label: ausencia-equilibrio
-#| echo: false
-#| fig-width: 11
-#| fig-height: 8
+\usetikzlibrary{arrows.meta,decorations.markings}
 
-# Criar gráfico mostrando ausência de equilíbrio
-# Duas funções separadas: uma termina antes de omega_1, outra começa depois
-# Ambas na mesma altura (mesmo y)
+\begin{tikzpicture}[scale=1.1, >=Stealth]
 
-# Altura comum onde as curvas se encontram
-y_comum <- 48
+  % Eixos da caixa de Edgeworth
+  \draw[thick, black, ->] (0,0) -- (9,0) node[below, yshift=-2mm] {$x_1$};
+  \draw[thick, black, ->] (0,0) -- (0,5) node[left, yshift=-2mm] {$\frac{p_1}{p_2}$};
 
-# Função 1: termina antes de omega_1 (x < 30)
-# Calculando para que termine em y_comum quando x = 28
-# y = a + b*x, quando x=28, y=48, quando x=0, y=90
-# 48 = a + b*28 e 90 = a => b = (48-90)/28 = -1.5
-funcao1 <- tibble(
-  x = seq(2, 28, length.out = 50),
-  y = 90 - 1.5 * x
-)
+  % Marcação de w1 no eixo X
+  \draw[thick, black] (3,-0.1) -- (3,0.1);
+  \node[black, below] at (3,-0.1) {$w_1$};
 
-# Função 2: começa depois de omega_1 (x > 30)
-# Deve começar em y_comum quando x = 32
-# y = y_comum - b*(x - 32)
-funcao2 <- tibble(
-  x = seq(32, 80, length.out = 50),
-  y = y_comum - 0.8 * (x - 32)
-)
+  % Curva de oferta vertical S (passando por w1)
+  \draw[thick, red] (3,5) -- (3,0);
+  \node[red, right] at (3, 4.5) {$S$};
 
-# Criar gráfico
-p_ausencia <- ggplot() +
-  # Eixo vertical (p1/p2)
-  geom_segment(aes(x = 0, xend = 0, y = 0, yend = 100),
-    linewidth = 2) +
-  # Eixo horizontal (x1)
-  geom_segment(aes(x = 0, xend = 100, y = 0, yend = 0),
-    linewidth = 2) +
-  # Linha vertical em omega_1
-  geom_segment(aes(x = 30, xend = 30, y = 0, yend = 100),
-    linewidth = 1.5, linetype = "solid") +
-  # Função 1 (azul) - termina antes de omega_1
-  geom_line(data = funcao1, aes(x = x, y = y),
-    color = "#0066CC", linewidth = 3) +
-  # Função 2 (azul) - começa depois de omega_1
-  geom_line(data = funcao2, aes(x = x, y = y),
-    color = "#0066CC", linewidth = 3) +
-  # Linha pontilhada conectando as duas curvas (gap)
-  geom_segment(aes(x = 28, xend = 32, y = y_comum, yend = y_comum),
-    color = "#0066CC", linewidth = 2, linetype = "dotted") +
-  # Rótulos (usando plotmath - parse = TRUE)
-  annotate("text", x = 30, y = -5, label = TeX(r"($\omega_1$)", output = "character"),
-    size = 8, fontface = "bold", parse = TRUE) +
-  annotate("text", x = 55, y = -5, label = TeX(r"($x_1$)", output = "character"),
-    size = 8, fontface = "bold", parse = TRUE) +
-  annotate("text", x = -5, y = 50, label = TeX(r"($\frac{p_1}{p_2}$)", output = "character"),
-    size = 8, fontface = "bold", parse = TRUE) +
-  # Rótulo complexo usando latex2exp via annotate (raw string r"()")
-  annotate("text", x = 50, y = 70,
-    label = TeX(r"($x_1^A\left(\frac{p_1}{p_2}\right) + x_1^B\left(\frac{p_1}{p_2}\right)$)", output = "character"),
-    size = 7, parse = TRUE) +
-  coord_cartesian(xlim = c(-10, 100), ylim = c(-10, 100)) +
-  tema_economico +
-  theme(
-    axis.line = element_blank(),
-    axis.title = element_blank(),
-    axis.text = element_blank(),
-    axis.ticks = element_blank()
-  )
+  % Curva de demanda/oferta
+  \draw[thick, blue, domain=0.8:8.5, samples=100, smooth]
+  plot (\x, {1 + 2/(\x-0.3)}) node[right] {$D$};
 
-p_ausencia
+  % Anotação sobre a função demanda D
+  \node[blue, align=left] at (6.5, 2.0) {$x_1 \left(\frac{p_1}{p_2}\right) = x^A_1 \left(\frac{p_1}{p_2}\right) + x^B_1 \left(\frac{p_1}{p_2}\right)$};
+
+  % Ponto de equilíbrio (interseção S e D)
+  \coordinate (W) at (3, 1.74);
+  \fill[black] (W) circle (2pt);
+  % \node[black, above right] at (W) {$w_1$};
+
+\end{tikzpicture}
+
 ```
+:::
+::: {.column width="40%"}
+
+* $w_1$ é o total do bem 1 da economia
+
+:::
+:::
+
+<!-- }}} -->
+
+<!-- Curva de demanda descontínua {{{ -->
+
+## Curva de demanda descontínua
+
+::: columns
+::: {.column width="60%"}
+
+```{tikz engine.opts=font_opts}
+#| label: demanda-descontinua
+#| echo: true
+#| code-fold: true
+#| fig-cap: "Necessidade da curva de demanda ser contínua"
+#| fig-align: center
+#| fig-ext: svg
+#| out-width: 100%
+
+\usetikzlibrary{arrows.meta,decorations.markings}
+
+\begin{tikzpicture}[scale=1.1, >=Stealth]
+  % Eixos da caixa de Edgeworth
+  \draw[thick, black, ->] (0,0) -- (9,0) node[below, yshift=-2mm] {$x_1$};
+  \draw[thick, black, ->] (0,0) -- (0,5) node[left, yshift=-2mm] {$\frac{p_1}{p_2}$};
+
+  % Marcação de w1 no eixo X
+  \draw[thick, black] (3,-0.1) -- (3,0.1);
+  \node[black, below] at (3,-0.1) {$w_1$};
+
+  % Curva de oferta vertical S (passando por w1)
+  \draw[thick, red] (3,5) -- (3,0);
+  \node[red, right] at (3, 4.5) {$S$};
+
+  % Ponto de equilíbrio (interseção S e D)
+  \coordinate (W) at (3, 1.74);
+
+  % Curva de demanda ANTES da oferta (segmento esquerdo - sólido, deslocada para baixo)
+  \draw[thick, blue, domain=0.8:2.5, samples=100, smooth]
+  plot (\x, {0.81 + 2/(\x-0.3)});
+
+  % Reta tracejada indicando possível conexão (horizontal)
+  \draw[thick, blue, dashed] (2.5, 1.719) -- (3.5, 1.719);
+
+  % Curva de demanda DEPOIS da oferta (segmento direito - sólido, mais inclinada)
+  \draw[thick, blue, domain=3.5:8.5, samples=100, smooth]
+  plot (\x, {0.625 + 3.5/(\x-0.3)}) node[right] {$D$};
+
+  % Ponto de equilíbrio
+  \fill[black] (W) circle (2pt);
+
+  % Anotação sobre a função demanda D
+  \node[blue, align=left] at (6.5, 2.0) {$x_1 \left(\frac{p_1}{p_2}\right) = x^A_1 \left(\frac{p_1}{p_2}\right) + x^B_1 \left(\frac{p_1}{p_2}\right)$};
+\end{tikzpicture}
+
+```
+:::
+::: {.column width="40%"}
 
 ### Hipóteses que garantem continuidade da demanda
 
@@ -1999,6 +2031,7 @@ p_ausencia
 
 * Os consumidores são infinitamente pequenos e diferenciados.
 
+:::
 :::
 
 <!-- }}} -->

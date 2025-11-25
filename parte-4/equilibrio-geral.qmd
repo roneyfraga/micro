@@ -1515,7 +1515,7 @@ Este resultado tem uma interpretação econômica clara:
 
 :::
 
- <!-- }}} -->
+<!-- }}} -->
 
 <!-- Cobb-Douglas Preços Equilíbrio com constantes  {{{ -->
 
@@ -1794,8 +1794,6 @@ Com $p_x = 1$ (fixado) e $p_y = 5$ (determinado), o preço relativo é $\frac{p_
 :::
 
  <!-- }}} -->
-
-<embed src="../notas-digitais/parte-4-equilibrio-geral-guena-usp-ex-pagina-29.pdf" width="100%" height="650">
 
 <embed src="../notas-digitais/parte-4-equilibrio-geral-guena-usp-ex-pagina-32.pdf" width="100%" height="650">
 

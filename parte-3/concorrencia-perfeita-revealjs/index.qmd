@@ -26,7 +26,6 @@ format:
     height: 1080
 ---
 
-
 <!-- Setup {{{ -->
 
 ```{r}
@@ -52,14 +51,13 @@ font_opts <- list(dvisvgm.opts = "--font-format=woff")
 #| label: excedentes
 #| echo: true
 #| code-fold: true
-#| fig-cap: "Excedentes"
 #| fig-align: center
 #| fig-ext: svg
-#| out-width: 100%
+#| out-width: 90%
 
 \usetikzlibrary{patterns,arrows.meta}
 
-\begin{tikzpicture}[scale=1.1, >=Stealth]
+\begin{tikzpicture}[scale=1.1]
     
     % Eixos
     \draw[thick,->] (0,0) -- (8,0) node[below] {Quantidade};
@@ -105,7 +103,15 @@ font_opts <- list(dvisvgm.opts = "--font-format=woff")
 :::
 ::: {.column width="40%"}
 
-Anotações!
+<br>
+
+:::{style="font-size: 80%; text-align: left; line-height: 1.0em; color: black; "}
+
+- O consumidor A pagaria US\$ 10 pelo bem cujo preço de mercado fosse US\$ 5 e, portanto, desfruta de um benefício de US\$ 5. O consumidor B desfruta de um benefício de US$ 2 e o consumidor C, que avalia o bem exatamente pelo preço de mercado, não desfruta de benefício algum.
+- O excedente do consumidor, que mede o benefício total para todos os consumidores, é a área sombreada superior, entre a curva de demanda e o preço de mercado.
+- O excedente do produtor mede o lucro total dos produtores mais as rendas referentes aos insumos de produção. É a área sombreada inferior, entre a curva de oferta e o preço de mercado. 
+- Em conjunto, os excedentes do produtor e do consumidor medem o bem-estar decorrente de um mercado competitivo.
+:::
 
 :::
 :::
@@ -123,10 +129,9 @@ Anotações!
 #| label: variacao-dos-excedentes-via-controle-dos-precos
 #| echo: true
 #| code-fold: true
-#| fig-cap: "Variação dos excedentes via controle dos preços"
 #| fig-align: center
 #| fig-ext: svg
-#| out-width: 100%
+#| out-width: 90%
 
 \usetikzlibrary{patterns, positioning, decorations.pathreplacing}
 
@@ -203,56 +208,1079 @@ Anotações!
 :::
 ::: {.column width="40%"}
 
-Anotações!
+<br>
+
+:::{style="font-size: 80%; text-align: left; line-height: 1.0em; color: black; "}
+* O preço máximo de um bem foi fixado em $P_{max}$, que está abaixo do preço de mercado $P_0$. 
+* O ganho dos consumidores é a diferença entre o retângulo A e o triângulo B. 
+* A perda dos produtores é a soma do retângulo A e do triângulo C. 
+* Os triângulos B e C em conjunto medem o peso morto causado pelo controle de preços.
+* A variação do excedente do consumidor é A – B e de que a variação do excedente do produtor é –A – C. Por isso, a variação total do excedente é (A – B) + (–A – C) = –B – C.
+* Peso morto $=$ Perda líquida de excedente total (considerando-se o do consumidor e o do produtor).
+:::
 
 :::
 :::
 
 <!-- }}} -->
- 
-## {-}
 
-![](figura-9-03.png){fig-align="center"}
+ <!-- Demanda inelástica {{{ -->
 
-## {-}
+## Demanda inelástica
 
-![](figura-9-05.png){fig-align="center"}
+::: columns
+::: {.column width="60%"}
 
-## {-}
+```{tikz engine.opts=font_opts}
+#| label: demanda-inelastica
+#| echo: true
+#| code-fold: true
+#| fig-align: center
+#| fig-ext: svg
+#| out-width: 90%
 
-![](figura-9-07.png){fig-align="center"}
+\usetikzlibrary{patterns, positioning}
 
-## {-}
+\begin{tikzpicture}[scale=1.2]
+  % Eixos
+  \draw[thick, ->] (0,0) -- (8,0) node[below] {Quantidade};
+  \draw[thick, ->] (0,0) -- (0,7) node[above] {Preço};
 
-![](figura-9-08.png){fig-align="center"}
+  % Curva de Demanda (D) - mais vertical (inelástica), passa por (3.6, 3.5) e (4.5, 0)
+  % y = 17.5 - 3.89*x, em y=7: x = (17.5-7)/3.89 = 2.7
+  \draw[thick, blue!80, line width=1.5pt] (2.7,7) node[right] {$D$} -- (4.5,0);
 
-## {-}
+  % Curva de Oferta (S) - passa por (3.6, 3.5)
+  % Ajustando para interceptar exatamente em (3.6, 3.5)
+  \draw[thick, purple!80, line width=1.5pt] (0.5,1.24) -- (7,6.0) node[right] {$S$};
 
-![](figura-9-10.png){fig-align="center"}
+  % Interseção (equilíbrio de mercado) em Q2, P0
+  \coordinate (E) at (3.6,3.5);
 
-## {-}
+  % Preço de equilíbrio
+  \coordinate (P0) at (0,3.5);
+  \draw[dashed, gray] (P0) -- (E);
+  \draw (0,3.5) node[left] {$P_0$};
 
-![](figura-9-11.png){fig-align="center"}
+  % Preço máximo
+  \coordinate (Pmax) at (0,2.8);
+  \draw[dashed, gray] (Pmax) -- (7,2.8);
+  \draw (0,2.8) node[left] {$P_{\text{máx}}$};
 
-## {-}
+  % Quantidades
+  \draw[dashed, gray] (2.7,7) -- (2.7,0) node[below] {$Q_1$};
+  \draw[dashed, gray] (3.6,3.5) -- (3.6,0) node[below] {$Q_2$};
 
-![](figura-9-14.png){fig-align="center"}
+  % Pontos de interseção
+  % Oferta em x=2.7: y = 1.24 + (6.0-1.24)/(7-0.5) * (2.7-0.5) = 2.85
+  \coordinate (S1) at (2.7,2.85);
+  \coordinate (D1) at (3.45,2.8);
 
-## {-}
+  % Área A (retângulo - excedente transferido)
+  \fill[blue!40, opacity=0.6] (0,2.8) rectangle (2.7,3.5);
+  \node at (1.35,3.15) {$A$};
 
-![](figura-9-15.png){fig-align="center"}
+  % Área B (triângulo - abaixo da curva de demanda até P0)
+  % Pontos: (2.7, P_max=2.8), (2.7, P0=3.5), ponto na demanda em x=2.7 (que é y=7, mas limitado por P0)
+  % Na verdade: de Q1 até Q2, abaixo da demanda e acima de P0
+  \fill[cyan!50, opacity=0.5] (2.7,3.5) -- (3.6,3.5) -- (2.7,7) -- cycle;
+  \node at (3.0,4.5) {\small $B$};
 
-## {-}
+  % Área C (triângulo - acima da curva de oferta e abaixo de P0)
+  % Pontos: (2.7, oferta em 2.7=2.85), (2.7, P0=3.5), (3.6, P0=3.5)
+  \fill[gray!40, opacity=0.5] (2.7,2.85) -- (2.7,3.5) -- (3.6,3.5) -- cycle;
+  \node at (3.1,3.3) {\small $C$};
 
-![](figura-9-17.png){fig-align="center"}
+  % Pontos principais
+  \fill (E) circle (2pt);
+  \fill (S1) circle (2pt);
 
-## {-}
+\end{tikzpicture}
 
-![](figura-9-18.png){fig-align="center"}
+```
 
-## {-}
+:::
+::: {.column width="40%"}
 
-![](figura-9-19.png){fig-align="center"}
+<br>
+
+:::{style="font-size: 80%; text-align: left; line-height: 1.0em; color: black; "}
+* Se a demanda é suficientemente inelástica, o triângulo B pode ser maior que o retângulo A. Nesse caso, os consumidores sofrem uma perda líquida decorrente do controle de preços.
+:::
+
+:::
+:::
+
+<!-- }}} -->
+
+ <!-- Preço fixado acima do equilíbrio {{{ -->
+
+## Preço fixado acima do equilíbrio
+
+::: columns
+::: {.column width="60%"}
+
+```{tikz engine.opts=font_opts}
+#| label: preco-fixado-acima-equilibrio
+#| echo: true
+#| code-fold: true
+#| fig-cap: "Perda de bem-estar quando um preço é fixado acima do preço de equilíbrio"
+#| fig-align: center
+#| fig-ext: svg
+#| out-width: 90%
+
+\usetikzlibrary{patterns, positioning}
+
+\begin{tikzpicture}[scale=1.3]
+    % Eixos
+    \draw[thick, ->] (0,0) -- (8,0) node[below] {Quantidade};
+    \draw[thick, ->] (0,0) -- (0,7) node[above] {Preço};
+    
+    % Curva de Demanda (D) - ajustada para novo equilíbrio em (4.8, 3.5)
+    % y = 6.5 - 0.625*x
+    \draw[thick, blue!80, line width=1.5pt] (0,6.5) -- (7.5,1.8) node[right] {$D$};
+    
+    % Curva de Oferta (S) - inicia no eixo vertical (0, 0.8) e passa por (4.8, 3.5)
+    % y = 0.8 + 0.5625*x
+    \draw[thick, purple!80, line width=1.5pt] (0,0.8) -- (7.5,5.02) node[right] {$S$};
+    
+    % Interseção (equilíbrio de mercado) - movido para a direita
+    \coordinate (E) at (4.8,3.5);
+    
+    % Preço de equilíbrio
+    \coordinate (P0) at (0,3.5);
+    \draw[dashed, gray] (P0) -- (E);
+    \draw (0,3.5) node[left] {$P_0$};
+    
+    % Preço mínimo (acima do equilíbrio) - mantém proporção
+    \coordinate (P2) at (0,4.8);
+    
+    % Calcular Q3 e Q2 corretamente
+    % Q3: interseção de P2=4.8 com demanda D: 4.8 = 6.5 - 0.625*x => x = 2.72
+    % Q2: interseção de P2=4.8 com oferta S: 4.8 = 0.8 + 0.5625*x => x = 7.11
+    \coordinate (D2) at (2.72,4.8);
+    \coordinate (S2) at (7.11,4.8);
+    
+    \draw[dashed, gray] (P2) -- (7.11,4.8);
+    \draw (0,4.8) node[left] {$P_2$};
+    
+    % Quantidades - Q3 e Q2 corrigidos
+    \draw[dashed, gray] (2.72,4.8) -- (2.72,0) node[below] {$Q_3$};
+    \draw[dashed, gray] (4.8,3.5) -- (4.8,0) node[below] {$Q_0$};
+    \draw[dashed, gray] (7.11,4.8) -- (7.11,0) node[below] {$Q_2$};
+    
+    % Área A (retângulo - transferência de excedente do consumidor) - mais comprido
+    \fill[blue!40, opacity=0.6] (0,3.5) rectangle (2.72,4.8);
+    \node at (1.36,4.15) {$A$};
+    
+    % Triângulo B (acima do preço P0 e abaixo da curva de demanda)
+    % Pontos: (2.72, P2=4.8), (4.8, P0=3.5), (2.72, P0=3.5)
+    % Forma um triângulo entre Q3, Q0 e a curva de demanda
+    \fill[green!40, opacity=0.5] (2.72,4.8) -- (4.8,3.5) -- (2.72,3.5) -- cycle;
+    \node at (3.4,4.0) {\small $B$};
+    
+    % Triângulo C (acima da curva de oferta e abaixo do preço P0)
+    % Pontos: (2.72, na oferta), (2.72, P0=3.5), (4.8, P0=3.5)
+    % Oferta em x=2.72: y = 0.8 + 0.5625*2.72 = 2.33
+    % Centro do triângulo: ((2.72+2.72+4.8)/3, (2.33+3.5+3.5)/3) = (3.41, 3.11)
+    \fill[purple!30, opacity=0.5] (2.72,2.33) -- (2.72,3.5) -- (4.8,3.5) -- cycle;
+    \node at (3.41,3.11) {\small $C$};
+    
+    % Pontos principais
+    \fill (E) circle (2pt);
+    \fill (D2) circle (2pt);
+
+\end{tikzpicture}
+
+```
+
+:::
+::: {.column width="40%"}
+
+<br>
+
+:::{style="font-size: 80%; text-align: left; line-height: 1.0em; color: black; "}
+* um preço fixado para conter uma externalidade (falha de mercado)
+* na falha de mercado (*micro iii*), o mercado competitivo é mais ineficiente se regulamentado 
+* Quando o preço mínimo regulamentado é $P_2$, somente $Q_3$ será demandado. Se $Q_3$ é produzido, o peso morto é dado pelos triângulos B e C. Ao preço $P_2$, os produtores gostariam de produzir mais que $Q_3$. Fazendo isso, o peso morto é ainda maior.
+:::
+
+:::
+:::
+
+<!-- }}} -->
+
+ <!-- Preço mínimo {{{ -->
+
+## Preço mínimo
+
+::: columns
+::: {.column width="60%"}
+
+```{tikz engine.opts=font_opts}
+#| label: preco-minimo
+#| echo: true
+#| code-fold: true
+#| fig-align: center
+#| fig-ext: svg
+#| out-width: 90%
+
+\usetikzlibrary{patterns, positioning}
+
+\begin{tikzpicture}[scale=1.3]
+  % Eixos
+  \draw[thick, ->] (0,0) -- (8,0) node[below] {Quantidade};
+  \draw[thick, ->] (0,0) -- (0,7) node[above] {Preço};
+
+  % Curva de Demanda (D) - movida para a direita, mais vertical
+  % y = 8.5 - 0.909*x
+  \draw[thick, blue!80, line width=1.5pt] (2.0,6.68) -- (7.5,1.68) node[right] {$D$};
+
+  % Curva de Oferta (S) - inicia no eixo Y em (0, 1.0), mais vertical
+  % y = 1.0 + 0.6*x
+  \draw[thick, purple!80, line width=1.5pt] (0,1.0) -- (7.5,5.5) node[right] {$S$};
+
+  % Interseção (equilíbrio de mercado) - calcular corretamente
+  % 8.5 - 0.909*x = 1.0 + 0.6*x
+  % 7.5 = 1.509*x
+  % x = 4.97, y = 1.0 + 0.6*4.97 = 3.98
+  \coordinate (E) at (4.97,3.98);
+
+  % Preço de equilíbrio
+  \coordinate (P0) at (0,3.98);
+  \draw[dashed, gray] (P0) -- (E);
+  \draw (0,3.98) node[left] {$P_0$};
+
+  % Preço mínimo (acima do equilíbrio)
+  \coordinate (Pmin) at (0,4.8);
+
+  % Calcular Q3 e Q2 corretamente
+  % Q3: interseção de Pmin=4.8 com demanda D: 4.8 = 8.5 - 0.909*x => x = 4.07
+  % Q2: interseção de Pmin=4.8 com oferta S: 4.8 = 1.0 + 0.6*x => x = 6.33
+  \coordinate (D3) at (4.07,4.8);
+  \coordinate (S2) at (6.33,4.8);
+
+  \draw[thick, gray] (Pmin) -- (6.33,4.8);
+  \draw (0,4.8) node[left] {$P_{\text{mín}}$};
+
+  % Quantidades
+  \draw[dashed, gray] (4.07,4.8) -- (4.07,0) node[below] {$Q_3$};
+  \draw[dashed, gray] (4.97,3.98) -- (4.97,0) node[below] {$Q_0$};
+  \draw[dashed, gray] (6.33,4.8) -- (6.33,0) node[below] {$Q_2$};
+
+  % Área A (retângulo - ganho dos produtores)
+  \fill[blue!40, opacity=0.6] (0,3.98) rectangle (4.07,4.8);
+  \node at (2.03,4.39) {$A$};
+
+  % Triângulo B (perda de excedente do consumidor)
+  \fill[green!50, opacity=0.5] (4.07,4.8) -- (4.97,3.98) -- (4.07,3.98) -- cycle;
+  \node at (4.4,4.3) {\small $B$};
+
+  % Triângulo C (perda de excedente do produtor - abaixo de P0 e acima da curva de oferta)
+  % Pontos: (4.07, oferta em 4.07), (4.07, P0=3.98), (4.97, P0=3.98)
+  % Oferta em x=4.07: y = 1.0 + 0.6*4.07 = 3.44
+  % Centro: ((4.07+4.07+4.97)/3, (3.44+3.98+3.98)/3) = (4.37, 3.80)
+  \fill[purple!40, opacity=0.5] (4.07,3.44) -- (4.07,3.98) -- (4.97,3.98) -- cycle;
+  \node at (4.37,3.80) {\small $C$};
+
+  % Área D (excesso de oferta/excedente não vendido)
+  % Área entre Q3 e Q2, ABAIXO da curva de oferta S (entre a curva e o eixo X)
+  % Oferta em x=4.07: y = 1.0 + 0.6*4.07 = 3.44
+  % Oferta em x=6.33: y = 1.0 + 0.6*6.33 = 4.8
+  % Desenha: começa em (Q3, 0), sobe pela curva de oferta até (Q2, oferta em Q2), desce até (Q2, 0)
+  \fill[yellow!40, opacity=0.5] (4.07,0) -- plot[domain=4.07:6.33] (\x, {1.0 + 0.6*\x}) -- (6.33,0) -- cycle;
+  \node at (5.2,2.0) {$D$};
+
+  % Pontos principais
+  \fill (E) circle (2pt);
+  \fill (D3) circle (2pt);
+  \fill (S2) circle (2pt);
+
+\end{tikzpicture}
+
+
+```
+
+:::
+::: {.column width="40%"}
+
+<br>
+
+:::{style="font-size: 80%; text-align: left; line-height: 1.0em; color: black; "}
+
+* Alguns consumidores deixam o mercado por causa do preço mais elevado, sofrendo uma correspondente perda de excedente, representada agora pelo triângulo B. Portanto, a variação total ocorrida no excedente do consumidor é $\Delta EC = - A - B$.
+
+* O preço é regulamentado de forma que não seja inferior a $P_{mín}$. Os produtores gostariam de ofertar $Q_2$, mas os consumidores comprarão apenas $Q_3$. Se os produtores de fato ofertarem $Q_2$, o montante $Q_2$ – $Q_3$ não será vendido e a variação do excedente do produtor será A – C – D. Nesse caso, os produtores em conjunto estarão em pior situação.
+
+:::
+
+:::
+:::
+
+<!-- }}} -->
+
+ <!-- Sustentação de preço {{{ -->
+
+## Sustentação de preço
+
+::: columns
+::: {.column width="60%"}
+
+```{tikz engine.opts=font_opts}
+#| label: sustentacao-de-precos
+#| echo: true
+#| code-fold: true
+#| fig-align: center
+#| fig-ext: svg
+#| out-width: 100%
+
+\usetikzlibrary{patterns,arrows.meta}
+
+\begin{tikzpicture}[scale=1.3]
+
+  % Eixos
+  \draw[thick,->] (0,0) -- (9,0) node[below] {Quantidade};
+  \draw[thick,->] (0,0) -- (0,7) node[above] {Preço};
+
+  % Curvas de oferta e demanda - mesmas da figura-9-11
+  \draw[blue, very thick, domain=0.5:7] plot (\x, {6.5 - 0.9*\x}) node[right] {$D$};
+  \draw[red!70!black, very thick, domain=0:6.5] plot (\x, {1.0 + 0.7*\x}) node[right] {$S$};
+
+  % Pontos de equilíbrio
+  % Equilíbrio original: interseção de D e S
+  % 6.5 - 0.9*x = 1.0 + 0.7*x => 5.5 = 1.6*x => x = 3.4375, y = 3.406
+  \coordinate (E0) at (3.4375, 3.406);  % Equilíbrio original
+  \coordinate (Ps) at (0, 4.5);    % Preço sustentado
+
+  % Coordenadas importantes
+  % Q1: D em Ps=4.5: 4.5 = 6.5 - 0.9*x => x = 2.222
+  % Q2: S em Ps=4.5: 4.5 = 1.0 + 0.7*x => x = 5.0
+  \def\Qd{2.222}
+  \def\Qeq{3.4375}
+  \def\Qs{5.0}
+  \def\Peq{3.406}
+  \def\Ps{4.5}
+
+  % Curva de demanda deslocada (tracejada) - deve cruzar S em (Q2, Ps) = (5.0, 4.5)
+  % D+Qg deve passar por (5.0, 4.5) com inclinação -0.9
+  % 4.5 = a - 0.9*5.0 => a = 4.5 + 4.5 = 9.0
+  % Limitar para não exceder y=7: 7 = 9.0 - 0.9*x => x = 2.222
+  \draw[cyan, very thick, dashed, domain=2.222:8.5] plot (\x, {9.0 - 0.9*\x}) node[right] {$D + Q_g$};
+
+  % Retângulo pontilhado (custo do governo) - abaixo de Ps, entre Q1 e Q2
+  \fill[pattern=dots, pattern color=black!40] (\Qd,0) rectangle (\Qs,\Ps);
+
+  % Destacar as bordas do retângulo pontilhado
+  \draw[thick, black!70] (\Qd,0) -- (\Qd,\Ps) -- (\Qs,\Ps) -- (\Qs,0);
+
+  % Área A (excedente consumidor perdido)
+  \fill[blue!30, opacity=0.7] (0,\Ps) -- (\Qd,\Ps) -- (\Qd,\Peq) -- (0,\Peq) -- cycle;
+
+  % Área B (transferência/deadweight)
+  \fill[green!50, opacity=0.5] (\Qd,\Ps) -- (\Qeq,\Peq) -- (\Qd,\Peq) -- cycle;
+
+  % Área D (ganho produtor + deadweight) - triângulo acima de D e S, abaixo de Ps
+  % Vértices: (Q0, P0), (Q2, Ps), (Q1, Ps)
+  % Mas precisa seguir as curvas D e S
+  % Pontos: onde D cruza linha horizontal Ps, onde S cruza linha horizontal Ps, e ponto de equilíbrio
+  % D em Ps=4.5: 4.5 = 6.5 - 0.8*x => x = 2.5 (Q1)
+  % S em Ps=4.5: 4.5 = 1.25 + 0.7*x => x = 4.64 ≈ 4.7 (Q2)
+  % Triângulo: (2.5, 4.5), (4.7, 4.5), (3.5, 3.7)
+  \fill[red!30, opacity=0.6] (\Qd,\Ps) -- (\Qs,\Ps) -- (\Qeq,\Peq) -- cycle;
+
+  % Linhas tracejadas horizontais
+  \draw[dashed, gray] (0,\Ps) node[left] {$P_s$} -- (\Qs,\Ps);
+  \draw[dashed, gray] (0,\Peq) node[left] {$P_0$} -- (\Qeq,\Peq);
+
+  % Linhas tracejadas verticais
+  \draw[dashed, gray] (\Qd,0) node[below] {$Q_1$} -- (\Qd,\Ps);
+  \draw[dashed, gray] (\Qeq,0) node[below] {$Q_0$} -- (\Qeq,\Peq);
+  \draw[dashed, gray] (\Qs,0) node[below] {$Q_2$} -- (\Qs,\Ps);
+
+  % Rótulos das áreas
+  % Área A: retângulo (0, 3.7) a (2.5, 4.5) - centro: (1.25, 4.1)
+  \node at (1.25, 4.1) {\small $A$};
+  % Área B: triângulo (2.5, 4.5), (3.5, 3.7), (2.5, 3.7) - centro: (2.83, 3.97)
+  \node at (2.83, 3.97) {\small $B$};
+  % Área D: triângulo (2.5, 4.5), (4.7, 4.5), (3.5, 3.7) - centro: (3.57, 4.23)
+  \node at (3.57, 4.23) {\small $D$};
+
+  % Seta mostrando Qg - horizontal com setas nas duas extremidades
+  % Escolher uma altura para mostrar a diferença, por exemplo y=5.5
+  % D em y=5.5: 5.5 = 6.5 - 0.9*x => x = 1.111
+  % D+Qg em y=5.5: 5.5 = 9.0 - 0.9*x => x = 3.889
+  % Reduzir levemente o comprimento para não tocar as curvas
+  \draw[<->, thick, black] (1.3, 5.5) -- (3.7, 5.5);
+  \node[above] at (2.5, 5.5) {$Q_g$};
+
+  % Pontos de equilíbrio
+  \fill (E0) circle (2pt);
+
+\end{tikzpicture}
+
+```
+
+:::
+::: {.column width="40%"}
+
+:::{style="font-size: 80%; text-align: left; line-height: 1.0em; color: black; "}
+
+
+::: {.callout-note collapse="false" appearance="simple" icons="false"}
+# Sustentação de preços
+
+Preço fixado pelo governo acima do nível de mercado livre e mantido por meio de compras governamentais da oferta excedente.
+:::
+
+* Para manter um preço $P_s$ mais elevado que o preço de equilíbrio $P_0$, o governo adquire a quantidade $Q_g$. O ganho obtido pelos produtores é de A + B + D e a perda sofrida pelos consumidores é de A + B. O custo para o governo é representado pelo retângulo pontilhado, cuja área é $P_s (Q_2 – Q_1)$.
+
+* Como os consumidores que adquirem a mercadoria precisam pagar o preço mais elevado $P_s$ em vez de $P_0$, acabam sofrendo uma perda de excedente do consumidor, representada pelo retângulo A. $\Delta EC = - A - B$.
+
+* Por outro lado, os produtores ganham (razão pela qual essa política foi implementada). $\Delta EP = A + B + D$.
+
+* O custo para o governo é $(Q_2 – Q_1) / P_s$, que é o valor pago pelas aquisições de produção feitas pelo governo, o grande retângulo pontilhado. 
+
+:::
+
+:::
+:::
+
+<!-- }}} -->
+
+ <!-- Restrição de oferta {{{ -->
+
+## Restrição de oferta
+
+::: columns
+::: {.column width="60%"}
+
+```{tikz engine.opts=font_opts}
+#| label: restricao-de-oferta
+#| echo: true
+#| code-fold: true
+#| fig-cap: "Restrição de oferta"
+#| fig-align: center
+#| fig-ext: svg
+#| out-width: 100%
+
+\usetikzlibrary{patterns,arrows.meta}
+
+\begin{tikzpicture}[scale=1.3, >=Stealth]
+
+  % Eixos
+  \draw[thick,->] (0,0) -- (8,0) node[right] {Quantidade};
+  \draw[thick,->] (0,0) -- (0,7) node[above] {Preço};
+
+  % Curvas de oferta e demanda
+  \draw[blue, very thick, domain=0.5:7] plot (\x, {6.5 - 0.9*\x}) node[right] {$D$};
+  \draw[red!70!black, very thick, domain=0:6.5] plot (\x, {1.0 + 0.7*\x}) node[right] {$S$};
+
+  % Coordenadas importantes
+  \def\Ql{2.2}        % Quantidade limitada
+  % Calcular equilíbrio: D = S => 6.5 - 0.9*x = 1.0 + 0.7*x
+  % 5.5 = 1.6*x => x = 3.4375, y = 1.0 + 0.7*3.4375 = 3.406
+  \def\Qeq{3.4375}    % Quantidade de equilíbrio
+  \def\Peq{3.406}     % Preço de equilíbrio
+  \def\Ps{4.52}       % Preço com oferta restrita
+
+  % Área A (perda excedente do consumidor - azul)
+  \fill[blue!40, opacity=0.7] (0,\Ps) -- (0,\Peq) -- (\Ql,\Peq) -- (\Ql,\Ps) -- cycle;
+
+  % Área B (transferência - azul-verde)
+  \fill[cyan!50, opacity=0.7] (\Ql,\Ps) -- (\Ql,\Peq) -- (\Qeq,\Peq) -- cycle;
+
+  % Área C (perda excedente do produtor) - acima de S, abaixo de P0, de Q1 até Q0
+  % Vértices: (Q1, na curva S), (Q1, P0), (Q0, P0)
+  % S em Q1=2.2: y = 1.0 + 0.7*2.2 = 2.54
+  \fill[orange!50, opacity=0.6] (\Ql,{1.0 + 0.7*\Ql}) -- (\Ql,\Peq) -- (\Qeq,\Peq) -- cycle;
+
+  % Área D (perda de peso morto) - ABAIXO de Ps e ACIMA das curvas S e D
+  % S em Ps=4.52: 4.52 = 1.0 + 0.7*x => x = 5.03
+  % Vértices: (Q1, Ps), (Q0, P0), (5.03, Ps)
+  \fill[red!30, opacity=0.6] (\Ql,\Ps) -- (\Qeq,\Peq) -- (5.03,\Ps) -- cycle;
+
+  % Linhas tracejadas horizontais
+  \draw[dashed, gray] (0,\Ps) node[left] {$P_s$} -- (\Ql,\Ps);
+  \draw[dashed, gray] (0,\Peq) node[left] {$P_0$} -- (\Qeq,\Peq);
+
+  % Linhas tracejadas verticais
+  \draw[dashed, gray] (\Ql,0) node[below] {$Q_1$} -- (\Ql,\Ps);
+  \draw[dashed, gray] (\Qeq,0) node[below] {$Q_0$} -- (\Qeq,\Peq);
+
+  % Rótulos das áreas
+  % Área A: retângulo (0, 3.406) a (2.2, 4.52) - centro: (1.1, 3.963)
+  \node at (1.1, 3.963) {\large $A$};
+  % Área B: triângulo (2.2, 4.52), (2.2, 3.406), (3.4375, 3.406) - centro: (2.613, 3.777)
+  \node at (2.613, 3.777) {\large $B$};
+  % Área C: triângulo (2.2, 2.54), (2.2, 3.406), (3.4375, 3.406) - centro: (2.613, 3.117)
+  \node at (2.613, 3.117) {\large $C$};
+  % Área D: triângulo (2.2, 4.52), (3.4375, 3.406), (5.03, 4.52) - centro: (3.556, 4.149)
+  \node at (3.556, 4.149) {\large $D$};
+
+  % Oferta restrita (linha vertical) - desenhar por último para sobrepor
+  % S' é vertical em Q1=2.2, vai até onde toca S
+  % S em x=2.2: y = 1.0 + 0.7*2.2 = 2.54
+  \draw[dashed, gray, very thick] (2.2, 0) -- (2.2, 2.54);
+  \draw[yellow!80!orange!70!black, very thick] (2.2, 2.54) -- (2.2, 6.5) node[above] {$S'$};
+
+  % Ponto de equilíbrio
+  \fill (\Qeq,\Peq) circle (2pt);
+
+  % Ponto de interseção S' com D
+  \fill (\Ql,\Ps) circle (2pt);
+
+\end{tikzpicture}
+
+```
+
+:::
+::: {.column width="40%"}
+
+:::{style="font-size: 80%; text-align: left; line-height: 1.0em; color: black; "}
+
+::: {.callout-note collapse="false" appearance="simple" icons="false"}
+# Quotas de produção
+
+O governo também pode fazer com que o preço de uma mercadoria aumente por meio da redução da oferta.
+:::
+
+* Para manter o preço $P_s$ mais elevado que o preço de equilíbrio $P_0$, o governo pode restringir a oferta a $Q_1$ ao impor a produção de quotas (como no caso das licenças de táxi) ou ao fornecer aos produtores um incentivo financeiro para reduzir a quantidade produzida (como no caso das limitações de áreas agrícolas). Para que o incentivo funcione, 
+ele deve ser pelo menos igual a B + C + D, que seria o lucro adicional obtido por meio do plantio, dado o preço mais elevado $P_s$. O custo para o governo é, portanto, de pelo menos B + C + D.
+
+* $\Delta EC = -A - B$
+
+:::
+
+* em construção...
+
+:::
+:::
+
+<!-- }}} -->
+
+ <!-- Tarifa ou quota de importação para eliminar importações {{{ -->
+
+## Tarifa ou quota de importação para eliminar importações
+
+::: columns
+::: {.column width="60%"}
+
+```{tikz engine.opts=font_opts}
+#| label: taritas-quotas-importacao
+#| echo: true
+#| code-fold: true
+#| fig-cap: "Tarifa ou quota de importação para eliminar importações"
+#| fig-align: center
+#| fig-ext: svg
+#| out-width: 100%
+
+\usetikzlibrary{patterns,arrows.meta,decorations.pathreplacing}
+
+\begin{tikzpicture}[scale=1.4]
+
+  % Eixos
+  \draw[thick,->] (0,0) -- (8.5,0) node[below] {Quantidade};
+  \draw[thick,->] (0,0) -- (0,7) node[above] {Preço};
+
+  % Curvas de oferta e demanda
+  \draw[blue, very thick, domain=0:7.5] plot (\x, {6.5 - 0.8*\x}) node[right] {$D$};
+  \draw[red!70!black, very thick, domain=0:7.5] plot (\x, {1.0 + 0.7*\x}) node[right] {$S$};
+
+  % Coordenadas importantes
+  % Equilíbrio: D = S => 6.5 - 0.8*x = 1.0 + 0.7*x => 5.5 = 1.5*x => x = 3.667, y = 3.567
+  \def\Qeq{3.667}     % Quantidade de equilíbrio Q0
+  \def\Peq{3.567}     % Preço de equilíbrio P0
+  \def\Pw{2.5}        % Preço mundial (mais baixo)
+  \def\Qs{2.14}       % Quantidade ofertada ao preço Pw (S em Pw: 2.5 = 1.0 + 0.7*x => x = 2.14)
+  \def\Qd{5.0}        % Quantidade demandada ao preço Pw (D em Pw: 2.5 = 6.5 - 0.8*x => x = 5.0)
+
+  % Área A (ganho dos produtores - azul) - entre Pw e P0, acima da curva S
+  % Polígono: começa em (0, Pw), vai até onde S cruza P0 (Qs na altura P0), 
+  % desce pela curva S até (Qs, Pw), volta ao início
+  % S em Pw=2.5: y = 1.0 + 0.7*x => x = 2.14 (Qs)
+  % S em P0=3.567: 3.567 = 1.0 + 0.7*x => x = 3.667 (Q0)
+  \fill[blue!40, opacity=0.7] (0,\Pw) -- (0,\Peq) -- (\Qeq,\Peq) -- plot[domain=\Qeq:\Qs] (\x, {1.0 + 0.7*\x}) -- (\Qs,\Pw) -- cycle;
+
+  % Área B (perda de peso morto da produção - verde)
+  % Abaixo da curva S, entre P0 e Pw, de Qs até Q0
+  % Polígono: (Qs, Pw), (Q0, Pw), (Q0, P0), seguir curva S de volta até (Qs, na curva S)
+  % S em Qs=2.14: y = 1.0 + 0.7*2.14 = 2.5 (Pw)
+  \fill[green!50, opacity=0.6] (\Qs,\Pw) -- (\Qeq,\Pw) -- (\Qeq,\Peq) -- plot[domain=\Qeq:\Qs] (\x, {1.0 + 0.7*\x}) -- cycle;
+
+  % Área C (perda de peso morto do consumo - cinza médio)
+  % Abaixo da curva D, entre P0 e Pw, de Q0 até Qd
+  % Polígono: (Q0, P0), (Q0, Pw), (Qd, Pw), seguir curva D de volta até (Q0, P0)
+  % D em Qd=5.0: y = 6.5 - 0.8*5.0 = 2.5 (Pw)
+  \fill[gray!50, opacity=0.7] (\Qeq,\Peq) -- (\Qeq,\Pw) -- (\Qd,\Pw) -- plot[domain=\Qd:\Qeq] (\x, {6.5 - 0.8*\x}) -- cycle;
+
+  % Linhas tracejadas horizontais
+  \draw[dashed, gray] (0,\Peq) node[left] {$P_0$} -- (\Qeq,\Peq);
+  \draw[dashed, gray] (0,\Pw) node[left] {$P_w$} -- (\Qd,\Pw);
+
+  % Linhas tracejadas verticais
+  \draw[dashed, gray] (\Qs,0) node[below] {$Q_s$} -- (\Qs,\Peq);
+  \draw[dashed, gray] (\Qeq,0) node[below] {$Q_0$} -- (\Qeq,\Peq);
+  \draw[dashed, gray] (\Qd,0) node[below] {$Q_d$} -- (\Qd,\Pw);
+
+  % Chave para importações
+  \draw[decorate, decoration={brace, amplitude=5pt, mirror}, thick] 
+  (\Qs,-0.5) -- (\Qd,-0.5) node[midway, below, yshift=-5pt] {Importações};
+
+  % Rótulos das áreas
+  % Área A: polígono complexo acima da curva S, entre Pw e P0
+  % Aproximação do centro: entre (0, Pw) e (Q0, P0), considerando a curva S
+  \node at (1.5, 3.0) {\large $A$};
+  % Área B: triângulo com vértices aproximados (Qs, Pw), (Q0, Pw), (Q0, P0)
+  % Centróide: ((2.14+3.667+3.667)/3, (2.5+2.5+3.567)/3) = (3.16, 2.86)
+  \node at (3.16, 2.86) {\large $B$};
+  % Área C: triângulo com vértices aproximados (Q0, P0), (Q0, Pw), (Qd, Pw)
+  % Centróide: ((3.667+3.667+5.0)/3, (3.567+2.5+2.5)/3) = (4.11, 2.86)
+  \node at (4.11, 2.86) {\large $C$};
+
+  % Pontos de interseção
+  \fill (\Qs,\Pw) circle (2pt);
+  \fill (\Qeq,\Peq) circle (2pt);
+  \fill (\Qd,\Pw) circle (2pt);
+
+\end{tikzpicture}
+
+
+```
+
+:::
+::: {.column width="40%"}
+
+Anotações 9.14!
+
+:::
+:::
+
+<!-- }}} -->
+
+ <!-- Tarifa ou quota de importação - caso genérico {{{ -->
+
+## Tarifa ou quota de importação - caso genérico
+
+::: columns
+::: {.column width="60%"}
+
+```{tikz engine.opts=font_opts}
+#| label: taritas-quotas-importacao-caso-generico
+#| echo: true
+#| code-fold: true
+#| fig-cap: "Tarifa ou quota de importação - caso genérico"
+#| fig-align: center
+#| fig-ext: svg
+#| out-width: 100%
+
+\usetikzlibrary{patterns,arrows.meta,decorations.pathreplacing}
+
+\begin{tikzpicture}[scale=1.4, >=Stealth]
+
+  % Eixos
+  \draw[thick,->] (0,0) -- (9,0) node[below] {Quantidade};
+  \draw[thick,->] (0,0) -- (0,7) node[above] {Preço};
+
+  % Curvas de oferta e demanda - mais verticais
+  \draw[blue, very thick, domain=1.5:7] plot (\x, {7.5 - 1.0*\x}) node[right] {$D$};
+  \draw[red!70!black, very thick, domain=0:6] plot (\x, {0.8 + 1.0*\x}) node[right] {$S$};
+
+  % Coordenadas importantes
+  % Novas curvas: D: y = 7.5 - 1.0*x, S: y = 0.8 + 1.0*x
+  \def\Pw{1.8}        % Preço mundial (mais baixo)
+  \def\Pt{3.0}        % Preço com tarifa/quota (mais baixo)
+  % Qs: 1.8 = 0.8 + 1.0*x => x = 1.0
+  \def\Qs{1.0}        % Qs - oferta doméstica a Pw
+  % Qs': 3.0 = 0.8 + 1.0*x => x = 2.2
+  \def\Qsp{2.2}       % Qs' - oferta doméstica a P*
+  % Qd: 1.8 = 7.5 - 1.0*x => x = 5.7
+  \def\Qd{5.7}        % Qd - demanda a Pw
+  % Qd': 3.0 = 7.5 - 1.0*x => x = 4.5
+  \def\Qdp{4.5}       % Qd' - demanda a P*
+
+  % Área A (ganho dos produtores) - entre Pw e P*, à esquerda da curva S
+  % Polígono: (0, Pw), (0, P*), (Qs', P*), seguir curva S até (Qs, Pw)
+  % S em Qs=1.0: y = 0.8 + 1.0*1.0 = 1.8 (Pw)
+  % S em Qs'=2.2: y = 0.8 + 1.0*2.2 = 3.0 (P*)
+  \fill[blue!40, opacity=0.7] (0,\Pw) -- (0,\Pt) -- (\Qsp,\Pt) -- plot[domain=\Qsp:\Qs] (\x, {0.8 + 1.0*\x}) -- (\Qs,\Pw) -- cycle;
+
+  % Área B (perda de peso morto da produção) - triângulo entre Pw e P*, Qs e Qs', abaixo da curva S
+  % Polígono: (Qs, Pw), (Qs', Pw), (Qs', P*), seguir curva S de volta até (Qs, Pw)
+  % S em Qs=1.0: y = 0.8 + 1.0*1.0 = 1.8 (Pw)
+  % S em Qs'=2.2: y = 0.8 + 1.0*2.2 = 3.0 (P*)
+  \fill[green!50, opacity=0.6] (\Qs,\Pw) -- (\Qsp,\Pw) -- (\Qsp,\Pt) -- plot[domain=\Qsp:\Qs] (\x, {0.8 + 1.0*\x}) -- cycle;
+
+  % Área D (receita da quota/tarifa - retângulo entre P* e Pw, Qs' e Qd')
+  \fill[orange!40, opacity=0.7] (\Qsp,\Pw) rectangle (\Qdp,\Pt);
+
+  % Área C (perda de peso morto do consumo)
+  \fill[gray!50, opacity=0.7] (\Qdp,\Pt) -- (\Qd,\Pw) -- (\Qdp,\Pw) -- cycle;
+
+  % Linhas tracejadas horizontais
+  \draw[dashed, gray] (0,\Pt) node[left] {$P^*$} -- (\Qdp,\Pt);
+  \draw[dashed, gray] (0,\Pw) node[left] {$P_w$} -- (\Qd,\Pw);
+
+  % Linhas tracejadas verticais
+  \draw[dashed, gray] (\Qs,0) node[below] {$Q_s$} -- (\Qs,\Pw);
+  \draw[dashed, gray] (\Qsp,0) node[below] {$Q'_s$} -- (\Qsp,\Pt);
+  \draw[dashed, gray] (\Qdp,0) node[below] {$Q'_d$} -- (\Qdp,\Pt);
+  \draw[dashed, gray] (\Qd,0) node[below] {$Q_d$} -- (\Qd,\Pw);
+
+  % Seta indicando T (tarifa)
+  \draw[<->, very thick, blue!70!black] (0.3,\Pw) -- (0.3,\Pt) node[midway, left] {$T$};
+
+  % Setas e texto "Quota" dentro do retângulo D
+  \draw[<->, thick] (\Qsp,{(\Pw+\Pt)/2}) -- (\Qdp,{(\Pw+\Pt)/2}) node[midway, above] {Quota};
+
+  % Rótulos das áreas
+  % Área A: polígono à esquerda da curva S, entre Pw e P*
+  % Centro aproximado: considerando eixo Y e curva S
+  \node at (0.8, 2.4) {\large $A$};
+  % Área B: triângulo com vértices aproximados (Qs, Pw), (Qs', Pw), (Qs', P*)
+  % Centróide: ((1.0+2.2+2.2)/3, (1.8+1.8+3.0)/3) = (1.8, 2.2)
+  \node at (1.8, 2.2) {\large $B$};
+  % Área C: triângulo (Qd', P*), (Qd, Pw), (Qd', Pw)
+  % Centróide: ((4.5+5.7+4.5)/3, (3.0+1.8+1.8)/3) = (4.9, 2.2)
+  \node at (4.9, 2.2) {\large $C$};
+  % Área D: retângulo (Qs', Pw) a (Qd', P*)
+  % Centro: ((2.2+4.5)/2, (1.8+3.0)/2) = (3.35, 2.4)
+  % Movido para baixo para evitar sobreposição com setas
+  \node at (3.35, 2.0) {\large $D$};
+
+  % Pontos importantes
+  \fill (\Qs,\Pw) circle (2pt);
+  \fill (\Qsp,\Pt) circle (2pt);
+  \fill (\Qdp,\Pt) circle (2pt);
+  \fill (\Qd,\Pw) circle (2pt);
+
+  % Pontos de interseção das curvas com os preços
+  \fill (\Qs,{0.8 + 1.0*\Qs}) circle (2pt);
+  \fill (\Qsp,{0.8 + 1.0*\Qsp}) circle (2pt);
+
+\end{tikzpicture}
+
+```
+
+:::
+::: {.column width="40%"}
+
+Anotações 9.15!
+
+:::
+:::
+
+<!-- }}} -->
+
+ <!-- Incidência de um imposto {{{ -->
+
+## Incidência de um imposto
+
+::: columns
+::: {.column width="60%"}
+
+```{tikz engine.opts=font_opts}
+#| label: incidencia-de-imposto
+#| echo: true
+#| code-fold: true
+#| fig-cap: "Incidência de um imposto"
+#| fig-align: center
+#| fig-ext: svg
+#| out-width: 100%
+
+\usetikzlibrary{patterns}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{decorations.pathreplacing} % NECESSÁRIO para brace
+
+\begin{tikzpicture}[scale=1.4, >=Stealth]
+
+  % Eixos
+  \draw[thick,->] (0,0) -- (8,0) node[right] {Quantidade};
+  \draw[thick,->] (0,0) -- (0,7) node[above] {Preço};
+
+  % Curvas de oferta e demanda - mais verticais
+  \draw[blue, very thick, domain=0.5:6.5] plot (\x, {7.0 - 1.0*\x}) node[right] {$D$};
+  \draw[red!70!black, very thick, domain=0:6.5] plot (\x, {0.9*\x}) node[right] {$S$};
+
+  % Coordenadas importantes
+  % Novas curvas: D: y = 7.0 - 1.0*x, S: y = 0.9*x
+  % Equilíbrio: 7.0 - 1.0*x = 0.9*x => 7.0 = 1.9*x => x = 3.68, y = 3.32
+  \def\Qeq{3.68}      % Quantidade de equilíbrio sem imposto
+  \def\Qt{2.5}        % Quantidade com imposto (reduzido para aumentar diferença)
+  \def\Peq{3.32}      % Preço de equilíbrio sem imposto
+  \def\Pb{4.5}        % Preço pago pelos compradores (com imposto) - mais elevado
+  \def\Ps{2.25}       % Preço recebido pelos vendedores (menos imposto) - mais baixo
+
+  % Área A (perda excedente do consumidor - azul)
+  \fill[blue!50, opacity=0.7] (0,\Pb) rectangle (\Qt,\Peq);
+
+  % Área D (receita do governo dos consumidores - amarelo claro)
+  \fill[yellow!40, opacity=0.8] (0,\Peq) rectangle (\Qt,\Ps);
+
+  % Área B (perda de peso morto do lado da demanda) - com textura cinza
+  \fill[cyan!40, opacity=0.7] (\Qt,\Pb) -- (\Qt,\Peq) -- (\Qeq,\Peq) -- cycle;
+  \fill[pattern=north east lines, pattern color=gray!60] (\Qt,\Pb) -- (\Qt,\Peq) -- (\Qeq,\Peq) -- cycle;
+
+  % Área C (perda de peso morto do lado da oferta) - com textura
+  \fill[gray!40, opacity=0.7] (\Qt,\Peq) -- (\Qt,\Ps) -- (\Qeq,\Peq) -- cycle;
+  \fill[pattern=north west lines, pattern color=gray!60] (\Qt,\Peq) -- (\Qt,\Ps) -- (\Qeq,\Peq) -- cycle;
+
+  % Linhas tracejadas horizontais
+  \draw[dashed, gray] (0,\Pb) node[left] {$P_c$} -- (\Qt,\Pb);
+  \draw[dashed, gray] (0,\Peq) node[left] {$P_0$} -- (\Qeq,\Peq);
+  \draw[dashed, gray] (0,\Ps) node[left] {$P_v$} -- (\Qt,\Ps);
+
+  % Linhas tracejadas verticais
+  \draw[dashed, gray] (\Qt,0) node[below] {$Q_1$} -- (\Qt,\Pb);
+  \draw[dashed, gray] (\Qeq,0) node[below] {$Q_0$} -- (\Qeq,\Peq);
+
+  % Rótulos das áreas
+  % Área A: retângulo (0, Peq) a (Qt, Pb)
+  % Centro: ((0+Qt)/2, (Peq+Pb)/2) = (1.25, 3.66)
+  \node at (1.25, 3.66) {\large $A$};
+  % Área B: triângulo (Qt, Pb), (Qt, Peq), (Qeq, Peq)
+  % Centróide: ((Qt+Qt+Qeq)/3, (Pb+Peq+Peq)/3) = ((2.5+2.5+3.68)/3, (4.5+3.32+3.32)/3) = (2.89, 3.71)
+  \node at (2.89, 3.71) {\large $B$};
+  % Área C: triângulo (Qt, Peq), (Qt, Ps), (Qeq, Peq)
+  % Centróide: ((Qt+Qt+Qeq)/3, (Peq+Ps+Peq)/3) = ((2.5+2.5+3.68)/3, (3.32+2.25+3.32)/3) = (2.89, 2.96)
+  \node at (2.89, 2.96) {\large $C$};
+  % Área D: retângulo (0, Ps) a (Qt, Peq)
+  % Centro: ((0+Qt)/2, (Ps+Peq)/2) = (1.25, 2.79)
+  \node at (1.25, 2.79) {\large $D$};
+
+  % Pontos de equilíbrio
+  \fill (\Qeq,\Peq) circle (2pt);
+  \fill (\Qt,\Pb) circle (2pt);
+  \fill (\Qt,\Ps) circle (2pt);
+
+  % Chave mostrando o imposto - do lado esquerdo de Q1
+  % Usando delimitador LaTeX apropriado com fonte menor
+  \draw[decorate,decoration={brace,amplitude=8pt}]
+  (2.4,2.3) -- (2.4,4.44) node[midway,left=13pt] {$t$};
+  % \node at (\Qt+0.3,{(\Ps+\Pb)/2}) [left, scale=2.9] {\tiny $\Biggl\{$};
+  % \node at (\Qt-0.45,{(\Ps+\Pb)/2}) [left] {$t$};
+
+\end{tikzpicture}
+
+```
+
+:::
+::: {.column width="40%"}
+
+Anotações 9.17!
+
+:::
+:::
+
+<!-- }}} -->
+
+ <!-- Imposto e elasticidades {{{ -->
+
+## Imposto e elasticidades
+
+::: columns
+::: {.column width="50%"}
+
+```{tikz engine.opts=font_opts}
+#| label: imposto-elasticidades-a
+#| echo: true
+#| code-fold: true
+#| fig-cap: "Impostos e elasticidade"
+#| fig-align: center
+#| fig-ext: svg
+#| out-width: 80%
+
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{decorations.pathreplacing} % NECESSÁRIO para brace
+
+% Gráfico (a) - Demanda Inelástica
+\begin{tikzpicture}[scale=1.3, >=Stealth]
+
+  % Eixos
+  \draw[thick,->] (0,0) -- (6,0) node[below] {Quantidade};
+  \draw[thick,->] (0,0) -- (0,7) node[above] {Preço};
+
+  % Curvas de oferta e demanda
+  % Demanda muito inelástica (quase vertical) - passa por (Q_0, P_0) e (Q_1, P_c)
+  \draw[blue, very thick, domain=2.5:4.0] plot (\x, {15.5515 - 3.7692*\x}) node[above right] {$D$};
+
+  % Oferta relativamente elástica (mais horizontal)
+  \draw[red!70!black, very thick, domain=0.5:5.5] plot (\x, {1 + 0.6*\x}) node[right] {$S$};
+
+  % Coordenadas importantes
+  \def\Qeq{3.33}
+  \def\Peq{3.0}
+  \def\Qt{2.94}
+  \def\Pc{4.47}
+  \def\Ps{2.76}
+
+  % Ponto de equilíbrio original
+  \fill (3.33, 3.0) circle (2pt);
+
+  % Ponto com imposto
+  \fill (\Qt, \Pc) circle (2pt);
+  \fill (\Qt, \Ps) circle (2pt);
+
+  % Linhas tracejadas
+  \draw[dashed, gray] (0,\Pc) node[left] {$P_c$} -- (\Qt,\Pc);
+  \draw[dashed, gray] (0,\Peq) node[left] {$P_0$} -- (\Qeq,\Peq);
+  \draw[dashed, gray] (0,\Ps) node[left] {$P_v$} -- (\Qt,\Ps);
+
+  \draw[dashed, gray] (\Qt,0) node[below] {$Q_1$} -- (\Qt,\Pc);
+  \draw[dashed, gray] (\Qeq,0) node[below] {$Q_0$} -- (\Qeq,\Peq);
+
+  % Chave mostrando o imposto t
+  \draw[decorate,decoration={brace,amplitude=8pt}]
+  (\Qt-0.1,\Ps) -- (\Qt-0.1,\Pc) node[midway,left=8pt] {$t$};
+
+  % Legenda (a)
+  \node[below] at (3, -0.8) {(a)};
+
+\end{tikzpicture}
+
+```
+
+:::
+::: {.column width="50%"}
+
+```{tikz engine.opts=font_opts}
+#| label: imposto-elasticidades-b
+#| echo: true
+#| code-fold: true
+#| fig-cap: "Impostos e elasticidade"
+#| fig-align: center
+#| fig-ext: svg
+#| out-width: 80%
+
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{decorations.pathreplacing} % NECESSÁRIO para brace
+
+% Gráfico (b) - Oferta Inelástica
+\begin{tikzpicture}[scale=1.3, >=Stealth]
+
+  % Eixos
+  \draw[thick,->] (0,0) -- (6,0) node[below] {Quantidade};
+  \draw[thick,->] (0,0) -- (0,7) node[above] {Preço};
+
+  % Curvas de oferta e demanda
+  % Demanda muito elástica (mais horizontal)
+  \draw[cyan, very thick, domain=0.5:5.5] plot (\x, {5.5 - 0.6*\x}) node[right] {$D$};
+
+  % Oferta muito inelástica (quase vertical) - passa por (Q_0, P_0) e (Q_1, P_v)
+  \draw[red!70!black, very thick, domain=2.3:3.3] plot (\x, {-8.5 + 4.16*\x}) node[above right] {$S$};
+
+  % Coordenadas importantes
+  \def\Qeq{3.0}
+  \def\Peq{3.7}
+  \def\Qt{2.63}
+  \def\Pc{3.92}
+  \def\Ps{2.16}
+
+  % Ponto de equilíbrio original
+  \fill (\Qeq, \Peq) circle (2pt);
+
+  % Ponto com imposto
+  \fill (\Qt, \Pc) circle (2pt);
+  \fill (\Qt, \Ps) circle (2pt);
+
+  % Linhas tracejadas
+  \draw[dashed, gray] (0,\Pc) node[left] {$P_c$} -- (\Qt,\Pc);
+  \draw[dashed, gray] (0,\Peq) node[left] {$P_0$} -- (\Qeq,\Peq);
+  \draw[dashed, gray] (0,\Ps) node[left] {$P_v$} -- (\Qt,\Ps);
+
+  \draw[dashed, gray] (\Qt,0) node[below] {$Q_1$} -- (\Qt,\Pc);
+  \draw[dashed, gray] (\Qeq,0) node[below] {$Q_0$} -- (\Qeq,\Peq);
+
+  % Chave mostrando o imposto t
+  \draw[decorate,decoration={brace,amplitude=8pt}]
+  (\Qt-0.1,\Ps) -- (\Qt-0.1,\Pc) node[midway,left=8pt] {$t$};
+
+  % Legenda (b)
+  \node[below] at (3, -0.8) {(b)};
+
+\end{tikzpicture}
+
+```
+
+
+:::
+:::
+
+<!-- }}} -->
+
+ <!-- Subsídio {{{ -->
+
+## Subsídio
+
+::: columns
+::: {.column width="60%"}
+
+```{tikz engine.opts=font_opts}
+#| label: subsidio
+#| echo: true
+#| code-fold: true
+#| fig-cap: "Subsídio"
+#| fig-align: center
+#| fig-ext: svg
+#| out-width: 100%
+
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{decorations.pathreplacing} % NECESSÁRIO para brace
+
+\begin{tikzpicture}[scale=1.1]
+
+  % Eixos
+  \draw[->] (0,0) -- (8,0) node[below]{Quantidade};
+  \draw[->] (0,0) -- (0,6) node[above]{Preço};
+
+  % Curva de demanda (passa exatamente por Q0, P0)
+  \draw[blue, thick] (0.5,5.01) -- (7.5,0.50) node[right] {$D$};
+
+  % Curva de oferta original (passa exatamente por Q0, P0)
+  \draw[red, thick] (0.5,0.20) -- (7.2,5.50) node[right] {$S$};
+
+  % Linhas tracejadas horizontais PV, P0 e PC (até a curva S)
+  \draw[dashed] (0,3.8) -- (5.05,3.8);
+  \draw[dashed] (0,2.85) -- (3.85,2.85);
+  \draw[dashed] (0,2.2) -- (5.05,2.2);
+
+  % Pontos sobre a curva de oferta S
+  \filldraw[black] (5.00,2.12) circle (2pt);   % D em P_c
+  \filldraw[black] (3.85,2.85) circle (2pt);  % Equilíbrio S∩D em (Q0, P0)
+  \filldraw[black] (5.05,3.8) circle (2pt);   % S em P_v (= Q1)
+
+  % Ponto sobre a curva de demanda D em (Q1, Pv)
+  % \filldraw[black] (5.05,3.8) circle (2pt);
+
+  % Rótulos no eixo Y
+  \node[left] at (0,3.8) {$P_v$};
+  \node[left] at (0,2.85) {$P_0$};
+  \node[left] at (0,2.2) {$P_c$};
+
+  % Linhas tracejadas verticais Q0 e Q1
+  \draw[dashed] (3.85,0) -- (3.85,2.85);
+  \draw[dashed] (5.05,0) -- (5.05,3.8);
+
+  % Rótulos no eixo X
+  \node[below] at (3.85,0) {$Q_0$};
+  \node[below] at (5.05,0) {$Q_1$};
+
+  % Conexão vertical entre Pv e Pc (benefício do subsídio)
+  \draw[decorate,decoration={brace,amplitude=8pt,mirror}]
+  (5.35,2.2) -- (5.35,3.8) node[midway,right=8pt] {$s$};
+
+\end{tikzpicture}
+
+```
+
+:::
+::: {.column width="40%"}
+
+Anotações 9.19!
+
+:::
+:::
+
+<!-- }}} -->
 
 ## Referências
 

@@ -6,11 +6,12 @@
 <script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.25">
+<link href="index_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.4.550">
 
   <meta name="author" content="Roney Fraga Souza">
-  <meta name="dcterms.date" content="2025-11-19">
+  <meta name="dcterms.date" content="2025-11-25">
   <title>Concorrência Perfeita</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -30,9 +31,8 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -71,7 +71,7 @@
     code span.at { color: #657422; } /* Attribute */
     code span.bn { color: #ad0000; } /* BaseN */
     code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.cf { color: #003b4f; } /* ControlFlow */
     code span.ch { color: #20794d; } /* Char */
     code span.cn { color: #8f5902; } /* Constant */
     code span.co { color: #5e5e5e; } /* Comment */
@@ -85,7 +85,7 @@
     code span.fu { color: #4758ab; } /* Function */
     code span.im { color: #00769e; } /* Import */
     code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.kw { color: #003b4f; } /* Keyword */
     code span.op { color: #5e5e5e; } /* Operator */
     code span.ot { color: #003b4f; } /* Other */
     code span.pp { color: #ad0000; } /* Preprocessor */
@@ -116,13 +116,211 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-titled.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-titled) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-titled .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-titled .callout-title  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-titled.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-titled.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-title {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-title {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-title {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-titled .callout-body > .callout-content > :last-child {
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
+  }
+
+  .callout.callout-titled .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-titled) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-title {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-title {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-title {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-title {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-title {
+    background-color: #ffe5d0
+  }
+
+  </style>
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -230,7 +428,7 @@ Roney Fraga Souza
     </div>
 </div>
 
-  <p class="date">2025-11-19</p>
+  <p class="date">2025-11-25</p>
 </section>
 <section class="slide level2">
 
@@ -245,9 +443,9 @@ Roney Fraga Souza
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource tex number-lines code-with-copy"><code class="sourceCode latex"><span id="cb1-1"><a href=""></a><span class="fu">\usetikzlibrary</span>{patterns,arrows.meta}</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource tex number-lines code-with-copy"><code class="sourceCode latex"><span id="cb1-1"><a href=""></a><span class="fu">\usetikzlibrary</span>{patterns,arrows.meta}</span>
 <span id="cb1-2"><a href=""></a></span>
-<span id="cb1-3"><a href=""></a><span class="kw">\begin</span>{<span class="ex">tikzpicture</span>}[scale=1.1, &gt;=Stealth]</span>
+<span id="cb1-3"><a href=""></a><span class="kw">\begin</span>{<span class="ex">tikzpicture</span>}[scale=1.1]</span>
 <span id="cb1-4"><a href=""></a>    </span>
 <span id="cb1-5"><a href=""></a>    <span class="co">% Eixos</span></span>
 <span id="cb1-6"><a href=""></a>    <span class="fu">\draw</span>[thick,-&gt;] (0,0) -- (8,0) node[below] {Quantidade};</span>
@@ -288,20 +486,28 @@ Roney Fraga Souza
 <span id="cb1-41"><a href=""></a>    <span class="fu">\draw</span>[-&gt;, thick] (4.0, 5.2) -- (2.0, 4.5);</span>
 <span id="cb1-42"><a href=""></a>    <span class="fu">\draw</span>[-&gt;, thick] (4.0, 1.8) -- (2.0, 2.5);</span>
 <span id="cb1-43"><a href=""></a>    </span>
-<span id="cb1-44"><a href=""></a><span class="kw">\end</span>{<span class="ex">tikzpicture</span>}</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-44"><a href=""></a><span class="kw">\end</span>{<span class="ex">tikzpicture</span>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/excedentes-1.svg" style="width:100.0%"></p>
-<figcaption>Excedentes</figcaption>
+<p><img data-src="index_files/figure-revealjs/excedentes-1.svg" class="quarto-figure quarto-figure-center" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 </div><div class="column" style="width:40%;">
-<p>Anotações!</p>
-</div></div>
+<p><br></p>
+<div style="font-size: 80%; text-align: left; line-height: 1.0em; color: black; ">
+<ul>
+<li>O consumidor A pagaria US$ 10 pelo bem cujo preço de mercado fosse US$ 5 e, portanto, desfruta de um benefício de US$ 5. O consumidor B desfruta de um benefício de US$ 2 e o consumidor C, que avalia o bem exatamente pelo preço de mercado, não desfruta de benefício algum.</li>
+<li>O excedente do consumidor, que mede o benefício total para todos os consumidores, é a área sombreada superior, entre a curva de demanda e o preço de mercado.</li>
+<li>O excedente do produtor mede o lucro total dos produtores mais as rendas referentes aos insumos de produção. É a área sombreada inferior, entre a curva de oferta e o preço de mercado.</li>
+<li>Em conjunto, os excedentes do produtor e do consumidor medem o bem-estar decorrente de um mercado competitivo.</li>
+</ul>
+</div>
+</div>
+</div>
 <!-- }}} -->
 <!-- Variação dos excedentes {{{ -->
 </section>
@@ -312,7 +518,7 @@ Roney Fraga Souza
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource tex number-lines code-with-copy"><code class="sourceCode latex"><span id="cb2-1"><a href=""></a><span class="fu">\usetikzlibrary</span>{patterns, positioning, decorations.pathreplacing}</span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource tex number-lines code-with-copy"><code class="sourceCode latex"><span id="cb2-1"><a href=""></a><span class="fu">\usetikzlibrary</span>{patterns, positioning, decorations.pathreplacing}</span>
 <span id="cb2-2"><a href=""></a></span>
 <span id="cb2-3"><a href=""></a><span class="kw">\begin</span>{<span class="ex">tikzpicture</span>}[scale=1.1]</span>
 <span id="cb2-4"><a href=""></a>    <span class="co">% Eixos</span></span>
@@ -379,66 +585,1052 @@ Roney Fraga Souza
 <span id="cb2-65"><a href=""></a>    <span class="fu">\draw</span>[thick, decoration={brace, amplitude=8pt, mirror}, decorate] (2.15,0.8) -- (5.09,0.8);</span>
 <span id="cb2-66"><a href=""></a>    <span class="fu">\node</span> at (3.62, 0.4) {Escassez};</span>
 <span id="cb2-67"><a href=""></a></span>
-<span id="cb2-68"><a href=""></a><span class="kw">\end</span>{<span class="ex">tikzpicture</span>}</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-68"><a href=""></a><span class="kw">\end</span>{<span class="ex">tikzpicture</span>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/variacao-dos-excedentes-via-controle-dos-precos-1.svg" style="width:100.0%"></p>
-<figcaption>Variação dos excedentes via controle dos preços</figcaption>
+<p><img data-src="index_files/figure-revealjs/variacao-dos-excedentes-via-controle-dos-precos-1.svg" class="quarto-figure quarto-figure-center" style="width:90.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 </div><div class="column" style="width:40%;">
-<p>Anotações!</p>
-</div></div>
+<p><br></p>
+<div style="font-size: 80%; text-align: left; line-height: 1.0em; color: black; ">
+<ul>
+<li>O preço máximo de um bem foi fixado em <span class="math inline">\(P_{max}\)</span>, que está abaixo do preço de mercado <span class="math inline">\(P_0\)</span>.</li>
+<li>O ganho dos consumidores é a diferença entre o retângulo A e o triângulo B.</li>
+<li>A perda dos produtores é a soma do retângulo A e do triângulo C.</li>
+<li>Os triângulos B e C em conjunto medem o peso morto causado pelo controle de preços.</li>
+<li>A variação do excedente do consumidor é A – B e de que a variação do excedente do produtor é –A – C. Por isso, a variação total do excedente é (A – B) + (–A – C) = –B – C.</li>
+<li>Peso morto <span class="math inline">\(=\)</span> Perda líquida de excedente total (considerando-se o do consumidor e o do produtor).</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- }}} -->
+<p><!-- Demanda inelástica {{{ --></p>
+</section>
+<section id="demanda-inelástica" class="slide level2">
+<h2>Demanda inelástica</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource tex number-lines code-with-copy"><code class="sourceCode latex"><span id="cb3-1"><a href=""></a><span class="fu">\usetikzlibrary</span>{patterns, positioning}</span>
+<span id="cb3-2"><a href=""></a></span>
+<span id="cb3-3"><a href=""></a><span class="kw">\begin</span>{<span class="ex">tikzpicture</span>}[scale=1.2]</span>
+<span id="cb3-4"><a href=""></a>  <span class="co">% Eixos</span></span>
+<span id="cb3-5"><a href=""></a>  <span class="fu">\draw</span>[thick, -&gt;] (0,0) -- (8,0) node[below] {Quantidade};</span>
+<span id="cb3-6"><a href=""></a>  <span class="fu">\draw</span>[thick, -&gt;] (0,0) -- (0,7) node[above] {Preço};</span>
+<span id="cb3-7"><a href=""></a></span>
+<span id="cb3-8"><a href=""></a>  <span class="co">% Curva de Demanda (D) - mais vertical (inelástica), passa por (3.6, 3.5) e (4.5, 0)</span></span>
+<span id="cb3-9"><a href=""></a>  <span class="co">% y = 17.5 - 3.89*x, em y=7: x = (17.5-7)/3.89 = 2.7</span></span>
+<span id="cb3-10"><a href=""></a>  <span class="fu">\draw</span>[thick, blue!80, line width=1.5pt] (2.7,7) node[right] {<span class="ss">$D$</span>} -- (4.5,0);</span>
+<span id="cb3-11"><a href=""></a></span>
+<span id="cb3-12"><a href=""></a>  <span class="co">% Curva de Oferta (S) - passa por (3.6, 3.5)</span></span>
+<span id="cb3-13"><a href=""></a>  <span class="co">% Ajustando para interceptar exatamente em (3.6, 3.5)</span></span>
+<span id="cb3-14"><a href=""></a>  <span class="fu">\draw</span>[thick, purple!80, line width=1.5pt] (0.5,1.24) -- (7,6.0) node[right] {<span class="ss">$S$</span>};</span>
+<span id="cb3-15"><a href=""></a></span>
+<span id="cb3-16"><a href=""></a>  <span class="co">% Interseção (equilíbrio de mercado) em Q2, P0</span></span>
+<span id="cb3-17"><a href=""></a>  <span class="fu">\coordinate</span> (E) at (3.6,3.5);</span>
+<span id="cb3-18"><a href=""></a></span>
+<span id="cb3-19"><a href=""></a>  <span class="co">% Preço de equilíbrio</span></span>
+<span id="cb3-20"><a href=""></a>  <span class="fu">\coordinate</span> (P0) at (0,3.5);</span>
+<span id="cb3-21"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (P0) -- (E);</span>
+<span id="cb3-22"><a href=""></a>  <span class="fu">\draw</span> (0,3.5) node[left] {<span class="ss">$P_0$</span>};</span>
+<span id="cb3-23"><a href=""></a></span>
+<span id="cb3-24"><a href=""></a>  <span class="co">% Preço máximo</span></span>
+<span id="cb3-25"><a href=""></a>  <span class="fu">\coordinate</span> (Pmax) at (0,2.8);</span>
+<span id="cb3-26"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (Pmax) -- (7,2.8);</span>
+<span id="cb3-27"><a href=""></a>  <span class="fu">\draw</span> (0,2.8) node[left] {<span class="ss">$P_{</span><span class="sc">\text</span>{máx}<span class="ss">}$</span>};</span>
+<span id="cb3-28"><a href=""></a></span>
+<span id="cb3-29"><a href=""></a>  <span class="co">% Quantidades</span></span>
+<span id="cb3-30"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (2.7,7) -- (2.7,0) node[below] {<span class="ss">$Q_1$</span>};</span>
+<span id="cb3-31"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (3.6,3.5) -- (3.6,0) node[below] {<span class="ss">$Q_2$</span>};</span>
+<span id="cb3-32"><a href=""></a></span>
+<span id="cb3-33"><a href=""></a>  <span class="co">% Pontos de interseção</span></span>
+<span id="cb3-34"><a href=""></a>  <span class="co">% Oferta em x=2.7: y = 1.24 + (6.0-1.24)/(7-0.5) * (2.7-0.5) = 2.85</span></span>
+<span id="cb3-35"><a href=""></a>  <span class="fu">\coordinate</span> (S1) at (2.7,2.85);</span>
+<span id="cb3-36"><a href=""></a>  <span class="fu">\coordinate</span> (D1) at (3.45,2.8);</span>
+<span id="cb3-37"><a href=""></a></span>
+<span id="cb3-38"><a href=""></a>  <span class="co">% Área A (retângulo - excedente transferido)</span></span>
+<span id="cb3-39"><a href=""></a>  <span class="fu">\fill</span>[blue!40, opacity=0.6] (0,2.8) rectangle (2.7,3.5);</span>
+<span id="cb3-40"><a href=""></a>  <span class="fu">\node</span> at (1.35,3.15) {<span class="ss">$A$</span>};</span>
+<span id="cb3-41"><a href=""></a></span>
+<span id="cb3-42"><a href=""></a>  <span class="co">% Área B (triângulo - abaixo da curva de demanda até P0)</span></span>
+<span id="cb3-43"><a href=""></a>  <span class="co">% Pontos: (2.7, P_max=2.8), (2.7, P0=3.5), ponto na demanda em x=2.7 (que é y=7, mas limitado por P0)</span></span>
+<span id="cb3-44"><a href=""></a>  <span class="co">% Na verdade: de Q1 até Q2, abaixo da demanda e acima de P0</span></span>
+<span id="cb3-45"><a href=""></a>  <span class="fu">\fill</span>[cyan!50, opacity=0.5] (2.7,3.5) -- (3.6,3.5) -- (2.7,7) -- cycle;</span>
+<span id="cb3-46"><a href=""></a>  <span class="fu">\node</span> at (3.0,4.5) {<span class="fu">\small</span> <span class="ss">$B$</span>};</span>
+<span id="cb3-47"><a href=""></a></span>
+<span id="cb3-48"><a href=""></a>  <span class="co">% Área C (triângulo - acima da curva de oferta e abaixo de P0)</span></span>
+<span id="cb3-49"><a href=""></a>  <span class="co">% Pontos: (2.7, oferta em 2.7=2.85), (2.7, P0=3.5), (3.6, P0=3.5)</span></span>
+<span id="cb3-50"><a href=""></a>  <span class="fu">\fill</span>[gray!40, opacity=0.5] (2.7,2.85) -- (2.7,3.5) -- (3.6,3.5) -- cycle;</span>
+<span id="cb3-51"><a href=""></a>  <span class="fu">\node</span> at (3.1,3.3) {<span class="fu">\small</span> <span class="ss">$C$</span>};</span>
+<span id="cb3-52"><a href=""></a></span>
+<span id="cb3-53"><a href=""></a>  <span class="co">% Pontos principais</span></span>
+<span id="cb3-54"><a href=""></a>  <span class="fu">\fill</span> (E) circle (2pt);</span>
+<span id="cb3-55"><a href=""></a>  <span class="fu">\fill</span> (S1) circle (2pt);</span>
+<span id="cb3-56"><a href=""></a></span>
+<span id="cb3-57"><a href=""></a><span class="kw">\end</span>{<span class="ex">tikzpicture</span>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/demanda-inelastica-1.svg" class="quarto-figure quarto-figure-center" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<p><br></p>
+<div style="font-size: 80%; text-align: left; line-height: 1.0em; color: black; ">
+<ul>
+<li>Se a demanda é suficientemente inelástica, o triângulo B pode ser maior que o retângulo A. Nesse caso, os consumidores sofrem uma perda líquida decorrente do controle de preços.</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- }}} -->
+<p><!-- Preço fixado acima do equilíbrio {{{ --></p>
+</section>
+<section id="preço-fixado-acima-do-equilíbrio" class="slide level2">
+<h2>Preço fixado acima do equilíbrio</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource tex number-lines code-with-copy"><code class="sourceCode latex"><span id="cb4-1"><a href=""></a><span class="fu">\usetikzlibrary</span>{patterns, positioning}</span>
+<span id="cb4-2"><a href=""></a></span>
+<span id="cb4-3"><a href=""></a><span class="kw">\begin</span>{<span class="ex">tikzpicture</span>}[scale=1.3]</span>
+<span id="cb4-4"><a href=""></a>    <span class="co">% Eixos</span></span>
+<span id="cb4-5"><a href=""></a>    <span class="fu">\draw</span>[thick, -&gt;] (0,0) -- (8,0) node[below] {Quantidade};</span>
+<span id="cb4-6"><a href=""></a>    <span class="fu">\draw</span>[thick, -&gt;] (0,0) -- (0,7) node[above] {Preço};</span>
+<span id="cb4-7"><a href=""></a>    </span>
+<span id="cb4-8"><a href=""></a>    <span class="co">% Curva de Demanda (D) - ajustada para novo equilíbrio em (4.8, 3.5)</span></span>
+<span id="cb4-9"><a href=""></a>    <span class="co">% y = 6.5 - 0.625*x</span></span>
+<span id="cb4-10"><a href=""></a>    <span class="fu">\draw</span>[thick, blue!80, line width=1.5pt] (0,6.5) -- (7.5,1.8) node[right] {<span class="ss">$D$</span>};</span>
+<span id="cb4-11"><a href=""></a>    </span>
+<span id="cb4-12"><a href=""></a>    <span class="co">% Curva de Oferta (S) - inicia no eixo vertical (0, 0.8) e passa por (4.8, 3.5)</span></span>
+<span id="cb4-13"><a href=""></a>    <span class="co">% y = 0.8 + 0.5625*x</span></span>
+<span id="cb4-14"><a href=""></a>    <span class="fu">\draw</span>[thick, purple!80, line width=1.5pt] (0,0.8) -- (7.5,5.02) node[right] {<span class="ss">$S$</span>};</span>
+<span id="cb4-15"><a href=""></a>    </span>
+<span id="cb4-16"><a href=""></a>    <span class="co">% Interseção (equilíbrio de mercado) - movido para a direita</span></span>
+<span id="cb4-17"><a href=""></a>    <span class="fu">\coordinate</span> (E) at (4.8,3.5);</span>
+<span id="cb4-18"><a href=""></a>    </span>
+<span id="cb4-19"><a href=""></a>    <span class="co">% Preço de equilíbrio</span></span>
+<span id="cb4-20"><a href=""></a>    <span class="fu">\coordinate</span> (P0) at (0,3.5);</span>
+<span id="cb4-21"><a href=""></a>    <span class="fu">\draw</span>[dashed, gray] (P0) -- (E);</span>
+<span id="cb4-22"><a href=""></a>    <span class="fu">\draw</span> (0,3.5) node[left] {<span class="ss">$P_0$</span>};</span>
+<span id="cb4-23"><a href=""></a>    </span>
+<span id="cb4-24"><a href=""></a>    <span class="co">% Preço mínimo (acima do equilíbrio) - mantém proporção</span></span>
+<span id="cb4-25"><a href=""></a>    <span class="fu">\coordinate</span> (P2) at (0,4.8);</span>
+<span id="cb4-26"><a href=""></a>    </span>
+<span id="cb4-27"><a href=""></a>    <span class="co">% Calcular Q3 e Q2 corretamente</span></span>
+<span id="cb4-28"><a href=""></a>    <span class="co">% Q3: interseção de P2=4.8 com demanda D: 4.8 = 6.5 - 0.625*x =&gt; x = 2.72</span></span>
+<span id="cb4-29"><a href=""></a>    <span class="co">% Q2: interseção de P2=4.8 com oferta S: 4.8 = 0.8 + 0.5625*x =&gt; x = 7.11</span></span>
+<span id="cb4-30"><a href=""></a>    <span class="fu">\coordinate</span> (D2) at (2.72,4.8);</span>
+<span id="cb4-31"><a href=""></a>    <span class="fu">\coordinate</span> (S2) at (7.11,4.8);</span>
+<span id="cb4-32"><a href=""></a>    </span>
+<span id="cb4-33"><a href=""></a>    <span class="fu">\draw</span>[dashed, gray] (P2) -- (7.11,4.8);</span>
+<span id="cb4-34"><a href=""></a>    <span class="fu">\draw</span> (0,4.8) node[left] {<span class="ss">$P_2$</span>};</span>
+<span id="cb4-35"><a href=""></a>    </span>
+<span id="cb4-36"><a href=""></a>    <span class="co">% Quantidades - Q3 e Q2 corrigidos</span></span>
+<span id="cb4-37"><a href=""></a>    <span class="fu">\draw</span>[dashed, gray] (2.72,4.8) -- (2.72,0) node[below] {<span class="ss">$Q_3$</span>};</span>
+<span id="cb4-38"><a href=""></a>    <span class="fu">\draw</span>[dashed, gray] (4.8,3.5) -- (4.8,0) node[below] {<span class="ss">$Q_0$</span>};</span>
+<span id="cb4-39"><a href=""></a>    <span class="fu">\draw</span>[dashed, gray] (7.11,4.8) -- (7.11,0) node[below] {<span class="ss">$Q_2$</span>};</span>
+<span id="cb4-40"><a href=""></a>    </span>
+<span id="cb4-41"><a href=""></a>    <span class="co">% Área A (retângulo - transferência de excedente do consumidor) - mais comprido</span></span>
+<span id="cb4-42"><a href=""></a>    <span class="fu">\fill</span>[blue!40, opacity=0.6] (0,3.5) rectangle (2.72,4.8);</span>
+<span id="cb4-43"><a href=""></a>    <span class="fu">\node</span> at (1.36,4.15) {<span class="ss">$A$</span>};</span>
+<span id="cb4-44"><a href=""></a>    </span>
+<span id="cb4-45"><a href=""></a>    <span class="co">% Triângulo B (acima do preço P0 e abaixo da curva de demanda)</span></span>
+<span id="cb4-46"><a href=""></a>    <span class="co">% Pontos: (2.72, P2=4.8), (4.8, P0=3.5), (2.72, P0=3.5)</span></span>
+<span id="cb4-47"><a href=""></a>    <span class="co">% Forma um triângulo entre Q3, Q0 e a curva de demanda</span></span>
+<span id="cb4-48"><a href=""></a>    <span class="fu">\fill</span>[green!40, opacity=0.5] (2.72,4.8) -- (4.8,3.5) -- (2.72,3.5) -- cycle;</span>
+<span id="cb4-49"><a href=""></a>    <span class="fu">\node</span> at (3.4,4.0) {<span class="fu">\small</span> <span class="ss">$B$</span>};</span>
+<span id="cb4-50"><a href=""></a>    </span>
+<span id="cb4-51"><a href=""></a>    <span class="co">% Triângulo C (acima da curva de oferta e abaixo do preço P0)</span></span>
+<span id="cb4-52"><a href=""></a>    <span class="co">% Pontos: (2.72, na oferta), (2.72, P0=3.5), (4.8, P0=3.5)</span></span>
+<span id="cb4-53"><a href=""></a>    <span class="co">% Oferta em x=2.72: y = 0.8 + 0.5625*2.72 = 2.33</span></span>
+<span id="cb4-54"><a href=""></a>    <span class="co">% Centro do triângulo: ((2.72+2.72+4.8)/3, (2.33+3.5+3.5)/3) = (3.41, 3.11)</span></span>
+<span id="cb4-55"><a href=""></a>    <span class="fu">\fill</span>[purple!30, opacity=0.5] (2.72,2.33) -- (2.72,3.5) -- (4.8,3.5) -- cycle;</span>
+<span id="cb4-56"><a href=""></a>    <span class="fu">\node</span> at (3.41,3.11) {<span class="fu">\small</span> <span class="ss">$C$</span>};</span>
+<span id="cb4-57"><a href=""></a>    </span>
+<span id="cb4-58"><a href=""></a>    <span class="co">% Pontos principais</span></span>
+<span id="cb4-59"><a href=""></a>    <span class="fu">\fill</span> (E) circle (2pt);</span>
+<span id="cb4-60"><a href=""></a>    <span class="fu">\fill</span> (D2) circle (2pt);</span>
+<span id="cb4-61"><a href=""></a></span>
+<span id="cb4-62"><a href=""></a><span class="kw">\end</span>{<span class="ex">tikzpicture</span>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/preco-fixado-acima-equilibrio-1.svg" class="quarto-figure quarto-figure-center" style="width:90.0%"></p>
+<figcaption>Perda de bem-estar quando um preço é fixado acima do preço de equilíbrio</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<p><br></p>
+<div style="font-size: 80%; text-align: left; line-height: 1.0em; color: black; ">
+<ul>
+<li>um preço fixado para conter uma externalidade (falha de mercado)</li>
+<li>na falha de mercado (<em>micro iii</em>), o mercado competitivo é mais ineficiente se regulamentado</li>
+<li>Quando o preço mínimo regulamentado é <span class="math inline">\(P_2\)</span>, somente <span class="math inline">\(Q_3\)</span> será demandado. Se <span class="math inline">\(Q_3\)</span> é produzido, o peso morto é dado pelos triângulos B e C. Ao preço <span class="math inline">\(P_2\)</span>, os produtores gostariam de produzir mais que <span class="math inline">\(Q_3\)</span>. Fazendo isso, o peso morto é ainda maior.</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- }}} -->
+<p><!-- Preço mínimo {{{ --></p>
+</section>
+<section id="preço-mínimo" class="slide level2">
+<h2>Preço mínimo</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource tex number-lines code-with-copy"><code class="sourceCode latex"><span id="cb5-1"><a href=""></a><span class="fu">\usetikzlibrary</span>{patterns, positioning}</span>
+<span id="cb5-2"><a href=""></a></span>
+<span id="cb5-3"><a href=""></a><span class="kw">\begin</span>{<span class="ex">tikzpicture</span>}[scale=1.3]</span>
+<span id="cb5-4"><a href=""></a>  <span class="co">% Eixos</span></span>
+<span id="cb5-5"><a href=""></a>  <span class="fu">\draw</span>[thick, -&gt;] (0,0) -- (8,0) node[below] {Quantidade};</span>
+<span id="cb5-6"><a href=""></a>  <span class="fu">\draw</span>[thick, -&gt;] (0,0) -- (0,7) node[above] {Preço};</span>
+<span id="cb5-7"><a href=""></a></span>
+<span id="cb5-8"><a href=""></a>  <span class="co">% Curva de Demanda (D) - movida para a direita, mais vertical</span></span>
+<span id="cb5-9"><a href=""></a>  <span class="co">% y = 8.5 - 0.909*x</span></span>
+<span id="cb5-10"><a href=""></a>  <span class="fu">\draw</span>[thick, blue!80, line width=1.5pt] (2.0,6.68) -- (7.5,1.68) node[right] {<span class="ss">$D$</span>};</span>
+<span id="cb5-11"><a href=""></a></span>
+<span id="cb5-12"><a href=""></a>  <span class="co">% Curva de Oferta (S) - inicia no eixo Y em (0, 1.0), mais vertical</span></span>
+<span id="cb5-13"><a href=""></a>  <span class="co">% y = 1.0 + 0.6*x</span></span>
+<span id="cb5-14"><a href=""></a>  <span class="fu">\draw</span>[thick, purple!80, line width=1.5pt] (0,1.0) -- (7.5,5.5) node[right] {<span class="ss">$S$</span>};</span>
+<span id="cb5-15"><a href=""></a></span>
+<span id="cb5-16"><a href=""></a>  <span class="co">% Interseção (equilíbrio de mercado) - calcular corretamente</span></span>
+<span id="cb5-17"><a href=""></a>  <span class="co">% 8.5 - 0.909*x = 1.0 + 0.6*x</span></span>
+<span id="cb5-18"><a href=""></a>  <span class="co">% 7.5 = 1.509*x</span></span>
+<span id="cb5-19"><a href=""></a>  <span class="co">% x = 4.97, y = 1.0 + 0.6*4.97 = 3.98</span></span>
+<span id="cb5-20"><a href=""></a>  <span class="fu">\coordinate</span> (E) at (4.97,3.98);</span>
+<span id="cb5-21"><a href=""></a></span>
+<span id="cb5-22"><a href=""></a>  <span class="co">% Preço de equilíbrio</span></span>
+<span id="cb5-23"><a href=""></a>  <span class="fu">\coordinate</span> (P0) at (0,3.98);</span>
+<span id="cb5-24"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (P0) -- (E);</span>
+<span id="cb5-25"><a href=""></a>  <span class="fu">\draw</span> (0,3.98) node[left] {<span class="ss">$P_0$</span>};</span>
+<span id="cb5-26"><a href=""></a></span>
+<span id="cb5-27"><a href=""></a>  <span class="co">% Preço mínimo (acima do equilíbrio)</span></span>
+<span id="cb5-28"><a href=""></a>  <span class="fu">\coordinate</span> (Pmin) at (0,4.8);</span>
+<span id="cb5-29"><a href=""></a></span>
+<span id="cb5-30"><a href=""></a>  <span class="co">% Calcular Q3 e Q2 corretamente</span></span>
+<span id="cb5-31"><a href=""></a>  <span class="co">% Q3: interseção de Pmin=4.8 com demanda D: 4.8 = 8.5 - 0.909*x =&gt; x = 4.07</span></span>
+<span id="cb5-32"><a href=""></a>  <span class="co">% Q2: interseção de Pmin=4.8 com oferta S: 4.8 = 1.0 + 0.6*x =&gt; x = 6.33</span></span>
+<span id="cb5-33"><a href=""></a>  <span class="fu">\coordinate</span> (D3) at (4.07,4.8);</span>
+<span id="cb5-34"><a href=""></a>  <span class="fu">\coordinate</span> (S2) at (6.33,4.8);</span>
+<span id="cb5-35"><a href=""></a></span>
+<span id="cb5-36"><a href=""></a>  <span class="fu">\draw</span>[thick, gray] (Pmin) -- (6.33,4.8);</span>
+<span id="cb5-37"><a href=""></a>  <span class="fu">\draw</span> (0,4.8) node[left] {<span class="ss">$P_{</span><span class="sc">\text</span>{mín}<span class="ss">}$</span>};</span>
+<span id="cb5-38"><a href=""></a></span>
+<span id="cb5-39"><a href=""></a>  <span class="co">% Quantidades</span></span>
+<span id="cb5-40"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (4.07,4.8) -- (4.07,0) node[below] {<span class="ss">$Q_3$</span>};</span>
+<span id="cb5-41"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (4.97,3.98) -- (4.97,0) node[below] {<span class="ss">$Q_0$</span>};</span>
+<span id="cb5-42"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (6.33,4.8) -- (6.33,0) node[below] {<span class="ss">$Q_2$</span>};</span>
+<span id="cb5-43"><a href=""></a></span>
+<span id="cb5-44"><a href=""></a>  <span class="co">% Área A (retângulo - ganho dos produtores)</span></span>
+<span id="cb5-45"><a href=""></a>  <span class="fu">\fill</span>[blue!40, opacity=0.6] (0,3.98) rectangle (4.07,4.8);</span>
+<span id="cb5-46"><a href=""></a>  <span class="fu">\node</span> at (2.03,4.39) {<span class="ss">$A$</span>};</span>
+<span id="cb5-47"><a href=""></a></span>
+<span id="cb5-48"><a href=""></a>  <span class="co">% Triângulo B (perda de excedente do consumidor)</span></span>
+<span id="cb5-49"><a href=""></a>  <span class="fu">\fill</span>[green!50, opacity=0.5] (4.07,4.8) -- (4.97,3.98) -- (4.07,3.98) -- cycle;</span>
+<span id="cb5-50"><a href=""></a>  <span class="fu">\node</span> at (4.4,4.3) {<span class="fu">\small</span> <span class="ss">$B$</span>};</span>
+<span id="cb5-51"><a href=""></a></span>
+<span id="cb5-52"><a href=""></a>  <span class="co">% Triângulo C (perda de excedente do produtor - abaixo de P0 e acima da curva de oferta)</span></span>
+<span id="cb5-53"><a href=""></a>  <span class="co">% Pontos: (4.07, oferta em 4.07), (4.07, P0=3.98), (4.97, P0=3.98)</span></span>
+<span id="cb5-54"><a href=""></a>  <span class="co">% Oferta em x=4.07: y = 1.0 + 0.6*4.07 = 3.44</span></span>
+<span id="cb5-55"><a href=""></a>  <span class="co">% Centro: ((4.07+4.07+4.97)/3, (3.44+3.98+3.98)/3) = (4.37, 3.80)</span></span>
+<span id="cb5-56"><a href=""></a>  <span class="fu">\fill</span>[purple!40, opacity=0.5] (4.07,3.44) -- (4.07,3.98) -- (4.97,3.98) -- cycle;</span>
+<span id="cb5-57"><a href=""></a>  <span class="fu">\node</span> at (4.37,3.80) {<span class="fu">\small</span> <span class="ss">$C$</span>};</span>
+<span id="cb5-58"><a href=""></a></span>
+<span id="cb5-59"><a href=""></a>  <span class="co">% Área D (excesso de oferta/excedente não vendido)</span></span>
+<span id="cb5-60"><a href=""></a>  <span class="co">% Área entre Q3 e Q2, ABAIXO da curva de oferta S (entre a curva e o eixo X)</span></span>
+<span id="cb5-61"><a href=""></a>  <span class="co">% Oferta em x=4.07: y = 1.0 + 0.6*4.07 = 3.44</span></span>
+<span id="cb5-62"><a href=""></a>  <span class="co">% Oferta em x=6.33: y = 1.0 + 0.6*6.33 = 4.8</span></span>
+<span id="cb5-63"><a href=""></a>  <span class="co">% Desenha: começa em (Q3, 0), sobe pela curva de oferta até (Q2, oferta em Q2), desce até (Q2, 0)</span></span>
+<span id="cb5-64"><a href=""></a>  <span class="fu">\fill</span>[yellow!40, opacity=0.5] (4.07,0) -- plot[domain=4.07:6.33] (<span class="fu">\x</span>, {1.0 + 0.6*<span class="fu">\x</span>}) -- (6.33,0) -- cycle;</span>
+<span id="cb5-65"><a href=""></a>  <span class="fu">\node</span> at (5.2,2.0) {<span class="ss">$D$</span>};</span>
+<span id="cb5-66"><a href=""></a></span>
+<span id="cb5-67"><a href=""></a>  <span class="co">% Pontos principais</span></span>
+<span id="cb5-68"><a href=""></a>  <span class="fu">\fill</span> (E) circle (2pt);</span>
+<span id="cb5-69"><a href=""></a>  <span class="fu">\fill</span> (D3) circle (2pt);</span>
+<span id="cb5-70"><a href=""></a>  <span class="fu">\fill</span> (S2) circle (2pt);</span>
+<span id="cb5-71"><a href=""></a></span>
+<span id="cb5-72"><a href=""></a><span class="kw">\end</span>{<span class="ex">tikzpicture</span>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/preco-minimo-1.svg" class="quarto-figure quarto-figure-center" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<p><br></p>
+<div style="font-size: 80%; text-align: left; line-height: 1.0em; color: black; ">
+<ul>
+<li><p>Alguns consumidores deixam o mercado por causa do preço mais elevado, sofrendo uma correspondente perda de excedente, representada agora pelo triângulo B. Portanto, a variação total ocorrida no excedente do consumidor é <span class="math inline">\(\Delta EC = - A - B\)</span>.</p></li>
+<li><p>O preço é regulamentado de forma que não seja inferior a <span class="math inline">\(P_{mín}\)</span>. Os produtores gostariam de ofertar <span class="math inline">\(Q_2\)</span>, mas os consumidores comprarão apenas <span class="math inline">\(Q_3\)</span>. Se os produtores de fato ofertarem <span class="math inline">\(Q_2\)</span>, o montante <span class="math inline">\(Q_2\)</span> – <span class="math inline">\(Q_3\)</span> não será vendido e a variação do excedente do produtor será A – C – D. Nesse caso, os produtores em conjunto estarão em pior situação.</p></li>
+</ul>
+</div>
+</div>
+</div>
+<!-- }}} -->
+<p><!-- Sustentação de preço {{{ --></p>
+</section>
+<section id="sustentação-de-preço" class="slide level2">
+<h2>Sustentação de preço</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource tex number-lines code-with-copy"><code class="sourceCode latex"><span id="cb6-1"><a href=""></a><span class="fu">\usetikzlibrary</span>{patterns,arrows.meta}</span>
+<span id="cb6-2"><a href=""></a></span>
+<span id="cb6-3"><a href=""></a><span class="kw">\begin</span>{<span class="ex">tikzpicture</span>}[scale=1.3]</span>
+<span id="cb6-4"><a href=""></a></span>
+<span id="cb6-5"><a href=""></a>  <span class="co">% Eixos</span></span>
+<span id="cb6-6"><a href=""></a>  <span class="fu">\draw</span>[thick,-&gt;] (0,0) -- (9,0) node[below] {Quantidade};</span>
+<span id="cb6-7"><a href=""></a>  <span class="fu">\draw</span>[thick,-&gt;] (0,0) -- (0,7) node[above] {Preço};</span>
+<span id="cb6-8"><a href=""></a></span>
+<span id="cb6-9"><a href=""></a>  <span class="co">% Curvas de oferta e demanda - mesmas da figura-9-11</span></span>
+<span id="cb6-10"><a href=""></a>  <span class="fu">\draw</span>[blue, very thick, domain=0.5:7] plot (<span class="fu">\x</span>, {6.5 - 0.9*<span class="fu">\x</span>}) node[right] {<span class="ss">$D$</span>};</span>
+<span id="cb6-11"><a href=""></a>  <span class="fu">\draw</span>[red!70!black, very thick, domain=0:6.5] plot (<span class="fu">\x</span>, {1.0 + 0.7*<span class="fu">\x</span>}) node[right] {<span class="ss">$S$</span>};</span>
+<span id="cb6-12"><a href=""></a></span>
+<span id="cb6-13"><a href=""></a>  <span class="co">% Pontos de equilíbrio</span></span>
+<span id="cb6-14"><a href=""></a>  <span class="co">% Equilíbrio original: interseção de D e S</span></span>
+<span id="cb6-15"><a href=""></a>  <span class="co">% 6.5 - 0.9*x = 1.0 + 0.7*x =&gt; 5.5 = 1.6*x =&gt; x = 3.4375, y = 3.406</span></span>
+<span id="cb6-16"><a href=""></a>  <span class="fu">\coordinate</span> (E0) at (3.4375, 3.406);  <span class="co">% Equilíbrio original</span></span>
+<span id="cb6-17"><a href=""></a>  <span class="fu">\coordinate</span> (Ps) at (0, 4.5);    <span class="co">% Preço sustentado</span></span>
+<span id="cb6-18"><a href=""></a></span>
+<span id="cb6-19"><a href=""></a>  <span class="co">% Coordenadas importantes</span></span>
+<span id="cb6-20"><a href=""></a>  <span class="co">% Q1: D em Ps=4.5: 4.5 = 6.5 - 0.9*x =&gt; x = 2.222</span></span>
+<span id="cb6-21"><a href=""></a>  <span class="co">% Q2: S em Ps=4.5: 4.5 = 1.0 + 0.7*x =&gt; x = 5.0</span></span>
+<span id="cb6-22"><a href=""></a>  <span class="fu">\def\Qd</span>{2.222}</span>
+<span id="cb6-23"><a href=""></a>  <span class="fu">\def\Qeq</span>{3.4375}</span>
+<span id="cb6-24"><a href=""></a>  <span class="fu">\def\Qs</span>{5.0}</span>
+<span id="cb6-25"><a href=""></a>  <span class="fu">\def\Peq</span>{3.406}</span>
+<span id="cb6-26"><a href=""></a>  <span class="fu">\def\Ps</span>{4.5}</span>
+<span id="cb6-27"><a href=""></a></span>
+<span id="cb6-28"><a href=""></a>  <span class="co">% Curva de demanda deslocada (tracejada) - deve cruzar S em (Q2, Ps) = (5.0, 4.5)</span></span>
+<span id="cb6-29"><a href=""></a>  <span class="co">% D+Qg deve passar por (5.0, 4.5) com inclinação -0.9</span></span>
+<span id="cb6-30"><a href=""></a>  <span class="co">% 4.5 = a - 0.9*5.0 =&gt; a = 4.5 + 4.5 = 9.0</span></span>
+<span id="cb6-31"><a href=""></a>  <span class="co">% Limitar para não exceder y=7: 7 = 9.0 - 0.9*x =&gt; x = 2.222</span></span>
+<span id="cb6-32"><a href=""></a>  <span class="fu">\draw</span>[cyan, very thick, dashed, domain=2.222:8.5] plot (<span class="fu">\x</span>, {9.0 - 0.9*<span class="fu">\x</span>}) node[right] {<span class="ss">$D + Q_g$</span>};</span>
+<span id="cb6-33"><a href=""></a></span>
+<span id="cb6-34"><a href=""></a>  <span class="co">% Retângulo pontilhado (custo do governo) - abaixo de Ps, entre Q1 e Q2</span></span>
+<span id="cb6-35"><a href=""></a>  <span class="fu">\fill</span>[pattern=dots, pattern color=black!40] (<span class="fu">\Qd</span>,0) rectangle (<span class="fu">\Qs</span>,<span class="fu">\Ps</span>);</span>
+<span id="cb6-36"><a href=""></a></span>
+<span id="cb6-37"><a href=""></a>  <span class="co">% Destacar as bordas do retângulo pontilhado</span></span>
+<span id="cb6-38"><a href=""></a>  <span class="fu">\draw</span>[thick, black!70] (<span class="fu">\Qd</span>,0) -- (<span class="fu">\Qd</span>,<span class="fu">\Ps</span>) -- (<span class="fu">\Qs</span>,<span class="fu">\Ps</span>) -- (<span class="fu">\Qs</span>,0);</span>
+<span id="cb6-39"><a href=""></a></span>
+<span id="cb6-40"><a href=""></a>  <span class="co">% Área A (excedente consumidor perdido)</span></span>
+<span id="cb6-41"><a href=""></a>  <span class="fu">\fill</span>[blue!30, opacity=0.7] (0,<span class="fu">\Ps</span>) -- (<span class="fu">\Qd</span>,<span class="fu">\Ps</span>) -- (<span class="fu">\Qd</span>,<span class="fu">\Peq</span>) -- (0,<span class="fu">\Peq</span>) -- cycle;</span>
+<span id="cb6-42"><a href=""></a></span>
+<span id="cb6-43"><a href=""></a>  <span class="co">% Área B (transferência/deadweight)</span></span>
+<span id="cb6-44"><a href=""></a>  <span class="fu">\fill</span>[green!50, opacity=0.5] (<span class="fu">\Qd</span>,<span class="fu">\Ps</span>) -- (<span class="fu">\Qeq</span>,<span class="fu">\Peq</span>) -- (<span class="fu">\Qd</span>,<span class="fu">\Peq</span>) -- cycle;</span>
+<span id="cb6-45"><a href=""></a></span>
+<span id="cb6-46"><a href=""></a>  <span class="co">% Área D (ganho produtor + deadweight) - triângulo acima de D e S, abaixo de Ps</span></span>
+<span id="cb6-47"><a href=""></a>  <span class="co">% Vértices: (Q0, P0), (Q2, Ps), (Q1, Ps)</span></span>
+<span id="cb6-48"><a href=""></a>  <span class="co">% Mas precisa seguir as curvas D e S</span></span>
+<span id="cb6-49"><a href=""></a>  <span class="co">% Pontos: onde D cruza linha horizontal Ps, onde S cruza linha horizontal Ps, e ponto de equilíbrio</span></span>
+<span id="cb6-50"><a href=""></a>  <span class="co">% D em Ps=4.5: 4.5 = 6.5 - 0.8*x =&gt; x = 2.5 (Q1)</span></span>
+<span id="cb6-51"><a href=""></a>  <span class="co">% S em Ps=4.5: 4.5 = 1.25 + 0.7*x =&gt; x = 4.64 ≈ 4.7 (Q2)</span></span>
+<span id="cb6-52"><a href=""></a>  <span class="co">% Triângulo: (2.5, 4.5), (4.7, 4.5), (3.5, 3.7)</span></span>
+<span id="cb6-53"><a href=""></a>  <span class="fu">\fill</span>[red!30, opacity=0.6] (<span class="fu">\Qd</span>,<span class="fu">\Ps</span>) -- (<span class="fu">\Qs</span>,<span class="fu">\Ps</span>) -- (<span class="fu">\Qeq</span>,<span class="fu">\Peq</span>) -- cycle;</span>
+<span id="cb6-54"><a href=""></a></span>
+<span id="cb6-55"><a href=""></a>  <span class="co">% Linhas tracejadas horizontais</span></span>
+<span id="cb6-56"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (0,<span class="fu">\Ps</span>) node[left] {<span class="ss">$P_s$</span>} -- (<span class="fu">\Qs</span>,<span class="fu">\Ps</span>);</span>
+<span id="cb6-57"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (0,<span class="fu">\Peq</span>) node[left] {<span class="ss">$P_0$</span>} -- (<span class="fu">\Qeq</span>,<span class="fu">\Peq</span>);</span>
+<span id="cb6-58"><a href=""></a></span>
+<span id="cb6-59"><a href=""></a>  <span class="co">% Linhas tracejadas verticais</span></span>
+<span id="cb6-60"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (<span class="fu">\Qd</span>,0) node[below] {<span class="ss">$Q_1$</span>} -- (<span class="fu">\Qd</span>,<span class="fu">\Ps</span>);</span>
+<span id="cb6-61"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (<span class="fu">\Qeq</span>,0) node[below] {<span class="ss">$Q_0$</span>} -- (<span class="fu">\Qeq</span>,<span class="fu">\Peq</span>);</span>
+<span id="cb6-62"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (<span class="fu">\Qs</span>,0) node[below] {<span class="ss">$Q_2$</span>} -- (<span class="fu">\Qs</span>,<span class="fu">\Ps</span>);</span>
+<span id="cb6-63"><a href=""></a></span>
+<span id="cb6-64"><a href=""></a>  <span class="co">% Rótulos das áreas</span></span>
+<span id="cb6-65"><a href=""></a>  <span class="co">% Área A: retângulo (0, 3.7) a (2.5, 4.5) - centro: (1.25, 4.1)</span></span>
+<span id="cb6-66"><a href=""></a>  <span class="fu">\node</span> at (1.25, 4.1) {<span class="fu">\small</span> <span class="ss">$A$</span>};</span>
+<span id="cb6-67"><a href=""></a>  <span class="co">% Área B: triângulo (2.5, 4.5), (3.5, 3.7), (2.5, 3.7) - centro: (2.83, 3.97)</span></span>
+<span id="cb6-68"><a href=""></a>  <span class="fu">\node</span> at (2.83, 3.97) {<span class="fu">\small</span> <span class="ss">$B$</span>};</span>
+<span id="cb6-69"><a href=""></a>  <span class="co">% Área D: triângulo (2.5, 4.5), (4.7, 4.5), (3.5, 3.7) - centro: (3.57, 4.23)</span></span>
+<span id="cb6-70"><a href=""></a>  <span class="fu">\node</span> at (3.57, 4.23) {<span class="fu">\small</span> <span class="ss">$D$</span>};</span>
+<span id="cb6-71"><a href=""></a></span>
+<span id="cb6-72"><a href=""></a>  <span class="co">% Seta mostrando Qg - horizontal com setas nas duas extremidades</span></span>
+<span id="cb6-73"><a href=""></a>  <span class="co">% Escolher uma altura para mostrar a diferença, por exemplo y=5.5</span></span>
+<span id="cb6-74"><a href=""></a>  <span class="co">% D em y=5.5: 5.5 = 6.5 - 0.9*x =&gt; x = 1.111</span></span>
+<span id="cb6-75"><a href=""></a>  <span class="co">% D+Qg em y=5.5: 5.5 = 9.0 - 0.9*x =&gt; x = 3.889</span></span>
+<span id="cb6-76"><a href=""></a>  <span class="co">% Reduzir levemente o comprimento para não tocar as curvas</span></span>
+<span id="cb6-77"><a href=""></a>  <span class="fu">\draw</span>[&lt;-&gt;, thick, black] (1.3, 5.5) -- (3.7, 5.5);</span>
+<span id="cb6-78"><a href=""></a>  <span class="fu">\node</span>[above] at (2.5, 5.5) {<span class="ss">$Q_g$</span>};</span>
+<span id="cb6-79"><a href=""></a></span>
+<span id="cb6-80"><a href=""></a>  <span class="co">% Pontos de equilíbrio</span></span>
+<span id="cb6-81"><a href=""></a>  <span class="fu">\fill</span> (E0) circle (2pt);</span>
+<span id="cb6-82"><a href=""></a></span>
+<span id="cb6-83"><a href=""></a><span class="kw">\end</span>{<span class="ex">tikzpicture</span>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/sustentacao-de-precos-1.svg" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<div style="font-size: 80%; text-align: left; line-height: 1.0em; color: black; ">
+<div data-icons="false">
+<div class="callout callout-note callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Sustentação de preços</strong></p>
+</div>
+<div class="callout-content">
+<p>Preço fixado pelo governo acima do nível de mercado livre e mantido por meio de compras governamentais da oferta excedente.</p>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li><p>Para manter um preço <span class="math inline">\(P_s\)</span> mais elevado que o preço de equilíbrio <span class="math inline">\(P_0\)</span>, o governo adquire a quantidade <span class="math inline">\(Q_g\)</span>. O ganho obtido pelos produtores é de A + B + D e a perda sofrida pelos consumidores é de A + B. O custo para o governo é representado pelo retângulo pontilhado, cuja área é <span class="math inline">\(P_s (Q_2 – Q_1)\)</span>.</p></li>
+<li><p>Como os consumidores que adquirem a mercadoria precisam pagar o preço mais elevado <span class="math inline">\(P_s\)</span> em vez de <span class="math inline">\(P_0\)</span>, acabam sofrendo uma perda de excedente do consumidor, representada pelo retângulo A. <span class="math inline">\(\Delta EC = - A - B\)</span>.</p></li>
+<li><p>Por outro lado, os produtores ganham (razão pela qual essa política foi implementada). <span class="math inline">\(\Delta EP = A + B + D\)</span>.</p></li>
+<li><p>O custo para o governo é <span class="math inline">\((Q_2 – Q_1) / P_s\)</span>, que é o valor pago pelas aquisições de produção feitas pelo governo, o grande retângulo pontilhado.</p></li>
+</ul>
+</div>
+</div>
+</div>
+<!-- }}} -->
+<p><!-- Restrição de oferta {{{ --></p>
+</section>
+<section id="restrição-de-oferta" class="slide level2">
+<h2>Restrição de oferta</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource tex number-lines code-with-copy"><code class="sourceCode latex"><span id="cb7-1"><a href=""></a><span class="fu">\usetikzlibrary</span>{patterns,arrows.meta}</span>
+<span id="cb7-2"><a href=""></a></span>
+<span id="cb7-3"><a href=""></a><span class="kw">\begin</span>{<span class="ex">tikzpicture</span>}[scale=1.3, &gt;=Stealth]</span>
+<span id="cb7-4"><a href=""></a></span>
+<span id="cb7-5"><a href=""></a>  <span class="co">% Eixos</span></span>
+<span id="cb7-6"><a href=""></a>  <span class="fu">\draw</span>[thick,-&gt;] (0,0) -- (8,0) node[right] {Quantidade};</span>
+<span id="cb7-7"><a href=""></a>  <span class="fu">\draw</span>[thick,-&gt;] (0,0) -- (0,7) node[above] {Preço};</span>
+<span id="cb7-8"><a href=""></a></span>
+<span id="cb7-9"><a href=""></a>  <span class="co">% Curvas de oferta e demanda</span></span>
+<span id="cb7-10"><a href=""></a>  <span class="fu">\draw</span>[blue, very thick, domain=0.5:7] plot (<span class="fu">\x</span>, {6.5 - 0.9*<span class="fu">\x</span>}) node[right] {<span class="ss">$D$</span>};</span>
+<span id="cb7-11"><a href=""></a>  <span class="fu">\draw</span>[red!70!black, very thick, domain=0:6.5] plot (<span class="fu">\x</span>, {1.0 + 0.7*<span class="fu">\x</span>}) node[right] {<span class="ss">$S$</span>};</span>
+<span id="cb7-12"><a href=""></a></span>
+<span id="cb7-13"><a href=""></a>  <span class="co">% Coordenadas importantes</span></span>
+<span id="cb7-14"><a href=""></a>  <span class="fu">\def\Ql</span>{2.2}        <span class="co">% Quantidade limitada</span></span>
+<span id="cb7-15"><a href=""></a>  <span class="co">% Calcular equilíbrio: D = S =&gt; 6.5 - 0.9*x = 1.0 + 0.7*x</span></span>
+<span id="cb7-16"><a href=""></a>  <span class="co">% 5.5 = 1.6*x =&gt; x = 3.4375, y = 1.0 + 0.7*3.4375 = 3.406</span></span>
+<span id="cb7-17"><a href=""></a>  <span class="fu">\def\Qeq</span>{3.4375}    <span class="co">% Quantidade de equilíbrio</span></span>
+<span id="cb7-18"><a href=""></a>  <span class="fu">\def\Peq</span>{3.406}     <span class="co">% Preço de equilíbrio</span></span>
+<span id="cb7-19"><a href=""></a>  <span class="fu">\def\Ps</span>{4.52}       <span class="co">% Preço com oferta restrita</span></span>
+<span id="cb7-20"><a href=""></a></span>
+<span id="cb7-21"><a href=""></a>  <span class="co">% Área A (perda excedente do consumidor - azul)</span></span>
+<span id="cb7-22"><a href=""></a>  <span class="fu">\fill</span>[blue!40, opacity=0.7] (0,<span class="fu">\Ps</span>) -- (0,<span class="fu">\Peq</span>) -- (<span class="fu">\Ql</span>,<span class="fu">\Peq</span>) -- (<span class="fu">\Ql</span>,<span class="fu">\Ps</span>) -- cycle;</span>
+<span id="cb7-23"><a href=""></a></span>
+<span id="cb7-24"><a href=""></a>  <span class="co">% Área B (transferência - azul-verde)</span></span>
+<span id="cb7-25"><a href=""></a>  <span class="fu">\fill</span>[cyan!50, opacity=0.7] (<span class="fu">\Ql</span>,<span class="fu">\Ps</span>) -- (<span class="fu">\Ql</span>,<span class="fu">\Peq</span>) -- (<span class="fu">\Qeq</span>,<span class="fu">\Peq</span>) -- cycle;</span>
+<span id="cb7-26"><a href=""></a></span>
+<span id="cb7-27"><a href=""></a>  <span class="co">% Área C (perda excedente do produtor) - acima de S, abaixo de P0, de Q1 até Q0</span></span>
+<span id="cb7-28"><a href=""></a>  <span class="co">% Vértices: (Q1, na curva S), (Q1, P0), (Q0, P0)</span></span>
+<span id="cb7-29"><a href=""></a>  <span class="co">% S em Q1=2.2: y = 1.0 + 0.7*2.2 = 2.54</span></span>
+<span id="cb7-30"><a href=""></a>  <span class="fu">\fill</span>[orange!50, opacity=0.6] (<span class="fu">\Ql</span>,{1.0 + 0.7*<span class="fu">\Ql</span>}) -- (<span class="fu">\Ql</span>,<span class="fu">\Peq</span>) -- (<span class="fu">\Qeq</span>,<span class="fu">\Peq</span>) -- cycle;</span>
+<span id="cb7-31"><a href=""></a></span>
+<span id="cb7-32"><a href=""></a>  <span class="co">% Área D (perda de peso morto) - ABAIXO de Ps e ACIMA das curvas S e D</span></span>
+<span id="cb7-33"><a href=""></a>  <span class="co">% S em Ps=4.52: 4.52 = 1.0 + 0.7*x =&gt; x = 5.03</span></span>
+<span id="cb7-34"><a href=""></a>  <span class="co">% Vértices: (Q1, Ps), (Q0, P0), (5.03, Ps)</span></span>
+<span id="cb7-35"><a href=""></a>  <span class="fu">\fill</span>[red!30, opacity=0.6] (<span class="fu">\Ql</span>,<span class="fu">\Ps</span>) -- (<span class="fu">\Qeq</span>,<span class="fu">\Peq</span>) -- (5.03,<span class="fu">\Ps</span>) -- cycle;</span>
+<span id="cb7-36"><a href=""></a></span>
+<span id="cb7-37"><a href=""></a>  <span class="co">% Linhas tracejadas horizontais</span></span>
+<span id="cb7-38"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (0,<span class="fu">\Ps</span>) node[left] {<span class="ss">$P_s$</span>} -- (<span class="fu">\Ql</span>,<span class="fu">\Ps</span>);</span>
+<span id="cb7-39"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (0,<span class="fu">\Peq</span>) node[left] {<span class="ss">$P_0$</span>} -- (<span class="fu">\Qeq</span>,<span class="fu">\Peq</span>);</span>
+<span id="cb7-40"><a href=""></a></span>
+<span id="cb7-41"><a href=""></a>  <span class="co">% Linhas tracejadas verticais</span></span>
+<span id="cb7-42"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (<span class="fu">\Ql</span>,0) node[below] {<span class="ss">$Q_1$</span>} -- (<span class="fu">\Ql</span>,<span class="fu">\Ps</span>);</span>
+<span id="cb7-43"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (<span class="fu">\Qeq</span>,0) node[below] {<span class="ss">$Q_0$</span>} -- (<span class="fu">\Qeq</span>,<span class="fu">\Peq</span>);</span>
+<span id="cb7-44"><a href=""></a></span>
+<span id="cb7-45"><a href=""></a>  <span class="co">% Rótulos das áreas</span></span>
+<span id="cb7-46"><a href=""></a>  <span class="co">% Área A: retângulo (0, 3.406) a (2.2, 4.52) - centro: (1.1, 3.963)</span></span>
+<span id="cb7-47"><a href=""></a>  <span class="fu">\node</span> at (1.1, 3.963) {<span class="fu">\large</span> <span class="ss">$A$</span>};</span>
+<span id="cb7-48"><a href=""></a>  <span class="co">% Área B: triângulo (2.2, 4.52), (2.2, 3.406), (3.4375, 3.406) - centro: (2.613, 3.777)</span></span>
+<span id="cb7-49"><a href=""></a>  <span class="fu">\node</span> at (2.613, 3.777) {<span class="fu">\large</span> <span class="ss">$B$</span>};</span>
+<span id="cb7-50"><a href=""></a>  <span class="co">% Área C: triângulo (2.2, 2.54), (2.2, 3.406), (3.4375, 3.406) - centro: (2.613, 3.117)</span></span>
+<span id="cb7-51"><a href=""></a>  <span class="fu">\node</span> at (2.613, 3.117) {<span class="fu">\large</span> <span class="ss">$C$</span>};</span>
+<span id="cb7-52"><a href=""></a>  <span class="co">% Área D: triângulo (2.2, 4.52), (3.4375, 3.406), (5.03, 4.52) - centro: (3.556, 4.149)</span></span>
+<span id="cb7-53"><a href=""></a>  <span class="fu">\node</span> at (3.556, 4.149) {<span class="fu">\large</span> <span class="ss">$D$</span>};</span>
+<span id="cb7-54"><a href=""></a></span>
+<span id="cb7-55"><a href=""></a>  <span class="co">% Oferta restrita (linha vertical) - desenhar por último para sobrepor</span></span>
+<span id="cb7-56"><a href=""></a>  <span class="co">% S' é vertical em Q1=2.2, vai até onde toca S</span></span>
+<span id="cb7-57"><a href=""></a>  <span class="co">% S em x=2.2: y = 1.0 + 0.7*2.2 = 2.54</span></span>
+<span id="cb7-58"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray, very thick] (2.2, 0) -- (2.2, 2.54);</span>
+<span id="cb7-59"><a href=""></a>  <span class="fu">\draw</span>[yellow!80!orange!70!black, very thick] (2.2, 2.54) -- (2.2, 6.5) node[above] {<span class="ss">$S'$</span>};</span>
+<span id="cb7-60"><a href=""></a></span>
+<span id="cb7-61"><a href=""></a>  <span class="co">% Ponto de equilíbrio</span></span>
+<span id="cb7-62"><a href=""></a>  <span class="fu">\fill</span> (<span class="fu">\Qeq</span>,<span class="fu">\Peq</span>) circle (2pt);</span>
+<span id="cb7-63"><a href=""></a></span>
+<span id="cb7-64"><a href=""></a>  <span class="co">% Ponto de interseção S' com D</span></span>
+<span id="cb7-65"><a href=""></a>  <span class="fu">\fill</span> (<span class="fu">\Ql</span>,<span class="fu">\Ps</span>) circle (2pt);</span>
+<span id="cb7-66"><a href=""></a></span>
+<span id="cb7-67"><a href=""></a><span class="kw">\end</span>{<span class="ex">tikzpicture</span>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/restricao-de-oferta-1.svg" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<figcaption>Restrição de oferta</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<div style="font-size: 80%; text-align: left; line-height: 1.0em; color: black; ">
+<div data-icons="false">
+<div class="callout callout-note callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Quotas de produção</strong></p>
+</div>
+<div class="callout-content">
+<p>O governo também pode fazer com que o preço de uma mercadoria aumente por meio da redução da oferta.</p>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li><p>Para manter o preço <span class="math inline">\(P_s\)</span> mais elevado que o preço de equilíbrio <span class="math inline">\(P_0\)</span>, o governo pode restringir a oferta a <span class="math inline">\(Q_1\)</span> ao impor a produção de quotas (como no caso das licenças de táxi) ou ao fornecer aos produtores um incentivo financeiro para reduzir a quantidade produzida (como no caso das limitações de áreas agrícolas). Para que o incentivo funcione, ele deve ser pelo menos igual a B + C + D, que seria o lucro adicional obtido por meio do plantio, dado o preço mais elevado <span class="math inline">\(P_s\)</span>. O custo para o governo é, portanto, de pelo menos B + C + D.</p></li>
+<li><p><span class="math inline">\(\Delta EC = -A - B\)</span></p></li>
+</ul>
+</div>
+<ul>
+<li>em construção…</li>
+</ul>
+</div>
+</div>
+<!-- }}} -->
+<p><!-- Tarifa ou quota de importação para eliminar importações {{{ --></p>
+</section>
+<section id="tarifa-ou-quota-de-importação-para-eliminar-importações" class="slide level2">
+<h2>Tarifa ou quota de importação para eliminar importações</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource tex number-lines code-with-copy"><code class="sourceCode latex"><span id="cb8-1"><a href=""></a><span class="fu">\usetikzlibrary</span>{patterns,arrows.meta,decorations.pathreplacing}</span>
+<span id="cb8-2"><a href=""></a></span>
+<span id="cb8-3"><a href=""></a><span class="kw">\begin</span>{<span class="ex">tikzpicture</span>}[scale=1.4]</span>
+<span id="cb8-4"><a href=""></a></span>
+<span id="cb8-5"><a href=""></a>  <span class="co">% Eixos</span></span>
+<span id="cb8-6"><a href=""></a>  <span class="fu">\draw</span>[thick,-&gt;] (0,0) -- (8.5,0) node[below] {Quantidade};</span>
+<span id="cb8-7"><a href=""></a>  <span class="fu">\draw</span>[thick,-&gt;] (0,0) -- (0,7) node[above] {Preço};</span>
+<span id="cb8-8"><a href=""></a></span>
+<span id="cb8-9"><a href=""></a>  <span class="co">% Curvas de oferta e demanda</span></span>
+<span id="cb8-10"><a href=""></a>  <span class="fu">\draw</span>[blue, very thick, domain=0:7.5] plot (<span class="fu">\x</span>, {6.5 - 0.8*<span class="fu">\x</span>}) node[right] {<span class="ss">$D$</span>};</span>
+<span id="cb8-11"><a href=""></a>  <span class="fu">\draw</span>[red!70!black, very thick, domain=0:7.5] plot (<span class="fu">\x</span>, {1.0 + 0.7*<span class="fu">\x</span>}) node[right] {<span class="ss">$S$</span>};</span>
+<span id="cb8-12"><a href=""></a></span>
+<span id="cb8-13"><a href=""></a>  <span class="co">% Coordenadas importantes</span></span>
+<span id="cb8-14"><a href=""></a>  <span class="co">% Equilíbrio: D = S =&gt; 6.5 - 0.8*x = 1.0 + 0.7*x =&gt; 5.5 = 1.5*x =&gt; x = 3.667, y = 3.567</span></span>
+<span id="cb8-15"><a href=""></a>  <span class="fu">\def\Qeq</span>{3.667}     <span class="co">% Quantidade de equilíbrio Q0</span></span>
+<span id="cb8-16"><a href=""></a>  <span class="fu">\def\Peq</span>{3.567}     <span class="co">% Preço de equilíbrio P0</span></span>
+<span id="cb8-17"><a href=""></a>  <span class="fu">\def\Pw</span>{2.5}        <span class="co">% Preço mundial (mais baixo)</span></span>
+<span id="cb8-18"><a href=""></a>  <span class="fu">\def\Qs</span>{2.14}       <span class="co">% Quantidade ofertada ao preço Pw (S em Pw: 2.5 = 1.0 + 0.7*x =&gt; x = 2.14)</span></span>
+<span id="cb8-19"><a href=""></a>  <span class="fu">\def\Qd</span>{5.0}        <span class="co">% Quantidade demandada ao preço Pw (D em Pw: 2.5 = 6.5 - 0.8*x =&gt; x = 5.0)</span></span>
+<span id="cb8-20"><a href=""></a></span>
+<span id="cb8-21"><a href=""></a>  <span class="co">% Área A (ganho dos produtores - azul) - entre Pw e P0, acima da curva S</span></span>
+<span id="cb8-22"><a href=""></a>  <span class="co">% Polígono: começa em (0, Pw), vai até onde S cruza P0 (Qs na altura P0), </span></span>
+<span id="cb8-23"><a href=""></a>  <span class="co">% desce pela curva S até (Qs, Pw), volta ao início</span></span>
+<span id="cb8-24"><a href=""></a>  <span class="co">% S em Pw=2.5: y = 1.0 + 0.7*x =&gt; x = 2.14 (Qs)</span></span>
+<span id="cb8-25"><a href=""></a>  <span class="co">% S em P0=3.567: 3.567 = 1.0 + 0.7*x =&gt; x = 3.667 (Q0)</span></span>
+<span id="cb8-26"><a href=""></a>  <span class="fu">\fill</span>[blue!40, opacity=0.7] (0,<span class="fu">\Pw</span>) -- (0,<span class="fu">\Peq</span>) -- (<span class="fu">\Qeq</span>,<span class="fu">\Peq</span>) -- plot[domain=<span class="fu">\Qeq</span>:<span class="fu">\Qs</span>] (<span class="fu">\x</span>, {1.0 + 0.7*<span class="fu">\x</span>}) -- (<span class="fu">\Qs</span>,<span class="fu">\Pw</span>) -- cycle;</span>
+<span id="cb8-27"><a href=""></a></span>
+<span id="cb8-28"><a href=""></a>  <span class="co">% Área B (perda de peso morto da produção - verde)</span></span>
+<span id="cb8-29"><a href=""></a>  <span class="co">% Abaixo da curva S, entre P0 e Pw, de Qs até Q0</span></span>
+<span id="cb8-30"><a href=""></a>  <span class="co">% Polígono: (Qs, Pw), (Q0, Pw), (Q0, P0), seguir curva S de volta até (Qs, na curva S)</span></span>
+<span id="cb8-31"><a href=""></a>  <span class="co">% S em Qs=2.14: y = 1.0 + 0.7*2.14 = 2.5 (Pw)</span></span>
+<span id="cb8-32"><a href=""></a>  <span class="fu">\fill</span>[green!50, opacity=0.6] (<span class="fu">\Qs</span>,<span class="fu">\Pw</span>) -- (<span class="fu">\Qeq</span>,<span class="fu">\Pw</span>) -- (<span class="fu">\Qeq</span>,<span class="fu">\Peq</span>) -- plot[domain=<span class="fu">\Qeq</span>:<span class="fu">\Qs</span>] (<span class="fu">\x</span>, {1.0 + 0.7*<span class="fu">\x</span>}) -- cycle;</span>
+<span id="cb8-33"><a href=""></a></span>
+<span id="cb8-34"><a href=""></a>  <span class="co">% Área C (perda de peso morto do consumo - cinza médio)</span></span>
+<span id="cb8-35"><a href=""></a>  <span class="co">% Abaixo da curva D, entre P0 e Pw, de Q0 até Qd</span></span>
+<span id="cb8-36"><a href=""></a>  <span class="co">% Polígono: (Q0, P0), (Q0, Pw), (Qd, Pw), seguir curva D de volta até (Q0, P0)</span></span>
+<span id="cb8-37"><a href=""></a>  <span class="co">% D em Qd=5.0: y = 6.5 - 0.8*5.0 = 2.5 (Pw)</span></span>
+<span id="cb8-38"><a href=""></a>  <span class="fu">\fill</span>[gray!50, opacity=0.7] (<span class="fu">\Qeq</span>,<span class="fu">\Peq</span>) -- (<span class="fu">\Qeq</span>,<span class="fu">\Pw</span>) -- (<span class="fu">\Qd</span>,<span class="fu">\Pw</span>) -- plot[domain=<span class="fu">\Qd</span>:<span class="fu">\Qeq</span>] (<span class="fu">\x</span>, {6.5 - 0.8*<span class="fu">\x</span>}) -- cycle;</span>
+<span id="cb8-39"><a href=""></a></span>
+<span id="cb8-40"><a href=""></a>  <span class="co">% Linhas tracejadas horizontais</span></span>
+<span id="cb8-41"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (0,<span class="fu">\Peq</span>) node[left] {<span class="ss">$P_0$</span>} -- (<span class="fu">\Qeq</span>,<span class="fu">\Peq</span>);</span>
+<span id="cb8-42"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (0,<span class="fu">\Pw</span>) node[left] {<span class="ss">$P_w$</span>} -- (<span class="fu">\Qd</span>,<span class="fu">\Pw</span>);</span>
+<span id="cb8-43"><a href=""></a></span>
+<span id="cb8-44"><a href=""></a>  <span class="co">% Linhas tracejadas verticais</span></span>
+<span id="cb8-45"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (<span class="fu">\Qs</span>,0) node[below] {<span class="ss">$Q_s$</span>} -- (<span class="fu">\Qs</span>,<span class="fu">\Peq</span>);</span>
+<span id="cb8-46"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (<span class="fu">\Qeq</span>,0) node[below] {<span class="ss">$Q_0$</span>} -- (<span class="fu">\Qeq</span>,<span class="fu">\Peq</span>);</span>
+<span id="cb8-47"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (<span class="fu">\Qd</span>,0) node[below] {<span class="ss">$Q_d$</span>} -- (<span class="fu">\Qd</span>,<span class="fu">\Pw</span>);</span>
+<span id="cb8-48"><a href=""></a></span>
+<span id="cb8-49"><a href=""></a>  <span class="co">% Chave para importações</span></span>
+<span id="cb8-50"><a href=""></a>  <span class="fu">\draw</span>[decorate, decoration={brace, amplitude=5pt, mirror}, thick] </span>
+<span id="cb8-51"><a href=""></a>  (<span class="fu">\Qs</span>,-0.5) -- (<span class="fu">\Qd</span>,-0.5) node[midway, below, yshift=-5pt] {Importações};</span>
+<span id="cb8-52"><a href=""></a></span>
+<span id="cb8-53"><a href=""></a>  <span class="co">% Rótulos das áreas</span></span>
+<span id="cb8-54"><a href=""></a>  <span class="co">% Área A: polígono complexo acima da curva S, entre Pw e P0</span></span>
+<span id="cb8-55"><a href=""></a>  <span class="co">% Aproximação do centro: entre (0, Pw) e (Q0, P0), considerando a curva S</span></span>
+<span id="cb8-56"><a href=""></a>  <span class="fu">\node</span> at (1.5, 3.0) {<span class="fu">\large</span> <span class="ss">$A$</span>};</span>
+<span id="cb8-57"><a href=""></a>  <span class="co">% Área B: triângulo com vértices aproximados (Qs, Pw), (Q0, Pw), (Q0, P0)</span></span>
+<span id="cb8-58"><a href=""></a>  <span class="co">% Centróide: ((2.14+3.667+3.667)/3, (2.5+2.5+3.567)/3) = (3.16, 2.86)</span></span>
+<span id="cb8-59"><a href=""></a>  <span class="fu">\node</span> at (3.16, 2.86) {<span class="fu">\large</span> <span class="ss">$B$</span>};</span>
+<span id="cb8-60"><a href=""></a>  <span class="co">% Área C: triângulo com vértices aproximados (Q0, P0), (Q0, Pw), (Qd, Pw)</span></span>
+<span id="cb8-61"><a href=""></a>  <span class="co">% Centróide: ((3.667+3.667+5.0)/3, (3.567+2.5+2.5)/3) = (4.11, 2.86)</span></span>
+<span id="cb8-62"><a href=""></a>  <span class="fu">\node</span> at (4.11, 2.86) {<span class="fu">\large</span> <span class="ss">$C$</span>};</span>
+<span id="cb8-63"><a href=""></a></span>
+<span id="cb8-64"><a href=""></a>  <span class="co">% Pontos de interseção</span></span>
+<span id="cb8-65"><a href=""></a>  <span class="fu">\fill</span> (<span class="fu">\Qs</span>,<span class="fu">\Pw</span>) circle (2pt);</span>
+<span id="cb8-66"><a href=""></a>  <span class="fu">\fill</span> (<span class="fu">\Qeq</span>,<span class="fu">\Peq</span>) circle (2pt);</span>
+<span id="cb8-67"><a href=""></a>  <span class="fu">\fill</span> (<span class="fu">\Qd</span>,<span class="fu">\Pw</span>) circle (2pt);</span>
+<span id="cb8-68"><a href=""></a></span>
+<span id="cb8-69"><a href=""></a><span class="kw">\end</span>{<span class="ex">tikzpicture</span>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/taritas-quotas-importacao-1.svg" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<figcaption>Tarifa ou quota de importação para eliminar importações</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<p>Anotações 9.14!</p>
+</div>
+</div>
+<!-- }}} -->
+<p><!-- Tarifa ou quota de importação - caso genérico {{{ --></p>
+</section>
+<section id="tarifa-ou-quota-de-importação---caso-genérico" class="slide level2">
+<h2>Tarifa ou quota de importação - caso genérico</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource tex number-lines code-with-copy"><code class="sourceCode latex"><span id="cb9-1"><a href=""></a><span class="fu">\usetikzlibrary</span>{patterns,arrows.meta,decorations.pathreplacing}</span>
+<span id="cb9-2"><a href=""></a></span>
+<span id="cb9-3"><a href=""></a><span class="kw">\begin</span>{<span class="ex">tikzpicture</span>}[scale=1.4, &gt;=Stealth]</span>
+<span id="cb9-4"><a href=""></a></span>
+<span id="cb9-5"><a href=""></a>  <span class="co">% Eixos</span></span>
+<span id="cb9-6"><a href=""></a>  <span class="fu">\draw</span>[thick,-&gt;] (0,0) -- (9,0) node[below] {Quantidade};</span>
+<span id="cb9-7"><a href=""></a>  <span class="fu">\draw</span>[thick,-&gt;] (0,0) -- (0,7) node[above] {Preço};</span>
+<span id="cb9-8"><a href=""></a></span>
+<span id="cb9-9"><a href=""></a>  <span class="co">% Curvas de oferta e demanda - mais verticais</span></span>
+<span id="cb9-10"><a href=""></a>  <span class="fu">\draw</span>[blue, very thick, domain=1.5:7] plot (<span class="fu">\x</span>, {7.5 - 1.0*<span class="fu">\x</span>}) node[right] {<span class="ss">$D$</span>};</span>
+<span id="cb9-11"><a href=""></a>  <span class="fu">\draw</span>[red!70!black, very thick, domain=0:6] plot (<span class="fu">\x</span>, {0.8 + 1.0*<span class="fu">\x</span>}) node[right] {<span class="ss">$S$</span>};</span>
+<span id="cb9-12"><a href=""></a></span>
+<span id="cb9-13"><a href=""></a>  <span class="co">% Coordenadas importantes</span></span>
+<span id="cb9-14"><a href=""></a>  <span class="co">% Novas curvas: D: y = 7.5 - 1.0*x, S: y = 0.8 + 1.0*x</span></span>
+<span id="cb9-15"><a href=""></a>  <span class="fu">\def\Pw</span>{1.8}        <span class="co">% Preço mundial (mais baixo)</span></span>
+<span id="cb9-16"><a href=""></a>  <span class="fu">\def\Pt</span>{3.0}        <span class="co">% Preço com tarifa/quota (mais baixo)</span></span>
+<span id="cb9-17"><a href=""></a>  <span class="co">% Qs: 1.8 = 0.8 + 1.0*x =&gt; x = 1.0</span></span>
+<span id="cb9-18"><a href=""></a>  <span class="fu">\def\Qs</span>{1.0}        <span class="co">% Qs - oferta doméstica a Pw</span></span>
+<span id="cb9-19"><a href=""></a>  <span class="co">% Qs': 3.0 = 0.8 + 1.0*x =&gt; x = 2.2</span></span>
+<span id="cb9-20"><a href=""></a>  <span class="fu">\def\Qsp</span>{2.2}       <span class="co">% Qs' - oferta doméstica a P*</span></span>
+<span id="cb9-21"><a href=""></a>  <span class="co">% Qd: 1.8 = 7.5 - 1.0*x =&gt; x = 5.7</span></span>
+<span id="cb9-22"><a href=""></a>  <span class="fu">\def\Qd</span>{5.7}        <span class="co">% Qd - demanda a Pw</span></span>
+<span id="cb9-23"><a href=""></a>  <span class="co">% Qd': 3.0 = 7.5 - 1.0*x =&gt; x = 4.5</span></span>
+<span id="cb9-24"><a href=""></a>  <span class="fu">\def\Qdp</span>{4.5}       <span class="co">% Qd' - demanda a P*</span></span>
+<span id="cb9-25"><a href=""></a></span>
+<span id="cb9-26"><a href=""></a>  <span class="co">% Área A (ganho dos produtores) - entre Pw e P*, à esquerda da curva S</span></span>
+<span id="cb9-27"><a href=""></a>  <span class="co">% Polígono: (0, Pw), (0, P*), (Qs', P*), seguir curva S até (Qs, Pw)</span></span>
+<span id="cb9-28"><a href=""></a>  <span class="co">% S em Qs=1.0: y = 0.8 + 1.0*1.0 = 1.8 (Pw)</span></span>
+<span id="cb9-29"><a href=""></a>  <span class="co">% S em Qs'=2.2: y = 0.8 + 1.0*2.2 = 3.0 (P*)</span></span>
+<span id="cb9-30"><a href=""></a>  <span class="fu">\fill</span>[blue!40, opacity=0.7] (0,<span class="fu">\Pw</span>) -- (0,<span class="fu">\Pt</span>) -- (<span class="fu">\Qsp</span>,<span class="fu">\Pt</span>) -- plot[domain=<span class="fu">\Qsp</span>:<span class="fu">\Qs</span>] (<span class="fu">\x</span>, {0.8 + 1.0*<span class="fu">\x</span>}) -- (<span class="fu">\Qs</span>,<span class="fu">\Pw</span>) -- cycle;</span>
+<span id="cb9-31"><a href=""></a></span>
+<span id="cb9-32"><a href=""></a>  <span class="co">% Área B (perda de peso morto da produção) - triângulo entre Pw e P*, Qs e Qs', abaixo da curva S</span></span>
+<span id="cb9-33"><a href=""></a>  <span class="co">% Polígono: (Qs, Pw), (Qs', Pw), (Qs', P*), seguir curva S de volta até (Qs, Pw)</span></span>
+<span id="cb9-34"><a href=""></a>  <span class="co">% S em Qs=1.0: y = 0.8 + 1.0*1.0 = 1.8 (Pw)</span></span>
+<span id="cb9-35"><a href=""></a>  <span class="co">% S em Qs'=2.2: y = 0.8 + 1.0*2.2 = 3.0 (P*)</span></span>
+<span id="cb9-36"><a href=""></a>  <span class="fu">\fill</span>[green!50, opacity=0.6] (<span class="fu">\Qs</span>,<span class="fu">\Pw</span>) -- (<span class="fu">\Qsp</span>,<span class="fu">\Pw</span>) -- (<span class="fu">\Qsp</span>,<span class="fu">\Pt</span>) -- plot[domain=<span class="fu">\Qsp</span>:<span class="fu">\Qs</span>] (<span class="fu">\x</span>, {0.8 + 1.0*<span class="fu">\x</span>}) -- cycle;</span>
+<span id="cb9-37"><a href=""></a></span>
+<span id="cb9-38"><a href=""></a>  <span class="co">% Área D (receita da quota/tarifa - retângulo entre P* e Pw, Qs' e Qd')</span></span>
+<span id="cb9-39"><a href=""></a>  <span class="fu">\fill</span>[orange!40, opacity=0.7] (<span class="fu">\Qsp</span>,<span class="fu">\Pw</span>) rectangle (<span class="fu">\Qdp</span>,<span class="fu">\Pt</span>);</span>
+<span id="cb9-40"><a href=""></a></span>
+<span id="cb9-41"><a href=""></a>  <span class="co">% Área C (perda de peso morto do consumo)</span></span>
+<span id="cb9-42"><a href=""></a>  <span class="fu">\fill</span>[gray!50, opacity=0.7] (<span class="fu">\Qdp</span>,<span class="fu">\Pt</span>) -- (<span class="fu">\Qd</span>,<span class="fu">\Pw</span>) -- (<span class="fu">\Qdp</span>,<span class="fu">\Pw</span>) -- cycle;</span>
+<span id="cb9-43"><a href=""></a></span>
+<span id="cb9-44"><a href=""></a>  <span class="co">% Linhas tracejadas horizontais</span></span>
+<span id="cb9-45"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (0,<span class="fu">\Pt</span>) node[left] {<span class="ss">$P^*$</span>} -- (<span class="fu">\Qdp</span>,<span class="fu">\Pt</span>);</span>
+<span id="cb9-46"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (0,<span class="fu">\Pw</span>) node[left] {<span class="ss">$P_w$</span>} -- (<span class="fu">\Qd</span>,<span class="fu">\Pw</span>);</span>
+<span id="cb9-47"><a href=""></a></span>
+<span id="cb9-48"><a href=""></a>  <span class="co">% Linhas tracejadas verticais</span></span>
+<span id="cb9-49"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (<span class="fu">\Qs</span>,0) node[below] {<span class="ss">$Q_s$</span>} -- (<span class="fu">\Qs</span>,<span class="fu">\Pw</span>);</span>
+<span id="cb9-50"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (<span class="fu">\Qsp</span>,0) node[below] {<span class="ss">$Q'_s$</span>} -- (<span class="fu">\Qsp</span>,<span class="fu">\Pt</span>);</span>
+<span id="cb9-51"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (<span class="fu">\Qdp</span>,0) node[below] {<span class="ss">$Q'_d$</span>} -- (<span class="fu">\Qdp</span>,<span class="fu">\Pt</span>);</span>
+<span id="cb9-52"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (<span class="fu">\Qd</span>,0) node[below] {<span class="ss">$Q_d$</span>} -- (<span class="fu">\Qd</span>,<span class="fu">\Pw</span>);</span>
+<span id="cb9-53"><a href=""></a></span>
+<span id="cb9-54"><a href=""></a>  <span class="co">% Seta indicando T (tarifa)</span></span>
+<span id="cb9-55"><a href=""></a>  <span class="fu">\draw</span>[&lt;-&gt;, very thick, blue!70!black] (0.3,<span class="fu">\Pw</span>) -- (0.3,<span class="fu">\Pt</span>) node[midway, left] {<span class="ss">$T$</span>};</span>
+<span id="cb9-56"><a href=""></a></span>
+<span id="cb9-57"><a href=""></a>  <span class="co">% Setas e texto "Quota" dentro do retângulo D</span></span>
+<span id="cb9-58"><a href=""></a>  <span class="fu">\draw</span>[&lt;-&gt;, thick] (<span class="fu">\Qsp</span>,{(<span class="fu">\Pw+\Pt</span>)/2}) -- (<span class="fu">\Qdp</span>,{(<span class="fu">\Pw+\Pt</span>)/2}) node[midway, above] {Quota};</span>
+<span id="cb9-59"><a href=""></a></span>
+<span id="cb9-60"><a href=""></a>  <span class="co">% Rótulos das áreas</span></span>
+<span id="cb9-61"><a href=""></a>  <span class="co">% Área A: polígono à esquerda da curva S, entre Pw e P*</span></span>
+<span id="cb9-62"><a href=""></a>  <span class="co">% Centro aproximado: considerando eixo Y e curva S</span></span>
+<span id="cb9-63"><a href=""></a>  <span class="fu">\node</span> at (0.8, 2.4) {<span class="fu">\large</span> <span class="ss">$A$</span>};</span>
+<span id="cb9-64"><a href=""></a>  <span class="co">% Área B: triângulo com vértices aproximados (Qs, Pw), (Qs', Pw), (Qs', P*)</span></span>
+<span id="cb9-65"><a href=""></a>  <span class="co">% Centróide: ((1.0+2.2+2.2)/3, (1.8+1.8+3.0)/3) = (1.8, 2.2)</span></span>
+<span id="cb9-66"><a href=""></a>  <span class="fu">\node</span> at (1.8, 2.2) {<span class="fu">\large</span> <span class="ss">$B$</span>};</span>
+<span id="cb9-67"><a href=""></a>  <span class="co">% Área C: triângulo (Qd', P*), (Qd, Pw), (Qd', Pw)</span></span>
+<span id="cb9-68"><a href=""></a>  <span class="co">% Centróide: ((4.5+5.7+4.5)/3, (3.0+1.8+1.8)/3) = (4.9, 2.2)</span></span>
+<span id="cb9-69"><a href=""></a>  <span class="fu">\node</span> at (4.9, 2.2) {<span class="fu">\large</span> <span class="ss">$C$</span>};</span>
+<span id="cb9-70"><a href=""></a>  <span class="co">% Área D: retângulo (Qs', Pw) a (Qd', P*)</span></span>
+<span id="cb9-71"><a href=""></a>  <span class="co">% Centro: ((2.2+4.5)/2, (1.8+3.0)/2) = (3.35, 2.4)</span></span>
+<span id="cb9-72"><a href=""></a>  <span class="co">% Movido para baixo para evitar sobreposição com setas</span></span>
+<span id="cb9-73"><a href=""></a>  <span class="fu">\node</span> at (3.35, 2.0) {<span class="fu">\large</span> <span class="ss">$D$</span>};</span>
+<span id="cb9-74"><a href=""></a></span>
+<span id="cb9-75"><a href=""></a>  <span class="co">% Pontos importantes</span></span>
+<span id="cb9-76"><a href=""></a>  <span class="fu">\fill</span> (<span class="fu">\Qs</span>,<span class="fu">\Pw</span>) circle (2pt);</span>
+<span id="cb9-77"><a href=""></a>  <span class="fu">\fill</span> (<span class="fu">\Qsp</span>,<span class="fu">\Pt</span>) circle (2pt);</span>
+<span id="cb9-78"><a href=""></a>  <span class="fu">\fill</span> (<span class="fu">\Qdp</span>,<span class="fu">\Pt</span>) circle (2pt);</span>
+<span id="cb9-79"><a href=""></a>  <span class="fu">\fill</span> (<span class="fu">\Qd</span>,<span class="fu">\Pw</span>) circle (2pt);</span>
+<span id="cb9-80"><a href=""></a></span>
+<span id="cb9-81"><a href=""></a>  <span class="co">% Pontos de interseção das curvas com os preços</span></span>
+<span id="cb9-82"><a href=""></a>  <span class="fu">\fill</span> (<span class="fu">\Qs</span>,{0.8 + 1.0*<span class="fu">\Qs</span>}) circle (2pt);</span>
+<span id="cb9-83"><a href=""></a>  <span class="fu">\fill</span> (<span class="fu">\Qsp</span>,{0.8 + 1.0*<span class="fu">\Qsp</span>}) circle (2pt);</span>
+<span id="cb9-84"><a href=""></a></span>
+<span id="cb9-85"><a href=""></a><span class="kw">\end</span>{<span class="ex">tikzpicture</span>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/taritas-quotas-importacao-caso-generico-1.svg" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<figcaption>Tarifa ou quota de importação - caso genérico</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<p>Anotações 9.15!</p>
+</div>
+</div>
+<!-- }}} -->
+<p><!-- Incidência de um imposto {{{ --></p>
+</section>
+<section id="incidência-de-um-imposto" class="slide level2">
+<h2>Incidência de um imposto</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource tex number-lines code-with-copy"><code class="sourceCode latex"><span id="cb10-1"><a href=""></a><span class="fu">\usetikzlibrary</span>{patterns}</span>
+<span id="cb10-2"><a href=""></a><span class="fu">\usetikzlibrary</span>{arrows.meta}</span>
+<span id="cb10-3"><a href=""></a><span class="fu">\usetikzlibrary</span>{decorations.pathreplacing} <span class="co">% NECESSÁRIO para brace</span></span>
+<span id="cb10-4"><a href=""></a></span>
+<span id="cb10-5"><a href=""></a><span class="kw">\begin</span>{<span class="ex">tikzpicture</span>}[scale=1.4, &gt;=Stealth]</span>
+<span id="cb10-6"><a href=""></a></span>
+<span id="cb10-7"><a href=""></a>  <span class="co">% Eixos</span></span>
+<span id="cb10-8"><a href=""></a>  <span class="fu">\draw</span>[thick,-&gt;] (0,0) -- (8,0) node[right] {Quantidade};</span>
+<span id="cb10-9"><a href=""></a>  <span class="fu">\draw</span>[thick,-&gt;] (0,0) -- (0,7) node[above] {Preço};</span>
+<span id="cb10-10"><a href=""></a></span>
+<span id="cb10-11"><a href=""></a>  <span class="co">% Curvas de oferta e demanda - mais verticais</span></span>
+<span id="cb10-12"><a href=""></a>  <span class="fu">\draw</span>[blue, very thick, domain=0.5:6.5] plot (<span class="fu">\x</span>, {7.0 - 1.0*<span class="fu">\x</span>}) node[right] {<span class="ss">$D$</span>};</span>
+<span id="cb10-13"><a href=""></a>  <span class="fu">\draw</span>[red!70!black, very thick, domain=0:6.5] plot (<span class="fu">\x</span>, {0.9*<span class="fu">\x</span>}) node[right] {<span class="ss">$S$</span>};</span>
+<span id="cb10-14"><a href=""></a></span>
+<span id="cb10-15"><a href=""></a>  <span class="co">% Coordenadas importantes</span></span>
+<span id="cb10-16"><a href=""></a>  <span class="co">% Novas curvas: D: y = 7.0 - 1.0*x, S: y = 0.9*x</span></span>
+<span id="cb10-17"><a href=""></a>  <span class="co">% Equilíbrio: 7.0 - 1.0*x = 0.9*x =&gt; 7.0 = 1.9*x =&gt; x = 3.68, y = 3.32</span></span>
+<span id="cb10-18"><a href=""></a>  <span class="fu">\def\Qeq</span>{3.68}      <span class="co">% Quantidade de equilíbrio sem imposto</span></span>
+<span id="cb10-19"><a href=""></a>  <span class="fu">\def\Qt</span>{2.5}        <span class="co">% Quantidade com imposto (reduzido para aumentar diferença)</span></span>
+<span id="cb10-20"><a href=""></a>  <span class="fu">\def\Peq</span>{3.32}      <span class="co">% Preço de equilíbrio sem imposto</span></span>
+<span id="cb10-21"><a href=""></a>  <span class="fu">\def\Pb</span>{4.5}        <span class="co">% Preço pago pelos compradores (com imposto) - mais elevado</span></span>
+<span id="cb10-22"><a href=""></a>  <span class="fu">\def\Ps</span>{2.25}       <span class="co">% Preço recebido pelos vendedores (menos imposto) - mais baixo</span></span>
+<span id="cb10-23"><a href=""></a></span>
+<span id="cb10-24"><a href=""></a>  <span class="co">% Área A (perda excedente do consumidor - azul)</span></span>
+<span id="cb10-25"><a href=""></a>  <span class="fu">\fill</span>[blue!50, opacity=0.7] (0,<span class="fu">\Pb</span>) rectangle (<span class="fu">\Qt</span>,<span class="fu">\Peq</span>);</span>
+<span id="cb10-26"><a href=""></a></span>
+<span id="cb10-27"><a href=""></a>  <span class="co">% Área D (receita do governo dos consumidores - amarelo claro)</span></span>
+<span id="cb10-28"><a href=""></a>  <span class="fu">\fill</span>[yellow!40, opacity=0.8] (0,<span class="fu">\Peq</span>) rectangle (<span class="fu">\Qt</span>,<span class="fu">\Ps</span>);</span>
+<span id="cb10-29"><a href=""></a></span>
+<span id="cb10-30"><a href=""></a>  <span class="co">% Área B (perda de peso morto do lado da demanda) - com textura cinza</span></span>
+<span id="cb10-31"><a href=""></a>  <span class="fu">\fill</span>[cyan!40, opacity=0.7] (<span class="fu">\Qt</span>,<span class="fu">\Pb</span>) -- (<span class="fu">\Qt</span>,<span class="fu">\Peq</span>) -- (<span class="fu">\Qeq</span>,<span class="fu">\Peq</span>) -- cycle;</span>
+<span id="cb10-32"><a href=""></a>  <span class="fu">\fill</span>[pattern=north east lines, pattern color=gray!60] (<span class="fu">\Qt</span>,<span class="fu">\Pb</span>) -- (<span class="fu">\Qt</span>,<span class="fu">\Peq</span>) -- (<span class="fu">\Qeq</span>,<span class="fu">\Peq</span>) -- cycle;</span>
+<span id="cb10-33"><a href=""></a></span>
+<span id="cb10-34"><a href=""></a>  <span class="co">% Área C (perda de peso morto do lado da oferta) - com textura</span></span>
+<span id="cb10-35"><a href=""></a>  <span class="fu">\fill</span>[gray!40, opacity=0.7] (<span class="fu">\Qt</span>,<span class="fu">\Peq</span>) -- (<span class="fu">\Qt</span>,<span class="fu">\Ps</span>) -- (<span class="fu">\Qeq</span>,<span class="fu">\Peq</span>) -- cycle;</span>
+<span id="cb10-36"><a href=""></a>  <span class="fu">\fill</span>[pattern=north west lines, pattern color=gray!60] (<span class="fu">\Qt</span>,<span class="fu">\Peq</span>) -- (<span class="fu">\Qt</span>,<span class="fu">\Ps</span>) -- (<span class="fu">\Qeq</span>,<span class="fu">\Peq</span>) -- cycle;</span>
+<span id="cb10-37"><a href=""></a></span>
+<span id="cb10-38"><a href=""></a>  <span class="co">% Linhas tracejadas horizontais</span></span>
+<span id="cb10-39"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (0,<span class="fu">\Pb</span>) node[left] {<span class="ss">$P_c$</span>} -- (<span class="fu">\Qt</span>,<span class="fu">\Pb</span>);</span>
+<span id="cb10-40"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (0,<span class="fu">\Peq</span>) node[left] {<span class="ss">$P_0$</span>} -- (<span class="fu">\Qeq</span>,<span class="fu">\Peq</span>);</span>
+<span id="cb10-41"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (0,<span class="fu">\Ps</span>) node[left] {<span class="ss">$P_v$</span>} -- (<span class="fu">\Qt</span>,<span class="fu">\Ps</span>);</span>
+<span id="cb10-42"><a href=""></a></span>
+<span id="cb10-43"><a href=""></a>  <span class="co">% Linhas tracejadas verticais</span></span>
+<span id="cb10-44"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (<span class="fu">\Qt</span>,0) node[below] {<span class="ss">$Q_1$</span>} -- (<span class="fu">\Qt</span>,<span class="fu">\Pb</span>);</span>
+<span id="cb10-45"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (<span class="fu">\Qeq</span>,0) node[below] {<span class="ss">$Q_0$</span>} -- (<span class="fu">\Qeq</span>,<span class="fu">\Peq</span>);</span>
+<span id="cb10-46"><a href=""></a></span>
+<span id="cb10-47"><a href=""></a>  <span class="co">% Rótulos das áreas</span></span>
+<span id="cb10-48"><a href=""></a>  <span class="co">% Área A: retângulo (0, Peq) a (Qt, Pb)</span></span>
+<span id="cb10-49"><a href=""></a>  <span class="co">% Centro: ((0+Qt)/2, (Peq+Pb)/2) = (1.25, 3.66)</span></span>
+<span id="cb10-50"><a href=""></a>  <span class="fu">\node</span> at (1.25, 3.66) {<span class="fu">\large</span> <span class="ss">$A$</span>};</span>
+<span id="cb10-51"><a href=""></a>  <span class="co">% Área B: triângulo (Qt, Pb), (Qt, Peq), (Qeq, Peq)</span></span>
+<span id="cb10-52"><a href=""></a>  <span class="co">% Centróide: ((Qt+Qt+Qeq)/3, (Pb+Peq+Peq)/3) = ((2.5+2.5+3.68)/3, (4.5+3.32+3.32)/3) = (2.89, 3.71)</span></span>
+<span id="cb10-53"><a href=""></a>  <span class="fu">\node</span> at (2.89, 3.71) {<span class="fu">\large</span> <span class="ss">$B$</span>};</span>
+<span id="cb10-54"><a href=""></a>  <span class="co">% Área C: triângulo (Qt, Peq), (Qt, Ps), (Qeq, Peq)</span></span>
+<span id="cb10-55"><a href=""></a>  <span class="co">% Centróide: ((Qt+Qt+Qeq)/3, (Peq+Ps+Peq)/3) = ((2.5+2.5+3.68)/3, (3.32+2.25+3.32)/3) = (2.89, 2.96)</span></span>
+<span id="cb10-56"><a href=""></a>  <span class="fu">\node</span> at (2.89, 2.96) {<span class="fu">\large</span> <span class="ss">$C$</span>};</span>
+<span id="cb10-57"><a href=""></a>  <span class="co">% Área D: retângulo (0, Ps) a (Qt, Peq)</span></span>
+<span id="cb10-58"><a href=""></a>  <span class="co">% Centro: ((0+Qt)/2, (Ps+Peq)/2) = (1.25, 2.79)</span></span>
+<span id="cb10-59"><a href=""></a>  <span class="fu">\node</span> at (1.25, 2.79) {<span class="fu">\large</span> <span class="ss">$D$</span>};</span>
+<span id="cb10-60"><a href=""></a></span>
+<span id="cb10-61"><a href=""></a>  <span class="co">% Pontos de equilíbrio</span></span>
+<span id="cb10-62"><a href=""></a>  <span class="fu">\fill</span> (<span class="fu">\Qeq</span>,<span class="fu">\Peq</span>) circle (2pt);</span>
+<span id="cb10-63"><a href=""></a>  <span class="fu">\fill</span> (<span class="fu">\Qt</span>,<span class="fu">\Pb</span>) circle (2pt);</span>
+<span id="cb10-64"><a href=""></a>  <span class="fu">\fill</span> (<span class="fu">\Qt</span>,<span class="fu">\Ps</span>) circle (2pt);</span>
+<span id="cb10-65"><a href=""></a></span>
+<span id="cb10-66"><a href=""></a>  <span class="co">% Chave mostrando o imposto - do lado esquerdo de Q1</span></span>
+<span id="cb10-67"><a href=""></a>  <span class="co">% Usando delimitador LaTeX apropriado com fonte menor</span></span>
+<span id="cb10-68"><a href=""></a>  <span class="fu">\draw</span>[decorate,decoration={brace,amplitude=8pt}]</span>
+<span id="cb10-69"><a href=""></a>  (2.4,2.3) -- (2.4,4.44) node[midway,left=13pt] {<span class="ss">$t$</span>};</span>
+<span id="cb10-70"><a href=""></a>  <span class="co">% \node at (\Qt+0.3,{(\Ps+\Pb)/2}) [left, scale=2.9] {\tiny $\Biggl\{$};</span></span>
+<span id="cb10-71"><a href=""></a>  <span class="co">% \node at (\Qt-0.45,{(\Ps+\Pb)/2}) [left] {$t$};</span></span>
+<span id="cb10-72"><a href=""></a></span>
+<span id="cb10-73"><a href=""></a><span class="kw">\end</span>{<span class="ex">tikzpicture</span>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/incidencia-de-imposto-1.svg" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<figcaption>Incidência de um imposto</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<p>Anotações 9.17!</p>
+</div>
+</div>
+<!-- }}} -->
+<p><!-- Imposto e elasticidades {{{ --></p>
+</section>
+<section id="imposto-e-elasticidades" class="slide level2">
+<h2>Imposto e elasticidades</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource tex number-lines code-with-copy"><code class="sourceCode latex"><span id="cb11-1"><a href=""></a><span class="fu">\usetikzlibrary</span>{arrows.meta}</span>
+<span id="cb11-2"><a href=""></a><span class="fu">\usetikzlibrary</span>{decorations.pathreplacing} <span class="co">% NECESSÁRIO para brace</span></span>
+<span id="cb11-3"><a href=""></a></span>
+<span id="cb11-4"><a href=""></a><span class="co">% Gráfico (a) - Demanda Inelástica</span></span>
+<span id="cb11-5"><a href=""></a><span class="kw">\begin</span>{<span class="ex">tikzpicture</span>}[scale=1.3, &gt;=Stealth]</span>
+<span id="cb11-6"><a href=""></a></span>
+<span id="cb11-7"><a href=""></a>  <span class="co">% Eixos</span></span>
+<span id="cb11-8"><a href=""></a>  <span class="fu">\draw</span>[thick,-&gt;] (0,0) -- (6,0) node[below] {Quantidade};</span>
+<span id="cb11-9"><a href=""></a>  <span class="fu">\draw</span>[thick,-&gt;] (0,0) -- (0,7) node[above] {Preço};</span>
+<span id="cb11-10"><a href=""></a></span>
+<span id="cb11-11"><a href=""></a>  <span class="co">% Curvas de oferta e demanda</span></span>
+<span id="cb11-12"><a href=""></a>  <span class="co">% Demanda muito inelástica (quase vertical) - passa por (Q_0, P_0) e (Q_1, P_c)</span></span>
+<span id="cb11-13"><a href=""></a>  <span class="fu">\draw</span>[blue, very thick, domain=2.5:4.0] plot (<span class="fu">\x</span>, {15.5515 - 3.7692*<span class="fu">\x</span>}) node[above right] {<span class="ss">$D$</span>};</span>
+<span id="cb11-14"><a href=""></a></span>
+<span id="cb11-15"><a href=""></a>  <span class="co">% Oferta relativamente elástica (mais horizontal)</span></span>
+<span id="cb11-16"><a href=""></a>  <span class="fu">\draw</span>[red!70!black, very thick, domain=0.5:5.5] plot (<span class="fu">\x</span>, {1 + 0.6*<span class="fu">\x</span>}) node[right] {<span class="ss">$S$</span>};</span>
+<span id="cb11-17"><a href=""></a></span>
+<span id="cb11-18"><a href=""></a>  <span class="co">% Coordenadas importantes</span></span>
+<span id="cb11-19"><a href=""></a>  <span class="fu">\def\Qeq</span>{3.33}</span>
+<span id="cb11-20"><a href=""></a>  <span class="fu">\def\Peq</span>{3.0}</span>
+<span id="cb11-21"><a href=""></a>  <span class="fu">\def\Qt</span>{2.94}</span>
+<span id="cb11-22"><a href=""></a>  <span class="fu">\def\Pc</span>{4.47}</span>
+<span id="cb11-23"><a href=""></a>  <span class="fu">\def\Ps</span>{2.76}</span>
+<span id="cb11-24"><a href=""></a></span>
+<span id="cb11-25"><a href=""></a>  <span class="co">% Ponto de equilíbrio original</span></span>
+<span id="cb11-26"><a href=""></a>  <span class="fu">\fill</span> (3.33, 3.0) circle (2pt);</span>
+<span id="cb11-27"><a href=""></a></span>
+<span id="cb11-28"><a href=""></a>  <span class="co">% Ponto com imposto</span></span>
+<span id="cb11-29"><a href=""></a>  <span class="fu">\fill</span> (<span class="fu">\Qt</span>, <span class="fu">\Pc</span>) circle (2pt);</span>
+<span id="cb11-30"><a href=""></a>  <span class="fu">\fill</span> (<span class="fu">\Qt</span>, <span class="fu">\Ps</span>) circle (2pt);</span>
+<span id="cb11-31"><a href=""></a></span>
+<span id="cb11-32"><a href=""></a>  <span class="co">% Linhas tracejadas</span></span>
+<span id="cb11-33"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (0,<span class="fu">\Pc</span>) node[left] {<span class="ss">$P_c$</span>} -- (<span class="fu">\Qt</span>,<span class="fu">\Pc</span>);</span>
+<span id="cb11-34"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (0,<span class="fu">\Peq</span>) node[left] {<span class="ss">$P_0$</span>} -- (<span class="fu">\Qeq</span>,<span class="fu">\Peq</span>);</span>
+<span id="cb11-35"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (0,<span class="fu">\Ps</span>) node[left] {<span class="ss">$P_v$</span>} -- (<span class="fu">\Qt</span>,<span class="fu">\Ps</span>);</span>
+<span id="cb11-36"><a href=""></a></span>
+<span id="cb11-37"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (<span class="fu">\Qt</span>,0) node[below] {<span class="ss">$Q_1$</span>} -- (<span class="fu">\Qt</span>,<span class="fu">\Pc</span>);</span>
+<span id="cb11-38"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (<span class="fu">\Qeq</span>,0) node[below] {<span class="ss">$Q_0$</span>} -- (<span class="fu">\Qeq</span>,<span class="fu">\Peq</span>);</span>
+<span id="cb11-39"><a href=""></a></span>
+<span id="cb11-40"><a href=""></a>  <span class="co">% Chave mostrando o imposto t</span></span>
+<span id="cb11-41"><a href=""></a>  <span class="fu">\draw</span>[decorate,decoration={brace,amplitude=8pt}]</span>
+<span id="cb11-42"><a href=""></a>  (<span class="fu">\Qt</span>-0.1,<span class="fu">\Ps</span>) -- (<span class="fu">\Qt</span>-0.1,<span class="fu">\Pc</span>) node[midway,left=8pt] {<span class="ss">$t$</span>};</span>
+<span id="cb11-43"><a href=""></a></span>
+<span id="cb11-44"><a href=""></a>  <span class="co">% Legenda (a)</span></span>
+<span id="cb11-45"><a href=""></a>  <span class="fu">\node</span>[below] at (3, -0.8) {(a)};</span>
+<span id="cb11-46"><a href=""></a></span>
+<span id="cb11-47"><a href=""></a><span class="kw">\end</span>{<span class="ex">tikzpicture</span>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/imposto-elasticidades-a-1.svg" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+<figcaption>Impostos e elasticidade</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource tex number-lines code-with-copy"><code class="sourceCode latex"><span id="cb12-1"><a href=""></a><span class="fu">\usetikzlibrary</span>{arrows.meta}</span>
+<span id="cb12-2"><a href=""></a><span class="fu">\usetikzlibrary</span>{decorations.pathreplacing} <span class="co">% NECESSÁRIO para brace</span></span>
+<span id="cb12-3"><a href=""></a></span>
+<span id="cb12-4"><a href=""></a><span class="co">% Gráfico (b) - Oferta Inelástica</span></span>
+<span id="cb12-5"><a href=""></a><span class="kw">\begin</span>{<span class="ex">tikzpicture</span>}[scale=1.3, &gt;=Stealth]</span>
+<span id="cb12-6"><a href=""></a></span>
+<span id="cb12-7"><a href=""></a>  <span class="co">% Eixos</span></span>
+<span id="cb12-8"><a href=""></a>  <span class="fu">\draw</span>[thick,-&gt;] (0,0) -- (6,0) node[below] {Quantidade};</span>
+<span id="cb12-9"><a href=""></a>  <span class="fu">\draw</span>[thick,-&gt;] (0,0) -- (0,7) node[above] {Preço};</span>
+<span id="cb12-10"><a href=""></a></span>
+<span id="cb12-11"><a href=""></a>  <span class="co">% Curvas de oferta e demanda</span></span>
+<span id="cb12-12"><a href=""></a>  <span class="co">% Demanda muito elástica (mais horizontal)</span></span>
+<span id="cb12-13"><a href=""></a>  <span class="fu">\draw</span>[cyan, very thick, domain=0.5:5.5] plot (<span class="fu">\x</span>, {5.5 - 0.6*<span class="fu">\x</span>}) node[right] {<span class="ss">$D$</span>};</span>
+<span id="cb12-14"><a href=""></a></span>
+<span id="cb12-15"><a href=""></a>  <span class="co">% Oferta muito inelástica (quase vertical) - passa por (Q_0, P_0) e (Q_1, P_v)</span></span>
+<span id="cb12-16"><a href=""></a>  <span class="fu">\draw</span>[red!70!black, very thick, domain=2.3:3.3] plot (<span class="fu">\x</span>, {-8.5 + 4.16*<span class="fu">\x</span>}) node[above right] {<span class="ss">$S$</span>};</span>
+<span id="cb12-17"><a href=""></a></span>
+<span id="cb12-18"><a href=""></a>  <span class="co">% Coordenadas importantes</span></span>
+<span id="cb12-19"><a href=""></a>  <span class="fu">\def\Qeq</span>{3.0}</span>
+<span id="cb12-20"><a href=""></a>  <span class="fu">\def\Peq</span>{3.7}</span>
+<span id="cb12-21"><a href=""></a>  <span class="fu">\def\Qt</span>{2.63}</span>
+<span id="cb12-22"><a href=""></a>  <span class="fu">\def\Pc</span>{3.92}</span>
+<span id="cb12-23"><a href=""></a>  <span class="fu">\def\Ps</span>{2.16}</span>
+<span id="cb12-24"><a href=""></a></span>
+<span id="cb12-25"><a href=""></a>  <span class="co">% Ponto de equilíbrio original</span></span>
+<span id="cb12-26"><a href=""></a>  <span class="fu">\fill</span> (<span class="fu">\Qeq</span>, <span class="fu">\Peq</span>) circle (2pt);</span>
+<span id="cb12-27"><a href=""></a></span>
+<span id="cb12-28"><a href=""></a>  <span class="co">% Ponto com imposto</span></span>
+<span id="cb12-29"><a href=""></a>  <span class="fu">\fill</span> (<span class="fu">\Qt</span>, <span class="fu">\Pc</span>) circle (2pt);</span>
+<span id="cb12-30"><a href=""></a>  <span class="fu">\fill</span> (<span class="fu">\Qt</span>, <span class="fu">\Ps</span>) circle (2pt);</span>
+<span id="cb12-31"><a href=""></a></span>
+<span id="cb12-32"><a href=""></a>  <span class="co">% Linhas tracejadas</span></span>
+<span id="cb12-33"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (0,<span class="fu">\Pc</span>) node[left] {<span class="ss">$P_c$</span>} -- (<span class="fu">\Qt</span>,<span class="fu">\Pc</span>);</span>
+<span id="cb12-34"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (0,<span class="fu">\Peq</span>) node[left] {<span class="ss">$P_0$</span>} -- (<span class="fu">\Qeq</span>,<span class="fu">\Peq</span>);</span>
+<span id="cb12-35"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (0,<span class="fu">\Ps</span>) node[left] {<span class="ss">$P_v$</span>} -- (<span class="fu">\Qt</span>,<span class="fu">\Ps</span>);</span>
+<span id="cb12-36"><a href=""></a></span>
+<span id="cb12-37"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (<span class="fu">\Qt</span>,0) node[below] {<span class="ss">$Q_1$</span>} -- (<span class="fu">\Qt</span>,<span class="fu">\Pc</span>);</span>
+<span id="cb12-38"><a href=""></a>  <span class="fu">\draw</span>[dashed, gray] (<span class="fu">\Qeq</span>,0) node[below] {<span class="ss">$Q_0$</span>} -- (<span class="fu">\Qeq</span>,<span class="fu">\Peq</span>);</span>
+<span id="cb12-39"><a href=""></a></span>
+<span id="cb12-40"><a href=""></a>  <span class="co">% Chave mostrando o imposto t</span></span>
+<span id="cb12-41"><a href=""></a>  <span class="fu">\draw</span>[decorate,decoration={brace,amplitude=8pt}]</span>
+<span id="cb12-42"><a href=""></a>  (<span class="fu">\Qt</span>-0.1,<span class="fu">\Ps</span>) -- (<span class="fu">\Qt</span>-0.1,<span class="fu">\Pc</span>) node[midway,left=8pt] {<span class="ss">$t$</span>};</span>
+<span id="cb12-43"><a href=""></a></span>
+<span id="cb12-44"><a href=""></a>  <span class="co">% Legenda (b)</span></span>
+<span id="cb12-45"><a href=""></a>  <span class="fu">\node</span>[below] at (3, -0.8) {(b)};</span>
+<span id="cb12-46"><a href=""></a></span>
+<span id="cb12-47"><a href=""></a><span class="kw">\end</span>{<span class="ex">tikzpicture</span>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/imposto-elasticidades-b-1.svg" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+<figcaption>Impostos e elasticidade</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- }}} -->
+<p><!-- Subsídio {{{ --></p>
+</section>
+<section id="subsídio" class="slide level2">
+<h2>Subsídio</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource tex number-lines code-with-copy"><code class="sourceCode latex"><span id="cb13-1"><a href=""></a><span class="fu">\usetikzlibrary</span>{arrows.meta}</span>
+<span id="cb13-2"><a href=""></a><span class="fu">\usetikzlibrary</span>{decorations.pathreplacing} <span class="co">% NECESSÁRIO para brace</span></span>
+<span id="cb13-3"><a href=""></a></span>
+<span id="cb13-4"><a href=""></a><span class="kw">\begin</span>{<span class="ex">tikzpicture</span>}[scale=1.1]</span>
+<span id="cb13-5"><a href=""></a></span>
+<span id="cb13-6"><a href=""></a>  <span class="co">% Eixos</span></span>
+<span id="cb13-7"><a href=""></a>  <span class="fu">\draw</span>[-&gt;] (0,0) -- (8,0) node[below]{Quantidade};</span>
+<span id="cb13-8"><a href=""></a>  <span class="fu">\draw</span>[-&gt;] (0,0) -- (0,6) node[above]{Preço};</span>
+<span id="cb13-9"><a href=""></a></span>
+<span id="cb13-10"><a href=""></a>  <span class="co">% Curva de demanda (passa exatamente por Q0, P0)</span></span>
+<span id="cb13-11"><a href=""></a>  <span class="fu">\draw</span>[blue, thick] (0.5,5.01) -- (7.5,0.50) node[right] {<span class="ss">$D$</span>};</span>
+<span id="cb13-12"><a href=""></a></span>
+<span id="cb13-13"><a href=""></a>  <span class="co">% Curva de oferta original (passa exatamente por Q0, P0)</span></span>
+<span id="cb13-14"><a href=""></a>  <span class="fu">\draw</span>[red, thick] (0.5,0.20) -- (7.2,5.50) node[right] {<span class="ss">$S$</span>};</span>
+<span id="cb13-15"><a href=""></a></span>
+<span id="cb13-16"><a href=""></a>  <span class="co">% Linhas tracejadas horizontais PV, P0 e PC (até a curva S)</span></span>
+<span id="cb13-17"><a href=""></a>  <span class="fu">\draw</span>[dashed] (0,3.8) -- (5.05,3.8);</span>
+<span id="cb13-18"><a href=""></a>  <span class="fu">\draw</span>[dashed] (0,2.85) -- (3.85,2.85);</span>
+<span id="cb13-19"><a href=""></a>  <span class="fu">\draw</span>[dashed] (0,2.2) -- (5.05,2.2);</span>
+<span id="cb13-20"><a href=""></a></span>
+<span id="cb13-21"><a href=""></a>  <span class="co">% Pontos sobre a curva de oferta S</span></span>
+<span id="cb13-22"><a href=""></a>  <span class="fu">\filldraw</span>[black] (5.00,2.12) circle (2pt);   <span class="co">% D em P_c</span></span>
+<span id="cb13-23"><a href=""></a>  <span class="fu">\filldraw</span>[black] (3.85,2.85) circle (2pt);  <span class="co">% Equilíbrio S∩D em (Q0, P0)</span></span>
+<span id="cb13-24"><a href=""></a>  <span class="fu">\filldraw</span>[black] (5.05,3.8) circle (2pt);   <span class="co">% S em P_v (= Q1)</span></span>
+<span id="cb13-25"><a href=""></a></span>
+<span id="cb13-26"><a href=""></a>  <span class="co">% Ponto sobre a curva de demanda D em (Q1, Pv)</span></span>
+<span id="cb13-27"><a href=""></a>  <span class="co">% \filldraw[black] (5.05,3.8) circle (2pt);</span></span>
+<span id="cb13-28"><a href=""></a></span>
+<span id="cb13-29"><a href=""></a>  <span class="co">% Rótulos no eixo Y</span></span>
+<span id="cb13-30"><a href=""></a>  <span class="fu">\node</span>[left] at (0,3.8) {<span class="ss">$P_v$</span>};</span>
+<span id="cb13-31"><a href=""></a>  <span class="fu">\node</span>[left] at (0,2.85) {<span class="ss">$P_0$</span>};</span>
+<span id="cb13-32"><a href=""></a>  <span class="fu">\node</span>[left] at (0,2.2) {<span class="ss">$P_c$</span>};</span>
+<span id="cb13-33"><a href=""></a></span>
+<span id="cb13-34"><a href=""></a>  <span class="co">% Linhas tracejadas verticais Q0 e Q1</span></span>
+<span id="cb13-35"><a href=""></a>  <span class="fu">\draw</span>[dashed] (3.85,0) -- (3.85,2.85);</span>
+<span id="cb13-36"><a href=""></a>  <span class="fu">\draw</span>[dashed] (5.05,0) -- (5.05,3.8);</span>
+<span id="cb13-37"><a href=""></a></span>
+<span id="cb13-38"><a href=""></a>  <span class="co">% Rótulos no eixo X</span></span>
+<span id="cb13-39"><a href=""></a>  <span class="fu">\node</span>[below] at (3.85,0) {<span class="ss">$Q_0$</span>};</span>
+<span id="cb13-40"><a href=""></a>  <span class="fu">\node</span>[below] at (5.05,0) {<span class="ss">$Q_1$</span>};</span>
+<span id="cb13-41"><a href=""></a></span>
+<span id="cb13-42"><a href=""></a>  <span class="co">% Conexão vertical entre Pv e Pc (benefício do subsídio)</span></span>
+<span id="cb13-43"><a href=""></a>  <span class="fu">\draw</span>[decorate,decoration={brace,amplitude=8pt,mirror}]</span>
+<span id="cb13-44"><a href=""></a>  (5.35,2.2) -- (5.35,3.8) node[midway,right=8pt] {<span class="ss">$s$</span>};</span>
+<span id="cb13-45"><a href=""></a></span>
+<span id="cb13-46"><a href=""></a><span class="kw">\end</span>{<span class="ex">tikzpicture</span>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/subsidio-1.svg" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<figcaption>Subsídio</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<p>Anotações 9.19!</p>
+</div>
+</div>
 <!-- }}} -->
 </section>
-<section id="section" class="slide level2 unnumbered">
-<h2></h2>
-
-<img data-src="figura-9-03.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="section-1" class="slide level2 unnumbered">
-<h2></h2>
-
-<img data-src="figura-9-05.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="section-2" class="slide level2 unnumbered">
-<h2></h2>
-
-<img data-src="figura-9-07.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="section-3" class="slide level2 unnumbered">
-<h2></h2>
-
-<img data-src="figura-9-08.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="section-4" class="slide level2 unnumbered">
-<h2></h2>
-
-<img data-src="figura-9-10.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="section-5" class="slide level2 unnumbered">
-<h2></h2>
-
-<img data-src="figura-9-11.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="section-6" class="slide level2 unnumbered">
-<h2></h2>
-
-<img data-src="figura-9-14.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="section-7" class="slide level2 unnumbered">
-<h2></h2>
-
-<img data-src="figura-9-15.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="section-8" class="slide level2 unnumbered">
-<h2></h2>
-
-<img data-src="figura-9-17.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="section-9" class="slide level2 unnumbered">
-<h2></h2>
-
-<img data-src="figura-9-18.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="section-10" class="slide level2 unnumbered">
-<h2></h2>
-
-<img data-src="figura-9-19.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="referências" class="slide level2 smaller scrollable">
 <h2>Referências</h2>
 <div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
@@ -447,14 +1639,14 @@ PINDYCK, R. S.; RUBINFELD, D. L. <strong>Microeconomia</strong>. [s.l.] Pearson 
 </div>
 </div>
 <!-- vim: fdm=marker foldlevel=0 -->
-
-</section>
-    </div>
-  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
 </div>
-</div></div>
+</div>
+</section>
+    </div>
+  </div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
   <script src="index_files/libs/revealjs/dist/reveal.js"></script>
@@ -484,8 +1676,7 @@ PINDYCK, R. S.; RUBINFELD, D. L. <strong>Microeconomia</strong>. [s.l.] Pearson 
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
-'jumpToSlide': true,
-'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'chalkboard': {"buttons":true},
 'smaller': false,
  
@@ -640,7 +1831,7 @@ PINDYCK, R. S.; RUBINFELD, D. L. <strong>Microeconomia</strong>. [s.l.] Pearson 
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -705,55 +1896,40 @@ PINDYCK, R. S.; RUBINFELD, D. L. <strong>Microeconomia</strong>. [s.l.] Pearson 
     </script>
 
     <script id="quarto-html-after-body" type="application/javascript">
-      window.document.addEventListener("DOMContentLoaded", function (event) {
-        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
-        tabsets.forEach(function(tabset) {
-          const tabby = new Tabby('#' + tabset.id);
-        });
-        const isCodeAnnotation = (el) => {
-          for (const clz of el.classList) {
-            if (clz.startsWith('code-annotation-')) {                     
-              return true;
-            }
-          }
-          return false;
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
         }
-        const onCopySuccess = function(e) {
-          // button target
-          const button = e.trigger;
-          // don't keep focus
-          button.blur();
-          // flash "checked"
-          button.classList.add('code-copy-button-checked');
-          var currentTitle = button.getAttribute("title");
-          button.setAttribute("title", "Copiada");
-          let tooltip;
-          if (window.bootstrap) {
-            button.setAttribute("data-bs-toggle", "tooltip");
-            button.setAttribute("data-bs-placement", "left");
-            button.setAttribute("data-bs-title", "Copiada");
-            tooltip = new bootstrap.Tooltip(button, 
-              { trigger: "manual", 
-                customClass: "code-copy-button-tooltip",
-                offset: [0, -8]});
-            tooltip.show();    
-          }
-          setTimeout(function() {
-            if (tooltip) {
-              tooltip.hide();
-              button.removeAttribute("data-bs-title");
-              button.removeAttribute("data-bs-toggle");
-              button.removeAttribute("data-bs-placement");
-            }
-            button.setAttribute("title", currentTitle);
-            button.classList.remove('code-copy-button-checked');
-          }, 1000);
-          // clear code selection
-          e.clearSelection();
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
         }
-        const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        text: function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
           for (const childEl of codeEl.children) {
             if (isCodeAnnotation(childEl)) {
               childEl.remove();
@@ -761,117 +1937,118 @@ PINDYCK, R. S.; RUBINFELD, D. L. <strong>Microeconomia</strong>. [s.l.] Pearson 
           }
           return codeEl.innerText;
         }
-        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-          text: getTextToCopy
-        });
-        clipboard.on('success', onCopySuccess);
-        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-            text: getTextToCopy,
-            container: window.document.getElementById('quarto-embedded-source-code-modal')
-          });
-          clipboardModal.on('success', onCopySuccess);
-        }
-          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-          var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp('/' + window.location.host + '/');
-          var isInternal = (href) => {
-              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-          }
-          // Inspect non-navigation links and adorn them if external
-         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-          for (var i=0; i<links.length; i++) {
-            const link = links[i];
-            if (!isInternal(link.href)) {
-              // undo the damage that might have been done by quarto-nav.js in the case of
-              // links that we want to consider external
-              if (link.dataset.originalHref !== undefined) {
-                link.href = link.dataset.originalHref;
-              }
-            }
-          }
-        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-          const config = {
-            allowHTML: true,
-            maxWidth: 500,
-            delay: 100,
-            arrow: false,
-            appendTo: function(el) {
-                return el.closest('section.slide') || el.parentElement;
-            },
-            interactive: true,
-            interactiveBorder: 10,
-            theme: 'light-border',
-            placement: 'bottom-start',
-          };
-          if (contentFn) {
-            config.content = contentFn;
-          }
-          if (onTriggerFn) {
-            config.onTrigger = onTriggerFn;
-          }
-          if (onUntriggerFn) {
-            config.onUntrigger = onUntriggerFn;
-          }
-            config['offset'] = [0,0];
-            config['maxWidth'] = 700;
-          window.tippy(el, config); 
-        }
-        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-        for (var i=0; i<noterefs.length; i++) {
-          const ref = noterefs[i];
-          tippyHover(ref, function() {
-            // use id or data attribute instead here
-            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-            try { href = new URL(href).hash; } catch {}
-            const id = href.replace(/^#\/?/, "");
-            const note = window.document.getElementById(id);
-            if (note) {
-              return note.innerHTML;
-            } else {
-              return "";
-            }
-          });
-        }
-        const findCites = (el) => {
-          const parentEl = el.parentElement;
-          if (parentEl) {
-            const cites = parentEl.dataset.cites;
-            if (cites) {
-              return {
-                el,
-                cites: cites.split(' ')
-              };
-            } else {
-              return findCites(el.parentElement)
-            }
-          } else {
-            return undefined;
-          }
-        };
-        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-        for (var i=0; i<bibliorefs.length; i++) {
-          const ref = bibliorefs[i];
-          const citeInfo = findCites(ref);
-          if (citeInfo) {
-            tippyHover(citeInfo.el, function() {
-              var popup = window.document.createElement('div');
-              citeInfo.cites.forEach(function(cite) {
-                var citeDiv = window.document.createElement('div');
-                citeDiv.classList.add('hanging-indent');
-                citeDiv.classList.add('csl-entry');
-                var biblioDiv = window.document.getElementById('ref-' + cite);
-                if (biblioDiv) {
-                  citeDiv.innerHTML = biblioDiv.innerHTML;
-                }
-                popup.appendChild(citeDiv);
-              });
-              return popup.innerHTML;
-            });
-          }
-        }
       });
-      </script>
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copiada");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copiada");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
     
 
 </body></html>
