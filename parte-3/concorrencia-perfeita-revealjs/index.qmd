@@ -324,7 +324,6 @@ font_opts <- list(dvisvgm.opts = "--font-format=woff")
 #| label: preco-fixado-acima-equilibrio
 #| echo: true
 #| code-fold: true
-#| fig-cap: "Perda de bem-estar quando um preço é fixado acima do preço de equilíbrio"
 #| fig-align: center
 #| fig-ext: svg
 #| out-width: 90%
@@ -658,7 +657,6 @@ Preço fixado pelo governo acima do nível de mercado livre e mantido por meio d
 #| label: restricao-de-oferta
 #| echo: true
 #| code-fold: true
-#| fig-cap: "Restrição de oferta"
 #| fig-align: center
 #| fig-ext: svg
 #| out-width: 100%
@@ -748,10 +746,10 @@ O governo também pode fazer com que o preço de uma mercadoria aumente por meio
 ele deve ser pelo menos igual a B + C + D, que seria o lucro adicional obtido por meio do plantio, dado o preço mais elevado $P_s$. O custo para o governo é, portanto, de pelo menos B + C + D.
 
 * $\Delta EC = -A - B$
+* $\Delta EP = A - C + \text{Pagamentos para não produzir}$
+* $\Delta \text{Bem-estar} = – A – B + A + B + D – B – C – D = –B – C$
 
 :::
-
-* em construção...
 
 :::
 :::
@@ -769,10 +767,9 @@ ele deve ser pelo menos igual a B + C + D, que seria o lucro adicional obtido po
 #| label: taritas-quotas-importacao
 #| echo: true
 #| code-fold: true
-#| fig-cap: "Tarifa ou quota de importação para eliminar importações"
 #| fig-align: center
 #| fig-ext: svg
-#| out-width: 100%
+#| out-width: 90%
 
 \usetikzlibrary{patterns,arrows.meta,decorations.pathreplacing}
 
@@ -850,8 +847,25 @@ ele deve ser pelo menos igual a B + C + D, que seria o lucro adicional obtido po
 :::
 ::: {.column width="40%"}
 
-Anotações 9.14!
+:::{style="font-size: 80%; text-align: left; line-height: 1.0em; color: black; "}
 
+::: {.callout-note collapse="false" appearance="simple" icons="false"}
+# Quota de importação
+
+Limite da quantidade de uma mercadoria que pode ser importada.
+:::
+
+::: {.callout-tip collapse="false" appearance="simple" icons="false"}
+# Tarifa de importação
+
+Imposto sobre uma mercadoria importada.
+:::
+
+* Em um mercado livre, o preço interno é igual ao preço mundial, $P_w$. A quantidade demandada total $Q_d$ é consumida, da qual $Q_s$ é a quantidade ofertada internamente e o restante é importado. Quando as importações são eliminadas, o preço sobe para $P_0$. O ganho dos produtores é o trapézio A. A perda dos consumidores é A + B + C, sendo o peso morto igual a B + C.
+* $\Delta EC = – A – B – C$
+* $\Delta EP = A$
+
+:::
 :::
 :::
 
@@ -868,14 +882,13 @@ Anotações 9.14!
 #| label: taritas-quotas-importacao-caso-generico
 #| echo: true
 #| code-fold: true
-#| fig-cap: "Tarifa ou quota de importação - caso genérico"
 #| fig-align: center
 #| fig-ext: svg
 #| out-width: 100%
 
 \usetikzlibrary{patterns,arrows.meta,decorations.pathreplacing}
 
-\begin{tikzpicture}[scale=1.4, >=Stealth]
+\begin{tikzpicture}[scale=1.2, >=Stealth]
 
   % Eixos
   \draw[thick,->] (0,0) -- (9,0) node[below] {Quantidade};
@@ -964,8 +977,17 @@ Anotações 9.14!
 :::
 ::: {.column width="40%"}
 
-Anotações 9.15!
+<br>
 
+:::{style="font-size: 80%; text-align: left; line-height: 1.0em; color: black; "}
+
+* Quando as importações são reduzidas, o preço interno aumenta de $P_w$ para $P^{*}$. Isso pode ser obtido por fixação de
+uma quota ou de uma tarifa $T = P^{*} – P_w$. O ganho dos produtores internos é novamente o trapézio A. A perda dos
+consumidores é A + B + C + D. Utilizando a tarifa, o governo ganha D — a receita proveniente da tarifa — e a perda
+interna líquida é, portanto, B + C. Se, por outro lado, é fixada uma quota, o retângulo D torna-se parte dos lucros dos
+produtores estrangeiros e a perda interna líquida é, portanto, B + C + D.
+
+:::
 :::
 :::
 
@@ -982,7 +1004,6 @@ Anotações 9.15!
 #| label: incidencia-de-imposto
 #| echo: true
 #| code-fold: true
-#| fig-cap: "Incidência de um imposto"
 #| fig-align: center
 #| fig-ext: svg
 #| out-width: 100%
@@ -1066,7 +1087,17 @@ Anotações 9.15!
 :::
 ::: {.column width="40%"}
 
-Anotações 9.17!
+<br>
+
+:::{style="font-size: 80%; text-align: left; line-height: 1.0em; color: black; "}
+
+* $P_c$ é o preço (incluindo o imposto) pago pelos compradores. $P_v$ é o preço que os vendedores recebem menos o imposto. Aqui, a carga fiscal é repartida entre compradores e vendedores. Os compradores perdem A + B e os vendedores perdem D + C, enquanto o governo arrecada A + D. O peso morto é B + C.
+
+* Um imposto recai principalmente sobre o comprador se o valor de $E_d / E_s$ for baixo e recai principalmente sobre o vendedor se o valor de $E_d / E_s$ for alto.
+* Transferência, calcular a porcentagem da carga fiscal que recai sobre os consumidores
+  * $\text{transferência} = E_s / (E_s – E_d)$
+
+:::
 
 :::
 :::
@@ -1084,10 +1115,9 @@ Anotações 9.17!
 #| label: imposto-elasticidades-a
 #| echo: true
 #| code-fold: true
-#| fig-cap: "Impostos e elasticidade"
 #| fig-align: center
 #| fig-ext: svg
-#| out-width: 80%
+#| out-width: 70%
 
 \usetikzlibrary{arrows.meta}
 \usetikzlibrary{decorations.pathreplacing} % NECESSÁRIO para brace
@@ -1132,12 +1162,13 @@ Anotações 9.17!
   \draw[decorate,decoration={brace,amplitude=8pt}]
   (\Qt-0.1,\Ps) -- (\Qt-0.1,\Pc) node[midway,left=8pt] {$t$};
 
-  % Legenda (a)
-  \node[below] at (3, -0.8) {(a)};
-
 \end{tikzpicture}
 
 ```
+
+::: {.callout-note collapse="false" appearance="simple" icons="false"}
+Se a demanda for muito inelástica em relação à oferta, a carga fiscal recairá principalmente sobre os compradores.
+:::
 
 :::
 ::: {.column width="50%"}
@@ -1146,10 +1177,9 @@ Anotações 9.17!
 #| label: imposto-elasticidades-b
 #| echo: true
 #| code-fold: true
-#| fig-cap: "Impostos e elasticidade"
 #| fig-align: center
 #| fig-ext: svg
-#| out-width: 80%
+#| out-width: 70%
 
 \usetikzlibrary{arrows.meta}
 \usetikzlibrary{decorations.pathreplacing} % NECESSÁRIO para brace
@@ -1194,13 +1224,12 @@ Anotações 9.17!
   \draw[decorate,decoration={brace,amplitude=8pt}]
   (\Qt-0.1,\Ps) -- (\Qt-0.1,\Pc) node[midway,left=8pt] {$t$};
 
-  % Legenda (b)
-  \node[below] at (3, -0.8) {(b)};
-
 \end{tikzpicture}
-
 ```
 
+::: {.callout-tip collapse="false" appearance="simple" icons="false"}
+Se a demanda for muito elástica em relação à oferta, a carga fiscal incidirá principalmente sobre os vendedores.
+:::
 
 :::
 :::
@@ -1275,7 +1304,9 @@ Anotações 9.17!
 :::
 ::: {.column width="40%"}
 
-Anotações 9.19!
+* Um subsídio pode ser interpretado como um imposto negativo. De maneira semelhante ao caso do imposto, o benefício de um subsídio é dividido entre compradores e vendedores, dependendo das elasticidades relativas da oferta e da demanda.
+
+* o benefício de um subsídio é apropriado principalmente pelos compradores se o valor de $E_d / E_s$ for baixo e beneficia principalmente os vendedores se o valor de $E_d / E_s$ for alto.
 
 :::
 :::

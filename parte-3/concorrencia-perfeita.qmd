@@ -8,7 +8,7 @@ author:
       - name: Universidade Federal de Mato Grosso
 ---
 
-Material básico: @pindyck2013 [capítulo 9], @baidya2014 [capítulo 4] e @perloff2022 [capítulo 9].
+Material básico: @pindyck2013 [capítulo 9], @perloff2022 [capítulo 9] e @baidya2014 [capítulo 4].
 
 <!-- Revisão {{{ -->
 
@@ -457,13 +457,16 @@ Obs.: quem ganha nos táxis é apenas os donos das placas que as obtiveram nos `
 
 ::: {#tip-revisao .callout-note collapse="true" appearance="default" icons="false"}
 
-## Calculando Excedentes $\int$
+## Calculando Excedentes com $\int$
 
 * Em desenvolvimento, ver @perloff2022 [capítulo 9].
 
 :::
 
 <!-- }}} -->
+
+* **TODO**
+   * adicionar conteúdo de @perloff2022 [capítulo 9]
 
 ## Referências
 
