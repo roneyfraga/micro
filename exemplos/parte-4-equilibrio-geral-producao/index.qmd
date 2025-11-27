@@ -10,6 +10,13 @@ author:
 
 ## Estrutura da Economia
 
+<!--
+::: {.callout-note collapse="false" appearance="default" icons="false"}
+
+Veja [YT de Alexandre Sartoris - Economia Unesp](https://www.youtube.com/watch?v=_uap0sMuNnY)
+:::
+-->
+
 A economia é composta por:
 
 - **Dois consumidores:** Ana e Bruno.

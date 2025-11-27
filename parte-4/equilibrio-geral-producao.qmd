@@ -1,0 +1,509 @@
+---
+title: "Equilíbrio Geral - Produção `cc`"
+date: "today"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+<div style="margin: 20px 0;">
+
+```{=html}
+<iframe class="slide-deck" src="varian-capitulo-32-producao.pdf" width="100%" height="600px" style="border: 2px solid #dee2e6; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"></iframe>
+```
+
+
+## Introdução
+
+O equilíbrio geral com produção estende a análise de equilíbrio geral de trocas ao incorporar a produção de bens [@varian2012]. Neste contexto, as firmas transformam insumos em produtos, e os consumidores são simultaneamente proprietários das firmas, recebendo os lucros como parte de sua renda.
+
+Este documento apresenta quatro exemplos progressivos de equilíbrio geral com produção:
+
+* `Exemplo 1:` Um único consumidor e o insumo não é um bem de produção
+* `Exemplo 2:` Um único consumidor e o insumo é um bem de produção (lazer)
+* `Exemplo 3:` Dois consumidores e trabalho como insumo
+* `Exemplo 4:` Dois consumidores e dotações iniciais positivas
+
+## Estrutura Geral do Modelo
+
+Em um modelo de equilíbrio geral com produção, temos três componentes fundamentais:
+
+**Firmas**: Maximizam lucro sujeito à tecnologia disponível (representada pela fronteira de possibilidades de produção - PPF).
+
+**Consumidores**: Maximizam utilidade sujeito à restrição orçamentária, que inclui a renda proveniente da propriedade das firmas.
+
+**Mercados**: Coordenam oferta e demanda através do sistema de preços, garantindo que todos os mercados estejam em equilíbrio simultaneamente.
+
+<!-- Exemplo 1: Um Único Consumidor e Insumo Não Produtivo {{{ -->
+
+::: {#tip-ex1 .callout-tip collapse="true" appearance="default" icons="false"}
+
+## Exemplo 1: Um Único Consumidor e Insumo Não Produtivo
+
+### Estrutura do Modelo
+
+Considere uma economia com:
+
+* Um único consumidor com função utilidade $U(x, y)$
+* Um insumo fixo (não é um bem de consumo)
+* Uma firma que produz os bens $x$ e $y$
+* A tecnologia é representada pela fronteira de possibilidades de produção (PPF): $y = g(x)$
+* O consumidor é proprietário da firma e recebe todo o lucro $\Pi$
+* Não há dotações iniciais de bens
+
+**Problema Central**: Determinar as quantidades de equilíbrio $(x^*, y^*)$ e os preços relativos $(P_x, P_y)$ que levam a economia ao equilíbrio geral.
+
+### Especificação Numérica
+
+Considere a seguinte especificação:
+
+**Tecnologia (PPF)**:
+$$y = 13.5 - 0.5x^2$$
+
+**Preferências**:
+$$U(x,y) = xy$$
+
+### Resolução: Etapa 1 - Problema da Firma
+
+A firma maximiza lucro escolhendo as quantidades de $x$ e $y$ a produzir, sujeita à restrição tecnológica:
+
+$$\max_{x,y} \Pi = P_x x + P_y y$$
+
+sujeito a:
+$$y = 13.5 - 0.5x^2$$
+
+Substituindo a restrição na função objetivo:
+
+$$\max_{x} \Pi(x) = P_x x + P_y(13.5 - 0.5x^2)$$
+
+**Condição de primeira ordem**:
+
+$$\frac{d\Pi}{dx} = P_x - P_y \cdot x = 0$$
+
+Resolvendo para $x$:
+
+$$x^S = \frac{P_x}{P_y}$$
+
+Esta é a **oferta do bem $x$** pela firma.
+
+Substituindo na PPF para obter a oferta de $y$:
+
+$$y^S = 13.5 - 0.5\left(\frac{P_x}{P_y}\right)^2 = 13.5 - \frac{P_x^2}{2P_y^2}$$
+
+**Lucro máximo da firma**:
+
+Substituindo $x^S$ e $y^S$ na função lucro:
+
+$$\Pi^* = P_x \cdot \frac{P_x}{P_y} + P_y\left(13.5 - \frac{P_x^2}{2P_y^2}\right)$$
+
+$$\Pi^* = \frac{P_x^2}{P_y} + 13.5P_y - \frac{P_x^2}{2P_y}$$
+
+$$\Pi^* = \frac{P_x^2}{2P_y} + 13.5P_y$$
+
+**Interpretação econômica**: A condição $P_x = P_y \cdot x$ indica que a firma produz até o ponto onde o preço do bem $x$ iguala o custo marginal de oportunidade de produzi-lo (medido pela taxa marginal de transformação multiplicada pelo preço de $y$). A taxa marginal de transformação é:
+
+$$TMT = -\frac{dy}{dx} = x$$
+
+No ótimo: $P_x = P_y \cdot TMT$, ou seja, $\frac{P_x}{P_y} = TMT$.
+
+### Resolução: Etapa 2 - Problema do Consumidor
+
+O consumidor maximiza utilidade sujeito à restrição orçamentária, onde sua renda é o lucro da firma:
+
+$$\max_{x,y} U(x,y) = xy$$
+
+sujeito a:
+$$P_x x + P_y y = \Pi^*$$
+
+Usando o método de Lagrange:
+
+$$\mathcal{L} = xy + \lambda(\Pi^* - P_x x - P_y y)$$
+
+**Condições de primeira ordem**:
+
+$$\frac{\partial \mathcal{L}}{\partial x} = y - \lambda P_x = 0 \quad \Rightarrow \quad y = \lambda P_x$$
+
+$$\frac{\partial \mathcal{L}}{\partial y} = x - \lambda P_y = 0 \quad \Rightarrow \quad x = \lambda P_y$$
+
+Dividindo as duas equações:
+
+$$\frac{y}{x} = \frac{P_x}{P_y}$$
+
+Ou seja, a **taxa marginal de substituição** (TMS) deve igualar a razão de preços:
+
+$$TMS = \frac{MU_x}{MU_y} = \frac{y}{x} = \frac{P_x}{P_y}$$
+
+Da restrição orçamentária:
+
+$$y = \frac{\Pi^* - P_x x}{P_y}$$
+
+Substituindo na função utilidade e usando a condição $y = \frac{P_x}{P_y} x$:
+
+$$P_x x + P_y \cdot \frac{P_x}{P_y} x = \Pi^*$$
+
+$$2P_x x = \Pi^*$$
+
+Portanto, a **demanda do bem $x$** é:
+
+$$x^D = \frac{\Pi^*}{2P_x}$$
+
+E a **demanda do bem $y$** é:
+
+$$y^D = \frac{\Pi^*}{2P_y}$$
+
+**Interpretação econômica**: Para a função Cobb-Douglas $U = xy$, o consumidor gasta metade de sua renda em cada bem (propriedade das preferências homotéticas com expoentes iguais).
+
+### Resolução: Etapa 3 - Equilíbrio de Mercado
+
+No equilíbrio, a oferta deve igualar a demanda em ambos os mercados:
+
+**Mercado do bem $x$**:
+$$x^S = x^D$$
+
+$$\frac{P_x}{P_y} = \frac{\Pi^*}{2P_x}$$
+
+Substituindo $\Pi^* = \frac{P_x^2}{2P_y} + 13.5P_y$:
+
+$$\frac{P_x}{P_y} = \frac{\frac{P_x^2}{2P_y} + 13.5P_y}{2P_x}$$
+
+$$\frac{P_x}{P_y} = \frac{P_x^2}{4P_x P_y} + \frac{13.5P_y}{2P_x}$$
+
+$$\frac{P_x}{P_y} = \frac{P_x}{4P_y} + \frac{13.5P_y}{2P_x}$$
+
+Multiplicando ambos os lados por $P_y$:
+
+$$P_x = \frac{P_x}{4} + \frac{13.5P_y^2}{2P_x}$$
+
+$$\frac{3P_x}{4} = \frac{13.5P_y^2}{2P_x}$$
+
+$$\frac{3P_x^2}{4} = \frac{13.5P_y^2}{2}$$
+
+$$3P_x^2 = 27P_y^2$$
+
+$$P_x^2 = 9P_y^2$$
+
+$$\frac{P_x}{P_y} = 3$$
+
+**Preço relativo de equilíbrio**: $\frac{P_x}{P_y} = 3$
+
+### Quantidades de Equilíbrio
+
+Normalizando $P_y = 1$, temos $P_x = 3$.
+
+**Oferta/Demanda de $x$**:
+$$x^* = \frac{P_x}{P_y} = \frac{3}{1} = 3$$
+
+**Oferta/Demanda de $y$**:
+$$y^* = 13.5 - 0.5(3)^2 = 13.5 - 4.5 = 9$$
+
+**Lucro de equilíbrio**:
+$$\Pi^* = \frac{3^2}{2 \cdot 1} + 13.5 \cdot 1 = 4.5 + 13.5 = 18$$
+
+**Verificação da demanda**:
+$$x^D = \frac{18}{2 \cdot 3} = 3 \quad \checkmark$$
+
+$$y^D = \frac{18}{2 \cdot 1} = 9 \quad \checkmark$$
+
+**Verificação da utilidade**:
+$$U(3, 9) = 3 \times 9 = 27$$
+
+### Interpretação Econômica do Equilíbrio
+
+1. **Eficiência produtiva**: A firma opera sobre a PPF, não desperdiçando recursos.
+
+2. **Eficiência alocativa**: A taxa marginal de transformação (TMT) iguala a taxa marginal de substituição (TMS) e a razão de preços:
+   $$TMT = x^* = 3 = \frac{P_x}{P_y} = \frac{y^*}{x^*} = TMS$$
+
+3. **Equilíbrio de mercado**: Oferta iguala demanda em ambos os mercados simultaneamente.
+
+4. **Maximização de lucro e utilidade**: A firma maximiza lucro e o consumidor maximiza utilidade, dados os preços de equilíbrio.
+
+Este equilíbrio é um **ótimo de Pareto**: não é possível melhorar a situação do consumidor sem violar as restrições tecnológicas ou de mercado.
+
+### Propriedades do Equilíbrio Geral
+
+O equilíbrio encontrado satisfaz as seguintes propriedades fundamentais:
+
+**Primeiro Teorema do Bem-Estar**: O equilíbrio competitivo é Pareto eficiente. Neste caso, a alocação $(x^*, y^*) = (3, 9)$ maximiza a utilidade do consumidor sujeita à restrição tecnológica.
+
+**Condição de tangência**: No equilíbrio, a curva de indiferença do consumidor é tangente à PPF, indicando que:
+$$TMS = TMT = \frac{P_x}{P_y}$$
+
+**Papel dos preços**: Os preços coordenam as decisões descentralizadas da firma (maximização de lucro) e do consumidor (maximização de utilidade), levando a uma alocação eficiente.
+
+**Lei de Walras**: A soma dos valores de excesso de demanda em todos os mercados é zero. Se o mercado de $x$ está em equilíbrio, o mercado de $y$ também está (podemos verificar apenas $n-1$ mercados em uma economia com $n$ bens).
+
+:::
+<!-- }}} -->
+
+<!-- Exemplo 2: Um Único Consumidor e Trabalho como Insumo {{{ -->
+
+::: {#tip-ex2 .callout-tip collapse="true" appearance="default" icons="false"}
+
+## Exemplo 2: Um Único Consumidor e Trabalho como Insumo
+
+### Estrutura do Modelo
+
+Este exemplo introduz uma característica fundamental das economias reais: o trabalho como insumo produtivo e bem de escolha do consumidor. Considere uma economia com:
+
+* Um único consumidor com função utilidade $U(x,L)$, onde:
+  * $x$ é o bem de consumo
+  * $L$ é o trabalho (*labor* em inglês)
+  * O consumidor valoriza positivamente o consumo de $x$ e negativamente o trabalho $L$ (ou equivalentemente, valoriza positivamente o lazer $1-L$)
+* Uma dotação inicial de tempo normalizada em 1 unidade (pode-se interpretar como 24 horas, 1 dia, etc.)
+  * O consumidor divide seu tempo entre trabalho $L$ e lazer $(1-L)$
+* Uma firma com função de produção $x = f(L)$
+  * A firma transforma trabalho em bem de consumo
+  * O consumidor é proprietário da firma
+* Dois mercados:
+  * Mercado do bem $x$ com preço $P$
+  * Mercado de trabalho com salário $w$
+
+**Problema Central**: Determinar o salário real de equilíbrio $\frac{w}{P}$ e as quantidades de equilíbrio $(x^*, L^*)$.
+
+**Diferença fundamental em relação ao Exemplo 1**: Aqui o insumo (trabalho) é também um argumento da função utilidade do consumidor, criando um *trade-off* entre consumo e lazer.
+
+### Especificação Numérica
+
+**Preferências**:
+$$U(x,L) = x(1-L)$$
+
+Esta função captura o *trade-off* entre consumo ($x$) e lazer $(1-L)$. Quanto mais o consumidor trabalha ($L$ maior), menos lazer tem, reduzindo sua utilidade.
+
+**Tecnologia**:
+$$x = f(L) = \sqrt{L}$$
+
+Função de produção com retornos decrescentes de escala (produtividade marginal decrescente do trabalho).
+
+### Resolução: Etapa 1 - Problema da Firma
+
+A firma maximiza lucro escolhendo quanto trabalho demandar e quanto bem $x$ produzir:
+
+$$\max_{L,x} \Pi = Px - wL$$
+
+sujeito à restrição tecnológica:
+$$x = \sqrt{L}$$
+
+Substituindo a restrição na função objetivo:
+
+$$\max_{L} \Pi(L) = P\sqrt{L} - wL$$
+
+**Condição de primeira ordem**:
+
+$$\frac{d\Pi}{dL} = \frac{P}{2\sqrt{L}} - w = 0$$
+
+Resolvendo para $L$:
+
+$$\frac{P}{2\sqrt{L}} = w$$
+
+$$\sqrt{L} = \frac{P}{2w}$$
+
+$$L^D = \frac{P^2}{4w^2}$$
+
+Esta é a **demanda de trabalho** pela firma.
+
+Substituindo na função de produção para obter a oferta de $x$:
+
+$$x^S = \sqrt{L^D} = \sqrt{\frac{P^2}{4w^2}} = \frac{P}{2w}$$
+
+**Lucro máximo da firma**:
+
+$$\Pi^* = P \cdot \frac{P}{2w} - w \cdot \frac{P^2}{4w^2}$$
+
+$$\Pi^* = \frac{P^2}{2w} - \frac{P^2}{4w}$$
+
+$$\Pi^* = \frac{2P^2 - P^2}{4w} = \frac{P^2}{4w}$$
+
+**Interpretação econômica**: A condição de primeira ordem $\frac{P}{2\sqrt{L}} = w$ indica que a firma demanda trabalho até o ponto onde o valor do produto marginal do trabalho (VPMgL) iguala o salário:
+
+$$VPMgL = P \cdot PMgL = P \cdot \frac{1}{2\sqrt{L}} = w$$
+
+A produtividade marginal do trabalho é:
+
+$$PMgL = \frac{dx}{dL} = \frac{1}{2\sqrt{L}}$$
+
+### Resolução: Etapa 2 - Problema do Consumidor
+
+O consumidor maximiza utilidade escolhendo quanto consumir de $x$ e quanto trabalhar $L$:
+
+$$\max_{x,L} U(x,L) = x(1-L)$$
+
+sujeito à restrição orçamentária:
+$$Px = \Pi^* + wL$$
+
+onde $\Pi^*$ é o lucro recebido como proprietário da firma e $wL$ é a renda do trabalho.
+
+**Interpretação da restrição orçamentária**: O consumidor gasta sua renda (lucro da firma + salário) no consumo do bem $x$.
+
+Da restrição orçamentária:
+
+$$x = \frac{\Pi^* + wL}{P}$$
+
+Substituindo na função utilidade:
+
+$$\max_{L} U(L) = \frac{\Pi^* + wL}{P}(1-L)$$
+
+$$\max_{L} U(L) = \frac{1}{P}(\Pi^* + wL)(1-L)$$
+
+$$\max_{L} U(L) = \frac{1}{P}[\Pi^*(1-L) + wL(1-L)]$$
+
+$$\max_{L} U(L) = \frac{1}{P}[\Pi^* - \Pi^*L + wL - wL^2]$$
+
+**Condição de primeira ordem**:
+
+$$\frac{dU}{dL} = \frac{1}{P}[-\Pi^* + w - 2wL] = 0$$
+
+$$-\Pi^* + w - 2wL = 0$$
+
+$$2wL = w - \Pi^*$$
+
+$$L^S = \frac{w - \Pi^*}{2w}$$
+
+Esta é a **oferta de trabalho** do consumidor.
+
+**Interpretação econômica**: O consumidor escolhe trabalhar até o ponto onde o benefício marginal de trabalhar mais (ganhar salário $w$ para consumir mais $x$) iguala o custo marginal (perder lazer). A presença de $\Pi^*$ na oferta de trabalho representa o **efeito renda**: quanto maior o lucro recebido, menor a necessidade de trabalhar.
+
+### Resolução: Etapa 3 - Equilíbrio de Mercado
+
+No equilíbrio, a oferta de trabalho do consumidor deve igualar a demanda de trabalho da firma:
+
+$$L^S = L^D$$
+
+$$\frac{w - \Pi^*}{2w} = \frac{P^2}{4w^2}$$
+
+Substituindo $\Pi^* = \frac{P^2}{4w}$:
+
+$$\frac{w - \frac{P^2}{4w}}{2w} = \frac{P^2}{4w^2}$$
+
+Multiplicando ambos os lados por $2w$:
+
+$$w - \frac{P^2}{4w} = \frac{P^2}{2w}$$
+
+Multiplicando ambos os lados por $w$:
+
+$$w^2 - \frac{P^2}{4} = \frac{P^2}{2}$$
+
+$$w^2 = \frac{P^2}{4} + \frac{P^2}{2}$$
+
+$$w^2 = \frac{P^2 + 2P^2}{4}$$
+
+$$w^2 = \frac{3P^2}{4}$$
+
+$$\frac{w^2}{P^2} = \frac{3}{4}$$
+
+$$\frac{w}{P} = \frac{\sqrt{3}}{2}$$
+
+**Salário real de equilíbrio**: $\frac{w}{P} = \frac{\sqrt{3}}{2} \approx 0.866$
+
+### Quantidades de Equilíbrio
+
+Normalizando $P = 1$, temos $w = \frac{\sqrt{3}}{2}$.
+
+**Trabalho de equilíbrio**:
+
+$$L^* = \frac{P^2}{4w^2} = \frac{1}{4 \cdot \frac{3}{4}} = \frac{1}{3}$$
+
+**Lazer de equilíbrio**:
+
+$$1 - L^* = 1 - \frac{1}{3} = \frac{2}{3}$$
+
+**Consumo de equilíbrio**:
+
+$$x^* = \sqrt{L^*} = \sqrt{\frac{1}{3}} = \frac{1}{\sqrt{3}} \approx 0.577$$
+
+**Lucro de equilíbrio**:
+
+$$\Pi^* = \frac{P^2}{4w} = \frac{1}{4 \cdot \frac{\sqrt{3}}{2}} = \frac{1}{2\sqrt{3}} = \frac{\sqrt{3}}{6}$$
+
+**Utilidade de equilíbrio**:
+
+$$U^* = x^*(1-L^*) = \frac{1}{\sqrt{3}} \cdot \frac{2}{3} = \frac{2}{3\sqrt{3}} = \frac{2\sqrt{3}}{9} \approx 0.385$$
+
+### Verificações
+
+**Verificação da oferta de trabalho**:
+
+$$L^S = \frac{w - \Pi^*}{2w} = \frac{\frac{\sqrt{3}}{2} - \frac{\sqrt{3}}{6}}{2 \cdot \frac{\sqrt{3}}{2}} = \frac{\frac{3\sqrt{3} - \sqrt{3}}{6}}{\sqrt{3}} = \frac{\frac{2\sqrt{3}}{6}}{\sqrt{3}} = \frac{2\sqrt{3}}{6\sqrt{3}} = \frac{1}{3} \quad \checkmark$$
+
+**Verificação da demanda de trabalho**:
+
+$$L^D = \frac{P^2}{4w^2} = \frac{1}{4 \cdot \frac{3}{4}} = \frac{1}{3} \quad \checkmark$$
+
+**Verificação da restrição orçamentária**:
+
+$$Px^* = \Pi^* + wL^*$$
+
+$$1 \cdot \frac{1}{\sqrt{3}} = \frac{\sqrt{3}}{6} + \frac{\sqrt{3}}{2} \cdot \frac{1}{3}$$
+
+$$\frac{1}{\sqrt{3}} = \frac{\sqrt{3}}{6} + \frac{\sqrt{3}}{6} = \frac{2\sqrt{3}}{6} = \frac{\sqrt{3}}{3} = \frac{1}{\sqrt{3}} \quad \checkmark$$
+
+### Interpretação Econômica do Equilíbrio
+
+1. **Alocação ótima do tempo**: O consumidor trabalha $\frac{1}{3}$ do tempo disponível e desfruta de $\frac{2}{3}$ de lazer, equilibrando o *trade-off* entre renda (para consumir $x$) e lazer.
+
+2. **Eficiência produtiva**: A firma opera no ponto onde o valor do produto marginal do trabalho iguala o salário:
+   $$VPMgL = P \cdot \frac{1}{2\sqrt{L^*}} = 1 \cdot \frac{1}{2\sqrt{1/3}} = \frac{\sqrt{3}}{2} = w \quad \checkmark$$
+
+3. **Eficiência alocativa**: A taxa marginal de substituição entre consumo e lazer iguala o salário real:
+   
+   $$TMS_{x,lazer} = \frac{MU_x}{MU_{lazer}} = \frac{1-L}{x}$$
+   
+   No equilíbrio:
+   $$TMS_{x,lazer} = \frac{2/3}{1/\sqrt{3}} = \frac{2}{3} \cdot \sqrt{3} = \frac{2\sqrt{3}}{3}$$
+   
+   E o salário real é:
+   $$\frac{w}{P} = \frac{\sqrt{3}}{2}$$
+   
+   Note que a TMS entre consumo e **trabalho** (não lazer) é:
+   $$TMS_{x,L} = -\frac{MU_L}{MU_x} = -\frac{-x}{1-L} = \frac{x}{1-L} = \frac{1/\sqrt{3}}{2/3} = \frac{3}{2\sqrt{3}} = \frac{\sqrt{3}}{2} = \frac{w}{P} \quad \checkmark$$
+
+4. **Efeito renda e substituição**: O lucro $\Pi^*$ recebido pelo consumidor reduz sua oferta de trabalho (efeito renda). Se o lucro fosse zero, o consumidor trabalharia mais.
+
+5. **Retornos decrescentes**: A produtividade marginal decrescente do trabalho ($PMgL = \frac{1}{2\sqrt{L}}$) implica que a firma não demanda trabalho indefinidamente, mesmo com salário baixo.
+
+### Propriedades do Equilíbrio
+
+**Primeiro Teorema do Bem-Estar**: O equilíbrio competitivo é Pareto eficiente. A alocação $(x^*, L^*) = (\frac{1}{\sqrt{3}}, \frac{1}{3})$ maximiza a utilidade do consumidor sujeita à restrição tecnológica e à dotação de tempo.
+
+**Papel do salário real**: O salário real $\frac{w}{P}$ coordena as decisões de oferta de trabalho do consumidor e demanda de trabalho da firma, garantindo que o mercado de trabalho esteja em equilíbrio.
+
+**Dualidade consumidor-trabalhador**: O consumidor desempenha dois papéis: (1) ofertante de trabalho e (2) demandante de bens de consumo. Esses papéis são coordenados através do sistema de preços.
+
+:::
+<!-- }}} -->
+
+<!-- Examplo 3: Dois consumidores e trabalho como insumo {{{ -->
+
+::: {#tip-ex3 .callout-tip collapse="true" appearance="default" icons="false"}
+
+## TODO
+
+<!-- https://www.youtube.com/watch?v=JeMOGWIEmqk --> 
+
+:::
+
+<!-- }}} -->
+
+<!-- Examplo 4: Dois consumidores e dotações iniciais positivas {{{ -->
+
+::: {#tip-ex4 .callout-tip collapse="true" appearance="default" icons="false"}
+
+## TODO
+
+<!-- https://www.youtube.com/watch?v=lPDwoNexiFQ -->
+
+:::
+
+
+<!-- Referências {{{ -->
+
+## Referências
+
+::: {#refs}
+:::
+
+<!-- }}} -->
+
+<!-- vim: fdm=marker foldlevel=0 -->

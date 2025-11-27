@@ -1801,6 +1801,11 @@ Com $p_x = 1$ (fixado) e $p_y = 5$ (determinado), o preço relativo é $\frac{p_
 
 <embed src="../notas-digitais/parte-4-equilibrio-geral-ex-equilibrio-sem-producao.pdf" width="100%" height="650">
 
+<!-- Equiíbrio Geral com Produção {{{ -->
+
+
+<!-- }}} -->
+
 <embed src="../notas-digitais/parte-4-equilibrio-geral-ex-equilibrio-com-producao.pdf" width="100%" height="650">
 
 <!-- Guia dos vídeos no YT {{{ -->
@@ -1883,6 +1888,12 @@ Toby Handfield
 
 Nishant Mehra
   - [playlist: Complete Microeconoics II](https://www.youtube.com/playlist?list=PL1IuDhwCHdcD4uqTrb8xvj2-w2jDIQkAx)
+
+Selçuk Özyurt
+ - https://www.selcukozyurt.com
+ - all content from Varian with explanations
+ - https://www.youtube.com/@selcukozyurt/playlists
+
 -->
 
 <!-- }}} -->

@@ -67,6 +67,7 @@ book:
     - part: "Parte 4 - Equilíbrio Geral e Falhas de Mercado"
       chapters:
         - parte-4/equilibrio-geral.qmd
+        - parte-4/equilibrio-geral-producao.qmd
         - exemplos/parte-4-equilibrio-geral-troca-edgeworth/index.qmd
         - exemplos/parte-4-equilibrio-geral-producao/index.qmd
         - parte-4/externalidades.qmd

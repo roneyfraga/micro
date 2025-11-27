@@ -2038,7 +2038,7 @@ Os preços $p_1$ e $p_2$ que garantem as condições acima são chamados preços
 
 <!-- Os Teoremas do Bem-Estar Social {{{ -->
 
-## Os Teoremas do Bem-Estar Social
+## Os Teoremas do Bem-Estar Social `TODO`
 
 <br>
 
@@ -2058,6 +2058,12 @@ Este teorema demonstra que mercados competitivos, quando funcionam adequadamente
 Este resultado fundamental mostra que problemas de distribuição e eficiência podem ser separados. Os preços devem refletir escassez (papel alocativo), enquanto transferências de montante fixo devem ajustar metas distributivas (papel distributivo). Qualquer alocação eficiente desejada pode ser alcançada através de mercados competitivos após redistribuição apropriada das dotações, sem perda de eficiência econômica.
 :::
 :::
+
+<!-- }}} -->
+
+<!-- Monopólio {{{ -->
+
+## Monopólio `TODO`
 
 <!-- }}} -->
 

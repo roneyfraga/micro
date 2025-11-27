@@ -536,4 +536,8 @@ if (!is.null(curva_completa)) {
 
 A troca voluntária permite que ambos os consumidores atinjam uma situação mutuamente benéfica, demonstrando o poder dos mercados para alocar recursos eficientemente quando as preferências são diferentes.
 
+## Referências
+
+::: {#refs}
+::::
 
