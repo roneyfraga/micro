@@ -178,18 +178,6 @@ tibble(
 
 ## Eficiência de Pareto e Perda de Peso Morto
 
-### Critério de Pareto
-
-O **Critério de Pareto** estabelece que uma alocação é eficiente quando não é possível melhorar a situação de um agente sem piorar a de outro.
-
-![Critério de Pareto](img/criterio-de-pareto.png)
-
-### Eficiência de Pareto no Monopólio
-
-O monopólio gera **ineficiência alocativa** porque produz quantidade menor que a socialmente ótima (onde $P = CMg$). Isso resulta em **perda de peso morto** (*deadweight loss*).
-
-![Eficiência de Pareto e Perda de Peso Morto](img/eficiencia-de-pareto.png)
-
 ### Comparação: Monopólio vs. Concorrência Perfeita
 
 No nosso exemplo:
