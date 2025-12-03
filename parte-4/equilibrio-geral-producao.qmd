@@ -478,11 +478,325 @@ $$\frac{1}{\sqrt{3}} = \frac{\sqrt{3}}{6} + \frac{\sqrt{3}}{6} = \frac{2\sqrt{3}
 
 ::: {#tip-ex3 .callout-tip collapse="true" appearance="default" icons="false"}
 
-## TODO
+## Exemplo 3: Dois Consumidores e Trabalho como Insumo
 
 <!-- https://www.youtube.com/watch?v=JeMOGWIEmqk --> 
 
+### Estrutura do Modelo
+
+Considere uma economia com:
+
+* **2 consumidores**: $A$ e $B$ com preferências heterogêneas
+* **Trabalho como insumo produtivo**
+* **Uma firma** que produz o bem $X$ usando trabalho
+
+**Preferências**:
+
+* Consumidor A (gosta de lazer): $U_A (X_A, L_A) = X_A (1 - L_A)$
+* Consumidor B (não valoriza lazer): $U_B (X_B, L_B) = X_B$
+
+**Dotações**: Cada consumidor possui 1 unidade de tempo.
+
+**Tecnologia**: $X_F = \sqrt{L_F}$ onde $L_F = L_A + L_B$
+
+**Propriedade**: O consumidor $B$ é proprietário da firma e recebe o lucro $\Pi$.
+
+### Resolução: Etapa 1 - Problema da Firma
+
+A firma maximiza lucro escolhendo quanto trabalho demandar e quanto bem $X$ produzir:
+
+$$\max_{L_F, X_F} \Pi = P X_F - w L_F$$
+
+sujeito à restrição tecnológica:
+$$X_F = \sqrt{L_F}$$
+
+Substituindo a restrição na função objetivo:
+
+$$\max_{L_F} \Pi(L_F) = P\sqrt{L_F} - w L_F$$
+
+**Condição de primeira ordem**:
+
+$$\frac{d\Pi}{dL_F} = \frac{P}{2\sqrt{L_F}} - w = 0$$
+
+Resolvendo para $L_F$:
+
+$$\frac{P}{2\sqrt{L_F}} = w$$
+
+$$\sqrt{L_F} = \frac{P}{2w}$$
+
+$$L_F = \frac{P^2}{4w^2}$$
+
+Esta é a **demanda de trabalho** pela firma.
+
+Substituindo na função de produção para obter a oferta de $X$:
+
+$$X_F = \sqrt{L_F} = \sqrt{\frac{P^2}{4w^2}} = \frac{P}{2w}$$
+
+**Lucro máximo da firma**:
+
+$$\Pi = P \cdot \frac{P}{2w} - w \cdot \frac{P^2}{4w^2}$$
+
+$$\Pi = \frac{P^2}{2w} - \frac{P^2}{4w}$$
+
+$$\Pi = \frac{2P^2 - P^2}{4w} = \frac{P^2}{4w}$$
+
+**Interpretação econômica**: A condição de primeira ordem $\frac{P}{2\sqrt{L_F}} = w$ indica que a firma demanda trabalho até o ponto onde o valor do produto marginal do trabalho (VPMgL) iguala o salário:
+
+$$VPMgL = P \cdot PMgL = P \cdot \frac{1}{2\sqrt{L_F}} = w$$
+
+A produtividade marginal do trabalho é:
+
+$$PMgL = \frac{dX_F}{dL_F} = \frac{1}{2\sqrt{L_F}}$$
+
+### Resolução: Etapa 2 - Problema do Consumidor A
+
+O consumidor A maximiza utilidade escolhendo quanto consumir de $X$ e quanto trabalhar $L_A$:
+
+$$\max_{X_A, L_A} U_A = X_A(1-L_A)$$
+
+sujeito à restrição orçamentária:
+$$P X_A = w L_A$$
+
+**Interpretação da restrição orçamentária**: O consumidor A não possui renda além do salário (não recebe lucro da firma).
+
+Da restrição orçamentária:
+
+$$X_A = \frac{w L_A}{P}$$
+
+Substituindo na função utilidade:
+
+$$\max_{L_A} U_A(L_A) = \frac{w L_A}{P}(1-L_A)$$
+
+$$\max_{L_A} U_A(L_A) = \frac{w}{P}[L_A - L_A^2]$$
+
+**Condição de primeira ordem**:
+
+$$\frac{dU_A}{dL_A} = \frac{w}{P}[1 - 2L_A] = 0$$
+
+$$1 - 2L_A = 0$$
+
+$$L_A = \frac{1}{2}$$
+
+Esta é a **oferta de trabalho** do consumidor A.
+
+Substituindo na restrição orçamentária:
+
+$$X_A = \frac{w \cdot \frac{1}{2}}{P} = \frac{w}{2P}$$
+
+Esta é a **demanda do bem $X$** pelo consumidor A.
+
+**Interpretação econômica**: O consumidor A trabalha exatamente metade do tempo disponível, independentemente dos preços! Isso ocorre porque a função utilidade $U_A = X_A(1-L_A)$ é Cobb-Douglas com expoentes iguais, implicando que ele aloca metade de sua "dotação" (tempo) para cada "bem" (trabalho e lazer). O lazer de equilíbrio é $1 - L_A = \frac{1}{2}$.
+
+### Resolução: Etapa 3 - Problema do Consumidor B
+
+O consumidor B maximiza utilidade escolhendo quanto consumir de $X$ e quanto trabalhar $L_B$:
+
+$$\max_{X_B, L_B} U_B = X_B$$
+
+sujeito à restrição orçamentária:
+$$P X_B = w L_B + \Pi$$
+
+onde $\Pi$ é o lucro recebido como proprietário da firma e $w L_B$ é a renda do trabalho.
+
+**Interpretação da restrição orçamentária**: O consumidor B gasta sua renda (lucro da firma + salário) no consumo do bem $X$.
+
+Como $U_B = X_B$ (utilidade linear no consumo), o consumidor B quer maximizar $X_B$. Da restrição orçamentária:
+
+$$X_B = \frac{w L_B + \Pi}{P}$$
+
+Para maximizar $X_B$, o consumidor B deve maximizar sua renda $w L_B + \Pi$. Como $\Pi$ é fixo (determinado pela firma), ele deve maximizar $w L_B$. Dado que $w > 0$ e $L_B \in [0, 1]$, a solução é:
+
+$$L_B = 1$$
+
+Esta é a **oferta de trabalho** do consumidor B.
+
+Substituindo na restrição orçamentária:
+
+$$X_B = \frac{w \cdot 1 + \Pi}{P} = \frac{w + \Pi}{P}$$
+
+Esta é a **demanda do bem $X$** pelo consumidor B.
+
+**Interpretação econômica**: O consumidor B não valoriza lazer (lazer não entra em sua função utilidade), então trabalha o máximo possível (toda sua dotação de tempo). Sua demanda por $X$ depende de sua renda total (salário + lucro). O lazer de equilíbrio é $1 - L_B = 0$.
+
+### Resolução: Etapa 4 - Equilíbrio de Mercado
+
+No equilíbrio, a oferta agregada deve igualar a demanda agregada em ambos os mercados.
+
+#### Mercado de Trabalho
+
+A oferta agregada de trabalho é a soma das ofertas individuais:
+
+$$L^S = L_A + L_B = \frac{1}{2} + 1 = \frac{3}{2}$$
+
+A demanda de trabalho pela firma é:
+
+$$L^D = L_F = \frac{P^2}{4w^2}$$
+
+No equilíbrio: $L^S = L^D$
+
+$$\frac{3}{2} = \frac{P^2}{4w^2}$$
+
+$$\frac{P^2}{w^2} = \frac{3}{2} \cdot 4 = 6$$
+
+$$\frac{P}{w} = \sqrt{6}$$
+
+**Preço relativo de equilíbrio**: $\frac{P}{w} = \sqrt{6} \approx 2.449$
+
+#### Verificação no Mercado do Bem X
+
+Vamos verificar que o mercado do bem $X$ também está em equilíbrio (Lei de Walras):
+
+A oferta do bem $X$ pela firma é:
+
+$$X^S = X_F = \frac{P}{2w}$$
+
+A demanda agregada do bem $X$ é:
+
+$$X^D = X_A + X_B = \frac{w}{2P} + \frac{w + \Pi}{P}$$
+
+Substituindo $\Pi = \frac{P^2}{4w}$:
+
+$$X^D = \frac{w}{2P} + \frac{w + \frac{P^2}{4w}}{P}$$
+
+$$X^D = \frac{w}{2P} + \frac{w}{P} + \frac{P}{4w}$$
+
+$$X^D = \frac{3w}{2P} + \frac{P}{4w}$$
+
+Multiplicando ambos os lados por $P$:
+
+$$P X^D = \frac{3w}{2} + \frac{P^2}{4w}$$
+
+E para a oferta:
+
+$$P X^S = P \cdot \frac{P}{2w} = \frac{P^2}{2w}$$
+
+Igualando oferta e demanda:
+
+$$\frac{P^2}{2w} = \frac{3w}{2} + \frac{P^2}{4w}$$
+
+$$\frac{P^2}{2w} - \frac{P^2}{4w} = \frac{3w}{2}$$
+
+$$\frac{2P^2 - P^2}{4w} = \frac{3w}{2}$$
+
+$$\frac{P^2}{4w} = \frac{3w}{2}$$
+
+$$\frac{P^2}{w^2} = 6$$
+
+$$\frac{P}{w} = \sqrt{6} \quad \checkmark$$
+
+**Confirmado**: O mesmo preço relativo equilibra ambos os mercados (Lei de Walras).
+
+### Quantidades de Equilíbrio
+
+Normalizando $w = 1$, temos $P = \sqrt{6} \approx 2.449$.
+
+#### Firma
+
+**Demanda de trabalho**:
+$$L_F = \frac{P^2}{4w^2} = \frac{6}{4 \cdot 1} = 1.5$$
+
+**Oferta do bem X**:
+$$X_F = \frac{P}{2w} = \frac{\sqrt{6}}{2 \cdot 1} = \frac{\sqrt{6}}{2} \approx 1.225$$
+
+**Lucro**:
+$$\Pi = \frac{P^2}{4w} = \frac{6}{4 \cdot 1} = 1.5$$
+
+#### Consumidor A
+
+**Oferta de trabalho**:
+$$L_A = \frac{1}{2} = 0.5$$
+
+**Lazer**:
+$$1 - L_A = 0.5$$
+
+**Demanda do bem X**:
+$$X_A = \frac{w}{2P} = \frac{1}{2\sqrt{6}} = \frac{\sqrt{6}}{12} \approx 0.204$$
+
+**Renda**:
+$$w L_A = 1 \times 0.5 = 0.5$$
+
+**Utilidade**:
+$$U_A = X_A(1-L_A) = 0.204 \times 0.5 \approx 0.102$$
+
+#### Consumidor B
+
+**Oferta de trabalho**:
+$$L_B = 1$$
+
+**Lazer**:
+$$1 - L_B = 0$$
+
+**Demanda do bem X**:
+$$X_B = \frac{w + \Pi}{P} = \frac{1 + 1.5}{\sqrt{6}} = \frac{2.5}{\sqrt{6}} = \frac{2.5\sqrt{6}}{6} \approx 1.021$$
+
+**Renda**:
+$$w L_B + \Pi = 1 \times 1 + 1.5 = 2.5$$
+
+**Utilidade**:
+$$U_B = X_B \approx 1.021$$
+
+### Verificações
+
+**Mercado de trabalho**:
+$$L_F = L_A + L_B$$
+$$1.5 = 0.5 + 1.0 \quad \checkmark$$
+
+**Mercado do bem X**:
+$$X_F = X_A + X_B$$
+$$1.225 \approx 0.204 + 1.021 = 1.225 \quad \checkmark$$
+
+**Restrição orçamentária do consumidor A**:
+$$P X_A = w L_A$$
+$$\sqrt{6} \times 0.204 \approx 1 \times 0.5 = 0.5 \quad \checkmark$$
+
+**Restrição orçamentária do consumidor B**:
+$$P X_B = w L_B + \Pi$$
+$$\sqrt{6} \times 1.021 \approx 1 \times 1 + 1.5 = 2.5 \quad \checkmark$$
+
+### Interpretação Econômica do Equilíbrio
+
+1. **Alocação heterogênea do tempo**: 
+   * O consumidor A trabalha $\frac{1}{2}$ do tempo disponível e desfruta de $\frac{1}{2}$ de lazer, equilibrando o *trade-off* entre renda e lazer.
+   * O consumidor B trabalha todo o tempo disponível (1 unidade), pois não valoriza lazer.
+   * A oferta agregada de trabalho é $L_A + L_B = 1.5$, que é **inelástica** aos preços neste modelo específico.
+
+2. **Eficiência produtiva**: A firma opera no ponto onde o valor do produto marginal do trabalho iguala o salário:
+   $$VPMgL = P \cdot \frac{1}{2\sqrt{L_F}} = \sqrt{6} \cdot \frac{1}{2\sqrt{1.5}} = \sqrt{6} \cdot \frac{1}{2\sqrt{3/2}} = 1 = w \quad \checkmark$$
+
+3. **Distribuição de renda e consumo**:
+   * **Consumidor A**: Renda = 0.5 (apenas salário), Consumo = 0.204
+   * **Consumidor B**: Renda = 2.5 (salário + lucro), Consumo = 1.021
+   * O consumidor B consome **5 vezes mais** que o consumidor A, devido a:
+     - Trabalhar o dobro do tempo (1 vs 0.5)
+     - Receber todo o lucro da firma ($\Pi = 1.5$)
+   * O consumidor B recebe 60% de sua renda do lucro ($\Pi = 1.5$ de $2.5$ total)
+
+4. **Papel da propriedade da firma**: A propriedade da firma é crucial para a distribuição de renda. Isso cria **desigualdade de renda** mesmo com salários iguais. Se a propriedade fosse dividida igualmente, a distribuição seria mais equitativa.
+
+5. **Eficiência alocativa**: O equilíbrio é **Pareto eficiente**:
+   * A firma maximiza lucro: $VPMgL = w$
+   * Consumidor A maximiza utilidade dado seu *trade-off* trabalho-lazer
+   * Consumidor B maximiza utilidade trabalhando o máximo possível
+   * Todos os mercados estão em equilíbrio
+   * Não é possível melhorar a situação de um consumidor sem piorar a do outro (ou violar restrições tecnológicas)
+
+6. **Preço relativo de equilíbrio**: O preço relativo $\frac{P}{w} = \sqrt{6} \approx 2.449$ indica que:
+   * O bem $X$ é relativamente **caro** em termos de trabalho
+   * São necessárias $\sqrt{6}$ unidades de salário para comprar 1 unidade de $X$
+   * Isso reflete a produtividade decrescente do trabalho ($X = \sqrt{L}$)
+
+### Propriedades do Equilíbrio
+
+**Primeiro Teorema do Bem-Estar**: O equilíbrio competitivo é Pareto eficiente. A alocação $(X_A, L_A, X_B, L_B) = (0.204, 0.5, 1.021, 1)$ maximiza a utilidade de cada consumidor sujeita às restrições tecnológicas, orçamentárias e de dotação de tempo.
+
+**Papel dos preços**: Os preços $(P, w)$ coordenam as decisões descentralizadas da firma (maximização de lucro) e dos consumidores (maximização de utilidade), levando a uma alocação eficiente.
+
+**Heterogeneidade e agregação**: Mesmo com preferências heterogêneas, o sistema de preços coordena as decisões individuais, garantindo que a oferta agregada iguale a demanda agregada em todos os mercados.
+
+**Lei de Walras**: A soma dos valores de excesso de demanda em todos os mercados é zero. Se o mercado de trabalho está em equilíbrio, o mercado do bem $X$ também está (verificamos apenas $n-1$ mercados em uma economia com $n$ bens).
+
 :::
+
 
 <!-- }}} -->
 
@@ -490,12 +804,364 @@ $$\frac{1}{\sqrt{3}} = \frac{\sqrt{3}}{6} + \frac{\sqrt{3}}{6} = \frac{2\sqrt{3}
 
 ::: {#tip-ex4 .callout-tip collapse="true" appearance="default" icons="false"}
 
-## TODO
+## Exemplo 4: Dois Consumidores e Dotações Iniciais Positivas
 
 <!-- https://www.youtube.com/watch?v=lPDwoNexiFQ -->
 
+### Estrutura do Modelo
+
+Este exemplo introduz uma nova característica fundamental: **dotações iniciais positivas de bens** e **um bem de consumo como insumo produtivo**. Considere uma economia com:
+
+* **2 consumidores**: $A$ e $B$ com preferências Cobb-Douglas idênticas
+* **2 bens de consumo**: $x$ e $y$
+* **Dotações iniciais heterogêneas**:
+  * Consumidor A: $\omega_A = (0, 4)$ — possui apenas bem $y$
+  * Consumidor B: $\omega_B = (2, 0)$ — possui apenas bem $x$
+* **Uma firma** que produz bem $x$ usando bem $y$ como insumo
+* **Propriedade**: O consumidor B é proprietário da firma e recebe o lucro $\Pi$
+
+**Diferença fundamental em relação aos exemplos anteriores**: Aqui não há trabalho como insumo. A firma transforma um bem de consumo ($y$) em outro bem de consumo ($x$). Os consumidores possuem dotações iniciais de bens que podem consumir ou vender.
+
+### Especificação Numérica
+
+**Preferências** (Cobb-Douglas):
+
+$$U_A(x_A, y_A) = x_A y_A$$
+
+$$U_B(x_B, y_B) = x_B y_B$$
+
+**Dotações iniciais**:
+
+$$\omega_A = (0, 4) \quad \text{(4 unidades do bem } y)$$
+
+$$\omega_B = (2, 0) \quad \text{(2 unidades do bem } x)$$
+
+**Tecnologia**:
+
+$$X_F = \sqrt{y_F}$$
+
+onde $X_F$ é a produção do bem $x$ e $y_F$ é o insumo do bem $y$.
+
+**Propriedade**: O consumidor B recebe todo o lucro $\Pi$ da firma.
+
+### Resolução: Etapa 1 - Problema da Firma
+
+A firma maximiza lucro escolhendo quanto produzir de $x$ e quanto usar de $y$ como insumo:
+
+$$\max_{X_F, y_F} \Pi = P_x X_F - P_y y_F$$
+
+sujeito à restrição tecnológica:
+$$X_F = \sqrt{y_F}$$
+
+Substituindo a restrição na função objetivo:
+
+$$\max_{y_F} \Pi(y_F) = P_x \sqrt{y_F} - P_y y_F$$
+
+**Condição de primeira ordem**:
+
+$$\frac{d\Pi}{dy_F} = \frac{P_x}{2\sqrt{y_F}} - P_y = 0$$
+
+Resolvendo para $y_F$:
+
+$$\frac{P_x}{2\sqrt{y_F}} = P_y$$
+
+$$\sqrt{y_F} = \frac{P_x}{2P_y}$$
+
+$$y_F = \frac{P_x^2}{4P_y^2}$$
+
+Esta é a **demanda de insumo $y$** pela firma.
+
+Substituindo na função de produção para obter a oferta de $x$:
+
+$$X_F = \sqrt{y_F} = \sqrt{\frac{P_x^2}{4P_y^2}} = \frac{P_x}{2P_y}$$
+
+**Lucro máximo da firma**:
+
+$$\Pi = P_x \cdot \frac{P_x}{2P_y} - P_y \cdot \frac{P_x^2}{4P_y^2}$$
+
+$$\Pi = \frac{P_x^2}{2P_y} - \frac{P_x^2}{4P_y}$$
+
+$$\Pi = \frac{2P_x^2 - P_x^2}{4P_y} = \frac{P_x^2}{4P_y}$$
+
+**Interpretação econômica**: A condição de primeira ordem indica que a firma demanda o insumo $y$ até o ponto onde o valor do produto marginal iguala o preço do insumo:
+
+$$VPMg_y = P_x \cdot PMg_y = P_x \cdot \frac{1}{2\sqrt{y_F}} = P_y$$
+
+### Resolução: Etapa 2 - Problema do Consumidor A
+
+O consumidor A maximiza utilidade escolhendo quanto consumir de $x$ e $y$:
+
+$$\max_{x_A, y_A} U_A = x_A y_A$$
+
+sujeito à restrição orçamentária:
+$$P_x x_A + P_y y_A = P_x \cdot 0 + P_y \cdot 4$$
+
+$$P_x x_A + P_y y_A = 4P_y$$
+
+**Interpretação da restrição orçamentária**: O consumidor A possui dotação inicial de 4 unidades do bem $y$, que vale $4P_y$. Ele pode vender parte desse bem para comprar $x$.
+
+Para a função Cobb-Douglas $U = xy$ com expoentes iguais, o consumidor gasta metade de sua renda em cada bem:
+
+$$P_x x_A = \frac{4P_y}{2} = 2P_y$$
+
+$$P_y y_A = \frac{4P_y}{2} = 2P_y$$
+
+Resolvendo:
+
+$$x_A = \frac{2P_y}{P_x}$$
+
+$$y_A = 2$$
+
+**Resultado do Consumidor A**:
+
+* Demanda do bem $x$: $x_A = \frac{2P_y}{P_x}$
+* Demanda do bem $y$: $y_A = 2$
+* Renda: $4P_y$
+
+**Interpretação**: O consumidor A consome exatamente metade de sua dotação inicial de $y$ (2 de 4 unidades) e vende a outra metade para comprar $x$.
+
+### Resolução: Etapa 3 - Problema do Consumidor B
+
+O consumidor B maximiza utilidade escolhendo quanto consumir de $x$ e $y$:
+
+$$\max_{x_B, y_B} U_B = x_B y_B$$
+
+sujeito à restrição orçamentária:
+$$P_x x_B + P_y y_B = P_x \cdot 2 + P_y \cdot 0 + \Pi$$
+
+$$P_x x_B + P_y y_B = 2P_x + \Pi$$
+
+**Interpretação da restrição orçamentária**: O consumidor B possui dotação inicial de 2 unidades do bem $x$ (vale $2P_x$) e recebe o lucro $\Pi$ da firma.
+
+Para a função Cobb-Douglas com expoentes iguais:
+
+$$P_x x_B = \frac{2P_x + \Pi}{2}$$
+
+$$P_y y_B = \frac{2P_x + \Pi}{2}$$
+
+Resolvendo:
+
+$$x_B = \frac{2P_x + \Pi}{2P_x} = 1 + \frac{\Pi}{2P_x}$$
+
+$$y_B = \frac{2P_x + \Pi}{2P_y}$$
+
+Substituindo $\Pi = \frac{P_x^2}{4P_y}$:
+
+$$y_B = \frac{2P_x + \frac{P_x^2}{4P_y}}{2P_y} = \frac{2P_x}{2P_y} + \frac{P_x^2}{8P_y^2} = \frac{P_x}{P_y} + \frac{P_x^2}{8P_y^2}$$
+
+**Resultado do Consumidor B**:
+
+* Demanda do bem $x$: $x_B = 1 + \frac{\Pi}{2P_x}$
+* Demanda do bem $y$: $y_B = \frac{P_x}{P_y} + \frac{P_x^2}{8P_y^2}$
+* Renda: $2P_x + \Pi$
+
+### Resolução: Etapa 4 - Equilíbrio de Mercado
+
+No equilíbrio, a oferta agregada deve igualar a demanda agregada em ambos os mercados.
+
+#### Mercado do Bem $x$
+
+**Oferta agregada**:
+
+$$x^S = \omega_A^x + \omega_B^x + X_F = 0 + 2 + \frac{P_x}{2P_y} = 2 + \frac{P_x}{2P_y}$$
+
+**Demanda agregada**:
+
+$$x^D = x_A + x_B = \frac{2P_y}{P_x} + 1 + \frac{\Pi}{2P_x}$$
+
+Substituindo $\Pi = \frac{P_x^2}{4P_y}$:
+
+$$x^D = \frac{2P_y}{P_x} + 1 + \frac{P_x^2}{4P_y \cdot 2P_x} = \frac{2P_y}{P_x} + 1 + \frac{P_x}{8P_y}$$
+
+**Condição de equilíbrio**: $x^S = x^D$
+
+$$2 + \frac{P_x}{2P_y} = \frac{2P_y}{P_x} + 1 + \frac{P_x}{8P_y}$$
+
+$$1 + \frac{P_x}{2P_y} - \frac{P_x}{8P_y} = \frac{2P_y}{P_x}$$
+
+$$1 + \frac{4P_x - P_x}{8P_y} = \frac{2P_y}{P_x}$$
+
+$$1 + \frac{3P_x}{8P_y} = \frac{2P_y}{P_x}$$
+
+Multiplicando ambos os lados por $P_x$:
+
+$$P_x + \frac{3P_x^2}{8P_y} = 2P_y$$
+
+Multiplicando ambos os lados por $8P_y$:
+
+$$8P_x P_y + 3P_x^2 = 16P_y^2$$
+
+$$3P_x^2 + 8P_x P_y - 16P_y^2 = 0$$
+
+Normalizando $P_y = 1$:
+
+$$3P_x^2 + 8P_x - 16 = 0$$
+
+Usando a fórmula de Bhaskara:
+
+$$P_x = \frac{-8 \pm \sqrt{64 + 192}}{6} = \frac{-8 \pm \sqrt{256}}{6} = \frac{-8 \pm 16}{6}$$
+
+Como $P_x > 0$:
+
+$$P_x = \frac{-8 + 16}{6} = \frac{8}{6} = \frac{4}{3}$$
+
+**Preço relativo de equilíbrio**: $\frac{P_x}{P_y} = \frac{4}{3} \approx 1.333$
+
+#### Verificação no Mercado do Bem $y$
+
+Vamos verificar que o mercado do bem $y$ também está em equilíbrio (Lei de Walras):
+
+**Oferta agregada**:
+
+$$y^S = \omega_A^y + \omega_B^y = 4 + 0 = 4$$
+
+**Demanda agregada**:
+
+$$y^D = y_A + y_B + y_F$$
+
+Substituindo $P_y = 1$ e $P_x = \frac{4}{3}$:
+
+$$y_F = \frac{P_x^2}{4P_y^2} = \frac{(4/3)^2}{4 \cdot 1} = \frac{16/9}{4} = \frac{16}{36} = \frac{4}{9}$$
+
+$$y_A = 2$$
+
+$$y_B = \frac{P_x}{P_y} + \frac{P_x^2}{8P_y^2} = \frac{4/3}{1} + \frac{16/9}{8} = \frac{4}{3} + \frac{16}{72} = \frac{4}{3} + \frac{2}{9}$$
+
+$$y_B = \frac{12 + 2}{9} = \frac{14}{9}$$
+
+$$y^D = 2 + \frac{14}{9} + \frac{4}{9} = 2 + \frac{18}{9} = 2 + 2 = 4 \quad \checkmark$$
+
+**Confirmado**: O mesmo preço relativo equilibra ambos os mercados (Lei de Walras).
+
+### Quantidades de Equilíbrio
+
+Normalizando $P_y = 1$, temos $P_x = \frac{4}{3}$.
+
+#### Firma
+
+**Demanda de insumo $y$**:
+$$y_F = \frac{P_x^2}{4P_y^2} = \frac{16/9}{4} = \frac{4}{9} \approx 0.444$$
+
+**Oferta do bem $x$**:
+$$X_F = \frac{P_x}{2P_y} = \frac{4/3}{2} = \frac{2}{3} \approx 0.667$$
+
+**Lucro**:
+$$\Pi = \frac{P_x^2}{4P_y} = \frac{16/9}{4} = \frac{4}{9} \approx 0.444$$
+
+#### Consumidor A
+
+**Demanda do bem $x$**:
+$$x_A = \frac{2P_y}{P_x} = \frac{2 \cdot 1}{4/3} = \frac{2 \cdot 3}{4} = \frac{3}{2} = 1.5$$
+
+**Demanda do bem $y$**:
+$$y_A = 2$$
+
+**Renda**:
+$$4P_y = 4 \times 1 = 4$$
+
+**Utilidade**:
+$$U_A = x_A y_A = 1.5 \times 2 = 3$$
+
+#### Consumidor B
+
+**Demanda do bem $x$**:
+$$x_B = 1 + \frac{\Pi}{2P_x} = 1 + \frac{4/9}{2 \cdot 4/3} = 1 + \frac{4/9}{8/3} = 1 + \frac{4 \cdot 3}{9 \cdot 8} = 1 + \frac{12}{72} = 1 + \frac{1}{6} = \frac{7}{6} \approx 1.167$$
+
+**Demanda do bem $y$**:
+$$y_B = \frac{14}{9} \approx 1.556$$
+
+**Renda**:
+$$2P_x + \Pi = 2 \cdot \frac{4}{3} + \frac{4}{9} = \frac{8}{3} + \frac{4}{9} = \frac{24 + 4}{9} = \frac{28}{9} \approx 3.111$$
+
+**Utilidade**:
+$$U_B = x_B y_B = \frac{7}{6} \times \frac{14}{9} = \frac{98}{54} = \frac{49}{27} \approx 1.815$$
+
+### Verificações
+
+**Mercado do bem $x$**:
+$$x^S = 2 + \frac{2}{3} = \frac{8}{3}$$
+$$x^D = \frac{3}{2} + \frac{7}{6} = \frac{9 + 7}{6} = \frac{16}{6} = \frac{8}{3} \quad \checkmark$$
+
+**Mercado do bem $y$**:
+$$y^S = 4$$
+$$y^D = 2 + \frac{14}{9} + \frac{4}{9} = 2 + 2 = 4 \quad \checkmark$$
+
+**Restrição orçamentária do consumidor A**:
+$$P_x x_A + P_y y_A = \frac{4}{3} \times \frac{3}{2} + 1 \times 2 = 2 + 2 = 4 = 4P_y \quad \checkmark$$
+
+**Restrição orçamentária do consumidor B**:
+$$P_x x_B + P_y y_B = \frac{4}{3} \times \frac{7}{6} + 1 \times \frac{14}{9} = \frac{28}{18} + \frac{14}{9} = \frac{28 + 28}{18} = \frac{56}{18} = \frac{28}{9} = 2P_x + \Pi \quad \checkmark$$
+
+### Interpretação Econômica do Equilíbrio
+
+1. **Dotações iniciais e comércio**:
+   * O consumidor A possui apenas $y$ (4 unidades) e vende 2 unidades para comprar $x$
+   * O consumidor B possui apenas $x$ (2 unidades) e vende parte para comprar $y$
+   * A firma compra $y$ (0.444 unidades) para produzir $x$ (0.667 unidades)
+   * O comércio permite que ambos os consumidores consumam ambos os bens
+
+2. **Papel da produção**:
+   * A firma transforma $y$ em $x$, aumentando a oferta total de $x$ de 2 para $2 + \frac{2}{3} = \frac{8}{3}$
+   * Isso reduz a oferta disponível de $y$ de 4 para $4 - \frac{4}{9} = \frac{32}{9}$ (após a firma usar $\frac{4}{9}$ como insumo)
+
+3. **Distribuição de renda e consumo**:
+   * **Consumidor A**: Renda = 4, Utilidade = 3
+   * **Consumidor B**: Renda = 3.111, Utilidade = 1.815
+   * O consumidor A tem maior renda (dotação inicial maior) mas menor utilidade
+   * O consumidor B recebe lucro adicional ($\Pi = 0.444$), aumentando sua renda em 14%
+
+4. **Preço relativo de equilíbrio**:
+   * $\frac{P_x}{P_y} = \frac{4}{3}$ indica que o bem $x$ é mais caro que o bem $y$
+   * Isso reflete a escassez relativa de $x$ (dotação inicial total de apenas 2 unidades)
+   * A produção de $x$ pela firma reduz essa escassez, mas não elimina o prêmio de preço
+
+5. **Eficiência alocativa**:
+   * A taxa marginal de substituição (TMS) de ambos os consumidores iguala a razão de preços:
+     $$TMS_A = \frac{y_A}{x_A} = \frac{2}{1.5} = \frac{4}{3} = \frac{P_x}{P_y} \quad \checkmark$$
+     $$TMS_B = \frac{y_B}{x_B} = \frac{14/9}{7/6} = \frac{14 \cdot 6}{9 \cdot 7} = \frac{84}{63} = \frac{4}{3} = \frac{P_x}{P_y} \quad \checkmark$$
+   * Como $TMS_A = TMS_B$, a alocação está na **curva de contrato** (eficiente no sentido de Pareto)
+
+6. **Taxa marginal de transformação**:
+   * A firma opera onde a taxa marginal de transformação técnica iguala a razão de preços:
+     $$TMT = \frac{dy_F}{dX_F} = 2\sqrt{y_F} = 2\sqrt{4/9} = 2 \cdot \frac{2}{3} = \frac{4}{3} = \frac{P_x}{P_y} \quad \checkmark$$
+
+### Análise de Pareto Eficiência
+
+**Pergunta**: A alocação de equilíbrio é Pareto eficiente?
+
+**Resposta**: **Sim**, a alocação é Pareto eficiente.
+
+**Justificativa**:
+
+1. **Eficiência na troca**: $TMS_A = TMS_B = \frac{P_x}{P_y}$
+   * Ambos os consumidores têm a mesma taxa marginal de substituição
+   * Não há ganhos de comércio adicionais entre os consumidores
+
+2. **Eficiência na produção**: $VPMg_y = P_y$
+   * A firma produz até o ponto onde o valor do produto marginal iguala o preço do insumo
+   * Não há desperdício de recursos produtivos
+
+3. **Eficiência na composição do produto**: $TMT = TMS_A = TMS_B = \frac{P_x}{P_y}$
+   * A taxa marginal de transformação iguala a taxa marginal de substituição de ambos os consumidores
+   * A economia produz a composição ótima de bens
+
+4. **Primeiro Teorema do Bem-Estar**: O equilíbrio competitivo com mercados completos e sem externalidades é Pareto eficiente.
+
+**Conclusão**: Não é possível melhorar a situação de um consumidor sem piorar a do outro, respeitando as restrições tecnológicas e de dotações iniciais. A alocação $(x_A, y_A, x_B, y_B) = (1.5, 2, 1.167, 1.556)$ é Pareto eficiente.
+
+### Propriedades do Equilíbrio
+
+**Primeiro Teorema do Bem-Estar**: O equilíbrio competitivo é Pareto eficiente. A alocação maximiza o bem-estar social sujeita às restrições tecnológicas e de dotações iniciais.
+
+**Papel dos preços**: Os preços $(P_x, P_y)$ coordenam as decisões descentralizadas da firma (maximização de lucro) e dos consumidores (maximização de utilidade), levando a uma alocação eficiente.
+
+**Dotações iniciais e distribuição**: A distribuição de bem-estar depende crucialmente das dotações iniciais e da propriedade da firma. Mudanças nessas distribuições alteram o equilíbrio, mas mantêm a eficiência (Segundo Teorema do Bem-Estar).
+
+**Lei de Walras**: A soma dos valores de excesso de demanda em todos os mercados é zero. Se o mercado de $x$ está em equilíbrio, o mercado de $y$ também está (verificamos apenas $n-1$ mercados em uma economia com $n$ bens).
+
 :::
 
+<!-- }}} -->
 
 <!-- Referências {{{ -->
 
