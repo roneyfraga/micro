@@ -6,30 +6,9 @@ author:
   - name: Roney Fraga Souza
     affiliations:
       - name: Universidade Federal de Mato Grosso
-
 format:
   html:
-    toc: true
-    toc-location: right
-    prefer-html: true
-    fig-width: 8
-    fig-height: 4
-    code-fold: true
-    code-line-numbers: true
-    # number-sections: true
-    theme: 
-      light: flatly
-      dark: darkly
-    appearance: auto  
-
-  docx:
-    toc: true
-    number-sections: true
-    highlight-style: github
-    reference-doc: template-ms-word.docx
-    prefer-html: true
-
-lang: pt
+    toc: false
 ---
 
 ## Enunciado

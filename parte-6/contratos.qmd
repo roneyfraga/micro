@@ -1,5 +1,15 @@
-
-# Custos de Transação `cc`
+---
+title: "Custos de Transação `cc`"
+date: "today"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+format:
+  html:
+    toc: false
+---
 
 __Conteúdo teórico.__
 @zylbersztajn2005[capítulo 1]

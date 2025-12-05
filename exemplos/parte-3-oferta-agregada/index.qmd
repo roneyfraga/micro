@@ -6,6 +6,9 @@ author:
   - name: Roney Fraga Souza
     affiliations:
       - name: Universidade Federal de Mato Grosso
+format:
+  html:
+    toc: false
 ---
 
 ## Equilíbrio de Longo Prazo em Mercado Competitivo

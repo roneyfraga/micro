@@ -1,3 +1,9 @@
+---
+format:
+  html:
+    toc: false
+---
+
 # Apresentação {.unnumbered}
 
 Bem-vindo ao material unificado de **Microeconomia**.

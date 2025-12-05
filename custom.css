@@ -93,3 +93,170 @@ div[style*="display: none"]#refs {
   padding-top: 0 !important;
   margin-top: 0 !important;
 }
+
+/* ========================================
+   SIDEBAR TOGGLE NA NAVBAR
+   ======================================== */
+
+/* Estilizar o botão de toggle na navbar */
+#sidebar-toggle-navbar {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#sidebar-toggle-navbar:hover {
+  opacity: 0.8;
+  transform: scale(1.1);
+}
+
+/* Transição suave da sidebar */
+#quarto-sidebar {
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 1040;
+}
+
+.sidebar-navigation {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Estado: sidebar escondida */
+body.sidebar-hidden #quarto-sidebar {
+  transform: translateX(-100%) !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  display: none !important;
+}
+
+/* Ajustar conteúdo principal quando sidebar está escondida */
+body.sidebar-hidden .page-columns {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+body.sidebar-hidden #quarto-content {
+  padding-left: 1rem !important;
+  margin-left: 0 !important;
+}
+
+body.sidebar-hidden #quarto-margin-sidebar {
+  margin-left: 0 !important;
+}
+
+body.sidebar-hidden .content-container {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* Ajustar largura do conteúdo quando sidebar está escondida */
+@media (min-width: 992px) {
+  body.sidebar-hidden .page-columns.page-full {
+    grid-template-columns: 0px minmax(0, 1fr) minmax(0, 250px) !important;
+  }
+  
+  body.sidebar-hidden .page-columns.page-columns-left {
+    grid-template-columns: 0px minmax(0, 1fr) !important;
+  }
+  
+  /* Expandir conteúdo para usar toda a largura */
+  body.sidebar-hidden main.content {
+    max-width: 100% !important;
+    margin-left: 0 !important;
+  }
+  
+  body.sidebar-hidden .page-layout-article {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Remover margem esquerda do container principal */
+  body.sidebar-hidden #quarto-document-content {
+    margin-left: 0 !important;
+    padding-left: 1rem !important;
+  }
+  
+  /* Ajustar o container de conteúdo */
+  body.sidebar-hidden .quarto-container {
+    margin-left: 0 !important;
+    padding-left: 1rem !important;
+  }
+  
+  /* Forçar conteúdo a começar do lado esquerdo */
+  body.sidebar-hidden #quarto-content > * {
+    margin-left: 0 !important;
+  }
+  
+  /* Ajustar body quando sidebar está escondida */
+  body.sidebar-hidden.nav-sidebar {
+    padding-left: 0 !important;
+  }
+  
+  /* Remover espaço reservado para sidebar */
+  body.sidebar-hidden .sidebar-navigation {
+    width: 0 !important;
+  }
+}
+
+/* Ícone muda quando sidebar está escondida */
+body.sidebar-hidden #sidebar-toggle-navbar .bi-list::before {
+  content: "\f4ba"; /* bi-chevron-right */
+}
+
+/* Garantir que o botão seja visível em todos os tamanhos de tela */
+#sidebar-toggle-navbar {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ajustar padding do botão para ficar alinhado com outros ícones */
+.navbar-nav #sidebar-toggle-navbar {
+  padding: 0.35rem 0.75rem !important;
+}
+
+/* ========================================
+   AJUSTES ADICIONAIS PARA LAYOUT SEM SIDEBAR
+   ======================================== */
+
+/* Quando sidebar está escondida, ajustar todo o layout */
+body.sidebar-hidden {
+  /* Remover padding do body que reserva espaço para sidebar */
+  padding-left: 0 !important;
+}
+
+/* Ajustar container principal */
+body.sidebar-hidden .page-layout-custom,
+body.sidebar-hidden .page-layout-article,
+body.sidebar-hidden .page-layout-full {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* Forçar conteúdo a usar toda a largura disponível */
+body.sidebar-hidden main {
+  margin-left: 0 !important;
+  padding-left: 1.5rem !important;
+  max-width: 100% !important;
+}
+
+/* Ajustar article dentro do main */
+body.sidebar-hidden article {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* Remover qualquer grid que reserve espaço para sidebar */
+body.sidebar-hidden .page-columns {
+  display: block !important;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* Garantir que o conteúdo principal ocupe toda a largura */
+body.sidebar-hidden #quarto-content,
+body.sidebar-hidden .content {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+}

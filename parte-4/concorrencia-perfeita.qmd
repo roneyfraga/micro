@@ -6,6 +6,9 @@ author:
   - name: Roney Fraga Souza
     affiliations:
       - name: Universidade Federal de Mato Grosso
+format:
+  html:
+    toc: false
 ---
 
 Material básico: @pindyck2013 [capítulo 9], @perloff2022 [capítulo 9] e @baidya2014 [capítulo 4].

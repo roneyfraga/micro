@@ -1,5 +1,15 @@
-
-# Informação Assimétrica `cc`
+---
+title: "Informação Assimétrica `cc`"
+date: "today"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+format:
+  html:
+    toc: false
+---
 
 <embed src="../notas-digitais/parte-4-assimetria_informacao.pdf" width="100%" height="650">
 
