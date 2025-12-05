@@ -1,0 +1,16 @@
+---
+title: "Oferta e Demanda"
+date: "today"
+date-format: iso
+author:
+  - name: Roney Fraga Souza
+    affiliations:
+      - name: Universidade Federal de Mato Grosso
+---
+
+Em construção...
+
+## Referências
+
+::: {#refs}
+:::

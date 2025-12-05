@@ -5,8 +5,8 @@ project:
     port: 5555
     browser: false
   resources:
-    - "parte-3/concorrencia-perfeita-revealjs/"
-    - "parte-4/equilibrio-geral-revealjs/"
+    - "parte-4/concorrencia-perfeita-revealjs/"
+    - "parte-5/equilibrio-geral-revealjs/"
 
 book:
   title: "Notas de Aula de Microeconomia"
@@ -34,56 +34,60 @@ book:
   chapters:
     - index.qmd
 
-    - part: "Parte 1 - Teoria do Consumidor"
+    - part: "Parte 1 - Oferta e Demanda"
       chapters:
-        - parte-1/teoria-do-consumidor.qmd
+        - parte-1/oferta-demanda.qmd
 
-    - part: "Parte 2 - Teoria da Firma"
+    - part: "Parte 2 - Teoria do Consumidor"
       chapters:
-        - parte-2/funcao-producao.qmd
-        - parte-2/custos.qmd
-        - parte-2/maximizacao-lucro.qmd
-        - exemplos/parte-2-funcao-producao-linear/index.qmd
-        - exemplos/parte-2-funcao-producao-nao-linear/index.qmd
-        - exemplos/parte-2-ptf-paises/index.qmd
-        - exemplos/parte-2-funcao-custos-1/index.qmd
-        - exemplos/parte-2-funcao-custos-2/index.qmd
-        - exemplos/parte-2-minimizacao-custos-linear/index.qmd
-        - exemplos/parte-2-minimizacao-custos-cobb-douglas/index.qmd
-        - exemplos/parte-2-maximizacao-lucro-1/index.qmd
-        - exemplos/parte-2-maximizacao-lucro-2/index.qmd
-        - exemplos/parte-2-maximizacao-lucro-cobb-douglas/index.qmd
-        - exemplos/parte-2-oferta-agregada/index.qmd
-        - exemplos/parte-2-elasticidade-preco-da-oferta/index.qmd
+        - parte-2/teoria-do-consumidor.qmd
 
-    - part: "Parte 3 - Estruturas de Mercado"
+    - part: "Parte 3 - Teoria da Firma"
       chapters:
-        - parte-3/concorrencia-perfeita.qmd
-        - parte-3/monopolio.qmd
-        - exemplos/parte-3-monopolio-basico/index.qmd
-        - parte-3/oligopolio.qmd
-        - exemplos/parte-3-oligopolio-1/index.qmd
+        - parte-3/funcao-producao.qmd
+        - parte-3/custos.qmd
+        - parte-3/maximizacao-lucro.qmd
+        - exemplos/parte-3-funcao-producao-linear/index.qmd
+        - exemplos/parte-3-funcao-producao-nao-linear/index.qmd
+        - exemplos/parte-3-ptf-paises/index.qmd
+        - exemplos/parte-3-funcao-custos-1/index.qmd
+        - exemplos/parte-3-funcao-custos-2/index.qmd
+        - exemplos/parte-3-minimizacao-custos-linear/index.qmd
+        - exemplos/parte-3-minimizacao-custos-cobb-douglas/index.qmd
+        - exemplos/parte-3-maximizacao-lucro-1/index.qmd
+        - exemplos/parte-3-maximizacao-lucro-2/index.qmd
+        - exemplos/parte-3-maximizacao-lucro-cobb-douglas/index.qmd
+        - exemplos/parte-3-oferta-agregada/index.qmd
+        - exemplos/parte-3-elasticidade-preco-da-oferta/index.qmd
 
-    - part: "Parte 4 - Equilíbrio Geral e Falhas de Mercado"
+    - part: "Parte 4 - Estruturas de Mercado"
       chapters:
-        - parte-4/equilibrio-geral.qmd
-        - parte-4/equilibrio-geral-producao.qmd
-        - exemplos/parte-4-equilibrio-geral-troca-edgeworth/index.qmd
-        - exemplos/parte-4-equilibrio-geral-producao/index.qmd
-        - parte-4/externalidades.qmd
-        - parte-4/tecnologia-informacao.qmd
-        - parte-4/bens-publicos.qmd
-        - parte-4/informacao-assimetrica.qmd
-        - parte-4/falhas-de-mercado-mapa-mental.qmd
+        - parte-4/concorrencia-perfeita.qmd
+        - parte-4/monopolio.qmd
+        - exemplos/parte-4-monopolio-basico/index.qmd
+        - parte-4/oligopolio.qmd
+        - exemplos/parte-4-oligopolio-1/index.qmd
 
-    - part: "Parte 5 - Eficiência, Racionalidade e Contratos"
+    - part: "Parte 5 - Equilíbrio Geral e Falhas de Mercado"
       chapters:
-        - parte-5/contratos.qmd
-        - parte-5/custo-transacao-contratos-mapa-mental.qmd
+        - parte-5/equilibrio-geral.qmd
+        - parte-5/equilibrio-geral-producao.qmd
+        - exemplos/parte-5-equilibrio-geral-troca-edgeworth/index.qmd
+        - exemplos/parte-5-equilibrio-geral-producao/index.qmd
+        - parte-5/externalidades.qmd
+        - parte-5/tecnologia-informacao.qmd
+        - parte-5/bens-publicos.qmd
+        - parte-5/informacao-assimetrica.qmd
+        - parte-5/falhas-de-mercado-mapa-mental.qmd
 
-    - part: "Parte 6 - Regulação e Cooperação"
+    - part: "Parte 6 - Eficiência, Racionalidade e Contratos"
       chapters:
-        - parte-6/regulacao.qmd
+        - parte-6/contratos.qmd
+        - parte-6/custo-transacao-contratos-mapa-mental.qmd
+
+    - part: "Parte 7 - Regulação e Cooperação"
+      chapters:
+        - parte-7/regulacao.qmd
 
     # - references.qmd
 
